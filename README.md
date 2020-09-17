@@ -1,16 +1,31 @@
-# xnap-2.0
-
+# xnap-2.0: Debugg and Improve LSTM-Models by Using LRP
 
 
 ## Steps of the technique
+num_imp_steps <- 3
+1.) Initial step
+1.1) Train LSTM Model
+1.2) Produce Predictions
+2.) Improvement steps
+for index in range(0, num_imp_steps):
+    2.1) Produce Explainations via LRP
+    2.2) Make interventions in the event log data (?)
+    2.3) Re-train LSTM Model
+    2.4) Produce Predictions
+
+## Open questions?
+- If we have the relevance, how do we intervene to the log? -> (e.g., change values, agument data etc.)
+- Which information do we consider? -> (control-flow or context attributes) ->  
 
 ## Setting
 - Metrics:
+- Model: Bi-LSTM
 - Encoding:
 - Validation:
 - HPO:
 - Shuffling:
 - Seed: 1377
+- Baseline method for calculating relevance values: Bi-LSTM + LIME
 
 
 This is the extension of xnap (Weinzierl et al. 2020).
