@@ -1,0 +1,9 @@
+matplotlib
+pandas
+arrow
+numpy
+scikit-learn
+sklearn
+keras
+tensorflow
+opyenxes
