@@ -1,6 +1,5 @@
 # xnap-2.0: Debugg and Improve LSTM-Models by Using LRP
 
-
 ## Steps of the technique
 num_imp_steps <- 3
 1. Initial step
