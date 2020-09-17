@@ -2,6 +2,15 @@
 
 This is the extension of xnap (Weinzierl et al. 2020)
 
+## Steps of the technique
+
+## Setting
+- Metrics:
+- Encoding:
+- Validation:
+- HPO:
+- Shuffling:
+- Seed: 1377
 
 
 ```
