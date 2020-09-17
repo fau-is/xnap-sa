@@ -1,6 +1,6 @@
 # xnap-2.0
 
-This is the extension of xnap (Weinzierl et al. 2020)
+
 
 ## Steps of the technique
 
@@ -13,6 +13,7 @@ This is the extension of xnap (Weinzierl et al. 2020)
 - Seed: 1377
 
 
+This is the extension of xnap (Weinzierl et al. 2020).
 ```
 @proceedings{weinzierl2020xnap,
     title={XNAP: Making LSTM-based Next Activity Predictions Explainable by Using LRP},
