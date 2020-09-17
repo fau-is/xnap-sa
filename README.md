@@ -8,7 +8,6 @@ num_imp_steps <- 3
     2. Produce Predictions
 
 2. Improvement steps
-
 for index in range(0, num_imp_steps):
     1. Produce Explainations via LRP
     2. Make interventions in the event log data (?)
