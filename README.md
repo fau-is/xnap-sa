@@ -5,20 +5,15 @@
 num_imp_steps <- 3
 1. Initial step
     1. Train LSTM Model
-
     2. Produce Predictions
 
 2. Improvement steps
 
 for index in range(0, num_imp_steps):
-
-    2.1. Produce Explainations via LRP
-
-    2.2. Make interventions in the event log data (?)
-
-    2.3. Re-train LSTM Model
-
-    2.4. Produce Predictions
+    1. Produce Explainations via LRP
+    2. Make interventions in the event log data (?)
+    3. Re-train LSTM Model
+    4. Produce Predictions
 
 ## Open questions?
 - If we have the relevance, how do we intervene to the log? -> (e.g., change values, agument data etc.)
