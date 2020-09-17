@@ -4,9 +4,9 @@
 ## Steps of the technique
 num_imp_steps <- 3
 1. Initial step
-    1.1. Train LSTM Model
+    1. Train LSTM Model
 
-    1.2. Produce Predictions
+    2. Produce Predictions
 
 2. Improvement steps
 
