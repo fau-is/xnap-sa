@@ -7,8 +7,6 @@
 @license: see LICENSE file in repository root
 '''
 
-from xnap.explanation.LSTM.LRP_linear_layer import *
-
 
 class LSTM_bidi:
 
@@ -139,8 +137,7 @@ class LSTM_bidi:
         e = self.args.dim  # E.shape[1]
         C = self.Why_Left.shape[0]  # number of classes
         idx = np.hstack((np.arange(0, d), np.arange(2 * d, 4 * d))).astype(int)  # indices of gates i,f,o together
-        idx_i, idx_g, idx_f, idx_o = np.arange(0, d), np.arange(d, 2 * d), np.arange(2 * d, 3 * d), np.arange(3 * d,
-                                                                                                              4 * d)  # indices of gates i,g,f,o separately
+        idx_i, idx_g, idx_f, idx_o = np.arange(0, d), np.arange(d, 2 * d), np.arange(2 * d, 3 * d), np.arange(3 * d, 4 * d)  # indices of gates i,g,f,o separately
 
         # initialize
         Rx = np.zeros(self.x.shape)

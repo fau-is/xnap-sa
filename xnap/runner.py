@@ -1,8 +1,8 @@
 import xnap.config as config
 import xnap.utils as utils
-from xnap.explanation.LSTM.LSTM_bidi import *
-from xnap.explanation.util.heatmap import html_heatmap
-import xnap.explanation.util.browser as browser
+from xnap.explanation.lrp.LSTM.LSTM_bidi import LSTM_bidi
+from xnap.explanation.lrp.util.heatmap import html_heatmap
+import xnap.explanation.lrp.util.browser as browser
 from xnap.nap.preprocessor import Preprocessor as Preprocessor
 import xnap.nap.tester as test
 import xnap.nap.trainer as train
@@ -13,8 +13,7 @@ if __name__ == '__main__':
     output = utils.load_output()
     utils.clear_measurement_file(args)
 
-    # explanation mode for nap
-    if args.explain:
+    if args.mode == 0:
 
         preprocessor = Preprocessor(args)
 
@@ -42,8 +41,7 @@ if __name__ == '__main__':
             browser.display_html(prefix_heatmaps)  # display heatmap
 
 
-    # validation mode for nap
-    elif not args.explain:
+    elif args.mode == 1:
 
         preprocessor = Preprocessor(args)
 
@@ -70,4 +68,4 @@ if __name__ == '__main__':
             utils.write_output(args, output, -1)
 
     else:
-        print("No mode selected ...")
+        print("Not yet implemented ...")

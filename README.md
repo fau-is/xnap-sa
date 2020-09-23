@@ -1,4 +1,4 @@
-# xnap-2.0: Debugg and Improve LSTM-Models by Using LRP
+# xnap-2.0: Explain and Improve LSTM-Models by Using LRP
 
 ## General
 - You can‘t be worse than before (iteration for iteration); change the underlying train data
@@ -26,7 +26,7 @@ for index in range(0, num_imp_steps):
         2.1 Change instances in event log data based on explanations
             (1) According to Rizzi et al. (2020): randomly change A and D -> violate process semantics?
         2.2 Augment instances in event log data based on explanations (we start with that)
-            (1) Naive approach: 10 times add [A, B, C, D] to the evend log
+            (1) Naive approach: 10 times add [A, B, C, D] to the event log
             (2) Advanced I: 10 times add [A, x, x, D] to the event log
             (3) Advanced II: 10 times add [x, B, C, x] to the event log
     3. Re-train LSTM Model
