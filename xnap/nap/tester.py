@@ -1,5 +1,5 @@
 from __future__ import division
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 import csv
 import xnap.utils as utils
 

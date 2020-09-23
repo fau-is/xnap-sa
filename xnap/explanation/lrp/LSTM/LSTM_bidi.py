@@ -1,11 +1,13 @@
-'''
+"""
 @author: Leila Arras
 @maintainer: Leila Arras
 @date: 21.06.2017
 @version: 1.0+
 @copyright: Copyright (c) 2017, Leila Arras, Gregoire Montavon, Klaus-Robert Mueller, Wojciech Samek
 @license: see LICENSE file in repository root
-'''
+"""
+
+from xnap.explanation.lrp.LSTM.LRP_linear_layer import *
 
 
 class LSTM_bidi:

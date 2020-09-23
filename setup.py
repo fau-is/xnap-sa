@@ -10,7 +10,7 @@ with open('LICENSE') as f:
 
 setup(
     name='xnap',
-    version='1.0.0',
+    version='2.0.0',
     description='Explainable next activity prediction using LSTMs and LRP (xnap)',
     long_description=readme,
     author='Sven Weinzierl',
