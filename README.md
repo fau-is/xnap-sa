@@ -11,7 +11,7 @@
 - Potential problem: distorts predictions that were correct
 - Should we show/measure the usability of explanations?
 
-## phases of the technique
+## Phases of the technique
 
 num_imp_steps <- 3
 1. Initial step
@@ -21,7 +21,12 @@ num_imp_steps <- 3
 2. Improvement steps
 for index in range(0, num_imp_steps):
     1. Produce Explainations via LRP
-    2. Make interventions in the event log data (?)
+    2. Make interventions (Algo learns form the manipulated data a model) 
+        Assumption: we have an instance [A (0.9), B (0.1), C (0.1), D (0.9)] -> G, where E is the correct prediction and G the wrong
+        2.1 Change instances in event log data based on explanations
+        2.2 Augment instances in event log data based on explanations (we start with that)
+            (1) 
+            (2)
     3. Re-train LSTM Model
     4. Produce Predictions
 
