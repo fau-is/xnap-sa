@@ -56,7 +56,9 @@ def get_output(args, preprocessor, _output):
 
     if not args.cross_validation:
         result_dir_fold = \
-            args.result_dir + \
+            './' + \
+            args.task + \
+            args.result_dir[1:] + \
             args.data_set.split(".csv")[0] + \
             "_0.csv"
     else:
@@ -66,6 +68,7 @@ def get_output(args, preprocessor, _output):
             args.result_dir[1:] + \
             args.data_set.split(".csv")[0] + \
             "_%d" % preprocessor.data_structure['support']['iteration_cross_validation'] + ".csv"
+
 
     with open(result_dir_fold, 'r') as result_file_fold:
         result_reader = csv.reader(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
