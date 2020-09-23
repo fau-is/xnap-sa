@@ -46,8 +46,9 @@ def calc_relevance_scores(trace, args, preprocessor):
 
         Rx, Rx_rev, R_rest = net.lrp(prefix_words, target_act_class, eps, bias_factor)
 
-        # todo: relevance scores for activity and attributes
         scores = np.sum(Rx + Rx_rev, axis=1)  # compute word-level LRP relevances
+
+        # todo: relevance scores for activity and attributes
         scores_prefix.append(scores)
 
     return scores_prefix

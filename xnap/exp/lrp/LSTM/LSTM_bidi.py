@@ -27,24 +27,24 @@ class LSTM_bidi:
 
         """
         Assumptions:
-        - bias bxh_left and bxh_right is not stored by keras
+        - bias bxh_left and bxh_right is not stored by Keras
         - bias of output layer is also set to 0
         """
 
         # LSTM left encoder
         self.Wxh_Left = model.layers[1].get_weights()[0].T  # shape 4d*e // kernel left lstm layer // d = neurons
-        # self.bxh_Left = model["bxh_Left"]  # shape 4d
+        # self.bxh_Left = model["bxh_Left"]  # shape 4d; not in Keras
         self.Whh_Left = model.layers[1].get_weights()[1].T  # shape 4d*d // recurrent kernel left lstm layer
         self.bhh_Left = model.layers[1].get_weights()[2].T  # shape 4d // biases left lstm layer
 
         # LSTM right encoder
         self.Wxh_Right = model.layers[1].get_weights()[3].T  # shape 4d*e // kernel right lstm layer
-        # self.bxh_Right = model["bxh_Right"]
+        # self.bxh_Right = model["bxh_Right"]; not in Keras
         self.Whh_Right = model.layers[1].get_weights()[4].T  # shape 4d*d // recurrent kernel right lstm layer
         self.bhh_Right = model.layers[1].get_weights()[5].T  # shape 4d // biases right lstm layer
 
         # linear output layer
-        # note Keras does not provide two output weight vector of the bi-lslm cell; so, we divided the vector in two equal parts
+        # Note: Keras does not provide two output weight vector of the bi-lslm cell; so, we divided the vector in two equal parts
         self.Why_Left = model.layers[2].get_weights()[0].T  # shape C*d
         self.Why_Left = self.Why_Left[:, 0:100]
         self.Why_Right = model.layers[2].get_weights()[0].T  # shape C*d

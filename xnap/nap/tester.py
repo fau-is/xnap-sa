@@ -7,10 +7,6 @@ def test_prefix(args, preprocessor, process_instance, prefix_size):
     """
     Perform test for LRP.
 
-    Select model with the highest f1-score:
-    - Bi-LSTM model #9 for bpi2019s
-    - Bi-LSTM model #8 for helpdesk
-
     :param args:
     :param preprocessor:
     :param process_instance:

@@ -86,6 +86,7 @@ class Preprocessor(object):
 
         self.data_structure['meta']['num_features'] = len(self.data_structure['support']['event_labels'])
 
+        # todo: have to be changed
         args.dim = len(self.data_structure['support']['event_labels'])
 
         if args.cross_validation:
