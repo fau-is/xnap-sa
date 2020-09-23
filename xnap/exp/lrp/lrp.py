@@ -5,7 +5,7 @@ import xnap.exp.lrp.util.browser as browser
 import numpy as np
 
 
-def calc_and_plot_relevance_scores(trace, args, preprocessor):
+def calc_and_plot_relevance_scores_instance(trace, args, preprocessor):
     heatmap: str = ""
 
     for idx in range(2, len(trace)):
@@ -30,8 +30,7 @@ def calc_and_plot_relevance_scores(trace, args, preprocessor):
         browser.display_html(heatmap)  # display heatmap
 
 
-def calc_relevance_scores(trace, args, preprocessor):
-
+def calc_relevance_scores_instance(trace, args, preprocessor):
     scores_prefix = list()
 
     for idx in range(2, len(trace)):
@@ -52,3 +51,7 @@ def calc_relevance_scores(trace, args, preprocessor):
         scores_prefix.append(scores)
 
     return scores_prefix
+
+
+def calc_relevance_scores_data_set():
+    pass
