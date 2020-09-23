@@ -7,7 +7,7 @@ def load():
     parser = argparse.ArgumentParser()
 
     # General parameters
-    parser.add_argument('--mode', default=2, type=int)
+    parser.add_argument('--mode', default=0, type=int)
     """ Three are three modes
         0 = train models
         1 = explain random process instance
@@ -28,9 +28,10 @@ def load():
     parser.add_argument('--dim', default=0, type=int)
 
     # Parameters for validation
-    parser.add_argument('--num_folds', default=10, type=int)
+    parser.add_argument('--num_folds', default=0, type=int)
     parser.add_argument('--cross_validation', default=False, type=utils.str2bool)
-    parser.add_argument('--split_rate_test', default=0.5, type=float)
+    parser.add_argument('--split_rate_test', default=0.8, type=float)
+    parser.add_argument('--val_split', default=0.1, type=float)
     parser.add_argument('--batch_size_train', default=128, type=int)
     parser.add_argument('--batch_size_test', default=1, type=int)
 

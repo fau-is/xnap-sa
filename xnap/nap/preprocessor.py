@@ -58,9 +58,10 @@ class Preprocessor(object):
         self.data_structure['support']['num_folds'] = args.num_folds
         self.data_structure['support']['data_dir'] = args.data_dir + args.data_set
         self.get_sequences_from_eventlog()
-        self.data_structure['support']['elements_per_fold'] = \
-            int(round(
-                self.data_structure['meta']['num_process_instances'] / self.data_structure['support']['num_folds']))
+
+        if args.cross_validation:
+            self.data_structure['support']['elements_per_fold'] = int(round(
+                    self.data_structure['meta']['num_process_instances'] / self.data_structure['support']['num_folds']))
 
 
         # add end marker of process instance
