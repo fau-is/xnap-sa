@@ -41,9 +41,11 @@ if __name__ == '__main__':
 
     elif args.mode == 1:
         preprocessor = Preprocessor(args)
-
         trace = preprocessor.get_random_process_instance(args.rand_lower_bound, args.rand_upper_bound)
         lrp.calc_and_plot_relevance_scores(trace, args, preprocessor)
 
     else:
-        print("Not yet implemented ...")
+        preprocessor = Preprocessor(args)
+        trace = preprocessor.get_random_process_instance(args.rand_lower_bound, args.rand_upper_bound)
+        scores = lrp.calc_relevance_scores(trace, args, preprocessor)
+        print(scores)
