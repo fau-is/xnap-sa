@@ -1,4 +1,3 @@
-from __future__ import division
 from tensorflow.keras.models import load_model
 import csv
 import xnap.utils as utils
@@ -19,7 +18,7 @@ def test_prefix(args, preprocessor, process_instance, prefix_size):
     :return: parameters for LRP
     """
 
-    model_index = 8
+    model_index = 0
     model = load_model('%sca_%s_%s_%s.h5' % (
                     args.model_dir,
                     args.task,

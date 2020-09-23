@@ -7,7 +7,7 @@
 @license: see LICENSE file in repository root
 """
 
-from xnap.explanation.lrp.LSTM.LRP_linear_layer import *
+from xnap.exp.lrp.LSTM.LRP_linear_layer import *
 
 
 class LSTM_bidi:
