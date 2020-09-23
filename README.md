@@ -1,6 +1,18 @@
 # xnap-2.0: Debugg and Improve LSTM-Models by Using LRP
 
-## Steps of the technique
+## General
+- You can‘t be worse than before (iteration for iteration); change the underlying train data
+- General research goal:  Learn better models with dedicated data augmentation (threshold?)
+
+## Open questions/points?
+- If we have the relevance, how do we intervene to the log? -> (e.g., change values, agument data etc.)
+- Which information do we consider? -> (control-flow or context attributes) -> 
+- Specify in detail what the difference between model specific and model agnostic is (especially pros and cons; check literature)
+- Potential problem: distorts predictions that were correct
+- Should we show/measure the usability of explanations?
+
+## phases of the technique
+
 num_imp_steps <- 3
 1. Initial step
     1. Train LSTM Model
@@ -13,19 +25,27 @@ for index in range(0, num_imp_steps):
     3. Re-train LSTM Model
     4. Produce Predictions
 
-## Open questions?
-- If we have the relevance, how do we intervene to the log? -> (e.g., change values, agument data etc.)
-- Which information do we consider? -> (control-flow or context attributes) ->  
-
+ 
 ## Setting
+- Task: primary, nap; secondary outcome, time
+- Data attributes: yes
+- Data sets: primary three bpi real-life data sets (both!); secondary synthetic data sets
 - Metrics:
 - Model: Bi-LSTM
 - Encoding:
-- Validation:
+- Validation: split data set into train (80%) and test (20%); split train set (80%) into sub-train set (90%) and validation set (10%). 
 - HPO:
-- Shuffling:
-- Seed: 1377
+- Shuffling: no (yes)
+- Seed: 1377 (randomly selected)
 - Baseline method for calculating relevance values: Bi-LSTM + LIME
+
+
+## Further details
+- Ensuring reproducible results via a seed flag in config. Four seeds are set:
+    - np.random.seed(1377)
+    - tf.random.set_seed(1377)
+    - random.seed(1377)
+    - optuna.samplers.TPESampler(1377)
 
 
 This is the extension of xnap (Weinzierl et al. 2020).
