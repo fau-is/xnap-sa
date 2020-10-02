@@ -35,6 +35,11 @@ def load():
     parser.add_argument('--batch_size_train', default=128, type=int)
     parser.add_argument('--batch_size_test', default=1, type=int)
 
+    # pre-processing
+    parser.add_argument('--encoding_num', default="min_max_norm", type=str)  # onehot or hash for numerical attributes
+    parser.add_argument('--encoding_cat', default="onehot", type=str)  # onehot or hash for categorical attributes
+    parser.add_argument('--num_hash_output', default=10, type=int)
+
     # Parameters for gpu processing
     parser.add_argument('--gpu_ratio', default=0.2, type=float)
     parser.add_argument('--cpu_num', default=1, type=int)

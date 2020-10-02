@@ -15,6 +15,7 @@ if __name__ == '__main__':
     if args.mode == 0:
 
         preprocessor = Preprocessor(args)
+        event_log = preprocessor.get_event_log(args)
 
         if args.cross_validation:
             for iteration_cross_validation in range(0, args.num_folds):

@@ -1,10 +1,164 @@
 from __future__ import division
 import csv
 import numpy
-import copy
+import pandas
+from pm4py.objects.conversion.log import converter as log_converter
+from pm4py.objects.log.log import Event
 import xnap.utils as utils
 from sklearn.model_selection import KFold, ShuffleSplit
 
+
+def get_attribute_data_type(attribute_column):
+    """ Returns the data type of the passed attribute column 'num' for numerical and 'cat' for categorial """
+
+    column_type = str(attribute_column.dtype)
+
+    if column_type.startswith('float'):
+        attribute_type = 'num'
+    else:
+        attribute_type = 'cat'
+
+    return attribute_type
+
+class Preprocessor(object):
+
+    iteration_cross_validation = 0
+    activity = {}
+    context = {}
+
+    def __init__(self, args):
+        self.activity = {
+            'end_char': '!',
+            'chars_to_labels': {},
+            'labels_to_chars': {},
+            'label_length': 0
+        }
+        self.context = {
+            'attributes': [],
+            'encoding_lengths': []
+        }
+
+
+    def get_event_log(self, args):
+        """ Constructs an event log from a csv file using PM4PY """
+
+        #load data with pandas and encode
+        df = pandas.read_csv(args.data_dir + args.data_set, sep=';')
+        df_enc = self.encode_data(args, df)
+
+        parameters = {log_converter.Variants.TO_EVENT_LOG.value.Parameters.CASE_ID_KEY: args.case_id_key}
+        event_log = log_converter.apply(df_enc, parameters=parameters, variant=log_converter.Variants.TO_EVENT_LOG)
+        event_log = self.add_end_event_to_event_log_cases(args, event_log)
+
+        self.get_context_attributes(df)
+        return event_log
+
+    def get_context_attributes(self, df=None):
+        """ Retrieves names of context attributes """
+
+        if df is not None:
+            attributes = []
+            column_names = df.columns
+            for i in range(len(column_names)):
+                if i > 2:
+                    attributes.append(column_names[i])
+            self.context['attributes'] = attributes
+        else:
+            return self.context['attributes']
+
+    def add_end_event_to_event_log_cases(self, args, event_log):
+        """ Adds an end event at the end of each case in an event log """
+
+        end_label = self.char_to_label(self.get_end_char())
+        end_event = Event()
+        end_event[args.activity_key] = list(end_label)
+
+        for case in event_log:
+            case._list.append(end_event)
+
+        return event_log
+
+    def encode_data(self, args, df):
+        """ Encodes an event log represented by a dataframe """
+
+        utils.llprint('Encode data ... \n')
+
+        encoded_df = pandas.DataFrame(df.iloc[:, 0])
+
+        for column_name in df:
+            column_index = df.columns.get_loc(column_name)
+
+            if column_index == 0 or column_index == 2:
+                # no encoding of case id and timestamp
+                encoded_df[column_name] = df[column_name]
+            else:
+                if column_index == 1:
+                    encoded_column = self.encode_activities(args, df, column_name)
+                if column_index > 2:
+                    encoded_column = self.encode_context_attribute(args, df, column_name)
+                encoded_df = encoded_df.join(encoded_column)
+
+        return encoded_df
+
+    def get_encoding_mode(self, args, data_type):
+        """ Returns the encoding method to be used for a given data type """
+
+        if data_type == 'num':
+            mode = args.encoding_num
+        elif data_type == 'cat':
+            mode = args.encoding_cat
+
+        return mode
+
+    def encode_activities(self, args, df, column_name):
+        """ Encodes activities for all events in an event log """
+
+        encoding_mode = args.encoding_cat
+
+        if encoding_mode == 'hash':
+            encoding_mode = 'onehot'
+
+        df = self.add_end_char_to_activity_column(df, column_name)
+        encoding_columns = self.encode_column(args, df, column_name, encoding_mode)
+        self.save_mapping_of_activities(df[column_name], encoding_columns)
+
+        if isinstance(encoding_columns, pandas.DataFrame):
+            self.set_length_of_activity_encoding(len(encoding_columns.columns))
+        elif isinstance(encoding_columns, pandas.Series):
+            self.set_length_of_activity_encoding(1)
+
+        df = self.transform_encoded_attribute_columns_to_single_column(encoding_columns, df, column_name)
+        df = self.remove_end_char_from_activity_column(df)
+
+        return df[column_name]
+
+    def add_end_char_to_activity_column(self, df, column_name):
+        """ Adds single row to dataframe containing the end char (activity) representing an artificial end event """
+
+        df_columns = df.columns
+        new_row = []
+        for column in df_columns:
+            if column == column_name:
+                new_row.append(self.get_end_char())
+            else:
+                new_row.append(0)
+
+        row_df = pandas.DataFrame([new_row], columns=df.columns)
+        df = df.append(row_df, ignore_index=True)
+
+        return df
+
+    def remove_end_char_from_activity_column(self, df):
+        """ Removes last row of dataframe containing the end char (activity) representing an artificial end event """
+
+        orig_rows = df.drop(len(df) - 1)
+        return orig_rows
+
+
+
+"""
+old part
+"""
 
 class Preprocessor(object):
 
