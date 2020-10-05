@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     if args.mode == 0:
 
-        preprocessor = Preprocessor(args)
+        preprocessor = Preprocessor()
         event_log = preprocessor.get_event_log(args)
 
         if args.cross_validation:
