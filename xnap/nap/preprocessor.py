@@ -1,4 +1,6 @@
 from __future__ import division
+
+import copy
 import csv
 import numpy
 import pandas
@@ -20,8 +22,8 @@ def get_attribute_data_type(attribute_column):
 
     return attribute_type
 
-class Preprocessor(object):
 
+class Preprocessor(object):
     iteration_cross_validation = 0
     activity = {}
     context = {}
@@ -38,11 +40,10 @@ class Preprocessor(object):
             'encoding_lengths': []
         }
 
-
     def get_event_log(self, args):
         """ Constructs an event log from a csv file using PM4PY """
 
-        #load data with pandas and encode
+        # load data with pandas and encode
         df = pandas.read_csv(args.data_dir + args.data_set, sep=';')
         df_enc = self.encode_data(args, df)
 
@@ -154,14 +155,62 @@ class Preprocessor(object):
         orig_rows = df.drop(len(df) - 1)
         return orig_rows
 
+    def encode_column(self, args, df, column_name, mode):
+        """ Returns columns containing encoded values for a given attribute column """
+
+        if mode == 'min_max_norm':
+            encoding_columns = self.apply_min_max_normalization(df, column_name)
+
+        elif mode == 'onehot':
+            encoding_columns = self.apply_one_hot_encoding(df, column_name)
+
+        elif mode == 'hash':
+            encoding_columns = self.apply_hash_encoding(args, df, column_name)
+        else:
+            # no encoding
+            encoding_columns = df[column_name]
+
+        return encoding_columns
+
+    def save_mapping_of_activities(self, column, encoded_column):
+        """ Creates a mapping for activities (chars + labels (= encoded activity)) """
+
+        activities_chars = self.convert_activities_to_chars(column.values.tolist())
+
+        encoded_column_tuples = []
+        for entry in encoded_column.values.tolist():
+            if type(entry) != list:
+                encoded_column_tuples.append((entry,))
+            else:
+                encoded_column_tuples.append(tuple(entry))
+
+        tuple_all_rows = list(zip(activities_chars, encoded_column_tuples))
+
+        tuple_unique_rows = []
+        for tuple_row in tuple_all_rows:
+            if tuple_row not in tuple_unique_rows:
+                tuple_unique_rows.append(tuple_row)
+
+        self.activity['chars_to_labels'] = dict(tuple_unique_rows)
+        self.activity['labels_to_chars'] = dict([(t[1], t[0]) for t in tuple_unique_rows])
+
+        return
+
+    def transform_encoded_attribute_columns_to_single_column(self, encoded_columns, df, column_name):
+        """ Transforms multiple columns (repr. encoded attribute) to a single column in a dataframe """
+
+        encoded_values_list = encoded_columns.values.tolist()
+        df[column_name] = encoded_values_list
+
+        return df
 
 
 """
 old part
 """
 
-class Preprocessor(object):
 
+class Preprocessor(object):
     data_structure = {
         'support': {
             'num_folds': 1,
@@ -205,7 +254,6 @@ class Preprocessor(object):
         }
     }
 
-
     def __init__(self, args):
 
         utils.llprint("Initialization ... \n")
@@ -215,12 +263,13 @@ class Preprocessor(object):
 
         if args.cross_validation:
             self.data_structure['support']['elements_per_fold'] = int(round(
-                    self.data_structure['meta']['num_process_instances'] / self.data_structure['support']['num_folds']))
-
+                self.data_structure['meta']['num_process_instances'] / self.data_structure['support']['num_folds']))
 
         # add end marker of process instance
-        self.data_structure['data']['process_instances'] = list(map(lambda x: x + ['!'], self.data_structure['data']['process_instances']))
-        self.data_structure['meta']['max_length_process_instance'] = max(map(lambda x: len(x), self.data_structure['data']['process_instances']))
+        self.data_structure['data']['process_instances'] = list(
+            map(lambda x: x + ['!'], self.data_structure['data']['process_instances']))
+        self.data_structure['meta']['max_length_process_instance'] = max(
+            map(lambda x: len(x), self.data_structure['data']['process_instances']))
 
         # structures for predicting next activities
         self.data_structure['support']['event_labels'] = list(
@@ -248,7 +297,6 @@ class Preprocessor(object):
             self.set_indices_k_fold_validation()
         else:
             self.set_indices_split_validation(args)
-
 
     def get_sequences_from_eventlog(self):
         """
@@ -291,7 +339,6 @@ class Preprocessor(object):
 
         self.data_structure['meta']['num_process_instances'] += 1
 
-
     def set_training_set(self):
         """
         Set training set
@@ -316,7 +363,6 @@ class Preprocessor(object):
         self.data_structure['data']['train']['features_data'] = features_data
         self.data_structure['data']['train']['labels'] = labels
 
-
     def get_event_type_max_prob(self, predictions):
         """
         Get most likely activity from a probability distribution.
@@ -336,7 +382,6 @@ class Preprocessor(object):
 
         return event_type
 
-
     def get_event_type(self, index):
         """
         Get activity label for activity id.
@@ -346,7 +391,6 @@ class Preprocessor(object):
 
         return self.data_structure['support']['map_event_id_to_event_type'][index]
 
-
     def add_data_to_data_structure(self, values, structure):
         """
         Add data to general data structure.
@@ -355,7 +399,6 @@ class Preprocessor(object):
         """
 
         self.data_structure['data'][structure].append(values)
-
 
     def set_indices_k_fold_validation(self):
         """
@@ -368,8 +411,6 @@ class Preprocessor(object):
             self.data_structure['support']['train_index_per_fold'].append(train_indices)
             self.data_structure['support']['test_index_per_fold'].append(test_indices)
 
-
-
     def set_indices_split_validation(self, args):
         """
         Produces indices for split-validation.
@@ -381,7 +422,6 @@ class Preprocessor(object):
         for train_indices, test_indices in shuffle_split.split(self.data_structure['data']['process_instances']):
             self.data_structure['support']['train_index_per_fold'].append(train_indices)
             self.data_structure['support']['test_index_per_fold'].append(test_indices)
-
 
     def get_instances_of_fold(self, mode):
         """
@@ -398,14 +438,12 @@ class Preprocessor(object):
             process_instances_of_fold.append(self.data_structure['data']['process_instances'][value])
             event_ids_of_fold.append(self.data_structure['data']['ids_process_instances'][value])
 
-
         if mode == 'test':
             self.data_structure['data']['test']['process_instances'] = process_instances_of_fold
             self.data_structure['data']['test']['event_ids'] = event_ids_of_fold
             return
 
         return process_instances_of_fold, event_ids_of_fold
-
 
     def get_cropped_instances(self, process_instances):
         """
@@ -417,7 +455,6 @@ class Preprocessor(object):
         cropped_process_instances = []
         next_events = []
 
-
         for process_instance in process_instances:
             for i in range(0, len(process_instance)):
 
@@ -428,7 +465,6 @@ class Preprocessor(object):
                 next_events.append(process_instance[i])
 
         return cropped_process_instances, next_events
-
 
     def get_cropped_instance_label(self, prefix_size, process_instance):
         """
@@ -445,7 +481,6 @@ class Preprocessor(object):
             # label of next act
             return process_instance[prefix_size]
 
-
     def get_cropped_instance(self, prefix_size, process_instance):
         """
         Crops prefixes out of a single process instance.
@@ -455,7 +490,6 @@ class Preprocessor(object):
         """
 
         return process_instance[:prefix_size]
-
 
     def get_data_tensor(self, cropped_process_instances, mode):
         """
@@ -476,14 +510,11 @@ class Preprocessor(object):
                 self.data_structure['meta']['max_length_process_instance'],
                 self.data_structure['meta']['num_features']), dtype=numpy.float32)
 
-
         for index, cropped_process_instance in enumerate(cropped_process_instances):
             for index_, activity in enumerate(cropped_process_instance):
-
                 data_set[index, index_, self.data_structure['support']['map_event_label_to_event_id'][activity]] = 1
 
         return data_set
-
 
     def get_data_tensor_for_single_prediction(self, cropped_process_instance):
         """
@@ -498,7 +529,6 @@ class Preprocessor(object):
             'test')
 
         return data_set
-
 
     def get_label_matrix(self, cropped_process_instances, next_events):
         """
@@ -522,7 +552,6 @@ class Preprocessor(object):
 
         return label
 
-
     def get_random_process_instance(self, lower_bound, upper_bound):
         """
         Selects a random process instance from the complete event log.
@@ -541,20 +570,3 @@ class Preprocessor(object):
                 break
 
         return process_instances[rand]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
