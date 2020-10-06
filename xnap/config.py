@@ -21,6 +21,10 @@ def load():
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
 
+    # pm4py
+    parser.add_argument('--case_id_key', default="case", type=str)
+    parser.add_argument('--activity_key', default="event", type=str)
+
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=1, type=int)
     parser.add_argument('--dnn_architecture', default=0, type=int)

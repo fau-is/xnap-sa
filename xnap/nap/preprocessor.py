@@ -2,6 +2,7 @@ from __future__ import division
 import csv
 import numpy
 import pandas
+from pandas.io.sas.sas7bdat import _column
 from pm4py.objects.conversion.log import converter as log_converter
 from pm4py.objects.log.log import Event
 import xnap.utils as utils
@@ -32,7 +33,7 @@ class Preprocessor(object):
             'end_char': '!',
             'chars_to_labels': {},
             'labels_to_chars': {},
-            'label_length': 0
+            'label_length': 0,
         }
         self.context = {
             'attributes': [],
@@ -111,6 +112,13 @@ class Preprocessor(object):
                 encoded_df[column_name] = df[column_name]
             else:
                 if column_index == 1:
+                    #Created a mapping in order to also use raw csv files in contrast to naptf2.0
+                    unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
+                    for index, row in df.iterrows():
+                        event_name = df.iloc[index, column_index]
+                        event_id = unique_events_map_to_id[event_name]
+                        df.iloc[index, column_index] = event_id
+
                     encoded_column = self.encode_activities(args, df, column_name)
                 if column_index > 2:
                     encoded_column = self.encode_context_attribute(args, df, column_name)
@@ -139,7 +147,6 @@ class Preprocessor(object):
         df = self.add_end_char_to_activity_column(df, column_name)
         encoding_columns = self.encode_column(args, df, column_name, encoding_mode)
         self.save_mapping_of_activities(df[column_name], encoding_columns)
-
         if isinstance(encoding_columns, pandas.DataFrame):
             self.set_length_of_activity_encoding(len(encoding_columns.columns))
         elif isinstance(encoding_columns, pandas.Series):
@@ -149,6 +156,19 @@ class Preprocessor(object):
         df = self.remove_end_char_from_activity_column(df)
 
         return df[column_name]
+
+    #TODO check if this step is unnecesseary because it only needs to be done since naptf2.0 has a converted event log and xnap2.0 has a raw event log
+    def map_event_name_to_event_id(self, df_column):
+        unique_events = []
+        for event in df_column:
+            if event not in unique_events:
+                unique_events.append(event)
+
+        unique_events_map_to_id = {}
+        for i, c in enumerate(unique_events):
+            unique_events_map_to_id[c] = i
+
+        return unique_events_map_to_id
 
     def add_end_char_to_activity_column(self, df, column_name):
         """ Adds single row to dataframe containing the end char (activity) representing an artificial end event """
