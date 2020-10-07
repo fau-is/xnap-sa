@@ -153,7 +153,6 @@ def test(args, preprocessor):
             #         output.append(str(prediction).encode("utf-8"))
             #         result_writer.writerow(output)
 
-
 def get_case_subsequence(case, prefix_size):
     """ Crops a subsequence (= prefix) out of a whole case """
     return case._list[0:prefix_size]
