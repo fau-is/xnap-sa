@@ -381,8 +381,8 @@ class Preprocessor(object):
         train_index_per_fold = []
         test_index_per_fold = []
 
-        for train_indices, test_indices in shuffle_split.split(event_log.cases):
-            train_index_per_fold.append(train_indices)
+        for train_indices, test_indices in shuffle_split.split(event_log):
+            train_index_per_fold.append(train_indices) ##TODO there is actually no fold (we do have split validation), rename this also
             test_index_per_fold.append(test_indices)
 
         return train_index_per_fold, test_index_per_fold

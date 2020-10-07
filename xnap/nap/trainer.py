@@ -18,14 +18,13 @@ def train(args, preprocessor):
     #similar to napt2.0tf evaluator l8
     train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
 
-    #similar to naptf2.0 trainer l11
+    #similar to naptf2.0 trainer l11 ##TODO needs to be aopted towards split validation
     cases_of_fold = preprocessor.get_cases_of_fold(event_log, train_indices)
-
 
     #similar to nap2.0tf hpo l 62 ff
     train_cases = []
     test_cases = []
-    for idx in train_indices:
+    for idx in train_indices: ##0 because of no cross validation
         train_cases.append(cases_of_fold[idx])
     for idx in test_indices:
         test_cases.append(cases_of_fold[idx])
