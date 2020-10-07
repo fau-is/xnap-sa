@@ -1,3 +1,4 @@
+from sklearn.model_selection import ShuffleSplit
 from tensorflow.keras.models import load_model
 import csv
 import xnap.utils as utils
@@ -46,19 +47,28 @@ def test(args, preprocessor):
     :param preprocessor:
     :return: none
     """
+    #TODO eliminate duplicated code fragment and export to preprocessor
+    event_log = preprocessor.get_event_log(args)
 
-    preprocessor.get_instances_of_fold('test')
+    # get preprocessed data
+    # similar to napt2.0tf evaluator l8
+    train_index_per_fold, test_index_per_fold = preprocessor.get_indices_k_fold_validation(args, event_log)
+
+    # similar to naptf2.0 trainer l11
+    cases_of_fold = preprocessor.get_cases_of_fold(event_log, train_index_per_fold)
+
     model = load_model('%sca_%s_%s_%s.h5' % (
                     args.model_dir,
                     args.task,
                     args.data_set[0:len(args.data_set) - 4],
-                    preprocessor.data_structure['support']['iteration_cross_validation']))
+                    preprocessor.iteration_cross_validation))
 
     prediction_size = 1
     data_set_name = args.data_set.split('.csv')[0]
+    #cases_of_fold declared above
     result_dir_generic = './' + args.task + args.result_dir[1:] + data_set_name
     result_dir_fold = result_dir_generic + "_%d%s" % (
-        preprocessor.data_structure['support']['iteration_cross_validation'], ".csv")
+        preprocessor.iteration_cross_validation, ".csv")
 
     # start prediction
     with open(result_dir_fold, 'w') as result_file_fold:
@@ -67,45 +77,134 @@ def test(args, preprocessor):
             ["CaseID", "Prefix length", "Ground truth", "Predicted"])
 
         # for prefix_size >= 2
-        for prefix_size in range(2, preprocessor.data_structure['meta']['max_length_process_instance']):
+        for prefix_size in range(2, preprocessor.get_max_case_length(event_log)):
             utils.llprint("Prefix size: %d\n" % prefix_size)
 
-            for process_instance, event_id in zip(preprocessor.data_structure['data']['test']['process_instances'],
-                                                  preprocessor.data_structure['data']['test']['event_ids']):
 
-                cropped_process_instance = preprocessor.get_cropped_instance(
-                    prefix_size,
-                    process_instance)
+            for case in cases_of_fold:
+                # 2.1. prepare data: case subsequence
+                subseq = get_case_subsequence(case, prefix_size)
 
-                if preprocessor.data_structure['support']['end_process_instance'] in cropped_process_instance:
+                if contains_end_event(args, subseq, preprocessor):
+                    # make no prediction for this subsequence, since this case has ended already
                     continue
 
-                ground_truth = ''.join(process_instance[prefix_size:prefix_size + prediction_size])
-                prediction = ''
+                ground_truth = get_ground_truth(args, case, prefix_size, prediction_size)
+                prediction = []
 
-                for i in range(prediction_size):
-
-                    if len(ground_truth) <= i:
+                for current_prediction_size in range(prediction_size):
+                    if current_prediction_size >= len(ground_truth):
                         continue
 
-                    test_data = preprocessor.get_data_tensor_for_single_prediction(cropped_process_instance)
+                    # 2.2. prepare data: features tensor
+                    features = preprocessor.get_features_tensor(args, 'test', event_log, [subseq])
 
-                    y = model.predict(test_data)
-                    y_char = y[0][:]
+                    # 3. make prediction
+                    predicted_label = predict_label(model, features, preprocessor)
+                    prediction.append(list(predicted_label))
 
-                    predicted_event = preprocessor.get_event_type_max_prob(y_char)
-
-                    cropped_process_instance += predicted_event
-                    prediction += predicted_event
-
-                    if predicted_event == preprocessor.data_structure['support']['end_process_instance']:
-                        print('! predicted, end of process instance ... \n')
+                    if is_end_label(predicted_label, preprocessor):
+                        utils.llprint('! predicted, end of case ... \n')
                         break
 
-                output = []
+                # 4. evaluate prediction
                 if len(ground_truth) > 0:
-                    output.append(event_id)
-                    output.append(prefix_size)
-                    output.append(str(ground_truth).encode("utf-8"))
-                    output.append(str(prediction).encode("utf-8"))
-                    result_writer.writerow(output)
+                    document_and_evaluate_prediction(args, result_writer, case, prefix_size, ground_truth[0],
+                                                     prediction[0])
+
+
+            # for process_instance, event_id in zip(preprocessor.data_structure['data']['test']['process_instances'],
+            #                                       preprocessor.data_structure['data']['test']['event_ids']):
+            #
+            #     cropped_process_instance = preprocessor.get_cropped_instance(
+            #         prefix_size,
+            #         process_instance)
+            #
+            #     if preprocessor.data_structure['support']['end_process_instance'] in cropped_process_instance:
+            #         continue
+            #
+            #     ground_truth = ''.join(process_instance[prefix_size:prefix_size + prediction_size])
+            #     prediction = ''
+            #
+            #     for i in range(prediction_size):
+            #
+            #         if len(ground_truth) <= i:
+            #             continue
+            #
+            #         test_data = preprocessor.get_data_tensor_for_single_prediction(cropped_process_instance)
+            #
+            #         y = model.predict(test_data)
+            #         y_char = y[0][:]
+            #
+            #         predicted_event = preprocessor.get_event_type_max_prob(y_char)
+            #
+            #         cropped_process_instance += predicted_event
+            #         prediction += predicted_event
+            #
+            #         if predicted_event == preprocessor.data_structure['support']['end_process_instance']:
+            #             print('! predicted, end of process instance ... \n')
+            #             break
+            #
+            #     output = []
+            #     if len(ground_truth) > 0:
+            #         output.append(event_id)
+            #         output.append(prefix_size)
+            #         output.append(str(ground_truth).encode("utf-8"))
+            #         output.append(str(prediction).encode("utf-8"))
+            #         result_writer.writerow(output)
+
+
+def get_case_subsequence(case, prefix_size):
+    """ Crops a subsequence (= prefix) out of a whole case """
+    return case._list[0:prefix_size]
+
+
+def contains_end_event(args, subseq, preprocessor):
+    """ Checks whether a subsequence of events contains an artificial end event, meaning case has ended """
+
+    for event in subseq:
+        if is_end_label(tuple(event.get(args.activity_key)), preprocessor):
+            return True
+        else:
+            continue
+
+    return False
+
+
+def is_end_label(label, preprocessor):
+    """ Checks whether event is an artificial end event """
+    char = preprocessor.label_to_char(label)
+    return char == preprocessor.get_end_char()
+
+
+def get_ground_truth(args, case, prefix_size, prediction_size):
+    """ Retrieves actual/true event label (= encoded activity) """
+
+    ground_truth_events = case._list[prefix_size:prefix_size + prediction_size]
+    ground_truth_activities = []
+    for event in ground_truth_events:
+        ground_truth_activities.append(event[args.activity_key])
+
+    return ground_truth_activities
+
+
+def predict_label(model, features, preprocessor):
+    """ Predicts and returns a label """
+
+    Y = model.predict(features)
+    y_char = Y[0][:]
+    predicted_label = preprocessor.get_predicted_label(y_char)
+
+    return predicted_label
+
+
+def document_and_evaluate_prediction(args, result_writer, case, prefix_size, ground_truth, prediction):
+    """ Writes results into a result file """
+
+    output = []
+    output.append(case._list[0].get(args.case_id_key))
+    output.append(prefix_size)
+    output.append(str(ground_truth).encode("utf-8"))
+    output.append(str(prediction).encode("utf-8"))
+
+    result_writer.writerow(output)

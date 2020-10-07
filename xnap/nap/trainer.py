@@ -35,7 +35,6 @@ def train(args, preprocessor):
 
     #similar to nap2.0tf hpo l 76 ff
     train_cases = preprocessor.get_subsequences_of_cases(train_cases)
-    test_cases = preprocessor.get_subsequences_of_cases(test_cases)
 
     # since crossval. defaults false and num_folds defaults 0, cross validation is set off in this project so far,
     # but can easily be adopdet later on
@@ -43,8 +42,9 @@ def train(args, preprocessor):
     feature_tensor_x_train = preprocessor.get_features_tensor(args, 'train', event_log, train_cases)
     label_tensor_y_train = preprocessor.get_labels_tensor(args, train_cases)
 
-    x_test = preprocessor.get_features_tensor(args, 'train', event_log, test_cases)
-    y_test = preprocessor.get_labels_tensor(args, test_cases)
+    #TODO needs to be put in the module which calls test
+    ###x_test = preprocessor.get_features_tensor(args, 'train', event_log, test_cases)
+    ###y_test = preprocessor.get_labels_tensor(args, test_cases)
 
     max_length_process_instance = preprocessor.get_max_case_length()
     num_features = preprocessor.get_num_features()
