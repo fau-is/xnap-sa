@@ -19,6 +19,7 @@ if __name__ == '__main__':
 
         if args.cross_validation:
             for iteration_cross_validation in range(0, args.num_folds):
+                """
                 preprocessor.data_structure['support']['iteration_cross_validation'] = iteration_cross_validation
 
                 output["training_time_seconds"].append(train.train(args, preprocessor))
@@ -30,6 +31,7 @@ if __name__ == '__main__':
 
             utils.print_output(args, output, iteration_cross_validation + 1)
             utils.write_output(args, output, iteration_cross_validation + 1)
+            """
 
         else:
             output["training_time_seconds"].append(train.train(args, preprocessor))
