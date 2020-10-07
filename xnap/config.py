@@ -32,7 +32,7 @@ def load():
     parser.add_argument('--dim', default=0, type=int)
 
     # Parameters for validation
-    parser.add_argument('--num_folds', default=0, type=int)
+    parser.add_argument('--num_folds', default=1, type=int)
     parser.add_argument('--cross_validation', default=False, type=utils.str2bool)
     parser.add_argument('--split_rate_test', default=0.8, type=float)
     parser.add_argument('--val_split', default=0.1, type=float)

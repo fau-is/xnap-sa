@@ -362,7 +362,6 @@ class Preprocessor(object):
 
     def get_indices_k_fold_validation(self, args, event_log):
         """ Produces indices for each fold of a k-fold cross-validation """
-
         kFold = KFold(n_splits=args.num_folds, random_state=0, shuffle=False)
 
         train_index_per_fold = []

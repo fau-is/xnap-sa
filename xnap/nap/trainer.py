@@ -10,20 +10,17 @@ def train(args, preprocessor):
 
     event_log = preprocessor.get_event_log(args)
 
+    #TODO split validation is called in line 17 every time. needs to be extracted to runner.py and set in
+    # order to be able to also call cross validation. Also variable names are still not adopted to split/cross valid.
+    # but need to be renamed in a generic way
+
     # get preprocessed data
     #similar to napt2.0tf evaluator l8
-    train_index_per_fold, test_index_per_fold = preprocessor.get_indices_k_fold_validation(args, event_log)
+    train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
 
     #similar to naptf2.0 trainer l11
-    cases_of_fold = preprocessor.get_cases_of_fold(event_log, train_index_per_fold)
+    cases_of_fold = preprocessor.get_cases_of_fold(event_log, train_indices)
 
-    #similar to nap2.0tf hpo create data
-    shuffle_split = ShuffleSplit(n_splits=1, test_size=args.split_rate_test_hpo, random_state=0)
-    hpo_train_indices = []
-    hpo_test_indices = []
-    for train_indices, test_indices in shuffle_split.split(cases_of_fold):
-        hpo_train_indices.append(train_indices)
-        hpo_test_indices.append(test_indices)
 
     #similar to nap2.0tf hpo l 62 ff
     train_cases = []
@@ -42,7 +39,7 @@ def train(args, preprocessor):
     feature_tensor_x_train = preprocessor.get_features_tensor(args, 'train', event_log, train_cases)
     label_tensor_y_train = preprocessor.get_labels_tensor(args, train_cases)
 
-    #TODO needs to be put in the module which calls test
+    #done needs to be put in the module which calls test
     ###x_test = preprocessor.get_features_tensor(args, 'train', event_log, test_cases)
     ###y_test = preprocessor.get_labels_tensor(args, test_cases)
 
