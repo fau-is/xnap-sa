@@ -376,7 +376,7 @@ class Preprocessor(object):
     def get_indices_split_validation(self, args, event_log):
         """ Produces indices for training and test set of a split-validation """
 
-        shuffle_split = ShuffleSplit(n_splits=1, test_size=args.split_rate_test, random_state=0)
+        shuffle_split = ShuffleSplit(n_splits=1, test_size=args.val_split, random_state=0)
 
         train_index_per_fold = []
         test_index_per_fold = []
@@ -385,7 +385,7 @@ class Preprocessor(object):
             train_index_per_fold.append(train_indices) ##TODO there is actually no fold (we do have split validation), rename this also
             test_index_per_fold.append(test_indices)
 
-        return train_index_per_fold, test_index_per_fold
+        return train_index_per_fold[0], test_index_per_fold[0]
 
     def get_cases_of_fold(self, event_log, index_per_fold):
         """ Retrieves cases of a fold """

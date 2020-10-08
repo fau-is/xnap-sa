@@ -52,10 +52,19 @@ def test(args, preprocessor):
 
     # get preprocessed data
     # similar to napt2.0tf evaluator l8
-    train_index_per_fold, test_index_per_fold = preprocessor.get_indices_k_fold_validation(args, event_log)
+    train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
 
-    # similar to naptf2.0 trainer l11
-    cases_of_fold = preprocessor.get_cases_of_fold(event_log, train_index_per_fold)
+    all_indices = []
+    for case in event_log:
+        all_indices.append(case.attributes['concept:name'])
+
+    # similar to naptf2.0 trainer l11 ##TODO needs to be aopted towards split validation
+    cases = preprocessor.get_cases_of_fold(event_log, [all_indices])  ##TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
+
+    # similar to nap2.0tf hpo l 62 ff
+    test_cases = []
+    for idx in test_indices:  ##0 because of no cross validation
+        test_cases.append(cases[idx])
 
     model = load_model('%sca_%s_%s_%s.h5' % (
                     args.model_dir,
@@ -65,7 +74,7 @@ def test(args, preprocessor):
 
     prediction_size = 1
     data_set_name = args.data_set.split('.csv')[0]
-    #cases_of_fold declared above
+    #cases declared above
     result_dir_generic = './' + args.task + args.result_dir[1:] + data_set_name
     result_dir_fold = result_dir_generic + "_%d%s" % (
         preprocessor.iteration_cross_validation, ".csv")
@@ -80,8 +89,7 @@ def test(args, preprocessor):
         for prefix_size in range(2, preprocessor.get_max_case_length(event_log)):
             utils.llprint("Prefix size: %d\n" % prefix_size)
 
-
-            for case in cases_of_fold:
+            for case in test_cases:
                 # 2.1. prepare data: case subsequence
                 subseq = get_case_subsequence(case, prefix_size)
 

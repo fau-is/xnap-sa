@@ -8,6 +8,7 @@ from sklearn.model_selection import ShuffleSplit
 
 def train(args, preprocessor):
 
+
     event_log = preprocessor.get_event_log(args)
 
     #TODO split validation is called in line 17 every time. needs to be extracted to runner.py and set in
@@ -18,31 +19,32 @@ def train(args, preprocessor):
     #similar to napt2.0tf evaluator l8
     train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
 
+    all_indices = []
+    for case in event_log:
+        all_indices.append(case.attributes['concept:name'])
+
     #similar to naptf2.0 trainer l11 ##TODO needs to be aopted towards split validation
-    cases_of_fold = preprocessor.get_cases_of_fold(event_log, train_indices)
+    cases = preprocessor.get_cases_of_fold(event_log, [all_indices]) ##TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
 
     #similar to nap2.0tf hpo l 62 ff
     train_cases = []
-    test_cases = []
     for idx in train_indices: ##0 because of no cross validation
-        train_cases.append(cases_of_fold[idx])
-    for idx in test_indices:
-        test_cases.append(cases_of_fold[idx])
+        train_cases.append(cases[idx])
 
     #similar to nap2.0tf hpo l 76 ff
-    train_cases = preprocessor.get_subsequences_of_cases(train_cases)
+    train_subseq_cases = preprocessor.get_subsequences_of_cases(train_cases)
 
     # since crossval. defaults false and num_folds defaults 0, cross validation is set off in this project so far,
     # but can easily be adopdet later on
 
-    feature_tensor_x_train = preprocessor.get_features_tensor(args, 'train', event_log, train_cases)
+    feature_tensor_x_train = preprocessor.get_features_tensor(args, 'train', event_log, train_subseq_cases)
     label_tensor_y_train = preprocessor.get_labels_tensor(args, train_cases)
 
     #done needs to be put in the module which calls test
     ###x_test = preprocessor.get_features_tensor(args, 'train', event_log, test_cases)
     ###y_test = preprocessor.get_labels_tensor(args, test_cases)
 
-    max_length_process_instance = preprocessor.get_max_case_length()
+    max_length_process_instance = preprocessor.get_max_case_length(event_log)
     num_features = preprocessor.get_num_features()
     num_event_ids = preprocessor.get_num_activities()
 
@@ -80,7 +82,7 @@ def train(args, preprocessor):
         args.model_dir,
         args.task,
         args.data_set[0:len(args.data_set) - 4],
-        preprocessor.data_structure['support']['iteration_cross_validation']),
+        preprocessor.iteration_cross_validation),
                                                           monitor='val_loss',
                                                           verbose=0,
                                                           save_best_only=True,
