@@ -21,9 +21,17 @@ def test_prefix(args, preprocessor, process_instance, prefix_size):
                     args.task,
                     args.data_set[0:len(args.data_set) - 4], model_index))
 
-    cropped_process_instance = preprocessor.get_cropped_instance(prefix_size, process_instance)
+    cropped_process_instance = process_instance[:prefix_size]
     cropped_process_instance_label = preprocessor.get_cropped_instance_label(prefix_size, process_instance)
-    test_data = preprocessor.get_data_tensor_for_single_prediction(cropped_process_instance)
+
+
+    #TODO rework after preprocessor.py l556
+    #event_log = preprocessor.
+    #test_data = preprocessor.get_features_tensor(args, 'test', event_log, [subseq])
+
+
+
+
 
     y = model.predict(test_data)
     y = y[0][:]

@@ -11,11 +11,10 @@ if __name__ == '__main__':
     args = config.load()
     output = utils.load_output()
     utils.clear_measurement_file(args)
+    preprocessor = Preprocessor(args)
+    event_log = preprocessor.get_event_log(args)
 
     if args.mode == 0:
-
-        preprocessor = Preprocessor()
-        event_log = preprocessor.get_event_log(args)
 
         if args.cross_validation:
             for iteration_cross_validation in range(0, args.num_folds):
@@ -33,7 +32,6 @@ if __name__ == '__main__':
             utils.print_output(args, output, iteration_cross_validation + 1)
             utils.write_output(args, output, iteration_cross_validation + 1)
             """
-
         else:
             output["training_time_seconds"].append(train.train(args, preprocessor))
             test.test(args, preprocessor)
@@ -42,14 +40,11 @@ if __name__ == '__main__':
             utils.print_output(args, output, -1)
             utils.write_output(args, output, -1)
 
-
     elif args.mode == 1:
-        preprocessor = Preprocessor()
-        trace = preprocessor.get_random_process_instance(args.rand_lower_bound, args.rand_upper_bound)
+        trace = preprocessor.get_random_process_instance(args, args.rand_lower_bound, args.rand_upper_bound)
         lrp.calc_and_plot_relevance_scores_instance(trace, args, preprocessor)
 
     else:
-        preprocessor = Preprocessor()
-        trace = preprocessor.get_random_process_instance(args.rand_lower_bound, args.rand_upper_bound)
+        trace = preprocessor.get_random_process_instance(args, args.rand_lower_bound, args.rand_upper_bound)
         scores = lrp.calc_relevance_scores_instance(trace, args, preprocessor)
         print(scores)

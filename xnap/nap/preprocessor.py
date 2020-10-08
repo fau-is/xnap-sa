@@ -5,6 +5,8 @@ import pandas
 from pandas.io.sas.sas7bdat import _column
 from pm4py.objects.conversion.log import converter as log_converter
 from pm4py.objects.log.log import Event
+from sqlalchemy.sql.compiler import prefix_anon_map
+
 import xnap.utils as utils
 from sklearn.model_selection import KFold, ShuffleSplit
 import category_encoders
@@ -27,8 +29,10 @@ class Preprocessor(object):
     iteration_cross_validation = 0
     activity = {}
     context = {}
+    unique_events_map_to_id = None
+    unique_event_ids_map_to_name = None
 
-    def __init__(self):
+    def __init__(self, args):
         self.activity = {
             'end_char': '!',
             'chars_to_labels': {},
@@ -39,13 +43,15 @@ class Preprocessor(object):
             'attributes': [],
             'encoding_lengths': []
         }
+        self.df = pandas.read_csv(args.data_dir + args.data_set, sep=';')
+
 
 
     def get_event_log(self, args):
         """ Constructs an event log from a csv file using PM4PY """
 
         #load data with pandas and encode
-        df = pandas.read_csv(args.data_dir + args.data_set, sep=';')
+        df = self.df
         df_enc = self.encode_data(args, df)
 
         parameters = {log_converter.Variants.TO_EVENT_LOG.value.Parameters.CASE_ID_KEY: args.case_id_key}
@@ -113,10 +119,11 @@ class Preprocessor(object):
             else:
                 if column_index == 1:
                     #Created a mapping in order to also use raw csv files in contrast to naptf2.0
-                    unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
+                    self.unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
+                    self.unique_event_ids_map_to_name = self.map_event_id_to_event_name()
                     for index, row in df.iterrows():
                         event_name = df.iloc[index, column_index]
-                        event_id = unique_events_map_to_id[event_name]
+                        event_id = self.unique_events_map_to_id[event_name]
                         df.iloc[index, column_index] = event_id
 
                     encoded_column = self.encode_activities(args, df, column_name)
@@ -169,6 +176,13 @@ class Preprocessor(object):
             unique_events_map_to_id[c] = i
 
         return unique_events_map_to_id
+
+    def map_event_id_to_event_name(self):
+        unique_ids_map_to_event_names = {}
+        for event_name in self.unique_events_map_to_id:
+            unique_ids_map_to_event_names[self.unique_events_map_to_id[event_name]] = event_name
+
+        return unique_ids_map_to_event_names
 
     def add_end_char_to_activity_column(self, df, column_name):
         """ Adds single row to dataframe containing the end char (activity) representing an artificial end event """
@@ -503,24 +517,69 @@ class Preprocessor(object):
         return label
 
 
-    def get_random_process_instance(self, lower_bound, upper_bound):
+    def get_process_instances(self, args):
+        """gets process instance sequences of events"""
+        df = self.df
+        process_instances_list = []
+        for case, group in df.groupby(args.case_id_key):
+            process_instance = []
+            for i in range(0, len(group)):
+                process_activity_i = group.iloc[i, df.columns.get_loc(args.activity_key)]
+                process_instance.append(process_activity_i)
+            process_instances_list.append(process_instance)
+
+        return process_instances_list
+
+    def convert_process_instance_list_id_to_name(self, process_instances):
+        """
+        takes a 2 dimensional input (meaning a list of process instances with their event ids and
+        converts it to event names
+        """
+        process_instances_converted = []
+        for process_instance in process_instances:
+            process_instance_converted = []
+            for event in process_instance:
+                process_instance_converted.append(self.unique_event_ids_map_to_name[event])
+            process_instances_converted.append(process_instance_converted)
+
+        return process_instances_converted
+
+    #TODO rework in order to pick random process instance from event log also with context attributes
+    def get_random_process_instance(self, args, lower_bound, upper_bound):
         """
         Selects a random process instance from the complete event log.
+        :param args:
         :param lower_bound:
         :param upper_bound:
         :return: process instance.
         """
 
-        process_instances = self.data_structure['data']['process_instances']
+        process_instances = self.get_process_instances(args)
+        process_instances_converted = self.convert_process_instance_list_id_to_name(process_instances)
 
         while True:
-            rand = numpy.random.randint(len(process_instances))
-            size = len(process_instances[rand])
+            rand = numpy.random.randint(len(process_instances_converted))
+            size = len(process_instances_converted[rand])
 
             if lower_bound <= size <= upper_bound:
                 break
 
-        return process_instances[rand]
+        return process_instances_converted[rand]
+
+    def get_cropped_instance_label(self, prefix_size, process_instance):
+        """
+        Crops the next activity label out of a single process instance.
+        :param prefix_size:
+        :param process_instance:
+        :return:
+        """
+
+        if prefix_size == len(process_instance) - 1:
+            #end marker
+            return self.get_end_char()
+        else:
+            # label of next act
+            return process_instance[prefix_size]
 
 
 
