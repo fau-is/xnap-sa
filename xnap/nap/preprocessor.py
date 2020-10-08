@@ -503,6 +503,28 @@ class Preprocessor(object):
         return label
 
 
+    def get_random_process_instance(self, lower_bound, upper_bound):
+        """
+        Selects a random process instance from the complete event log.
+        :param lower_bound:
+        :param upper_bound:
+        :return: process instance.
+        """
+
+        process_instances = self.data_structure['data']['process_instances']
+
+        while True:
+            rand = numpy.random.randint(len(process_instances))
+            size = len(process_instances[rand])
+
+            if lower_bound <= size <= upper_bound:
+                break
+
+        return process_instances[rand]
+
+
+
+
 
 
 
