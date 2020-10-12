@@ -48,7 +48,7 @@ def test_prefix(args, preprocessor, process_instance, prefix_size):
     return prediction, cropped_process_instance_label_id, cropped_process_instance_label, cropped_process_instance, model, test_data_reshaped, prob_dist
 
 
-def test(args, preprocessor):
+def test(args, preprocessor, event_log):
     """
     Perform test for model validation.
     :param args:
@@ -56,8 +56,6 @@ def test(args, preprocessor):
     :return: none
     """
     #TODO eliminate duplicated code fragment and export to preprocessor
-    event_log = preprocessor.get_event_log(args)
-
     # get preprocessed data
     # similar to napt2.0tf evaluator l8
     train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)

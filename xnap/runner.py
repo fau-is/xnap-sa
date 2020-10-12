@@ -33,8 +33,8 @@ if __name__ == '__main__':
             utils.write_output(args, output, iteration_cross_validation + 1)
             """
         else:
-            output["training_time_seconds"].append(train.train(args, preprocessor))
-            test.test(args, preprocessor)
+            output["training_time_seconds"].append(train.train(args, preprocessor, event_log))
+            test.test(args, preprocessor, event_log)
 
             output = utils.get_output(args, preprocessor, output)
             utils.print_output(args, output, -1)

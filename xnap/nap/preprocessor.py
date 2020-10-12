@@ -517,6 +517,8 @@ class Preprocessor(object):
         return label
 
 
+
+
     def get_process_instances(self, args):
         """gets process instance sequences of events"""
         df = self.df

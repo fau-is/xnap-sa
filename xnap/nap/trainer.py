@@ -6,10 +6,7 @@ from mpmath.tests.torture import cases
 from sklearn.model_selection import ShuffleSplit
 
 
-def train(args, preprocessor):
-
-
-    event_log = preprocessor.get_event_log(args)
+def train(args, preprocessor, event_log):
 
     #TODO split validation is called in line 17 every time. needs to be extracted to runner.py and set in
     # order to be able to also call cross validation. Also variable names are still not adopted to split/cross valid.
