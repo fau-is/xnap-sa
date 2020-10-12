@@ -1,2 +1,0 @@
-experiment;mode;validation;accuracy;precision;recall;f1-score;auc-prc;training-time;time-stamp
-helpdesk-0;fold0;cross-validation;0.8365617433414043;0.7675518063597631;0.8365617433414043;0.7944103440047485;0.732816602561898;6.646225;2020-09-23T21:41:05.818530+02:00
