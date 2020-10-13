@@ -28,9 +28,11 @@ for index in range(0, num_imp_steps):
         Assumption: we have an instance [A (0.9), B (0.1), C (0.1), D (0.9)] -> G, where E is the correct prediction and G the wrong
         
         2.1 Change instances in the event log data based on explanations
+            
             (1) According to Rizzi et al. (2020): randomly change A and D -> violate process semantics?
             
         2.2 Augment instances in event log data based on explanations (we start with that)
+            
             (1) Naive approach: 10 times add [A, B, C, D] to the event log
             (2) Advanced I: 10 times add [A, x, x, D] to the event log
             (3) Advanced II: 10 times add [x, B, C, x] to the event log
