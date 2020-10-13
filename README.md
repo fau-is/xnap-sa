@@ -20,8 +20,8 @@ num_imp_steps <- 3
 
 2. Improvement steps
 for index in range(0, num_imp_steps):
-    1. Produce Explainations via LRP
-    2. Make interventions (Algorithm learns form the manipulated data a model) 
+    1 Produce Explainations via LRP
+    2 Make interventions (Algorithm learns form the manipulated data a model) 
         Assumption: we have an instance [A (0.9), B (0.1), C (0.1), D (0.9)] -> G, where E is the correct prediction and G the wrong
         2.1 Change instances in the event log data based on explanations
             (1) According to Rizzi et al. (2020): randomly change A and D -> violate process semantics?
