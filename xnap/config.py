@@ -7,8 +7,8 @@ def load():
     parser = argparse.ArgumentParser()
 
     # General parameters
-    parser.add_argument('--mode', default=0, type=int)
-    """ Three are three modes
+    parser.add_argument('--mode', default=1, type=int)
+    """ There are three modes
         0 = train models
         1 = explain random process instance
         2 = explain and manipulate 
@@ -16,14 +16,14 @@ def load():
     parser.add_argument('--rand_lower_bound', default=5, type=int)
     parser.add_argument('--rand_upper_bound', default=5, type=int)
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="bpi2012_w_converted_sample.csv")
+    parser.add_argument('--data_set', default="helpdesk_sample.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
 
     # pm4py
-    parser.add_argument('--case_id_key', default="CaseID", type=str)
-    parser.add_argument('--activity_key', default="ActivityID", type=str)
+    parser.add_argument('--case_id_key', default="case", type=str)
+    parser.add_argument('--activity_key', default="event", type=str)
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=1, type=int)

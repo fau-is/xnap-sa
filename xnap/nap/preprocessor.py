@@ -43,15 +43,12 @@ class Preprocessor(object):
             'attributes': [],
             'encoding_lengths': []
         }
-        self.df = pandas.read_csv(args.data_dir + args.data_set, sep=';')
-
-
 
     def get_event_log(self, args):
         """ Constructs an event log from a csv file using PM4PY """
 
         #load data with pandas and encode
-        df = self.df
+        df = pandas.read_csv(args.data_dir + args.data_set, sep=';')
         df_enc = self.encode_data(args, df)
 
         parameters = {log_converter.Variants.TO_EVENT_LOG.value.Parameters.CASE_ID_KEY: args.case_id_key}
@@ -118,7 +115,7 @@ class Preprocessor(object):
                 encoded_df[column_name] = df[column_name]
             else:
                 if column_index == 1:
-                    #Created a mapping in order to also use raw csv files in contrast to naptf2.0
+                    #Created a mapping in order to also use raw avitivity names in csv files in contrast to naptf2.0
                     self.unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
                     self.unique_event_ids_map_to_name = self.map_event_id_to_event_name()
                     for index, row in df.iterrows():
@@ -126,6 +123,7 @@ class Preprocessor(object):
                         event_id = self.unique_events_map_to_id[event_name]
                         df.iloc[index, column_index] = event_id
 
+                    #TODO encode activities really necessarry to convert to chars? why not leave event id as int?
                     encoded_column = self.encode_activities(args, df, column_name)
                 if column_index > 2:
                     encoded_column = self.encode_context_attribute(args, df, column_name)
@@ -518,20 +516,6 @@ class Preprocessor(object):
 
 
 
-
-    def get_process_instances(self, args):
-        """gets process instance sequences of events"""
-        df = self.df
-        process_instances_list = []
-        for case, group in df.groupby(args.case_id_key):
-            process_instance = []
-            for i in range(0, len(group)):
-                process_activity_i = group.iloc[i, df.columns.get_loc(args.activity_key)]
-                process_instance.append(process_activity_i)
-            process_instances_list.append(process_instance)
-
-        return process_instances_list
-
     def convert_process_instance_list_id_to_name(self, process_instances):
         """
         takes a 2 dimensional input (meaning a list of process instances with their event ids and
@@ -547,7 +531,7 @@ class Preprocessor(object):
         return process_instances_converted
 
     #TODO rework in order to pick random process instance from event log also with context attributes
-    def get_random_process_instance(self, args, lower_bound, upper_bound):
+    def get_random_process_instance(self, event_log, lower_bound, upper_bound):
         """
         Selects a random process instance from the complete event log.
         :param args:
@@ -556,17 +540,15 @@ class Preprocessor(object):
         :return: process instance.
         """
 
-        process_instances = self.get_process_instances(args)
-        process_instances_converted = self.convert_process_instance_list_id_to_name(process_instances)
-
         while True:
-            rand = numpy.random.randint(len(process_instances_converted))
-            size = len(process_instances_converted[rand])
+            x = len(event_log)
+            rand = numpy.random.randint(x)
+            size = len(event_log[rand])
 
             if lower_bound <= size <= upper_bound:
                 break
 
-        return process_instances_converted[rand]
+        return event_log[rand]
 
     def get_cropped_instance_label(self, prefix_size, process_instance):
         """
