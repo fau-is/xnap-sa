@@ -4,10 +4,11 @@ import csv
 import xnap.utils as utils
 
 
-def test_prefix(args, preprocessor, process_instance, prefix_size):
+def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
     """
     Perform test for LRP.
 
+    :param event_log:
     :param args:
     :param preprocessor:
     :param process_instance:
@@ -24,19 +25,12 @@ def test_prefix(args, preprocessor, process_instance, prefix_size):
     cropped_process_instance = process_instance[:prefix_size]
     cropped_process_instance_label = preprocessor.get_cropped_instance_label(prefix_size, process_instance)
 
-
-    #TODO rework after preprocessor.py l556
-    #event_log = preprocessor.
-    #test_data = preprocessor.get_features_tensor(args, 'test', event_log, [subseq])
-
-
-
-
+    test_data = preprocessor.get_features_tensor(args, 'test', event_log, [cropped_process_instance])
 
     y = model.predict(test_data)
     y = y[0][:]
 
-    prediction = preprocessor.get_event_type_max_prob(y)
+    prediction = preprocessor.get_predicted_label(y)
 
     prob_dist = dict()
     for index, prob in enumerate(y):

@@ -42,9 +42,9 @@ if __name__ == '__main__':
 
     elif args.mode == 1:
         trace = preprocessor.get_random_process_instance(event_log, args.rand_lower_bound, args.rand_upper_bound)
-        lrp.calc_and_plot_relevance_scores_instance(trace, args, preprocessor)
+        lrp.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
 
     else:
         trace = preprocessor.get_random_process_instance(event_log, args.rand_lower_bound, args.rand_upper_bound)
-        scores = lrp.calc_relevance_scores_instance(trace, args, preprocessor)
+        scores = lrp.calc_relevance_scores_instance(event_log, trace, args, preprocessor)
         print(scores)

@@ -16,17 +16,17 @@ def train(args, preprocessor, event_log):
     #similar to napt2.0tf evaluator l8
     train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
 
-    all_indices = []
-    for case in event_log:
-        all_indices.append(case.attributes['concept:name'])
+    # all_indices = []
+    # for case in event_log:
+    #     all_indices.append(case.attributes['concept:name'])
 
     #similar to naptf2.0 trainer l11 ##TODO needs to be aopted towards split validation
-    cases = preprocessor.get_cases_of_fold(event_log, [all_indices]) ##TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
+    # cases = preprocessor.get_cases_of_fold(event_log, [all_indices]) ##TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
 
     #similar to nap2.0tf hpo l 62 ff
     train_cases = []
     for idx in train_indices: ##0 because of no cross validation
-        train_cases.append(cases[idx])
+        train_cases.append(event_log[idx])
 
     #similar to nap2.0tf hpo l 76 ff
     train_subseq_cases = preprocessor.get_subsequences_of_cases(train_cases)

@@ -5,13 +5,13 @@ import xnap.exp.lrp.util.browser as browser
 import numpy as np
 
 
-def calc_and_plot_relevance_scores_instance(trace, args, preprocessor):
+def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor):
     heatmap: str = ""
 
     for idx in range(2, len(trace)):
         # next activity prediction
         predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = test.test_prefix(
-            args, preprocessor, trace, idx)
+            event_log, args, preprocessor, trace, idx)
         print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
             idx, predicted_act_class, target_act_class_str))
         print("Probability Distribution:")
