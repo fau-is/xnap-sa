@@ -118,6 +118,8 @@ class Preprocessor(object):
                     #Created a mapping in order to also use raw avitivity names in csv files in contrast to naptf2.0
                     self.unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
                     self.unique_event_ids_map_to_name = self.map_event_id_to_event_name()
+                    #transform event log activities to event ids TODO Is this necessary since the log could already be converted?
+                    #TODO maybe this step can be skipped but the mapping of raw names and one hot encodings could be saved instead!
                     for index, row in df.iterrows():
                         event_name = df.iloc[index, column_index]
                         event_id = self.unique_events_map_to_id[event_name]
@@ -530,7 +532,6 @@ class Preprocessor(object):
 
         return process_instances_converted
 
-    #TODO rework in order to pick random process instance from event log also with context attributes
     def get_random_process_instance(self, event_log, lower_bound, upper_bound):
         """
         Selects a random process instance from the complete event log.
@@ -565,7 +566,15 @@ class Preprocessor(object):
             # label of next act
             return process_instance[prefix_size]
 
-
+    def get_event_type(self, case_id):
+        """
+        :param case_id:
+        :return: event type as a raw name
+        """
+        if case_id == len(self.unique_event_ids_map_to_name):
+            return self.get_end_char()
+        else:
+            return self.unique_event_ids_map_to_name[case_id]
 
 
 
