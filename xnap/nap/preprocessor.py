@@ -37,6 +37,8 @@ class Preprocessor(object):
             'end_char': '!',
             'chars_to_labels': {},
             'labels_to_chars': {},
+            'event_ids_to_one_hot': {},
+            'one_hot_to_event_ids':{},
             'label_length': 0,
         }
         self.context = {
@@ -127,6 +129,8 @@ class Preprocessor(object):
 
                     #TODO encode activities really necessarry to convert to chars? why not leave event id as int?
                     encoded_column = self.encode_activities(args, df, column_name)
+                    #save Mapping of one hot activities to ids
+                    self.save_mapping_one_hot_activities_to_id(df[column_name], encoded_column)
                 if column_index > 2:
                     encoded_column = self.encode_context_attribute(args, df, column_name)
                 encoded_df = encoded_df.join(encoded_column)
@@ -247,6 +251,30 @@ class Preprocessor(object):
 
         return
 
+    def save_mapping_one_hot_activities_to_id(self, activity_column, encoded_column):
+        """ Creates a mapping for activities (chars + labels (= encoded activity)) """
+
+        activity_ids = activity_column.values.tolist()
+
+        encoded_column_tuples = []
+        for entry in encoded_column.values.tolist():
+            if type(entry) != list:
+                encoded_column_tuples.append((entry,))
+            else:
+                encoded_column_tuples.append(tuple(entry))
+
+        tuple_all_rows = list(zip(activity_ids, encoded_column_tuples))
+
+        tuple_unique_rows = []
+        for tuple_row in tuple_all_rows:
+            if tuple_row not in tuple_unique_rows:
+                tuple_unique_rows.append(tuple_row)
+
+        self.activity['event_ids_to_one_hot'] = dict(tuple_unique_rows)
+        self.activity['one_hot_to_event_ids'] = dict([(t[1], t[0]) for t in tuple_unique_rows])
+
+        return
+
     def transform_encoded_attribute_columns_to_single_column(self, encoded_columns, df, column_name):
         """ Transforms multiple columns (repr. encoded attribute) to a single column in a dataframe """
 
@@ -339,6 +367,13 @@ class Preprocessor(object):
     def label_to_char(self, label):
         """ Maps a label (= encoded activity) to a char """
         return self.activity['labels_to_chars'][label]
+
+    def get_event_id_from_one_hot(self, one_hot_encoding):
+        """
+        :param one_hot_encoding:
+        :return: event id
+        """
+        return self.activity['one_hot_to_event_ids'][tuple(one_hot_encoding)]
 
     def get_end_char(self):
         """ Returns a char symbolizing the end (activity) of a case """
@@ -566,17 +601,25 @@ class Preprocessor(object):
             # label of next act
             return process_instance[prefix_size]
 
-    def get_event_type(self, case_id):
+    def get_event_type_from_event_id(self, event_id):
         """
-        :param case_id:
+        :param event_id:
         :return: event type as a raw name
         """
-        if case_id == len(self.unique_event_ids_map_to_name):
+        if event_id == len(self.unique_event_ids_map_to_name):
             return self.get_end_char()
         else:
-            return self.unique_event_ids_map_to_name[case_id]
+            return self.unique_event_ids_map_to_name[event_id]
 
-
+    def get_event_id_from_event_name(self, event_name):
+        """
+        :param event_name:
+        :return: event id
+        """
+        if event_name == self.get_end_char():
+            return len(self.unique_events_map_to_id)
+        else:
+            return self.unique_events_map_to_id[event_name]
 
 
 
