@@ -98,7 +98,7 @@ class Preprocessor(object):
         return event_log
 
     def encode_data(self, args, df):
-        """ Encodes an event log represented by a dataframe """
+        """ Encodes an event log represented by a data frame """
 
         utils.llprint('Encode data ... \n')
 
@@ -122,7 +122,7 @@ class Preprocessor(object):
                         event_id = self.unique_events_map_to_id[event_name]
                         df.iloc[index, column_index] = event_id
 
-                    # TODO encode activities really necessarry to convert to chars? why not leave event id as int?
+                    # TODO encode activities really necessary to convert to chars? why not leave event id as int?
                     encoded_column = self.encode_activities(args, df, column_name)
                     # save Mapping of one hot activities to ids
                     self.save_mapping_one_hot_activities_to_id(df[column_name], encoded_column)
@@ -163,7 +163,7 @@ class Preprocessor(object):
 
         return df[column_name]
 
-    # TODO check if this step is unnecesseary because it only needs to be done since naptf2.0 has a converted event log and xnap2.0 has a raw event log
+    # TODO check if this step is unnecessary because it only needs to be done since naptf2.0 has a converted event log and xnap2.0 has a raw event log
     def map_event_name_to_event_id(self, df_column):
         unique_events = []
         for event in df_column:
@@ -271,7 +271,7 @@ class Preprocessor(object):
         return
 
     def transform_encoded_attribute_columns_to_single_column(self, encoded_columns, df, column_name):
-        """ Transforms multiple columns (repr. encoded attribute) to a single column in a dataframe """
+        """ Transforms multiple columns (repr. encoded attribute) to a single column in a data frame """
 
         encoded_values_list = encoded_columns.values.tolist()
         df[column_name] = encoded_values_list

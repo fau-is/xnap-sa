@@ -1,4 +1,3 @@
-from sklearn.model_selection import ShuffleSplit
 from tensorflow.keras.models import load_model
 import csv
 import xnap.utils as utils
@@ -37,7 +36,7 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
         prob_dist[preprocessor.get_event_type_from_event_id(index)] = y[index]
 
     test_data_reshaped = test_data.reshape(-1, test_data.shape[2])
-    cropped_process_instance_label_id = None
+
     if cropped_process_instance_label == preprocessor.get_end_char():
         cropped_process_instance_label_id = preprocessor.get_event_id_from_event_name(cropped_process_instance_label)
     else:
@@ -49,11 +48,12 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
 def test(args, preprocessor, event_log):
     """
     Perform test for model validation.
+    :param event_log:
     :param args:
     :param preprocessor:
     :return: none
     """
-    #TODO eliminate duplicated code fragment and export to preprocessor
+    # TODO eliminate duplicated code fragment and export to preprocessor
     # get preprocessed data
     # similar to napt2.0tf evaluator l8
     train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
@@ -62,12 +62,12 @@ def test(args, preprocessor, event_log):
     for case in event_log:
         all_indices.append(case.attributes['concept:name'])
 
-    # similar to naptf2.0 trainer l11 ##TODO needs to be aopted towards split validation
-    cases = preprocessor.get_cases_of_fold(event_log, [all_indices])  ##TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
+    # similar to naptf2.0 trainer l11 ##TODO needs to be adopted towards split validation
+    cases = preprocessor.get_cases_of_fold(event_log, [all_indices])  # TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
 
     # similar to nap2.0tf hpo l 62 ff
     test_cases = []
-    for idx in test_indices:  ##0 because of no cross validation
+    for idx in test_indices:  # 0 because of no cross validation
         test_cases.append(cases[idx])
 
     model = load_model('%sca_%s_%s_%s.h5' % (
@@ -78,7 +78,7 @@ def test(args, preprocessor, event_log):
 
     prediction_size = 1
     data_set_name = args.data_set.split('.csv')[0]
-    #cases declared above
+    # cases declared above
     result_dir_generic = './' + args.task + args.result_dir[1:] + data_set_name
     result_dir_fold = result_dir_generic + "_%d%s" % (
         preprocessor.iteration_cross_validation, ".csv")
@@ -89,8 +89,8 @@ def test(args, preprocessor, event_log):
         result_writer.writerow(
             ["CaseID", "Prefix length", "Ground truth", "Predicted"])
 
-        # for prefix_size >= 2
-        for prefix_size in range(2, preprocessor.get_max_case_length(event_log)):
+        # for prefix_size >= 1
+        for prefix_size in range(1, preprocessor.get_max_case_length(event_log)):
             utils.llprint("Prefix size: %d\n" % prefix_size)
 
             for case in test_cases:
@@ -116,7 +116,7 @@ def test(args, preprocessor, event_log):
                     prediction.append(list(predicted_label))
 
                     if is_end_label(predicted_label, preprocessor):
-                        utils.llprint('! predicted, end of case ... \n')
+                        utils.llprint('-- End of case is predicted -- \n')
                         break
 
                 # 4. evaluate prediction
@@ -184,6 +184,7 @@ def contains_end_event(args, subseq, preprocessor):
 
 def is_end_label(label, preprocessor):
     """ Checks whether event is an artificial end event """
+
     char = preprocessor.label_to_char(label)
     return char == preprocessor.get_end_char()
 

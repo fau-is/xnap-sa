@@ -1,11 +1,10 @@
 from __future__ import print_function, division
 import tensorflow as tf
 from datetime import datetime
-# from mpmath.tests.torture import cases
-# from sklearn.model_selection import ShuffleSplit
 
 
 def train(args, preprocessor, event_log):
+
     # TODO split validation is called in line 17 every time. needs to be extracted to runner.py and set in
     # order to be able to also call cross validation. Also variable names are still not adopted to split/cross valid.
     # but need to be renamed in a generic way
@@ -18,12 +17,13 @@ def train(args, preprocessor, event_log):
     # for case in event_log:
     #     all_indices.append(case.attributes['concept:name'])
 
-    # similar to naptf2.0 trainer l11 ##TODO needs to be adopted towards split validation
-    # cases = preprocessor.get_cases_of_fold(event_log, [all_indices]) ##TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
+    # similar to naptf2.0 trainer l11 # TODO needs to be adopted towards split validation
+    # cases = preprocessor.get_cases_of_fold(event_log, [all_indices]) # TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
 
     # similar to nap2.0tf hpo l 62 ff
+
     train_cases = []
-    for idx in train_indices:  #0 because of no cross validation
+    for idx in train_indices:  # 0 because of no cross validation
         train_cases.append(event_log[idx])
 
     # similar to nap2.0tf hpo l 76 ff
@@ -36,8 +36,8 @@ def train(args, preprocessor, event_log):
     label_tensor_y_train = preprocessor.get_labels_tensor(args, train_cases)
 
     # done needs to be put in the module which calls test
-    ###x_test = preprocessor.get_features_tensor(args, 'train', event_log, test_cases)
-    ###y_test = preprocessor.get_labels_tensor(args, test_cases)
+    # x_test = preprocessor.get_features_tensor(args, 'train', event_log, test_cases)
+    # y_test = preprocessor.get_labels_tensor(args, test_cases)
 
     max_length_process_instance = preprocessor.get_max_case_length(event_log)
     num_features = preprocessor.get_num_features()
@@ -51,8 +51,6 @@ def train(args, preprocessor, event_log):
         # hidden layer
         b1 = tf.keras.layers.Bidirectional(
             tf.keras.layers.LSTM(100,
-                                 use_bias=True,
-                                 implementation=1,
                                  activation="tanh",
                                  kernel_initializer='glorot_uniform',
                                  return_sequences=False,

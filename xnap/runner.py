@@ -16,11 +16,10 @@ if __name__ == '__main__':
     if args.mode == 0:
 
         if args.cross_validation:
-            for iteration_cross_validation in range(0, args.num_folds):
-                pass
-
             # todo: the following code is not used so far since cross_validation defaults to false and num_folds defaults to 0
+            pass
             """
+            for iteration_cross_validation in range(0, args.num_folds):
                 preprocessor.data_structure['support']['iteration_cross_validation'] = iteration_cross_validation
 
                 output["training_time_seconds"].append(train.train(args, preprocessor))
