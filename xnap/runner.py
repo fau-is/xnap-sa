@@ -5,7 +5,6 @@ import xnap.nap.tester as test
 import xnap.nap.trainer as train
 import xnap.exp.lrp.lrp as lrp
 
-
 if __name__ == '__main__':
 
     args = config.load()
@@ -18,7 +17,7 @@ if __name__ == '__main__':
 
         if args.cross_validation:
             for iteration_cross_validation in range(0, args.num_folds):
-                ##the following code is not used so far since cross_validation defaults to false and num_folds defaults to 0
+                # the following code is not used so far since cross_validation defaults to false and num_folds defaults to 0
                 """
                 preprocessor.data_structure['support']['iteration_cross_validation'] = iteration_cross_validation
 

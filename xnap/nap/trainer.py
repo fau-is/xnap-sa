@@ -1,9 +1,8 @@
 from __future__ import print_function, division
 import tensorflow as tf
 from datetime import datetime
-
-from mpmath.tests.torture import cases
-from sklearn.model_selection import ShuffleSplit
+# from mpmath.tests.torture import cases
+# from sklearn.model_selection import ShuffleSplit
 
 
 def train(args, preprocessor, event_log):
@@ -19,12 +18,12 @@ def train(args, preprocessor, event_log):
     # for case in event_log:
     #     all_indices.append(case.attributes['concept:name'])
 
-    # similar to naptf2.0 trainer l11 ##TODO needs to be aopted towards split validation
+    # similar to naptf2.0 trainer l11 ##TODO needs to be adopted towards split validation
     # cases = preprocessor.get_cases_of_fold(event_log, [all_indices]) ##TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
 
     # similar to nap2.0tf hpo l 62 ff
     train_cases = []
-    for idx in train_indices:  ##0 because of no cross validation
+    for idx in train_indices:  #0 because of no cross validation
         train_cases.append(event_log[idx])
 
     # similar to nap2.0tf hpo l 76 ff

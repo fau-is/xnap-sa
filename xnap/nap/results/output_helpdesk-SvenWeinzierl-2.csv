@@ -1,2 +1,0 @@
-experiment;mode;validation;accuracy;precision;recall;f1-score;training-time;time-stamp
-helpdesk-0;fold0;cross-validation;0.8147699757869249;0.7529959735711762;0.8147699757869249;0.7799207678334055;6.361348;2020-09-23T21:44:10.644202+02:00

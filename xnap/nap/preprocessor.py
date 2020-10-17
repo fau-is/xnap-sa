@@ -8,7 +8,7 @@ import category_encoders
 
 
 def get_attribute_data_type(attribute_column):
-    """ Returns the data type of the passed attribute column 'num' for numerical and 'cat' for categorial """
+    """ Returns the data type of the passed attribute column 'num' for numerical and 'cat' for categorical """
 
     column_type = str(attribute_column.dtype)
 
@@ -19,8 +19,8 @@ def get_attribute_data_type(attribute_column):
 
     return attribute_type
 
-class Preprocessor(object):
 
+class Preprocessor(object):
     iteration_cross_validation = 0
     activity = {}
     context = {}
@@ -33,7 +33,7 @@ class Preprocessor(object):
             'chars_to_labels': {},
             'labels_to_chars': {},
             'event_ids_to_one_hot': {},
-            'one_hot_to_event_ids':{},
+            'one_hot_to_event_ids': {},
             'label_length': 0,
         }
         self.context = {
@@ -44,7 +44,7 @@ class Preprocessor(object):
     def get_event_log(self, args):
         """ Constructs an event log from a csv file using PM4PY """
 
-        #load data with pandas and encode
+        # load data with pandas and encode
         df = pandas.read_csv(args.data_dir + args.data_set, sep=';')
         df_enc = self.encode_data(args, df)
 
@@ -112,19 +112,19 @@ class Preprocessor(object):
                 encoded_df[column_name] = df[column_name]
             else:
                 if column_index == 1:
-                    #Created a mapping in order to also use raw avitivity names in csv files in contrast to naptf2.0
+                    # Created a mapping in order to also use raw activity names in csv files in contrast to naptf2.0
                     self.unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
                     self.unique_event_ids_map_to_name = self.map_event_id_to_event_name()
-                    #transform event log activities to event ids TODO Is this necessary since the log could already be converted?
-                    #TODO maybe this step can be skipped but the mapping of raw names and one hot encodings could be saved instead!
+                    # transform event log activities to event ids TODO Is this necessary since the log could already be converted?
+                    # TODO maybe this step can be skipped but the mapping of raw names and one hot encodings could be saved instead!
                     for index, row in df.iterrows():
                         event_name = df.iloc[index, column_index]
                         event_id = self.unique_events_map_to_id[event_name]
                         df.iloc[index, column_index] = event_id
 
-                    #TODO encode activities really necessarry to convert to chars? why not leave event id as int?
+                    # TODO encode activities really necessarry to convert to chars? why not leave event id as int?
                     encoded_column = self.encode_activities(args, df, column_name)
-                    #save Mapping of one hot activities to ids
+                    # save Mapping of one hot activities to ids
                     self.save_mapping_one_hot_activities_to_id(df[column_name], encoded_column)
                 if column_index > 2:
                     encoded_column = self.encode_context_attribute(args, df, column_name)
@@ -163,7 +163,7 @@ class Preprocessor(object):
 
         return df[column_name]
 
-    #TODO check if this step is unnecesseary because it only needs to be done since naptf2.0 has a converted event log and xnap2.0 has a raw event log
+    # TODO check if this step is unnecesseary because it only needs to be done since naptf2.0 has a converted event log and xnap2.0 has a raw event log
     def map_event_name_to_event_id(self, df_column):
         unique_events = []
         for event in df_column:
@@ -283,7 +283,7 @@ class Preprocessor(object):
 
         if activity != self.get_end_char():
             # 161 below is ascii offset
-            activity = chr(int(activity) + 161) #TODO
+            activity = chr(int(activity) + 161)  # TODO
 
         return activity
 
@@ -297,7 +297,7 @@ class Preprocessor(object):
         return chars
 
     def apply_min_max_normalization(self, df, column_name):
-        """ Normalizes a dataframe column with min max normalization """
+        """ Normalizes a data frame column with min max normalization """
 
         column = df[column_name].fillna(df[column_name].mean())
         encoded_column = (column - column.min()) / (column.max() - column.min())
@@ -305,17 +305,18 @@ class Preprocessor(object):
         return encoded_column
 
     def apply_one_hot_encoding(self, df, column_name):
-        """ Encodes a dataframe column with one hot encoding """
+        """ Encodes a data frame column with one hot encoding """
 
         onehot_encoder = category_encoders.OneHotEncoder(cols=[column_name])
         encoded_df = onehot_encoder.fit_transform(df)
 
-        encoded_column = encoded_df[encoded_df.columns[pandas.Series(encoded_df.columns).str.startswith("%s_" % column_name)]]
+        encoded_column = encoded_df[
+            encoded_df.columns[pandas.Series(encoded_df.columns).str.startswith("%s_" % column_name)]]
 
         return encoded_column
 
     def apply_hash_encoding(self, args, df, column_name):
-        """ Encodes a dataframe column with hash encoding """
+        """ Encodes a data frame column with hash encoding """
 
         hash_encoder = category_encoders.HashingEncoder(cols=[column_name],
                                                         n_components=args.num_hash_output,
@@ -426,7 +427,8 @@ class Preprocessor(object):
         test_index_per_fold = []
 
         for train_indices, test_indices in shuffle_split.split(event_log):
-            train_index_per_fold.append(train_indices) ##TODO there is actually no fold (we do have split validation), rename this also
+            train_index_per_fold.append(
+                train_indices)  # TODO there is actually no fold (we do have split validation), rename this also
             test_index_per_fold.append(test_indices)
 
         return train_index_per_fold[0], test_index_per_fold[0]
@@ -477,12 +479,12 @@ class Preprocessor(object):
 
         if mode == 'train':
             features_tensor = numpy.zeros((len(subseq_cases),
-                                    max_case_length,
-                                    num_features), dtype=numpy.float64)
+                                           max_case_length,
+                                           num_features), dtype=numpy.float64)
         else:
             features_tensor = numpy.zeros((1,
-                                    max_case_length,
-                                    num_features), dtype=numpy.float32)
+                                           max_case_length,
+                                           num_features), dtype=numpy.float32)
 
         for idx_subseq, subseq in enumerate(subseq_cases):
             left_pad = max_case_length - len(subseq)
@@ -502,15 +504,16 @@ class Preprocessor(object):
                         attribute_values = event.get(attribute_key)
 
                         if not isinstance(attribute_values, list):
-                            features_tensor[idx_subseq, timestep + left_pad, start_idx + self.get_length_of_activity_label()] = attribute_values
+                            features_tensor[
+                                idx_subseq, timestep + left_pad, start_idx + self.get_length_of_activity_label()] = attribute_values
                             start_idx += 1
                         else:
                             for idx, val in enumerate(attribute_values, start=start_idx):
-                                features_tensor[idx_subseq, timestep + left_pad, idx + self.get_length_of_activity_label()] = val
+                                features_tensor[
+                                    idx_subseq, timestep + left_pad, idx + self.get_length_of_activity_label()] = val
                             start_idx += len(attribute_values)
 
         return features_tensor
-
 
     def get_labels_tensor(self, args, cases_of_fold):
         """ Produces a vector-oriented representation of labels as a 2-dimensional tensor """
@@ -545,8 +548,6 @@ class Preprocessor(object):
             event_index += 1
 
         return label
-
-
 
     def convert_process_instance_list_id_to_name(self, process_instances):
         """
@@ -590,7 +591,7 @@ class Preprocessor(object):
         """
 
         if prefix_size == len(process_instance) - 1:
-            #end marker
+            # end marker
             return self.get_end_char()
         else:
             # label of next act
@@ -615,17 +616,3 @@ class Preprocessor(object):
             return len(self.unique_events_map_to_id)
         else:
             return self.unique_events_map_to_id[event_name]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
