@@ -19,7 +19,7 @@ class LSTM_bidi:
 
         self.args = args
 
-        # input embedded
+        # input (i.e., one-hot encoded activity + one-hot encoded data attributes)
         self.E = input_encoded
 
         # model weights
@@ -56,10 +56,10 @@ class LSTM_bidi:
         Build the numerical input sequence x/x_rev from the word indices w (+ initialize hidden layers h, c).
         Optionally delete words at positions delete_pos.
         """
-        T = len(w)  # sequence length
+        T = len(w)                           # prefix length
         d = int(self.Wxh_Left.shape[0] / 4)  # hidden layer dimensions
-        e = self.args.dim  # E.shape[1]   # onehot dimensions
-        x = self.E
+        e = self.E.shape[1]                  # one-hot dimensions; previous, e = self.args.dim
+        x = self.E                           # encoded input
 
         if delete_pos is not None:
             x[delete_pos, :] = np.zeros((len(delete_pos), e))
@@ -142,7 +142,7 @@ class LSTM_bidi:
 
         T = len(self.w)
         d = int(self.Wxh_Left.shape[0] / 4)
-        e = self.args.dim  # E.shape[1]
+        e = self.E.shape[1]  # previously, e = self.args.dim
         C = self.Why_Left.shape[0]  # number of classes
         idx = np.hstack((np.arange(0, d), np.arange(2 * d, 4 * d))).astype(int)  # indices of gates i,f,o together
         idx_i, idx_g, idx_f, idx_o = np.arange(0, d), np.arange(d, 2 * d), np.arange(2 * d, 3 * d), np.arange(3 * d, 4 * d)  # indices of gates i,g,f,o separately
