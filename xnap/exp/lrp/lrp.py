@@ -27,11 +27,13 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
         R_words = np.sum(Rx + Rx_rev, axis=1)  # compute word-level LRP relevances
         # scores = net.s.copy()  # classification prediction scores
 
+        """
         prefix_words_list = []
         for prefix in prefix_words:
             prefix_words_list.append(preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(prefix['event'])))
+        """
 
-        heatmap = heatmap + html_heatmap(prefix_words_list, R_words) + "<br>"  # create heatmap
+        heatmap = heatmap + html_heatmap(prefix_words, R_words) + "<br>"  # create heatmap
         browser.display_html(heatmap)  # display heatmap
 
 

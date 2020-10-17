@@ -124,12 +124,18 @@ class LSTM_bidi:
 
     def lrp(self, w, LRP_class, eps=0.001, bias_factor=0.0):
         """
-        Layer-wise Relevance Propagation (LRP) backward pass.
+        Perform Layer-wise Relevance Propagation (LRP) forward and especially backward pass.
         Compute the hidden layer relevances by performing LRP for the target class LRP_class
         (according to the papers:
             - https://doi.org/10.1371/journal.pone.0130140
-            - https://doi.org/10.18653/v1/W17-5221 )
+            - https://doi.org/10.18653/v1/W17-5221)
+        :param w: words of prefix
+        :param LRP_class: target activity
+        :param eps: lrp parameter
+        :param bias_factor: lrp parameter
+        :return: relevance scores
         """
+
         # forward pass
         self.set_input(w)
         self.forward()

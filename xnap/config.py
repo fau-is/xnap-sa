@@ -16,7 +16,7 @@ def load():
     parser.add_argument('--rand_lower_bound', default=5, type=int)
     parser.add_argument('--rand_upper_bound', default=5, type=int)
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="helpdesk_raw.csv")
+    parser.add_argument('--data_set', default="helpdesk_raw_sample_100.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")

@@ -368,7 +368,13 @@ class Preprocessor(object):
         :param one_hot_encoding:
         :return: event id
         """
-        return self.activity['one_hot_to_event_ids'][tuple(one_hot_encoding)]
+        if isinstance(one_hot_encoding, list):
+            return self.activity['one_hot_to_event_ids'][tuple(one_hot_encoding)]
+        else:
+            if one_hot_encoding not in self.activity['one_hot_to_event_ids']:
+                return len(self.activity['one_hot_to_event_ids'])
+            else:
+                return self.activity['one_hot_to_event_ids'][one_hot_encoding]
 
     def get_end_char(self):
         """ Returns a char symbolizing the end (activity) of a case """
