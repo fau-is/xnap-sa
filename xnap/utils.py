@@ -92,16 +92,6 @@ def get_output(args, preprocessor, _output):
     return _output
 
 
-def multi_class_prc_auc_score(ground_truth_label, predicted_label, average='weighted'):
-    label_binarizer = sklearn.preprocessing.LabelBinarizer()
-    label_binarizer.fit(ground_truth_label)
-
-    ground_truth_label = label_binarizer.transform(ground_truth_label)
-    predicted_label = label_binarizer.transform(predicted_label)
-
-    return sklearn.metrics.average_precision_score(ground_truth_label, predicted_label, average=average)
-
-
 def print_output(args, _output, index_fold):
     if args.cross_validation and index_fold < args.num_folds:
         llprint("\nAccuracy of fold %i: %f\n" % (index_fold, _output["accuracy_values"][index_fold]))
