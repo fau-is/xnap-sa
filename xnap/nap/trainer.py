@@ -1,6 +1,7 @@
 from __future__ import print_function, division
 import tensorflow as tf
 from datetime import datetime
+import xnap.nap.preprocessing.utilts as utils
 
 
 def train(args, preprocessor, event_log):
@@ -11,7 +12,7 @@ def train(args, preprocessor, event_log):
 
     # get preprocessed data
     # similar to napt2.0tf evaluator l8
-    train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
+    train_indices, test_indices = utils.get_indices_split_validation(args, event_log)
 
     # all_indices = []
     # for case in event_log:

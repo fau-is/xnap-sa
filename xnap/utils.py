@@ -4,6 +4,8 @@ import csv
 import sklearn
 import arrow
 import os
+import tensorflow as tf
+import numpy as np
 
 output = {
     "accuracy_values": [],
@@ -45,6 +47,16 @@ def str2bool(v):
 
 def clear_measurement_file(args):
     open('./%s/results/output_%s.csv' % (args.task, args.data_set[:-4]), "w").close()
+
+
+def set_seed(args):
+    """
+    Sets seed for reproducible results.
+    :param args: args.
+    :return: none.
+    """
+    np.random.seed(args.seed_val)
+    tf.random.set_seed(args.seed_val)
 
 
 def get_output(args, preprocessor, _output):

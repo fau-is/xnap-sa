@@ -1,6 +1,7 @@
 from tensorflow.keras.models import load_model
 import csv
 import xnap.utils as utils
+import xnap.nap.preprocessing.utilts as preprocessing_utils
 
 
 def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
@@ -56,7 +57,7 @@ def test(args, preprocessor, event_log):
     # TODO eliminate duplicated code fragment and export to preprocessor
     # get preprocessed data
     # similar to napt2.0tf evaluator l8
-    train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
+    train_indices, test_indices = preprocessing_utils.get_indices_split_validation(args, event_log)
 
     all_indices = []
     for case in event_log:

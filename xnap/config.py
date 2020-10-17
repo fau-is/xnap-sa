@@ -32,6 +32,9 @@ def load():
     parser.add_argument('--dim', default=0, type=int)
 
     # Parameters for validation
+    parser.add_argument('--seed', default=True, type=utils.str2bool)
+    parser.add_argument('--seed_val', default=1377, type=int)
+    parser.add_argument('--shuffle', default=False, type=int)
     parser.add_argument('--num_folds', default=1, type=int)
     parser.add_argument('--cross_validation', default=False, type=utils.str2bool)
     parser.add_argument('--split_rate_test', default=0.8, type=float)

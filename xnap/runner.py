@@ -1,6 +1,6 @@
 import xnap.config as config
 import xnap.utils as utils
-from xnap.nap.preprocessor import Preprocessor as Preprocessor
+from xnap.nap.preprocessing.preprocessor import Preprocessor as Preprocessor
 import xnap.nap.tester as test
 import xnap.nap.trainer as train
 import xnap.exp.lrp.lrp as lrp
@@ -8,6 +8,8 @@ import xnap.exp.lrp.lrp as lrp
 if __name__ == '__main__':
 
     args = config.load()
+    if args.seed:
+        utils.set_seed(args)
     output = utils.load_output()
     utils.clear_measurement_file(args)
     preprocessor = Preprocessor(args)

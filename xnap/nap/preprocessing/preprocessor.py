@@ -3,7 +3,6 @@ import pandas
 from pm4py.objects.conversion.log import converter as log_converter
 from pm4py.objects.log.log import Event
 import xnap.utils as utils
-from sklearn.model_selection import KFold, ShuffleSplit
 import category_encoders
 
 
@@ -405,33 +404,6 @@ class Preprocessor(object):
 
         return max_case_length
 
-    def get_indices_k_fold_validation(self, args, event_log):
-        """ Produces indices for each fold of a k-fold cross-validation """
-        kFold = KFold(n_splits=args.num_folds, random_state=0, shuffle=False)
-
-        train_index_per_fold = []
-        test_index_per_fold = []
-
-        for train_indices, test_indices in kFold.split(event_log):
-            train_index_per_fold.append(train_indices)
-            test_index_per_fold.append(test_indices)
-
-        return train_index_per_fold, test_index_per_fold
-
-    def get_indices_split_validation(self, args, event_log):
-        """ Produces indices for training and test set of a split-validation """
-
-        shuffle_split = ShuffleSplit(n_splits=1, test_size=args.val_split, random_state=0)
-
-        train_index_per_fold = []
-        test_index_per_fold = []
-
-        for train_indices, test_indices in shuffle_split.split(event_log):
-            train_index_per_fold.append(
-                train_indices)  # TODO there is actually no fold (we do have split validation), rename this also
-            test_index_per_fold.append(test_indices)
-
-        return train_index_per_fold[0], test_index_per_fold[0]
 
     def get_cases_of_fold(self, event_log, index_per_fold):
         """ Retrieves cases of a fold """
