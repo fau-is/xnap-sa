@@ -10,9 +10,9 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
 
     for idx in range(2, len(trace)):
         # next activity prediction
-        #TODO check for context attribute since lrp is a bit more complex
-        predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = test.test_prefix(
-            event_log, args, preprocessor, trace, idx)
+        # TODO check for context attribute since lrp is a bit more complex
+        predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = \
+            test.test_prefix(event_log, args, preprocessor, trace, idx)
         print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
             idx, predicted_act_class, target_act_class_str))
         print("Probability Distribution:")

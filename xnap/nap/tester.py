@@ -16,6 +16,7 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
     :return: parameters for LRP
     """
 
+    # todo in case of cross validation select the model with the highest f1-score
     model_index = 0
     model = load_model('%sca_%s_%s_%s.h5' % (
                     args.model_dir,
@@ -41,7 +42,7 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
     if cropped_process_instance_label == preprocessor.get_end_char():
         cropped_process_instance_label_id = preprocessor.get_event_id_from_event_name(cropped_process_instance_label)
     else:
-        cropped_process_instance_label_id = preprocessor.get_event_id_from_one_hot(cropped_process_instance_label._dict['event'])
+        cropped_process_instance_label_id = preprocessor.get_event_id_from_one_hot(cropped_process_instance_label['event'])
 
     return prediction, cropped_process_instance_label_id, cropped_process_instance_label, cropped_process_instance, model, test_data_reshaped, prob_dist
 
