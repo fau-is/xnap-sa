@@ -7,7 +7,7 @@ def load():
     parser = argparse.ArgumentParser()
 
     # General parameters
-    parser.add_argument('--mode', default=0, type=int)
+    parser.add_argument('--mode', default=1, type=int)
     """ There are three modes
         0 = train models
         1 = explain random process instance
