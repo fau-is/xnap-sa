@@ -37,6 +37,8 @@ class Preprocessor(object):
         }
         self.context = {
             'attributes': [],
+            'attributes_mapping_ids_to_one_hot': {},
+            'attributes_mapping_one_hot_to_ids': {},
             'encoding_lengths': []
         }
 
@@ -114,7 +116,8 @@ class Preprocessor(object):
                     # Created a mapping in order to also use raw activity names in csv files in contrast to naptf2.0
                     self.unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
                     self.unique_event_ids_map_to_name = self.map_event_id_to_event_name()
-                    # transform event log activities to event ids TODO Is this necessary since the log could already be converted?
+                    # transform event log activities to event ids
+                    # TODO Is this necessary since the log could already be converted?
                     # TODO maybe this step can be skipped but the mapping of raw names and one hot encodings could be saved instead!
                     for index, row in df.iterrows():
                         event_name = df.iloc[index, column_index]
@@ -124,9 +127,13 @@ class Preprocessor(object):
                     # TODO encode activities really necessary to convert to chars? why not leave event id as int?
                     encoded_column = self.encode_activities(args, df, column_name)
                     # save Mapping of one hot activities to ids
-                    self.save_mapping_one_hot_activities_to_id(df[column_name], encoded_column)
-                if column_index > 2:
-                    encoded_column = self.encode_context_attribute(args, df, column_name)
+                    self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
+                else:
+                    # encode context attributes
+                    # TODO: Check why df is replaced in situ in contrast to line 128
+                    encoded_column = self.encode_context_attribute(args, df.copy(), column_name)
+                    self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
+
                 encoded_df = encoded_df.join(encoded_column)
 
         return encoded_df
@@ -245,8 +252,8 @@ class Preprocessor(object):
 
         return
 
-    def save_mapping_one_hot_activities_to_id(self, activity_column, encoded_column):
-        """ Creates a mapping for activities (chars + labels (= encoded activity)) """
+    def save_mapping_one_hot_to_id(self, args, column_name, activity_column, encoded_column):
+        """ Saves the mapping from one hot to its id/name """
 
         activity_ids = activity_column.values.tolist()
 
@@ -264,8 +271,12 @@ class Preprocessor(object):
             if tuple_row not in tuple_unique_rows:
                 tuple_unique_rows.append(tuple_row)
 
-        self.activity['event_ids_to_one_hot'] = dict(tuple_unique_rows)
-        self.activity['one_hot_to_event_ids'] = dict([(t[1], t[0]) for t in tuple_unique_rows])
+        if column_name == args.activity_key:
+            self.activity['event_ids_to_one_hot'] = dict(tuple_unique_rows)
+            self.activity['one_hot_to_event_ids'] = dict([(t[1], t[0]) for t in tuple_unique_rows])
+        else:
+            self.context['attributes_mapping_ids_to_one_hot'][column_name] = dict(tuple_unique_rows)
+            self.context['attributes_mapping_one_hot_to_ids'][column_name] = dict([(t[1], t[0]) for t in tuple_unique_rows])
 
         return
 

@@ -4,9 +4,7 @@ from sklearn.model_selection import KFold, ShuffleSplit
 def get_indices_split_validation(args, event_log):
     """ Produces indices for training and test set of a split-validation """
 
-
     if args.shuffle:
-
 
         shuffle_split = ShuffleSplit(n_splits=1, test_size=args.val_split, random_state=0)
 
