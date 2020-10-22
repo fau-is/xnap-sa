@@ -173,8 +173,8 @@ class Preprocessor(object):
 
         return df[column_name]
 
-    # TODO check if this step is unnecessary because it only needs to be done since naptf2.0 has a converted event log and xnap2.0 has a raw event log
     def map_event_name_to_event_id(self, df_column):
+        # TODO check if this step is unnecessary because it only needs to be done since naptf2.0 has a converted event log and xnap2.0 has a raw event log
         unique_events = []
         for event in df_column:
             if event not in unique_events:

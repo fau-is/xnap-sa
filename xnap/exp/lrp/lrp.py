@@ -24,7 +24,7 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
         net = LSTM_bidi(args, model, input_encoded)  # load trained LSTM model
 
         Rx, Rx_rev, R_rest = net.lrp(prefix_words, target_act_class, eps, bias_factor)  # perform LRP
-        R_words = np.sum(Rx + Rx_rev, axis=1)  # compute word-level LRP relevances
+        R_words = np.sum(Rx[:preprocessor.get_num_activities()] + Rx_rev[:preprocessor.get_num_activities()], axis=1)  # compute word-level LRP relevances
         # scores = net.s.copy()  # classification prediction scores
 
         """
