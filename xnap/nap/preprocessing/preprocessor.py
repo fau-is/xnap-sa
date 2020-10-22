@@ -132,7 +132,11 @@ class Preprocessor(object):
                     # encode context attributes
                     # TODO: Check why df is replaced in site in contrast to line 128
                     encoded_column = self.encode_context_attribute(args, df.copy(), column_name)
-                    self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
+
+                    data_type = get_attribute_data_type(df[column_name])
+                    encoding_mode = self.get_encoding_mode(args, data_type)
+                    if encoding_mode == args.encoding_cat:
+                        self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
 
                 encoded_df = encoded_df.join(encoded_column)
 
