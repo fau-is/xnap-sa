@@ -37,7 +37,7 @@ class Preprocessor(object):
         }
         self.context = {
             'attributes': [],
-            'attributes_mapping_ids_to_one_hot': {},
+            'attributes_mapping_ids_to_one_hot': {}, #can be accessed by attribute name
             'attributes_mapping_one_hot_to_ids': {},
             'encoding_lengths': []
         }
