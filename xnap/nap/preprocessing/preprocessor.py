@@ -130,7 +130,7 @@ class Preprocessor(object):
                     self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
                 else:
                     # encode context attributes
-                    # TODO: Check why df is replaced in situ in contrast to line 128
+                    # TODO: Check why df is replaced in site in contrast to line 128
                     encoded_column = self.encode_context_attribute(args, df.copy(), column_name)
                     self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
 
