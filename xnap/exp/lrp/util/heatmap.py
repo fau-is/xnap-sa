@@ -73,7 +73,7 @@ def html_heatmap(words, scores, cmap_name="bwr"):
     output_text = ""
 
     for idx, w in enumerate(words):
-        score = rescale_score_by_abs(scores[idx], max_s, min_s)
+        score = rescale_score_by_abs(scores[len(scores) - idx - 1], max_s, min_s)
         output_text = output_text + span_word(w, score, colormap) + " "
 
     return output_text + "\n"
