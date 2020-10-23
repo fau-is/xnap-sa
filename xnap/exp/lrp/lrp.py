@@ -11,6 +11,7 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
     for idx in range(2, len(trace)):
         # next activity prediction
         # TODO check for context attribute since lrp is a bit more complex
+        #prefix words now is a 2d array of each event with its context attributes
         predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = \
             test.test_prefix(event_log, args, preprocessor, trace, idx)
         print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
@@ -23,17 +24,18 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
         bias_factor = 0.0  # recommended value
         net = LSTM_bidi(args, model, input_encoded)  # load trained LSTM model
 
+        #TODO compute R_words also for context attributes
         Rx, Rx_rev, R_rest = net.lrp(prefix_words, target_act_class, eps, bias_factor)  # perform LRP
-        R_words = np.sum(Rx[:, :preprocessor.get_num_activities()] + Rx_rev[:, :preprocessor.get_num_activities()], axis=1)  # compute word-level LRP relevances
+        R_words = np.sum(Rx[:, :preprocessor.get_num_activities()] + Rx_rev[:, :preprocessor.get_num_activities()], axis=1)  # compute word-level LRP relevances for activity column
+        R_words_context = {}
+        column = preprocessor.get_num_activities()
+        for context_attribute in preprocessor.get_context_attributes():
+            R_words_context[context_attribute] = np.sum(Rx[:, column:column + preprocessor.get_context_attribute_encoding_length(context_attribute)] + Rx_rev[:, column:column + preprocessor.get_context_attribute_encoding_length(context_attribute)], axis=1)
+            column += preprocessor.get_context_attribute_encoding_length(context_attribute) + 1
         # scores = net.s.copy()  # classification prediction scores
 
-        """
-        prefix_words_list = []
-        for prefix in prefix_words:
-            prefix_words_list.append(preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(prefix['event'])))
-        """
 
-        heatmap = heatmap + html_heatmap(prefix_words, R_words) + "<br>"  # create heatmap
+        heatmap = heatmap + html_heatmap(prefix_words, R_words, R_words_context) + "<br>"  # create heatmap
         browser.display_html(heatmap)  # display heatmap
 
 

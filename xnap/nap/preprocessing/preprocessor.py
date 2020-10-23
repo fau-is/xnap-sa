@@ -117,7 +117,6 @@ class Preprocessor(object):
                     self.unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
                     self.unique_event_ids_map_to_name = self.map_event_id_to_event_name()
                     # transform event log activities to event ids
-                    # TODO Is this necessary since the log could already be converted?
                     # TODO maybe this step can be skipped but the mapping of raw names and one hot encodings could be saved instead!
                     for index, row in df.iterrows():
                         event_name = df.iloc[index, column_index]
@@ -284,6 +283,9 @@ class Preprocessor(object):
 
         return
 
+    def get_context_attribute_encoding_length(self, context_attribute_name):
+        return len(self.context['attributes_mapping_one_hot_to_ids'][context_attribute_name])
+
     def transform_encoded_attribute_columns_to_single_column(self, encoded_columns, df, column_name):
         """ Transforms multiple columns (repr. encoded attribute) to a single column in a data frame """
 
@@ -390,6 +392,20 @@ class Preprocessor(object):
                 return len(self.activity['one_hot_to_event_ids'])
             else:
                 return self.activity['one_hot_to_event_ids'][one_hot_encoding]
+
+    def get_context_attribute_name_from_one_hot(self, attribute_name, one_hot_encoding):
+        """
+        :param one_hot_encoding:
+        :param attribute_name: column name of context attribute
+        :return: event id
+        """
+        if isinstance(one_hot_encoding, list):
+            return self.context['attributes_mapping_one_hot_to_ids'][attribute_name][tuple(one_hot_encoding)]
+        else:
+            if one_hot_encoding not in self.context['attributes_mapping_one_hot_to_ids'][attribute_name]:
+                return len(self.context['attributes_mapping_one_hot_to_ids'][attribute_name])
+            else:
+                return self.context['attributes_mapping_one_hot_to_ids'][attribute_name][one_hot_encoding]
 
     def get_end_char(self):
         """ Returns a char symbolizing the end (activity) of a case """

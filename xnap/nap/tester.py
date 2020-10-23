@@ -45,7 +45,13 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
         cropped_process_instance_label_id = preprocessor.get_event_id_from_one_hot(cropped_process_instance_label['event'])
         cropped_process_instance_label = preprocessor.get_event_type_from_event_id(cropped_process_instance_label_id)
 
-    prefix_words = [preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(event['event'])) for event in cropped_process_instance]
+    prefix_words = []
+    for event in cropped_process_instance:
+        prefix_event_with_context = []
+        prefix_event_with_context.append(preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(event[args.activity_key])))
+        for context_attr_name in preprocessor.get_context_attributes():
+            prefix_event_with_context.append(preprocessor.get_context_attribute_name_from_one_hot(context_attr_name, event[context_attr_name]))
+        prefix_words.append(prefix_event_with_context)
 
     return preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(prediction)), \
             cropped_process_instance_label_id, \

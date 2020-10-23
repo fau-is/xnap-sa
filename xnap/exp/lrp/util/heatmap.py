@@ -56,24 +56,34 @@ def span_word(word, score, colormap):
     return "<span style=\"background-color:" + getRGB(colormap(score)) + "\">" + word + "</span>"
 
 
-def html_heatmap(words, scores, cmap_name="bwr"):
+def html_heatmap(words, scores, scores_dict_context_attr, cmap_name="bwr"):
     """
     Return word-level heatmap in HTML format,
     with words being the list of words (as string),
     scores the corresponding list of word-level relevance values,
     and cmap_name the name of the matplotlib diverging colormap.
+    Added Scores for context attribute in one hot encoding
     """
 
     colormap = plt.get_cmap(cmap_name)
 
     # assert len(words)==len(scores)
-    max_s = max(scores)
-    min_s = min(scores)
+    max_context = 0
+    min_context = 0
+    for context_attr in scores_dict_context_attr:
+        max_context = max(max_context, max(scores_dict_context_attr[context_attr]))
+        min_context = min(min_context, min(scores_dict_context_attr[context_attr]))
+
+    max_s = max(max(scores), max_context)
+    min_s = min(min(scores), min_context)
 
     output_text = ""
 
     for idx, w in enumerate(words):
         score = rescale_score_by_abs(scores[len(scores) - idx - 1], max_s, min_s)
-        output_text = output_text + span_word(w, score, colormap) + " "
+        output_text = output_text + span_word(w[0], score, colormap) + " "
+        for i, context_attr in enumerate(scores_dict_context_attr):
+            score_context_attr = rescale_score_by_abs(scores_dict_context_attr[context_attr][len(scores_dict_context_attr[context_attr]) - idx - 1], max_s, min_s)
+            output_text = output_text + span_word(w[i + 1], score_context_attr, colormap) + " "
 
     return output_text + "\n"
