@@ -50,7 +50,12 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
         prefix_event_with_context = []
         prefix_event_with_context.append(preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(event[args.activity_key])))
         for context_attr_name in preprocessor.get_context_attributes():
-            prefix_event_with_context.append(preprocessor.get_context_attribute_name_from_one_hot(context_attr_name, event[context_attr_name]))
+            # if attr is not categorial/one hot encoded then just returns the attribute value (numerical val)
+            attr_type = str(type(event[context_attr_name]))
+            if "float" in attr_type:
+                prefix_event_with_context.append(event[context_attr_name])
+            else:
+                prefix_event_with_context.append(preprocessor.get_context_attribute_name_from_one_hot(context_attr_name, event[context_attr_name]))
         prefix_words.append(prefix_event_with_context)
 
     return preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(prediction)), \

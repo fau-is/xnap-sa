@@ -284,7 +284,14 @@ class Preprocessor(object):
         return
 
     def get_context_attribute_encoding_length(self, context_attribute_name):
-        return len(self.context['attributes_mapping_one_hot_to_ids'][context_attribute_name])
+        """
+        :param context_attribute_name:
+        :return: amount of columns in one hot encoding if attribute type is categorial or 1 if type is numerical
+        """
+        if context_attribute_name not in self.context['attributes_mapping_one_hot_to_ids']:
+            return 1 #In this case attribute type is numerical
+        else:
+            return len(self.context['attributes_mapping_one_hot_to_ids'][context_attribute_name])
 
     def transform_encoded_attribute_columns_to_single_column(self, encoded_columns, df, column_name):
         """ Transforms multiple columns (repr. encoded attribute) to a single column in a data frame """
