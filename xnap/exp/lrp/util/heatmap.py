@@ -53,7 +53,7 @@ def getRGB(c_tuple):
 
 
 def span_word(word, score, colormap):
-    return "<span style=\"background-color:" + getRGB(colormap(score)) + "\">" + word + "</span>"
+    return "{}{}{}{}{}".format("<span style=\"background-color:", getRGB(colormap(score)), "\">", word, "</span>")
 
 
 def html_heatmap(words, scores, scores_dict_context_attr, cmap_name="bwr"):
