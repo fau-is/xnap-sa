@@ -8,6 +8,20 @@ import numpy as np
 def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor):
     heatmap: str = ""
 
+    #in head  "<style>" "</style>" could be placed in order to make div tags able to hover/unfold
+    head_and_style = \
+        "<!DOCTYPE html> <html lang=\"en\">" \
+            "<head> " \
+                "<meta charset=\"utf-8\"> " \
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0 \">" \
+                "<title>XNAP2.0</title> " \
+            "</head>" \
+            "<body>"
+
+    body_end = \
+            "</body>" \
+        "</html>"
+
     for idx in range(2, len(trace)):
         # next activity prediction
         #prefix words now is a 2d array of each event with its context attributes
@@ -32,8 +46,8 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
             column += preprocessor.get_context_attribute_encoding_length(context_attribute) + 1
         # scores = net.s.copy()  # classification prediction scores
 
-        heatmap = heatmap + html_heatmap(prefix_words, R_words, R_words_context) + "<br>"  # create heatmap
-        browser.display_html(heatmap)  # display heatmap
+        heatmap += "<br>" + html_heatmap(prefix_words, R_words, R_words_context) + "<br>"  # create heatmap
+        browser.display_html(head_and_style + heatmap + body_end)  # display heatmap
 
 
 def calc_relevance_scores_instance(trace, args, preprocessor):

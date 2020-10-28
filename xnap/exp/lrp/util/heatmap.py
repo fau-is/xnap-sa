@@ -52,8 +52,19 @@ def getRGB(c_tuple):
     return "#%02x%02x%02x" % (int(c_tuple[0] * 255), int(c_tuple[1] * 255), int(c_tuple[2] * 255))
 
 
-def span_word(word, score, colormap):
-    return "{}{}{}{}{}".format("<span style=\"background-color:", getRGB(colormap(score)), "\">", word, "</span>")
+def div_event(w, score, colormap, scores_dict_context_attr, idx, max_s, min_s):
+
+    context_attributes = ""
+    for i, context_attr in enumerate(scores_dict_context_attr):
+        score_context_attr = rescale_score_by_abs(scores_dict_context_attr[context_attr][len(scores_dict_context_attr[context_attr]) - idx - 1], max_s, min_s)
+        context_attributes += get_div(w[i + 1], score_context_attr, colormap, "margin: 5px; padding: 2px; border-style: solid; border-width: 1px; display:inline-block")
+
+    output_event_word = get_div(w[0] + context_attributes, score, colormap, "display:inline-block;")
+    return output_event_word
+
+
+def get_div(word, score, colormap, styles):
+    return "{}{}{}{}{}{}{}{}".format("<div ", " style=\"background-color:", getRGB(colormap(score)),";", styles, "\">", word, "</div>")
 
 
 def html_heatmap(words, scores, scores_dict_context_attr, cmap_name="bwr"):
@@ -81,9 +92,6 @@ def html_heatmap(words, scores, scores_dict_context_attr, cmap_name="bwr"):
 
     for idx, w in enumerate(words):
         score = rescale_score_by_abs(scores[len(scores) - idx - 1], max_s, min_s)
-        output_text = output_text + span_word(w[0], score, colormap) + " "
-        for i, context_attr in enumerate(scores_dict_context_attr):
-            score_context_attr = rescale_score_by_abs(scores_dict_context_attr[context_attr][len(scores_dict_context_attr[context_attr]) - idx - 1], max_s, min_s)
-            output_text = output_text + span_word(w[i + 1], score_context_attr, colormap) + " "
+        output_text += div_event(w, score, colormap, scores_dict_context_attr, idx, max_s, min_s) + " "
 
     return output_text + "\n"
