@@ -42,7 +42,7 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
     if cropped_process_instance_label == preprocessor.get_end_char():
         cropped_process_instance_label_id = preprocessor.get_activity_id_from_activity_name(cropped_process_instance_label)
     else:
-        cropped_process_instance_label_id = preprocessor.get_event_id_from_one_hot(cropped_process_instance_label['event'])
+        cropped_process_instance_label_id = preprocessor.get_event_id_from_one_hot(cropped_process_instance_label[args.activity_key])
         cropped_process_instance_label = preprocessor.get_activity_type_from_activity_id(cropped_process_instance_label_id)
 
     prefix_words = []
