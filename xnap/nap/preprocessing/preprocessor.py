@@ -23,8 +23,8 @@ class Preprocessor(object):
     iteration_cross_validation = 0
     activity = {}
     context = {}
-    unique_events_map_to_id = None
-    unique_event_ids_map_to_name = None
+    unique_activity_map_to_id = None
+    unique_activity_ids_map_to_name = None
 
     def __init__(self, args):
         self.activity = {
@@ -114,22 +114,22 @@ class Preprocessor(object):
             else:
                 if column_index == 1:
                     # Created a mapping in order to also use raw activity names in csv files in contrast to naptf2.0
-                    self.unique_events_map_to_id = self.map_event_name_to_event_id(df[column_name])
-                    self.unique_event_ids_map_to_name = self.map_event_id_to_event_name()
-                    # transform event log activities to event ids
-                    # TODO maybe this step can be skipped but the mapping of raw names and one hot encodings could be saved instead!
+                    self.unique_activity_map_to_id = self.map_activity_name_to_activity_id(df[column_name])
+                    self.unique_activity_ids_map_to_name = self.map_activity_id_to_activity_name(self.unique_activity_map_to_id)
+                    # transform event log activitiy names to activitiy ids
+                    # this can be skipped if event log is not raw (
                     for index, row in df.iterrows():
                         event_name = df.iloc[index, column_index]
-                        event_id = self.unique_events_map_to_id[event_name]
+                        event_id = self.unique_activity_map_to_id[event_name]
                         df.iloc[index, column_index] = event_id
 
-                    # TODO encode activities really necessary to convert to chars? why not leave event id as int?
+                    # todo: encode activities really necessary to convert to chars? why not leave event id as int?
                     encoded_column = self.encode_activities(args, df, column_name)
                     # save Mapping of one hot activities to ids
                     self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
                 else:
                     # encode context attributes
-                    # TODO: Check why df is replaced in site in contrast to line 128
+                    # todo: Check why df is replaced in site in contrast to line 128
                     encoded_column = self.encode_context_attribute(args, df.copy(), column_name)
 
                     data_type = get_attribute_data_type(df[column_name])
@@ -172,25 +172,33 @@ class Preprocessor(object):
 
         return df[column_name]
 
-    def map_event_name_to_event_id(self, df_column):
-        # TODO check if this step is unnecessary because it only needs to be done since naptf2.0 has a converted event log and xnap2.0 has a raw event log
-        unique_events = []
-        for event in df_column:
-            if event not in unique_events:
-                unique_events.append(event)
 
-        unique_events_map_to_id = {}
-        for i, c in enumerate(unique_events):
-            unique_events_map_to_id[c] = i
+    def map_activity_name_to_activity_id(self, df_column):
+        """
+        :param df_column:
+        :return: dictionary of unique activities and their related id
+        """
+        unique_activities = []
+        for activity_name in df_column:
+            if activity_name not in unique_activities:
+                unique_activities.append(activity_name)
 
-        return unique_events_map_to_id
+        unique_activities_map_to_id = {}
+        for i, c in enumerate(unique_activities):
+            unique_activities_map_to_id[c] = i
 
-    def map_event_id_to_event_name(self):
-        unique_ids_map_to_event_names = {}
-        for event_name in self.unique_events_map_to_id:
-            unique_ids_map_to_event_names[self.unique_events_map_to_id[event_name]] = event_name
+        return unique_activities_map_to_id
 
-        return unique_ids_map_to_event_names
+    def map_activity_id_to_activity_name(self, unique_activity_map_to_id):
+        """
+        :param unique_activity_map_to_id: is retrieved from function  map_activity_name_to_activity_id()
+        :return: maps activity ids to names
+        """
+        unique_ids_map_to_activity_names = {}
+        for activity_name in unique_activity_map_to_id:
+            unique_ids_map_to_activity_names[unique_activity_map_to_id[activity_name]] = activity_name
+
+        return unique_ids_map_to_activity_names
 
     def add_end_char_to_activity_column(self, df, column_name):
         """ Adds single row to dataframe containing the end char (activity) representing an artificial end event """
@@ -572,7 +580,7 @@ class Preprocessor(object):
         for process_instance in process_instances:
             process_instance_converted = []
             for event in process_instance:
-                process_instance_converted.append(self.unique_event_ids_map_to_name[event])
+                process_instance_converted.append(self.unique_activity_ids_map_to_name[event])
             process_instances_converted.append(process_instance_converted)
 
         return process_instances_converted
@@ -616,10 +624,10 @@ class Preprocessor(object):
         :param event_id:
         :return: event type as a raw name
         """
-        if event_id == len(self.unique_event_ids_map_to_name):
+        if event_id == len(self.unique_activity_ids_map_to_name):
             return self.get_end_char()
         else:
-            return self.unique_event_ids_map_to_name[event_id]
+            return self.unique_activity_ids_map_to_name[event_id]
 
     def get_event_id_from_event_name(self, event_name):
         """
@@ -627,6 +635,6 @@ class Preprocessor(object):
         :return: event id
         """
         if event_name == self.get_end_char():
-            return len(self.unique_events_map_to_id)
+            return len(self.unique_activity_map_to_id)
         else:
-            return self.unique_events_map_to_id[event_name]
+            return self.unique_activity_map_to_id[event_name]
