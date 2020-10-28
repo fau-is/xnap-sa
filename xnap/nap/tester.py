@@ -47,8 +47,8 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
 
     prefix_words = []
     for event in cropped_process_instance:
-        prefix_event_with_context = []
-        prefix_event_with_context.append(preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(event[args.activity_key])))
+        prefix_event_with_context = [
+            preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(event[args.activity_key]))]
         for context_attr_name in preprocessor.get_context_attributes():
             # if attr is not categorial/one hot encoded then just returns the attribute value (numerical val)
             attr_type = str(type(event[context_attr_name]))
@@ -73,22 +73,15 @@ def test(args, preprocessor, event_log):
     :param preprocessor:
     :return: none
     """
-    # TODO eliminate duplicated code fragment and export to preprocessor
-    # get preprocessed data
-    # similar to napt2.0tf evaluator l8
-    train_indices, test_indices = preprocessing_utils.get_indices_split_validation(args, event_log)
+    # todo eliminate duplicated code fragment and export to preprocessor
+    if args.cross_validation:
+        raise ValueError('cross_validation not yet implemented in XNAP2.0')
+    else:
+        train_indices, test_indices = preprocessing_utils.get_indices_split_validation(args, event_log)
 
-    all_indices = []
-    for case in event_log:
-        all_indices.append(case.attributes['concept:name'])
-
-    # similar to naptf2.0 trainer l11 ##TODO needs to be adopted towards split validation
-    cases = preprocessor.get_cases_of_fold(event_log, [all_indices])  # TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
-
-    # similar to nap2.0tf hpo l 62 ff
-    test_cases = []
-    for idx in test_indices:  # 0 because of no cross validation
-        test_cases.append(cases[idx])
+        test_cases = []
+        for idx in test_indices:
+            test_cases.append(event_log[idx])
 
     model = load_model('%sca_%s_%s_%s.h5' % (
                     args.model_dir,
