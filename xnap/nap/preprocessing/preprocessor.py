@@ -423,6 +423,7 @@ class Preprocessor(object):
 
         return len(self.get_activity_labels())
 
+
     def context_exists(self):
         """ Checks whether context attributes exist """
 
