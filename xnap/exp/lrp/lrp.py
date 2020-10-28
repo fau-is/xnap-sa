@@ -1,6 +1,6 @@
 import xnap.nap.tester as test
 from xnap.exp.lrp.LSTM.LSTM_bidi import LSTM_bidi
-from xnap.exp.lrp.util.heatmap import html_heatmap
+from xnap.exp.lrp.util.heatmap import html_heatmap, get_legend
 import xnap.exp.lrp.util.browser as browser
 import numpy as np
 
@@ -40,14 +40,21 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
         Rx, Rx_rev, R_rest = net.lrp(prefix_words, target_act_class, eps, bias_factor)  # perform LRP
         R_words = np.sum(Rx[:, :preprocessor.get_num_activities()] + Rx_rev[:, :preprocessor.get_num_activities()], axis=1)  # compute word-level LRP relevances for activity column
         R_words_context = {}
-        column = preprocessor.get_num_activities()
+        column_names = [] #list of event and context attributes in order to print a legend
+        column_names.append(args.activity_key)
+        current_col = preprocessor.get_num_activities()
         for context_attribute in preprocessor.get_context_attributes():
-            R_words_context[context_attribute] = np.sum(Rx[:, column:column + preprocessor.get_context_attribute_encoding_length(context_attribute)] + Rx_rev[:, column:column + preprocessor.get_context_attribute_encoding_length(context_attribute)], axis=1)
-            column += preprocessor.get_context_attribute_encoding_length(context_attribute) + 1
+            column_names.append(context_attribute)
+            R_words_context[context_attribute] = np.sum(Rx[:, current_col:current_col + preprocessor.get_context_attribute_encoding_length(context_attribute)] + Rx_rev[:, current_col:current_col + preprocessor.get_context_attribute_encoding_length(context_attribute)], axis=1)
+            current_col += preprocessor.get_context_attribute_encoding_length(context_attribute) + 1
         # scores = net.s.copy()  # classification prediction scores
 
+
+        legend = "<br>" + "Legend: "
+        legend += get_legend(column_names, R_words_context) + "<br>"
+
         heatmap += "<br>" + html_heatmap(prefix_words, R_words, R_words_context) + "<br>"  # create heatmap
-        browser.display_html(head_and_style + heatmap + body_end)  # display heatmap
+        browser.display_html(head_and_style + legend + heatmap + body_end)  # display heatmap
 
 
 def calc_relevance_scores_instance(trace, args, preprocessor):
