@@ -466,11 +466,8 @@ class Preprocessor(object):
         subseq = []
 
         for case in cases:
-            for idx_event in range(0, len(case._list)):
-                if idx_event == 0:
-                    continue
-                else:
-                    subseq.append(case._list[0:idx_event])
+            for idx_event in range(1, len(case._list)):
+                subseq.append(case._list[0:idx_event])
 
         return subseq
 
