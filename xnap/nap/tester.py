@@ -40,6 +40,7 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
     test_data_reshaped = test_data.reshape(-1, test_data.shape[2])
 
     if cropped_process_instance_label == preprocessor.get_end_char():
+        #in case of max prefix length beeing reached c_p_i_l is the end char and does not need to be mapped
         cropped_process_instance_label_id = preprocessor.get_activity_id_from_activity_name(cropped_process_instance_label)
     else:
         cropped_process_instance_label_id = preprocessor.get_event_id_from_one_hot(cropped_process_instance_label[args.activity_key])
