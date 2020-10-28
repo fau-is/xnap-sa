@@ -35,20 +35,20 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
 
     prob_dist = dict()
     for index, prob in enumerate(y):
-        prob_dist[preprocessor.get_event_type_from_event_id(index)] = y[index]
+        prob_dist[preprocessor.get_activity_type_from_activity_id(index)] = y[index]
 
     test_data_reshaped = test_data.reshape(-1, test_data.shape[2])
 
     if cropped_process_instance_label == preprocessor.get_end_char():
-        cropped_process_instance_label_id = preprocessor.get_event_id_from_event_name(cropped_process_instance_label)
+        cropped_process_instance_label_id = preprocessor.get_activity_id_from_activity_name(cropped_process_instance_label)
     else:
         cropped_process_instance_label_id = preprocessor.get_event_id_from_one_hot(cropped_process_instance_label['event'])
-        cropped_process_instance_label = preprocessor.get_event_type_from_event_id(cropped_process_instance_label_id)
+        cropped_process_instance_label = preprocessor.get_activity_type_from_activity_id(cropped_process_instance_label_id)
 
     prefix_words = []
     for event in cropped_process_instance:
         prefix_event_with_context = [
-            preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(event[args.activity_key]))]
+            preprocessor.get_activity_type_from_activity_id(preprocessor.get_event_id_from_one_hot(event[args.activity_key]))]
         for context_attr_name in preprocessor.get_context_attributes():
             # if attr is not categorial/one hot encoded then just returns the attribute value (numerical val)
             attr_type = str(type(event[context_attr_name]))
@@ -58,7 +58,7 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
                 prefix_event_with_context.append(preprocessor.get_context_attribute_name_from_one_hot(context_attr_name, event[context_attr_name]))
         prefix_words.append(prefix_event_with_context)
 
-    return preprocessor.get_event_type_from_event_id(preprocessor.get_event_id_from_one_hot(prediction)), \
+    return preprocessor.get_activity_type_from_activity_id(preprocessor.get_event_id_from_one_hot(prediction)), \
             cropped_process_instance_label_id, \
             cropped_process_instance_label, \
             prefix_words, model, \
@@ -138,7 +138,7 @@ def test(args, preprocessor, event_log):
                                                      prediction[0])
 
 
-            # for process_instance, event_id in zip(preprocessor.data_structure['data']['test']['process_instances'],
+            # for process_instance, activity_id in zip(preprocessor.data_structure['data']['test']['process_instances'],
             #                                       preprocessor.data_structure['data']['test']['event_ids']):
             #
             #     cropped_process_instance = preprocessor.get_cropped_instance(
@@ -172,7 +172,7 @@ def test(args, preprocessor, event_log):
             #
             #     output = []
             #     if len(ground_truth) > 0:
-            #         output.append(event_id)
+            #         output.append(activity_id)
             #         output.append(prefix_size)
             #         output.append(str(ground_truth).encode("utf-8"))
             #         output.append(str(prediction).encode("utf-8"))
