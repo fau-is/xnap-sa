@@ -4,6 +4,7 @@ from xnap.nap.preprocessing.preprocessor import Preprocessor as Preprocessor
 import xnap.nap.tester as test
 import xnap.nap.trainer as train
 import xnap.exp.lrp.lrp as lrp
+import xnap.exp.lime.lime as lime
 
 if __name__ == '__main__':
 
@@ -44,8 +45,10 @@ if __name__ == '__main__':
 
     elif args.mode == 1:
         trace = preprocessor.get_random_process_instance(event_log, args.rand_lower_bound, args.rand_upper_bound)
-        lrp.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
-
+        if args.xai == "lrp":
+            lrp.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
+        if args.xai == "lime":
+            lime.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
     else:
         trace = preprocessor.get_random_process_instance(event_log, args.rand_lower_bound, args.rand_upper_bound)
         scores = lrp.calc_relevance_scores_instance(event_log, trace, args, preprocessor)

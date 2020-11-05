@@ -13,6 +13,7 @@ def load():
         1 = explain random process instance
         2 = explain and manipulate 
     """
+    parser.add_argument('--xai', default="lime", type=str) # lrp, lime
     parser.add_argument('--rand_lower_bound', default=5, type=int)
     parser.add_argument('--rand_upper_bound', default=5, type=int)
     parser.add_argument('--task', default="nap")
