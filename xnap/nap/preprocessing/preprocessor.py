@@ -40,7 +40,6 @@ class Preprocessor(object):
             'attributes_mapping_ids_to_one_hot': {}, #can be accessed by attribute name
             'attributes_mapping_one_hot_to_ids': {},
             'encoding_lengths': [],
-            'data_types': [],
             'val_to_enc': {},
             'enc_to_val': {},
         }
@@ -134,9 +133,8 @@ class Preprocessor(object):
                     # encode context attributes
                     # TODO: Check why df is replaced in site in contrast to line 128
                     encoded_column = self.encode_context_attribute(args, df.copy(), column_name)
-
                     data_type = get_attribute_data_type(df[column_name])
-                    self.context['data_types'].append(data_type)
+
                     encoding_mode = self.get_encoding_mode(args, data_type)
                     if encoding_mode == args.encoding_cat:
                         self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
