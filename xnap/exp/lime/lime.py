@@ -14,12 +14,12 @@ global preprocessor_
 global event_log_
 context_enc_to_idx = {}
 context_idx_to_enc = {}
-DELIMITER_EVENT = " "
+DELIMITER_WORD = " "
 DELIMITER_ATTR = "_"
 
-def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor):
-    """ Calculates relevance scores and plots the results in a heatmap. """
 
+def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor):
+    """ Calculates relevance scores and plots these scores in a heatmap. """
     # set for access through nested function "classifier_fn"
     global args_
     global preprocessor_
@@ -63,38 +63,37 @@ def transform_subseq_to_string(subseq_case, args, preprocessor):
     init_context_lookup(preprocessor)
     subseq_str_list = []
     for event_idx, event in enumerate(subseq_case):
-        activity_str = str(event_idx) + DELIMITER_ATTR + str(get_activity_str(event, args, preprocessor))
+        activity_str = str(get_activity_str(event, event_idx, args, preprocessor))
         context = []
         for context_name in preprocessor.context['attributes']:
             attr_str = get_context_attribute_str(event, event_idx, context_name, preprocessor)
             context.append(attr_str)
-        context_str = DELIMITER_EVENT.join(context)
-        event_str = activity_str + DELIMITER_EVENT + context_str
+        context_str = DELIMITER_WORD.join(context)
+        event_str = activity_str + DELIMITER_WORD + context_str
         subseq_str_list.append(event_str)
-    subseq_str = DELIMITER_EVENT.join(subseq_str_list)
+    subseq_str = DELIMITER_WORD.join(subseq_str_list)
     init_reverse_context_lookup()
     return subseq_str
 
-def get_activity_str(event, args, preprocessor):
+def get_activity_str(event, event_idx, args, preprocessor):
     """
     Returns a string representing the activity of an event (e.g. "0_1").
     Transformation scheme:
-    -> first digit (e.g. "0") indicates timestep this event represents (in this case it is the first event in a case)
-    -> underscore ("_") separates timestep indicator from identifier of activity
+    -> first digit (e.g. "0") indicates time step this event represents (in this case it is the first event in a case)
+    -> underscore ("_") separates time step indicator from identifier of activity
     -> second digit (e.g. "1") identifies the activity of this event
     """
-
     activity_encoding = tuple(event[args.activity_key])
     activity_id = preprocessor.activity['one_hot_to_event_ids'][activity_encoding]
-    return activity_id
+    return str(event_idx) + DELIMITER_ATTR + str(activity_id)
 
 def get_context_attribute_str(event, event_idx, attr_name, preprocessor):
     """
     Returns a string representing the value of a context attribute of an event (e.g. "10_2").
     Transformation scheme:
-    -> first digit (e.g. "1") indicates timestep this event represents (in this case it is the second event in a case)
+    -> first digit (e.g. "1") indicates time step this event represents (in this case it is the second event in a case)
     -> second digit (e.g. "0") identifies the context attribute (name) (in this case it is the first context attr.)
-    -> underscore ("_") separates timestep indicator from identifier of context value
+    -> underscore ("_") separates time step indicator from identifier of context value
     -> third digit (e.g. "2") identifies the value for the referenced context attribute of this event
     """
     global context_enc_to_idx
@@ -125,7 +124,7 @@ def init_context_lookup(preprocessor):
         context_enc_to_idx[context_name] = {}
 
 def init_reverse_context_lookup():
-    """ Reverses filled lookup dictionary (to enabler retrieval of initial context encoding from string). """
+    """ Reverses filled lookup dictionary (to enable retrieval of initial context encoding from string). """
     global context_idx_to_enc
     for context_name, mapping in context_enc_to_idx.items():
         for val, id in mapping.items():
@@ -178,13 +177,13 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
     # prefix_words
     prefix_words = get_prefix_words(subseq_case, args, preprocessor)
 
-    # R_words TODO check if correct according to timesteps
+    # R_words TODO check if correct according to time steps
     R_words = numpy.zeros(max_case_len)
     for dict_timestep in R_act.values():
         idx = (max_case_len - 1) - dict_timestep['timestep']
         R_words[idx] = dict_timestep['relevance']
 
-    # R_words_context
+    # R_words_context # TODO it seems that there is a bug somewhere in generation of R_words_context
     R_words_context = {}
     context_attributes = preprocessor.get_context_attributes()
     for attr in context_attributes:
@@ -201,7 +200,7 @@ def wrapped_classifier_fn(subseq_str_list):
     """ Performs preprocessing and prediction for use of LIME. """
 
     def classifier_fn(subseq_str_list):
-        """ Returns probability distribution as a result of next activity prediction for a given subsequence of a case. """
+        """ Returns probability distribution of next activity prediction for a given subsequence of a case. """
         model_index = 0
         model = load_model('%sca_%s_%s_%s.h5' % (
             args_.model_dir,
@@ -226,7 +225,7 @@ def wrapped_classifier_fn(subseq_str_list):
 
         subseq = get_event_lists_from_string(subseq_str)
         if len(subseq) > 0: # TODO check this condition
-            # non-empty string (ignore perturbed strings that consists of only hidden features, i.e. '  ')
+            # non-empty string (ignore perturbed strings that consist of only hidden features, i.e. '  ')
             subseq_enc = encode_subseq(subseq, preprocessor_)
 
             left_pad = max_case_length - len(subseq_enc)
@@ -240,21 +239,23 @@ def wrapped_classifier_fn(subseq_str_list):
                     for context_enc in event[1:]:
                         start_idx = 0
                         if not isinstance(context_enc, list):
-                            features_tensor[0, timestep + left_pad, start_idx + preprocessor_.get_length_of_activity_label()] = context_enc
+                            features_tensor[0, timestep + left_pad, start_idx +
+                                            preprocessor_.get_length_of_activity_label()] = context_enc
                             start_idx += 1
                         else:
                             for idx, val in enumerate(context_enc, start=start_idx):
-                                features_tensor[0, timestep + left_pad, idx + preprocessor_.get_length_of_activity_label()] = val
+                                features_tensor[0, timestep + left_pad, idx +
+                                                preprocessor_.get_length_of_activity_label()] = val
                             start_idx += len(attr_enc)
 
         return features_tensor
 
-    def get_event_lists_from_string(str):
+    def get_event_lists_from_string(string):
         """ Converts a string into a list of strings (words)"""
         subseq = []
-        str_list = [value for value in list(str.split(DELIMITER_EVENT)) if value != ""]
+        str_list = [value for value in list(string.split(DELIMITER_WORD)) if value != ""]
         if len(str_list) > 0:
-            # non-empty string (ignore perturbed strings that consists of only hidden features, i.e. '  ')
+            # non-empty string (ignore perturbed strings that consist of only hidden features, i.e. '  ')
             event = [str_list[0]]
             is_added = False
             for attr_val in str_list[1:]:
@@ -284,7 +285,6 @@ def wrapped_classifier_fn(subseq_str_list):
                 activity_id = int(event[0].split(DELIMITER_ATTR)[1])
                 activity_enc = preprocessor.activity['event_ids_to_one_hot'][activity_id]
             event_enc.append(list(activity_enc))
-            current_event_idx = int(attribute_prefix[0])
 
             # context
             if preprocessor_.context_exists():
