@@ -12,14 +12,17 @@ import xnap.exp.lrp.util.browser as browser
 global args_
 global preprocessor_
 global event_log_
+# used for string transformation
 context_enc_to_idx = {}
 context_idx_to_enc = {}
 DELIMITER_WORD = " "
 DELIMITER_ATTR = "_"
-
+LEN_ACTIVITY_SYNTAX = 2
+LEN_CONTEXT_SYNTAX = 3
 
 def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor):
     """ Calculates relevance scores and plots these scores in a heatmap. """
+
     # set for access through nested function "classifier_fn"
     global args_
     global preprocessor_
@@ -31,16 +34,18 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
     heatmap: str = ""
     for prefix_size in range(2, len(case)):
         # next activity prediction
-        predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = test.test_prefix(
-            event_log, args, preprocessor, case, prefix_size)
-        print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
-            prefix_size, predicted_act_class, target_act_class_str))
-        print("Probability Distribution:")
-        print(prob_dist)
+        # predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = test.test_prefix(
+        #     event_log, args, preprocessor, case, prefix_size)
+        # print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
+        #     prefix_size, predicted_act_class, target_act_class_str))
+        # print("Probability Distribution:")
+        # print(prob_dist)
 
         # LIME
         subseq_case = case[:prefix_size]
         subseq_case_str = transform_subseq_to_string(subseq_case, args, preprocessor)
+        print(subseq_case_str)
+
 
         explainer = LimeTextExplainer()  # TODO check if parameter class_names is necessary
         wrapped_classifier_function = wrapped_classifier_fn([subseq_case_str])  # function returns function!
@@ -57,7 +62,7 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
 
 def transform_subseq_to_string(subseq_case, args, preprocessor):
     """
-    Transforms a subsequence of events (list) to a string (e.g. "0_1 00_2 01_1 1_1 10_1 11_3").
+    Transforms a subsequence of events (list) to a string (e.g. "0_1 0_0_2 0_1_1 1_1 1_0_1 1_1_3").
     Transformation scheme is explained in 'get_activity_str' and 'get_context_attribute_str'.
     """
     init_context_lookup(preprocessor)
@@ -89,28 +94,28 @@ def get_activity_str(event, event_idx, args, preprocessor):
 
 def get_context_attribute_str(event, event_idx, attr_name, preprocessor):
     """
-    Returns a string representing the value of a context attribute of an event (e.g. "10_2").
+    Returns a string representing the value of a context attribute of an event (e.g. "1_0_2").
     Transformation scheme:
     -> first digit (e.g. "1") indicates time step this event represents (in this case it is the second event in a case)
+    -> first underscore ("_") separates time step indicator from identifier of context value
     -> second digit (e.g. "0") identifies the context attribute (name) (in this case it is the first context attr.)
-    -> underscore ("_") separates time step indicator from identifier of context value
+    -> second underscore ("_") separates attribute indicator from identifier of attribute value
     -> third digit (e.g. "2") identifies the value for the referenced context attribute of this event
     """
     global context_enc_to_idx
     global context_idx_to_enc
     attr_idx = preprocessor.context['attributes'].index(attr_name)
     attr_enc = event[attr_name]
-    attr_val = attr_enc
     if isinstance(attr_enc, list):
-        attr_val = preprocessor.context['enc_to_val'][attr_name][tuple(attr_enc)]
-    if attr_val not in context_enc_to_idx[attr_name].keys():
+        attr_enc = tuple(attr_enc)
+    if attr_enc not in context_enc_to_idx[attr_name].keys():
         attr_id = len(context_enc_to_idx[attr_name]) # new id
         # save mapping of initial encoding of context value to a (new) unique id
-        context_enc_to_idx[attr_name][attr_val] = attr_id
+        context_enc_to_idx[attr_name][attr_enc] = attr_id
     else:
         # lookup assigned id for a encoded context value
-        attr_id = context_enc_to_idx[attr_name][attr_val]
-    attr_str = str(event_idx) + str(attr_idx) + DELIMITER_ATTR + str(attr_id)
+        attr_id = context_enc_to_idx[attr_name][attr_enc]
+    attr_str = str(event_idx) + DELIMITER_ATTR + str(attr_idx) + DELIMITER_ATTR + str(attr_id)
     return attr_str
 
 def init_context_lookup(preprocessor):
@@ -157,8 +162,8 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
     R_context = {}
 
     for str_key, rel_scr in exp_dict.items():
-        attr_prefix = str_key.split(DELIMITER_ATTR)[0]
-        if len(attr_prefix) == 1:
+        len_attr_syntax = len(str_key.split(DELIMITER_ATTR))
+        if len_attr_syntax == LEN_ACTIVITY_SYNTAX:
             # activity lookup information
             act_dict = {}
             act_dict['timestep'] = int(str_key.split(DELIMITER_ATTR)[0])
@@ -166,9 +171,9 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
             R_act[str_key] = act_dict
         else:
             # context lookup information
-            timestep = int(str_key.split(DELIMITER_ATTR)[0][0])
+            timestep = int(str_key.split(DELIMITER_ATTR)[0])
             context_dict = {}
-            context_name = preprocessor.context['attributes'][int(str_key.split(DELIMITER_ATTR)[0][1])]
+            context_name = preprocessor.context['attributes'][int(str_key.split(DELIMITER_ATTR)[1])]
             context_dict['relevance'] = rel_scr
             if timestep not in R_context:
                 R_context[timestep] = {}
@@ -184,6 +189,7 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
         R_words[idx] = dict_timestep['relevance']
 
     # R_words_context # TODO it seems that there is a bug somewhere in generation of R_words_context
+    # if preprocessor.context_exists():
     R_words_context = {}
     context_attributes = preprocessor.get_context_attributes()
     for attr in context_attributes:
@@ -255,17 +261,17 @@ def wrapped_classifier_fn(subseq_str_list):
         subseq = []
         str_list = [value for value in list(string.split(DELIMITER_WORD)) if value != ""]
         if len(str_list) > 0:
-            # non-empty string (ignore perturbed strings that consist of only hidden features, i.e. '  ')
+            # non-empty string (checks if perturbed strings consists of only hidden features, i.e. '  ')
             event = [str_list[0]]
             is_added = False
             for attr_val in str_list[1:]:
                 is_added = False
-                attr_prefix = attr_val.split(DELIMITER_ATTR)[0]
-                if len(attr_prefix) == 1:
+                len_attr_syntax = len(attr_val.split(DELIMITER_ATTR))
+                if len_attr_syntax == LEN_ACTIVITY_SYNTAX:
                     subseq.append(event)
                     event = [attr_val]
                     is_added = True
-                else:
+                if len_attr_syntax == LEN_CONTEXT_SYNTAX:
                     event.append(attr_val)
             if not is_added:
                 subseq.append(event)
@@ -276,11 +282,11 @@ def wrapped_classifier_fn(subseq_str_list):
         subseq_enc = []
         for event in subseq:
             event_enc = []
-            attribute_prefix = event[0].split(DELIMITER_ATTR)[0]
+            len_attr_syntax = len(event[0].split(DELIMITER_ATTR))
 
             # activity
             activity_enc = get_dummy_activity()
-            if len(attribute_prefix) == 1:
+            if len_attr_syntax == LEN_ACTIVITY_SYNTAX:
                 # activity is present in perturbed event string, therefore overwrite activity dummy
                 activity_id = int(event[0].split(DELIMITER_ATTR)[1])
                 activity_enc = preprocessor.activity['event_ids_to_one_hot'][activity_id]
@@ -295,13 +301,15 @@ def wrapped_classifier_fn(subseq_str_list):
                     # if context attributes are present in perturbed string
                     context_in_str = [val for val in event[1:]]
                     for attr_idx, attr_val in enumerate(context_in_str):
-                        context_name_idx = int(attr_val.split(DELIMITER_ATTR)[0][1])
+                        context_name_idx = int(attr_val.split(DELIMITER_ATTR)[1])
                         context_name = preprocessor_.context['attributes'][context_name_idx]
-                        context_enc_idx = int(attr_val.split(DELIMITER_ATTR)[1])
+                        context_enc_idx = int(attr_val.split(DELIMITER_ATTR)[2])
                         context_encoding = context_idx_to_enc[context_name][context_enc_idx]
+                        if isinstance(context_encoding, tuple):
+                            context_encoding = list(context_encoding)
                         context_enc[context_name_idx] = context_encoding
                 event_enc.extend(context_enc)
-                subseq_enc.append(event_enc)
+            subseq_enc.append(event_enc)
         return subseq_enc
 
     def get_dummy_activity():
