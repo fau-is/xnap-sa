@@ -5,13 +5,13 @@ import numpy
 from xnap.exp.lrp.util.heatmap import html_heatmap
 import xnap.exp.lrp.util.browser as browser
 
-# TODO add lime to requirements
 # TODO choose consistent taxonomy -> case, trace or process_instance
-# TODO check with log without context
 
+# used for access through nested function "classifier_fn"
 global args_
 global preprocessor_
 global event_log_
+
 # used for string transformation
 context_enc_to_idx = {}
 context_idx_to_enc = {}
@@ -20,10 +20,25 @@ DELIMITER_ATTR = "_"
 LEN_ACTIVITY_SYNTAX = 2
 LEN_CONTEXT_SYNTAX = 3
 
-def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor):
-    """ Calculates relevance scores and plots these scores in a heatmap. """
 
-    # set for access through nested function "classifier_fn"
+def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor):
+    """
+    Calculates relevance scores and plots these scores in a heatmap.
+
+    Parameters
+    ----------
+    event_log : list of dicts, where single dict represents a case
+        The initial event log.
+    case : dict
+        A case from the event log.
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    """
     global args_
     global preprocessor_
     global event_log_
@@ -34,20 +49,18 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
     heatmap: str = ""
     for prefix_size in range(2, len(case)):
         # next activity prediction
-        # predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = test.test_prefix(
-        #     event_log, args, preprocessor, case, prefix_size)
-        # print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
-        #     prefix_size, predicted_act_class, target_act_class_str))
-        # print("Probability Distribution:")
-        # print(prob_dist)
+        predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist \
+            = test.test_prefix(event_log, args, preprocessor, case, prefix_size)
+        print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
+            prefix_size, predicted_act_class, target_act_class_str))
+        print("Probability Distribution:")
+        print(prob_dist)
 
         # LIME
         subseq_case = case[:prefix_size]
         subseq_case_str = transform_subseq_to_string(subseq_case, args, preprocessor)
-        print(subseq_case_str)
 
-
-        explainer = LimeTextExplainer()  # TODO check if parameter class_names is necessary
+        explainer = LimeTextExplainer()  # TODO check if parameter class_names is necessary -> not necessary, b/c only used for plot
         wrapped_classifier_function = wrapped_classifier_fn([subseq_case_str])  # function returns function!
         explanations = explainer.explain_instance(subseq_case_str,
                                                   wrapped_classifier_function,
@@ -60,10 +73,25 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
         heatmap = heatmap + html_heatmap(prefix_words, R_words, R_words_context) + "<br>"  # create heatmap
         browser.display_html(heatmap)  # display heatmap
 
+
 def transform_subseq_to_string(subseq_case, args, preprocessor):
     """
     Transforms a subsequence of events (list) to a string (e.g. "0_1 0_0_2 0_1_1 1_1 1_0_1 1_1_3").
     Transformation scheme is explained in 'get_activity_str' and 'get_context_attribute_str'.
+
+    Parameters
+    ----------
+    subseq_case : list of dicts, where single dict represents an event
+        Subsequence / subset of a case whose length is prefix_size.
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    string : represents a subsequence of a case.
+
     """
     init_context_lookup(preprocessor)
     subseq_str_list = []
@@ -80,27 +108,61 @@ def transform_subseq_to_string(subseq_case, args, preprocessor):
     init_reverse_context_lookup()
     return subseq_str
 
+
 def get_activity_str(event, event_idx, args, preprocessor):
     """
     Returns a string representing the activity of an event (e.g. "0_1").
     Transformation scheme:
-    -> first digit (e.g. "0") indicates time step this event represents (in this case it is the first event in a case)
+    -> first digit (e.g. "0") indicates time step that this event represents (here it is the first event in a case)
     -> underscore ("_") separates time step indicator from identifier of activity
     -> second digit (e.g. "1") identifies the activity of this event
+
+    Parameters
+    ----------
+    event : dict
+        A single event from a subsequence of a case.
+    event_idx : int
+        Time step at which this event occurs.
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    string : represents an activity on an event.
+
     """
     activity_encoding = tuple(event[args.activity_key])
     activity_id = preprocessor.activity['one_hot_to_event_ids'][activity_encoding]
     return str(event_idx) + DELIMITER_ATTR + str(activity_id)
 
+
 def get_context_attribute_str(event, event_idx, attr_name, preprocessor):
     """
     Returns a string representing the value of a context attribute of an event (e.g. "1_0_2").
     Transformation scheme:
-    -> first digit (e.g. "1") indicates time step this event represents (in this case it is the second event in a case)
-    -> first underscore ("_") separates time step indicator from identifier of context value
-    -> second digit (e.g. "0") identifies the context attribute (name) (in this case it is the first context attr.)
+    -> first digit (e.g. "1") indicates time step that this event represents (here it is the second event in a case)
+    -> first underscore ("_") separates time step indicator from identifier of context attribute
+    -> second digit (e.g. "0") identifies the context attribute (name) (here it is the first context attr.)
     -> second underscore ("_") separates attribute indicator from identifier of attribute value
     -> third digit (e.g. "2") identifies the value for the referenced context attribute of this event
+
+    Parameters
+    ----------
+    event : dict
+        A single event from a subsequence of a case.
+    event_idx : int
+        Time step at which this event occurs.
+    attr_name : str
+        The name of an attribute.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    string : represents a context value on an event.
+
     """
     global context_enc_to_idx
     global context_idx_to_enc
@@ -109,7 +171,7 @@ def get_context_attribute_str(event, event_idx, attr_name, preprocessor):
     if isinstance(attr_enc, list):
         attr_enc = tuple(attr_enc)
     if attr_enc not in context_enc_to_idx[attr_name].keys():
-        attr_id = len(context_enc_to_idx[attr_name]) # new id
+        attr_id = len(context_enc_to_idx[attr_name])  # new id
         # save mapping of initial encoding of context value to a (new) unique id
         context_enc_to_idx[attr_name][attr_enc] = attr_id
     else:
@@ -118,8 +180,20 @@ def get_context_attribute_str(event, event_idx, attr_name, preprocessor):
     attr_str = str(event_idx) + DELIMITER_ATTR + str(attr_idx) + DELIMITER_ATTR + str(attr_id)
     return attr_str
 
+
 def init_context_lookup(preprocessor):
-    """ Creates empty lookup dictionaries used to restore initial encoding of context values from string. """
+    """
+    Creates empty lookup dictionaries used to restore initial encoding of context values from string.
+
+    Parameters
+    ----------
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+
+    """
     global context_idx_to_enc
     global context_enc_to_idx
     context_idx_to_enc = {}
@@ -128,15 +202,40 @@ def init_context_lookup(preprocessor):
         context_idx_to_enc[context_name] = {}
         context_enc_to_idx[context_name] = {}
 
+
 def init_reverse_context_lookup():
-    """ Reverses filled lookup dictionary (to enable retrieval of initial context encoding from string). """
+    """
+    Reverses filled lookup dictionary (to enable retrieval of initial context encoding from string).
+
+    Returns
+    -------
+
+    """
     global context_idx_to_enc
     for context_name, mapping in context_enc_to_idx.items():
-        for val, id in mapping.items():
-            context_idx_to_enc[context_name][id] = val
+        for val, idx in mapping.items():
+            context_idx_to_enc[context_name][idx] = val
+
 
 def get_prefix_words(subseq_case, args, preprocessor):
-    """ Transforms a subsequence of encoded events into a list of events represented by their initial value. """
+    """
+    Transforms a subsequence of encoded events into a list of events represented by their initial value.
+
+    Parameters
+    ----------
+    subseq_case : list of dicts, where single dict represents an event
+        Subsequence / subset of a case whose length is prefix_size.
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    list of lists, where a sublist list contains strings
+        Sublists represent single events. Strings in a sublist represent original attribute values of this event.
+
+    """
     subseq_str_list = []
     for event in subseq_case:
         event_list = []
@@ -153,8 +252,34 @@ def get_prefix_words(subseq_case, args, preprocessor):
         subseq_str_list.append(event_list)
     return subseq_str_list
 
+
 def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations):
-    """ Prepares explanation data for heatmap visualization """
+    """
+    Prepares explanation data for heatmap visualization.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+    event_log : list of dicts, where single dict represents a case
+        The initial event log.
+    subseq_case : list of dicts, where single dict represents an event
+        Subsequence / subset of a case whose length is prefix_size.
+    explanations : lime.explanation.Explanation object
+        Explanations object of lime returned by explain_instance. Contains relevance scores of attributes.
+
+    Returns
+    -------
+    prefix_words : list of lists, where a sublist list contains strings
+        Sublists represent single events. Strings in a sublist represent original attribute values of this event.
+    R_words : ndarray with shape [1, max case length]
+        Relevance scores of events in the subsequence to be explained.
+    R_words_context : dict
+        A entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
+
+    """
     max_case_len = preprocessor.get_max_case_length(event_log)
 
     exp_dict = dict(explanations.as_list())
@@ -182,14 +307,13 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
     # prefix_words
     prefix_words = get_prefix_words(subseq_case, args, preprocessor)
 
-    # R_words TODO check if correct according to time steps
+    # R_words
     R_words = numpy.zeros(max_case_len)
     for dict_timestep in R_act.values():
         idx = (max_case_len - 1) - dict_timestep['timestep']
         R_words[idx] = dict_timestep['relevance']
 
-    # R_words_context # TODO it seems that there is a bug somewhere in generation of R_words_context
-    # if preprocessor.context_exists():
+    # R_words_context
     R_words_context = {}
     context_attributes = preprocessor.get_context_attributes()
     for attr in context_attributes:
@@ -202,11 +326,38 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
 
     return prefix_words, R_words, R_words_context
 
+
 def wrapped_classifier_fn(subseq_str_list):
-    """ Performs preprocessing and prediction for use of LIME. """
+    """
+    Performs preprocessing and prediction for use of LIME.
+
+    Parameters
+    ----------
+    subseq_str_list : list of strings
+        A list of strings (original or perturbed strings).
+
+    Returns
+    -------
+    classifier_fn :
+        Output of classifier_fn.
+
+    """
 
     def classifier_fn(subseq_str_list):
-        """ Returns probability distribution of next activity prediction for a given subsequence of a case. """
+        """
+        Returns probability distribution of next activity prediction for a given subsequence of a case.
+
+        Parameters
+        ----------
+        subseq_str_list : list of strings
+            A list of strings (original or perturbed strings).
+
+        Returns
+        -------
+        ndarray : shape [number of events in subsequence, number of activities/classes in event log]
+            Represents probability distributions of predictions within lime. # TODO check
+
+        """
         model_index = 0
         model = load_model('%sca_%s_%s_%s.h5' % (
             args_.model_dir,
@@ -221,7 +372,20 @@ def wrapped_classifier_fn(subseq_str_list):
         return numpy.asarray(pred_probab)
 
     def transform_string_to_tensor(subseq_str):
-        """ Produces a vector-oriented representation of feature data as a 3-dimensional tensor from a string. """
+        """
+        Produces a vector-oriented representation of feature data as a 3-dimensional tensor from a string.
+
+        Parameters
+        ----------
+        subseq_str : str
+            Represents a subsequence of a case.
+
+        Returns
+        -------
+        ndarray : shape[1, T, F], 1 is number of samples, T is number of time steps, F is number of features.
+            The features tensor.
+
+        """
         num_features = preprocessor_.get_num_features()
         max_case_length = preprocessor_.get_max_case_length(event_log_)
 
@@ -230,7 +394,7 @@ def wrapped_classifier_fn(subseq_str_list):
                                        num_features), dtype=numpy.float32)
 
         subseq = get_event_lists_from_string(subseq_str)
-        if len(subseq) > 0: # TODO check this condition
+        if len(subseq) > 0:  # TODO check this condition
             # non-empty string (ignore perturbed strings that consist of only hidden features, i.e. '  ')
             subseq_enc = encode_subseq(subseq, preprocessor_)
 
@@ -257,7 +421,20 @@ def wrapped_classifier_fn(subseq_str_list):
         return features_tensor
 
     def get_event_lists_from_string(string):
-        """ Converts a string into a list of strings (words)"""
+        """
+        Converts a string into a list of strings (words)
+
+        Parameters
+        ----------
+        string : str
+            Represents a subsequence of a case.
+
+        Returns
+        -------
+        list of lists: a sublist list contains strings
+            Sublists represent single events. Strings in a sublist represent attribute values of this event.
+
+        """
         subseq = []
         str_list = [value for value in list(string.split(DELIMITER_WORD)) if value != ""]
         if len(str_list) > 0:
@@ -278,7 +455,23 @@ def wrapped_classifier_fn(subseq_str_list):
         return subseq
 
     def encode_subseq(subseq, preprocessor):
-        """ Restores encoding of all event attribute values. """
+        """
+        Restores encoding of all event attribute values.
+
+        Parameters
+        ----------
+        subseq : list of lists, where a sublist list contains strings
+            Sublists represent single events. Strings in a sublist represent attribute values of this event.
+        preprocessor : nap.preprocessor.Preprocessor
+            Object to preprocess input data.
+
+        Returns
+        -------
+        list of lists, where a sublist list contains lists or floats
+            Sublists represent single events. Lists in a sublist represent encoded categorical attribute values,
+            floats represent numerical attribute values.
+
+        """
         subseq_enc = []
         for event in subseq:
             event_enc = []
@@ -313,11 +506,33 @@ def wrapped_classifier_fn(subseq_str_list):
         return subseq_enc
 
     def get_dummy_activity():
-        """ Creates a dummy for a hidden activity in a perturbed string. """
+        """
+        Creates a dummy for a hidden activity in a perturbed string.
+
+        Returns
+        -------
+        tuple of int : length of activity encoding (number of activities in log)
+            Represents a hidden activity in a perturbed string (all values in this tuple representing a one hot encoded
+            activity are zero).
+
+        """
         return tuple([0] * preprocessor_.get_length_of_activity_label())
 
     def get_dummy_context(current_context_id):
-        """ Creates a dummy for a hidden context value in a perturbed string. """
+        """
+        Creates a dummy for a hidden context value in a perturbed string.
+
+        Parameters
+        ----------
+        current_context_id : int
+            Indicates a certain context attribute.
+
+        Returns
+        -------
+        list of int : length of context encoding
+            Represents a hidden context value in a perturbed string.
+
+        """
         context_encoding_length = preprocessor_.context['encoding_lengths'][current_context_id]
         context_dummy = 0
         if context_encoding_length > 1:

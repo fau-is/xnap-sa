@@ -9,3 +9,4 @@ tensorflow~=2.3.1
 opyenxes
 pm4py~=1.5.2.3
 setuptools~=41.2.0
+lime
