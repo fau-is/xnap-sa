@@ -6,22 +6,13 @@ import xnap.nap.preprocessing.utilts as utils
 
 def train(args, preprocessor, event_log):
 
-    # TODO split validation is called in line 17 every time. needs to be extracted to runner.py and set in
-    # order to be able to also call cross validation. Also variable names are still not adopted to split/cross valid.
-    # but need to be renamed in a generic way
-
-    # get preprocessed data
-    # similar to napt2.0tf evaluator l8
-    train_indices, test_indices = utils.get_indices_split_validation(args, event_log)
-
-    # all_indices = []
-    # for case in event_log:
-    #     all_indices.append(case.attributes['concept:name'])
-
-    # similar to naptf2.0 trainer l11 # TODO needs to be adopted towards split validation
-    # cases = preprocessor.get_cases_of_fold(event_log, [all_indices]) # TODO rename variable #ALL INDICES since we only got 1 split and want to use all indices in this one split
-
-    # similar to nap2.0tf hpo l 62 ff
+    # todo: rename variables for a generic way independently of split/cross validation (especially cases of fold)
+    if args.cross_validation:
+        # cases = preprocessor.get_cases_of_fold(event_log, [all_indices])
+        raise ValueError('cross_validation not yet implemented in XNAP2.0')
+    else:
+        # get preprocessed proces instances for split validation
+        train_indices, test_indices = utils.get_indices_split_validation(args, event_log)
 
     train_cases = []
     for idx in train_indices:  # 0 because of no cross validation
@@ -30,15 +21,8 @@ def train(args, preprocessor, event_log):
     # similar to nap2.0tf hpo l 76 ff
     train_subseq_cases = preprocessor.get_subsequences_of_cases(train_cases)
 
-    # since crossval. defaults false and num_folds defaults 0, cross validation is set off in this project so far,
-    # but can easily be adopdet later on
-
     feature_tensor_x_train = preprocessor.get_features_tensor(args, 'train', event_log, train_subseq_cases)
     label_tensor_y_train = preprocessor.get_labels_tensor(args, train_cases)
-
-    # done needs to be put in the module which calls test
-    # x_test = preprocessor.get_features_tensor(args, 'train', event_log, test_cases)
-    # y_test = preprocessor.get_labels_tensor(args, test_cases)
 
     max_length_process_instance = preprocessor.get_max_case_length(event_log)
     num_features = preprocessor.get_num_features()

@@ -40,15 +40,16 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
         Rx, Rx_rev, R_rest = net.lrp(prefix_words, target_act_class, eps, bias_factor)  # perform LRP
         R_words = np.sum(Rx[:, :preprocessor.get_num_activities()] + Rx_rev[:, :preprocessor.get_num_activities()], axis=1)  # compute word-level LRP relevances for activity column
         R_words_context = {}
+
         column_names = [] #list of event and context attributes in order to print a legend
         column_names.append(args.activity_key)
+
         current_col = preprocessor.get_num_activities()
         for context_attribute in preprocessor.get_context_attributes():
             column_names.append(context_attribute)
             R_words_context[context_attribute] = np.sum(Rx[:, current_col:current_col + preprocessor.get_context_attribute_encoding_length(context_attribute)] + Rx_rev[:, current_col:current_col + preprocessor.get_context_attribute_encoding_length(context_attribute)], axis=1)
             current_col += preprocessor.get_context_attribute_encoding_length(context_attribute) + 1
         # scores = net.s.copy()  # classification prediction scores
-
 
         legend = "<br>" + "Legend: "
         legend += get_legend(column_names, R_words_context) + "<br>"
