@@ -13,8 +13,8 @@ global preprocessor_
 global event_log_
 
 # used for string transformation
-context_enc_to_idx = {}
-context_idx_to_enc = {}
+global context_enc_to_idx
+global context_idx_to_enc
 DELIMITER_WORD = " "
 DELIMITER_ATTR = "_"
 LEN_ACTIVITY_SYNTAX = 2
@@ -68,8 +68,7 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
                 subseq_case_str,
                 wrapped_classifier_function,
                 num_features=len(subseq_case_str.split()),  # max number of features present in explanation, default=10
-                # TODO Sven - set num_samples
-                num_samples=100                             # number of perturbed strings per prefix, default=5000
+                num_samples=500                             # number of perturbed strings per prefix, default=5000
         )
 
         # heatmap
@@ -389,7 +388,6 @@ def wrapped_classifier_fn(subseq_str_list):
         pred_probab = []
         for subseq_str in subseq_str_list:
             data_tensor = transform_string_to_tensor(subseq_str)
-            # TODO Sven - check if data_tensor is "zero tensor" prediction probabilities are NOT zero -> is this correct?
             y = model.predict(data_tensor)
             y = y[0][:]
             pred_probab.append(y)
