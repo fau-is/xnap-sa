@@ -39,7 +39,9 @@ class Preprocessor(object):
             'attributes': [],
             'attributes_mapping_ids_to_one_hot': {}, #can be accessed by attribute name
             'attributes_mapping_one_hot_to_ids': {},
-            'encoding_lengths': []
+            'encoding_lengths': [],
+            'val_to_enc': {},
+            'enc_to_val': {},
         }
 
     def get_event_log(self, args):
@@ -131,8 +133,8 @@ class Preprocessor(object):
                     # encode context attributes
                     # TODO: Check why df is replaced in site in contrast to line 128
                     encoded_column = self.encode_context_attribute(args, df.copy(), column_name)
-
                     data_type = get_attribute_data_type(df[column_name])
+
                     encoding_mode = self.get_encoding_mode(args, data_type)
                     if encoding_mode == args.encoding_cat:
                         self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
@@ -255,10 +257,10 @@ class Preprocessor(object):
 
         return
 
-    def save_mapping_one_hot_to_id(self, args, column_name, activity_column, encoded_column):
+    def save_mapping_one_hot_to_id(self, args, column_name, orig_column, encoded_column):
         """ Saves the mapping from one hot to its id/name """
 
-        activity_ids = activity_column.values.tolist()
+        orig_values = orig_column.values.tolist()
 
         encoded_column_tuples = []
         for entry in encoded_column.values.tolist():
@@ -267,7 +269,7 @@ class Preprocessor(object):
             else:
                 encoded_column_tuples.append(tuple(entry))
 
-        tuple_all_rows = list(zip(activity_ids, encoded_column_tuples))
+        tuple_all_rows = list(zip(orig_values, encoded_column_tuples))
 
         tuple_unique_rows = []
         for tuple_row in tuple_all_rows:
@@ -280,8 +282,8 @@ class Preprocessor(object):
         else:
             self.context['attributes_mapping_ids_to_one_hot'][column_name] = dict(tuple_unique_rows)
             self.context['attributes_mapping_one_hot_to_ids'][column_name] = dict([(t[1], t[0]) for t in tuple_unique_rows])
-
-        return
+            self.context['val_to_enc'][column_name] = dict(tuple_unique_rows)
+            self.context['enc_to_val'][column_name] = dict([(t[1], t[0]) for t in tuple_unique_rows])
 
     def get_context_attribute_encoding_length(self, context_attribute_name):
         """
