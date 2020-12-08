@@ -68,7 +68,7 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
                 subseq_case_str,
                 wrapped_classifier_function,
                 num_features=len(subseq_case_str.split()),  # max number of features present in explanation, default=10
-                num_samples=500                             # number of perturbed strings per prefix, default=5000
+                num_samples=50                             # number of perturbed strings per prefix, default=5000
         )
 
         # heatmap
@@ -247,13 +247,13 @@ def get_prefix_words(subseq_case, args, preprocessor):
         event_list = []
         activity_enc = tuple(event[args.activity_key])
         activity_id = preprocessor.activity['one_hot_to_event_ids'][activity_enc]
-        activity = preprocessor.unique_event_ids_map_to_name[activity_id]
+        activity = preprocessor.unique_activity_ids_map_to_name[activity_id]
         event_list.append(activity)
         for context_name in preprocessor.context['attributes']:
             context_enc = event[context_name]
             context_val = context_enc
             if isinstance(context_enc, list):
-                context_val = preprocessor.context['enc_to_val'][context_name][tuple(context_enc)]
+                context_val = preprocessor.context['attributes_mapping_one_hot_to_ids'][context_name][tuple(context_enc)]
             event_list.append(context_val)
         subseq_str_list.append(event_list)
     return subseq_str_list
@@ -303,7 +303,7 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
 
             if print_relevance_scores:
                 activity_id = int(str_key.split(DELIMITER_ATTR)[1])
-                activity = preprocessor.unique_event_ids_map_to_name[activity_id]
+                activity = preprocessor.unique_activity_ids_map_to_name[activity_id]
                 if timestep not in relevance_scores:
                     relevance_scores[timestep] = {}
                 relevance_scores[timestep][activity] = rel_scr
