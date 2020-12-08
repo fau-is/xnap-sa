@@ -19,8 +19,7 @@ if __name__ == '__main__':
     if args.mode == 0:
 
         if args.cross_validation:
-            # todo: the following code is not used so far since cross_validation defaults to false and num_folds defaults to 0
-            pass
+            # todo: implement cross_validation
             """
             for iteration_cross_validation in range(0, args.num_folds):
                 preprocessor.data_structure['support']['iteration_cross_validation'] = iteration_cross_validation
@@ -35,6 +34,7 @@ if __name__ == '__main__':
             utils.print_output(args, output, iteration_cross_validation + 1)
             utils.write_output(args, output, iteration_cross_validation + 1)
             """
+            raise ValueError('cross_validation not yet implemented in XNAP2.0')
         else:
             output["training_time_seconds"].append(train.train(args, preprocessor, event_log))
             test.test(args, preprocessor, event_log)
