@@ -105,7 +105,7 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
 
         heatmap += "<br>" + html_heatmap(prefix_words, R_words, R_words_context) + "<br>" # create heatmap
         if prefix_size == len(case)-1:
-            browser.display_html(heatmap)  # display heatmap
+            browser.display_html(head_and_style + legend + heatmap + body_end)  # display heatmap
 
 
 def transform_subseq_to_string(subseq_case, args, preprocessor):
