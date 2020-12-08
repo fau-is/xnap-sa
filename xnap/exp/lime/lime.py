@@ -2,7 +2,7 @@ import numpy
 from tensorflow.keras.models import load_model
 from lime.lime_text import LimeTextExplainer
 import xnap.nap.tester as test
-from xnap.exp.lrp.util.heatmap import html_heatmap
+from xnap.exp.lrp.util.heatmap import html_heatmap, get_legend
 import xnap.exp.lrp.util.browser as browser
 
 # TODO choose consistent taxonomy -> case, trace or process_instance
@@ -48,6 +48,22 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
     event_log_ = event_log
 
     heatmap: str = ""
+
+    # in head  "<style>" "</style>" could be placed in order to make div tags able to hover/unfold
+    head_and_style = \
+        "<!DOCTYPE html> <html lang=\"en\">" \
+            "<head> " \
+                "<meta charset=\"utf-8\"> " \
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0 \">" \
+                "<title>XNAP2.0</title> " \
+            "</head>" \
+            "<body>"
+
+    body_end = \
+            "</body>" \
+        "</html>"
+
+
     for prefix_size in range(2, len(case)):
 
         # next activity prediction
@@ -58,7 +74,7 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
         print("Probability Distribution:")
         print(prob_dist)
 
-        # LIME
+        # compute relevance scores through lime
         subseq_case = case[:prefix_size]
         subseq_case_str = transform_subseq_to_string(subseq_case, args, preprocessor)
 
@@ -68,13 +84,26 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor)
                 subseq_case_str,
                 wrapped_classifier_function,
                 num_features=len(subseq_case_str.split()),  # max number of features present in explanation, default=10
-                num_samples=50                             # number of perturbed strings per prefix, default=5000
+                num_samples=args.lime_num_samples            # number of perturbed strings per prefix, default=5000
         )
 
-        # heatmap
+
         prefix_words, R_words, R_words_context = create_heatmap_data(args, preprocessor, event_log, subseq_case,
                                                                      explanations, print_relevance_scores=True)
-        heatmap = heatmap + html_heatmap(prefix_words, R_words, R_words_context) + "<br>"  # create heatmap
+
+        column_names = []  # list of event and context attributes in order to print a legend
+        column_names.append(args.activity_key)
+
+        current_col = preprocessor.get_num_activities()
+        for context_attribute in preprocessor.get_context_attributes():
+            column_names.append(context_attribute)
+            current_col += preprocessor.get_context_attribute_encoding_length(context_attribute) + 1
+
+        # heatmap
+        legend = "<br>" + "Legend: "
+        legend += get_legend(column_names, R_words_context) + "<br>"
+
+        heatmap += "<br>" + html_heatmap(prefix_words, R_words, R_words_context) + "<br>" # create heatmap
         if prefix_size == len(case)-1:
             browser.display_html(heatmap)  # display heatmap
 

@@ -6,9 +6,10 @@ import numpy as np
 
 
 def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor):
+
     heatmap: str = ""
 
-    #in head  "<style>" "</style>" could be placed in order to make div tags able to hover/unfold
+    # in head  "<style>" "</style>" could be placed in order to make div tags able to hover/unfold
     head_and_style = \
         "<!DOCTYPE html> <html lang=\"en\">" \
             "<head> " \
@@ -22,17 +23,17 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
             "</body>" \
         "</html>"
 
-    for idx in range(2, len(trace)):
+    for prefix_size in range(2, len(trace)):
         # next activity prediction
-        #prefix words now is a 2d array of each event with its context attributes
+        # prefix words now is a 2d array of each event with its context attributes
         predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = \
-            test.test_prefix(event_log, args, preprocessor, trace, idx)
+            test.test_prefix(event_log, args, preprocessor, trace, prefix_size)
         print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
-            idx, predicted_act_class, target_act_class_str))
+            prefix_size, predicted_act_class, target_act_class_str))
         print("Probability Distribution:")
         print(prob_dist)
 
-        # compute lrp relevances
+        # compute relevance scores through lrp
         eps = 0.001  # small positive number
         bias_factor = 0.0  # recommended value
         net = LSTM_bidi(args, model, input_encoded)  # load trained LSTM model
@@ -41,7 +42,7 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
         R_words = np.sum(Rx[:, :preprocessor.get_num_activities()] + Rx_rev[:, :preprocessor.get_num_activities()], axis=1)  # compute word-level LRP relevances for activity column
         R_words_context = {}
 
-        column_names = [] #list of event and context attributes in order to print a legend
+        column_names = []  # list of event and context attributes in order to print a legend
         column_names.append(args.activity_key)
 
         current_col = preprocessor.get_num_activities()
@@ -51,11 +52,13 @@ def calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor
             current_col += preprocessor.get_context_attribute_encoding_length(context_attribute) + 1
         # scores = net.s.copy()  # classification prediction scores
 
+        # heatmap
         legend = "<br>" + "Legend: "
         legend += get_legend(column_names, R_words_context) + "<br>"
 
         heatmap += "<br>" + html_heatmap(prefix_words, R_words, R_words_context) + "<br>"  # create heatmap
-        browser.display_html(head_and_style + legend + heatmap + body_end)  # display heatmap
+        if prefix_size == len(trace) - 1:
+            browser.display_html(head_and_style + legend + heatmap + body_end)  # display heatmap
 
 
 def calc_relevance_scores_instance(trace, args, preprocessor):
