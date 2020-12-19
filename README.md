@@ -1,15 +1,15 @@
 # xnap-2.0: Explain LSTM-Models by Using LRP
 
 ## General
-- Research goal:  Generate reliable explanations for next activity predictions
+- Research goal:  Generate reliable explanations for LSTM-based next activity predictions
 
-## Phases of the technique
+## Modes of xnap-2.0
 
-1. Training and 
+1. Training/testing models 
 
-2. Testing Bi-LSTM Model
+2. Create single explanation
 
-3. Generate Explanations
+3. Evaluate explanations
    
  
 ## Setting
