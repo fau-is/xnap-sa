@@ -26,7 +26,7 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
     cropped_process_instance = process_instance[:prefix_size]
     cropped_process_instance_label = preprocessor.get_cropped_instance_label(prefix_size, process_instance)
 
-    test_data = preprocessor.get_features_tensor(args, 'test', event_log, [cropped_process_instance])
+    test_data = preprocessor.get_features_tensor(args, event_log, [cropped_process_instance])
 
     y = model.predict(test_data)
     y = y[0][:]
@@ -78,11 +78,7 @@ def test(args, preprocessor, event_log):
     if args.cross_validation:
         raise ValueError('cross_validation not yet implemented in XNAP2.0')
     else:
-        train_indices, test_indices = preprocessing_utils.get_indices_split_validation(args, event_log)
-
-        test_cases = []
-        for idx in test_indices:
-            test_cases.append(event_log[idx])
+        test_cases = preprocessing_utils.get_test_set(args, event_log)
 
     model = load_model('%sca_%s_%s_%s.h5' % (
                     args.model_dir,
@@ -123,7 +119,7 @@ def test(args, preprocessor, event_log):
                         continue
 
                     # 2.2. prepare data: features tensor
-                    features = preprocessor.get_features_tensor(args, 'test', event_log, [subseq])
+                    features = preprocessor.get_features_tensor(args, event_log, [subseq])
 
                     # 3. make prediction
                     predicted_label = predict_label(model, features, preprocessor)
@@ -178,6 +174,133 @@ def test(args, preprocessor, event_log):
             #         output.append(str(ground_truth).encode("utf-8"))
             #         output.append(str(prediction).encode("utf-8"))
             #         result_writer.writerow(output)
+
+
+def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes):
+    """
+    Performs next activity prediction on manipulated test set. Manipulated means that n events are removed from prefixes
+    according to the respective relevance scores.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+    event_log : list of dicts, where single dict represents a case
+        The initial event log.
+    manipulated_prefixes : TODO
+
+    Returns
+    -------
+
+    """
+
+    model = load_model(get_model_name(args, preprocessor))
+    test_set = preprocessing_utils.get_test_set(args, event_log)
+
+    # predict only next activity -> prediction_size = 1
+    prediction_size = 1
+    with open(get_result_dir_fold(args, preprocessor, manipulated=True), 'w') as result_file_fold:
+        result_writer = csv.writer(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        result_writer.writerow(["CaseID", "Prefix length", "Ground truth", "Predicted"])
+
+        results = {}
+        for idx_case, manipulated_case in enumerate(manipulated_prefixes):
+            for subseq in manipulated_case:
+                prefix_size = len(subseq)
+                case = test_set[idx_case]
+                case_id = case._list[0].get(args.case_id_key)
+                utils.llprint("Prefix size: %d  Case ID: %d\n" % (prefix_size, case_id))
+
+                if contains_end_event(args, subseq, preprocessor):
+                    # make no prediction for this subsequence, since this case has ended already
+                    continue
+
+                ground_truth = get_ground_truth(args, case, prefix_size, prediction_size)
+                prediction = []
+
+                for current_prediction_size in range(prediction_size):
+                    if current_prediction_size >= len(ground_truth):
+                        continue
+
+                    # 2.2. prepare data: features tensor
+                    features = preprocessor.get_features_tensor(args, event_log, [subseq])
+
+                    # 3. make prediction
+                    predicted_label = predict_label(model, features, preprocessor)
+                    prediction.append(list(predicted_label))
+
+                    if is_end_label(predicted_label, preprocessor):
+                        utils.llprint('-- End of case is predicted -- \n')
+                        break
+
+                # 4. store prediction
+                if len(ground_truth) > 0:
+                    if prefix_size not in results:
+                        results[prefix_size] = {}
+                    results[prefix_size][case_id] = {}
+                    results[prefix_size][case_id]['case'] = case
+                    results[prefix_size][case_id]['ground_truth"'] = ground_truth[0]
+                    results[prefix_size][case_id]['prediction'] = prediction[0]
+
+        for prefix_size, case_dict in results.items():
+            for case_id in case_dict.keys():
+                document_and_evaluate_prediction(args,
+                                                 result_writer,
+                                                 results[prefix_size][case_id]['case'],
+                                                 prefix_size,
+                                                 results[prefix_size][case_id]['ground_truth"'],
+                                                 results[prefix_size][case_id]['prediction'])
+
+
+def get_model_name(args, preprocessor):
+    """
+    Returns the name of the stored trained model for the next activity prediction.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    str :
+        Name of the model.
+
+    """
+    return '%sca_%s_%s_%s.h5' % (args.model_dir,
+                                 args.task,
+                                 args.data_set[0:len(args.data_set) - 4],
+                                 preprocessor.iteration_cross_validation)
+
+
+def get_result_dir_fold(args, preprocessor, manipulated=False):
+    """
+    Returns result directory of a fold.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+    Returns
+    -------
+    str :
+        Directory of the result file for the current fold.
+    """
+
+    data_set_name = args.data_set.split('.csv')[0]
+    result_dir_generic = './' + args.task + args.result_dir[1:] + data_set_name
+    result_dir_fold = result_dir_generic + "_%d%s" % (preprocessor.iteration_cross_validation, ".csv")
+    if manipulated:
+        result_dir_fold = result_dir_generic + "_%d_%s%s" % (preprocessor.iteration_cross_validation, "manipulated", ".csv")
+
+    return result_dir_fold
+
 
 def get_case_subsequence(case, prefix_size):
     """ Crops a subsequence (= prefix) out of a whole case """

@@ -44,3 +44,28 @@ def get_indices_k_fold_validation(args, event_log):
 
     return train_index_per_fold, test_index_per_fold
 
+
+def get_test_set(args, event_log):
+    """
+    Retrieves indices of test set.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    event_log : list of dicts, where single dict represents a case
+        The initial event log.
+
+    Returns
+    -------
+    test_cases : list of dicts, where single dict represents a case
+        List of cases.
+
+    """
+
+    _, test_indices = get_indices_split_validation(args, event_log)
+    test_cases = []
+    for idx in test_indices:
+        test_cases.append(event_log[idx])
+
+    return test_cases

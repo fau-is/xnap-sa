@@ -21,7 +21,7 @@ def train(args, preprocessor, event_log):
     # similar to nap2.0tf hpo l 76 ff
     train_subseq_cases = preprocessor.get_subsequences_of_cases(train_cases)
 
-    feature_tensor_x_train = preprocessor.get_features_tensor(args, 'train', event_log, train_subseq_cases)
+    feature_tensor_x_train = preprocessor.get_features_tensor(args, event_log, train_subseq_cases)
     label_tensor_y_train = preprocessor.get_labels_tensor(args, train_cases)
 
     max_length_process_instance = preprocessor.get_max_case_length(event_log)
