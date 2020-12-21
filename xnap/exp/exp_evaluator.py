@@ -67,6 +67,7 @@ def get_avg_relevance_scores(R_words, R_words_context):
     avgs = sums / (1 + len(R_words_context))
     return avgs
 
+
 def get_manipulated_prefix(args, prefix, avg_relevance_scores):
     """
     Removes events in a subsequence according to their average relevance scores - either those with highest or lowest

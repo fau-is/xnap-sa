@@ -9,9 +9,9 @@ def load():
     # General parameters
     parser.add_argument('--mode', default=2, type=int)
     """ There are three modes
-        0 = train models
-        1 = explain random process instance
-        2 = explain and manipulate 
+        0 = train and test model
+        1 = explain prediction for random process instance
+        2 = evaluate explanations for predictions (test set) 
     """
     # mode 1 + 2
     parser.add_argument('--xai', default="lrp", type=str)  # lrp, lime
@@ -20,11 +20,11 @@ def load():
     parser.add_argument('--rand_lower_bound', default=5, type=int)
     parser.add_argument('--rand_upper_bound', default=5, type=int)
     # mode 2
-    parser.add_argument('--removed_events_num', default=2, type=int)
-    parser.add_argument('--removed_events_relevance', default="lowest", type=str)  # lowest, highest
+    parser.add_argument('--removed_events_num', default=1, type=int)
+    parser.add_argument('--removed_events_relevance', default="highest", type=str)  # lowest, highest
 
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="helpdesk_raw_sample_100.csv")
+    parser.add_argument('--data_set', default="helpdesk_raw.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
