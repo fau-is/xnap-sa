@@ -59,7 +59,7 @@ def set_seed(args):
     tf.random.set_seed(args.seed_val)
 
 
-def get_output(args, preprocessor, _output):
+def get_output(args, preprocessor, _output, manipulated=False):
     prefix = 0
     prefix_all_enabled = 1
 
@@ -73,6 +73,13 @@ def get_output(args, preprocessor, _output):
             args.result_dir[1:] + \
             args.data_set.split(".csv")[0] + \
             "_0.csv"
+        if manipulated:
+            result_dir_fold = \
+                './' + \
+                args.task + \
+                args.result_dir[1:] + \
+                args.data_set.split(".csv")[0] + \
+                "_0" + "_manipulated.csv"
     else:
         result_dir_fold = \
             './' + \
@@ -80,6 +87,13 @@ def get_output(args, preprocessor, _output):
             args.result_dir[1:] + \
             args.data_set.split(".csv")[0] + \
             "_%d" % preprocessor.data_structure['support']['iteration_cross_validation'] + ".csv"
+        if manipulated:
+            result_dir_fold = \
+                './' + \
+                args.task + \
+                args.result_dir[1:] + \
+                args.data_set.split(".csv")[0] + \
+                "_%d" % preprocessor.data_structure['support']['iteration_cross_validation'] + "_manipulated" + ".csv"
 
 
     with open(result_dir_fold, 'r') as result_file_fold:
@@ -104,19 +118,21 @@ def get_output(args, preprocessor, _output):
     return _output
 
 
-def print_output(args, _output, index_fold):
+def print_output(args, _output, index_fold, manipulated=False):
     if args.cross_validation and index_fold < args.num_folds:
         llprint("\nAccuracy of fold %i: %f\n" % (index_fold, _output["accuracy_values"][index_fold]))
         llprint("Precision of fold %i: %f\n" % (index_fold, _output["precision_values"][index_fold]))
         llprint("Recall of fold %i: %f\n" % (index_fold, _output["recall_values"][index_fold]))
         llprint("F1-Score of fold %i: %f\n" % (index_fold, _output["f1_values"][index_fold]))
-        llprint("Training time of fold %i: %f seconds\n\n" % (index_fold, _output["training_time_seconds"][index_fold]))
+        if not manipulated:
+            llprint("Training time of fold %i: %f seconds\n\n" % (index_fold, _output["training_time_seconds"][index_fold]))
     else:
         llprint("\nAccuracy avg: %f\n" % (avg(_output["accuracy_values"])))
         llprint("Precision avg: %f\n" % (avg(_output["precision_values"])))
         llprint("Recall avg: %f\n" % (avg(_output["recall_values"])))
         llprint("F1-Score avg: %f\n" % (avg(_output["f1_values"])))
-        llprint("Training time avg: %f seconds" % (avg(_output["training_time_seconds"])))
+        if not manipulated:
+            llprint("Training time avg: %f seconds" % (avg(_output["training_time_seconds"])))
 
 
 def get_mode(index_fold, args):

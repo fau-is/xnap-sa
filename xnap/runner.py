@@ -5,6 +5,7 @@ import xnap.nap.tester as test
 import xnap.nap.trainer as train
 import xnap.exp.lrp.lrp as lrp
 import xnap.exp.lime.lime as lime
+import xnap.exp.exp_evaluator as exp_evaluator
 
 if __name__ == '__main__':
 
@@ -50,6 +51,23 @@ if __name__ == '__main__':
         if args.xai == "lime":
             lime.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
     else:
-        trace = preprocessor.get_random_process_instance(event_log, args.rand_lower_bound, args.rand_upper_bound)
-        scores = lrp.calc_relevance_scores_instance(event_log, trace, args, preprocessor)
-        print(scores)
+        # trace = preprocessor.get_random_process_instance(event_log, args.rand_lower_bound, args.rand_upper_bound)
+        # scores = lrp.calc_relevance_scores_instance(event_log, trace, args, preprocessor)
+        # print(scores)
+        manipulated_prefixes = exp_evaluator.get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log)
+        test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes)
+
+        utils.llprint("\nBEFORE manipulation according to relevance")
+        output = utils.load_output()
+        output = utils.get_output(args, preprocessor, output)
+        utils.print_output(args, output, -1)
+        utils.write_output(args, output, -1)
+
+        utils.llprint("\n\nAFTER manipulation according to relevance")
+        output = utils.load_output()
+        output = utils.get_output(args, preprocessor, output, manipulated=True)
+        utils.print_output(args, output, -1, manipulated=True)
+        utils.write_output(args, output, -1)
+
+
+

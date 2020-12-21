@@ -492,20 +492,15 @@ class Preprocessor(object):
 
         return next_events
 
-    def get_features_tensor(self, args, mode, event_log, subseq_cases):
+    def get_features_tensor(self, args, event_log, subseq_cases):
         """ Produces a vector-oriented representation of feature data as a 3-dimensional tensor """
 
         num_features = self.get_num_features()
         max_case_length = self.get_max_case_length(event_log)
 
-        if mode == 'train':
-            features_tensor = numpy.zeros((len(subseq_cases),
-                                           max_case_length,
-                                           num_features), dtype=numpy.float64)
-        else:
-            features_tensor = numpy.zeros((1,
-                                           max_case_length,
-                                           num_features), dtype=numpy.float32)
+        features_tensor = numpy.zeros((len(subseq_cases),
+                                       max_case_length,
+                                       num_features), dtype=numpy.float64)
 
         for idx_subseq, subseq in enumerate(subseq_cases):
             left_pad = max_case_length - len(subseq)
@@ -637,3 +632,5 @@ class Preprocessor(object):
             return len(self.unique_activity_map_to_id)
         else:
             return self.unique_activity_map_to_id[activity_name]
+
+
