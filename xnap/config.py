@@ -15,7 +15,7 @@ def load():
     """
     # mode 1 + 2
     parser.add_argument('--xai', default="lrp", type=str)  # lrp, lime
-    parser.add_argument('--lime_num_samples', default=50, type=int)
+    parser.add_argument('--lime_num_samples', default=50, type=int)  # default: 5000
     # mode 1
     parser.add_argument('--rand_lower_bound', default=5, type=int)
     parser.add_argument('--rand_upper_bound', default=5, type=int)
