@@ -94,7 +94,7 @@ def get_manipulated_prefix(args, prefix, avg_relevance_scores):
         avg_idx_tuple.sort(key=lambda t: t[1])
 
     num_remove = args.removed_events_num
-    while (len(prefix) - num_remove) == 0:
+    while (len(prefix) - num_remove) <= 0:
         num_remove -= 1
 
     remove_indices = [idx for (idx, avg) in avg_idx_tuple[0:num_remove]]

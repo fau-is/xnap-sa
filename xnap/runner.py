@@ -45,15 +45,15 @@ if __name__ == '__main__':
             utils.write_output(args, output, -1)
 
     elif args.mode == 1:
+
         trace = preprocessor.get_random_process_instance(event_log, args.rand_lower_bound, args.rand_upper_bound)
         if args.xai == "lrp":
             lrp.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
         if args.xai == "lime":
             lime.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
+
     else:
-        # trace = preprocessor.get_random_process_instance(event_log, args.rand_lower_bound, args.rand_upper_bound)
-        # scores = lrp.calc_relevance_scores_instance(event_log, trace, args, preprocessor)
-        # print(scores)
+
         manipulated_prefixes = exp_evaluator.get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log)
         test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes)
 
