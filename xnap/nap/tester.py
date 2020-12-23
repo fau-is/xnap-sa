@@ -2,6 +2,7 @@ from tensorflow.keras.models import load_model
 import csv
 import xnap.utils as utils
 import xnap.nap.preprocessing.utilts as preprocessing_utils
+from datetime import datetime
 
 
 def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
@@ -66,7 +67,7 @@ def test_prefix(event_log, args, preprocessor, process_instance, prefix_size):
             test_data_reshaped, prob_dist
 
 
-def test(args, preprocessor, event_log):
+def test(args, preprocessor, event_log, output):
     """
     Perform test for model validation.
     :param event_log:
@@ -80,24 +81,12 @@ def test(args, preprocessor, event_log):
     else:
         test_cases = preprocessing_utils.get_test_set(args, event_log)
 
-    model = load_model('%sca_%s_%s_%s.h5' % (
-                    args.model_dir,
-                    args.task,
-                    args.data_set[0:len(args.data_set) - 4],
-                    preprocessor.iteration_cross_validation))
-
+    model = load_model(get_model_name(args, preprocessor))
     prediction_size = 1
-    data_set_name = args.data_set.split('.csv')[0]
-    # cases declared above
-    result_dir_generic = './' + args.task + args.result_dir[1:] + data_set_name
-    result_dir_fold = result_dir_generic + "_%d%s" % (
-        preprocessor.iteration_cross_validation, ".csv")
 
-    # start prediction
-    with open(result_dir_fold, 'w') as result_file_fold:
+    with open(get_result_dir_fold(args, preprocessor), 'w') as result_file_fold:
         result_writer = csv.writer(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        result_writer.writerow(
-            ["CaseID", "Prefix length", "Ground truth", "Predicted"])
+        result_writer.writerow(["CaseID", "Prefix length", "Ground truth", "Predicted"])
 
         # for prefix_size >= 1
         for prefix_size in range(1, preprocessor.get_max_case_length(event_log)):
@@ -118,12 +107,16 @@ def test(args, preprocessor, event_log):
                     if current_prediction_size >= len(ground_truth):
                         continue
 
+                    start_prediction_time = datetime.now()
+
                     # 2.2. prepare data: features tensor
                     features = preprocessor.get_features_tensor(args, event_log, [subseq])
 
                     # 3. make prediction
                     predicted_label = predict_label(model, features, preprocessor)
                     prediction.append(list(predicted_label))
+
+                    output["prediction_times_seconds"].append((datetime.now() - start_prediction_time).total_seconds())
 
                     if is_end_label(predicted_label, preprocessor):
                         utils.llprint('-- End of case is predicted -- \n')
@@ -134,46 +127,9 @@ def test(args, preprocessor, event_log):
                     document_and_evaluate_prediction(args, result_writer, case, prefix_size, ground_truth[0],
                                                      prediction[0])
 
+    return output
 
-            # for process_instance, activity_id in zip(preprocessor.data_structure['data']['test']['process_instances'],
-            #                                       preprocessor.data_structure['data']['test']['event_ids']):
-            #
-            #     cropped_process_instance = preprocessor.get_cropped_instance(
-            #         prefix_size,
-            #         process_instance)
-            #
-            #     if preprocessor.data_structure['support']['end_process_instance'] in cropped_process_instance:
-            #         continue
-            #
-            #     ground_truth = ''.join(process_instance[prefix_size:prefix_size + prediction_size])
-            #     prediction = ''
-            #
-            #     for i in range(prediction_size):
-            #
-            #         if len(ground_truth) <= i:
-            #             continue
-            #
-            #         test_data = preprocessor.get_data_tensor_for_single_prediction(cropped_process_instance)
-            #
-            #         y = model.predict(test_data)
-            #         y_char = y[0][:]
-            #
-            #         predicted_event = preprocessor.get_event_type_max_prob(y_char)
-            #
-            #         cropped_process_instance += predicted_event
-            #         prediction += predicted_event
-            #
-            #         if predicted_event == preprocessor.data_structure['support']['end_process_instance']:
-            #             print('! predicted, end of process instance ... \n')
-            #             break
-            #
-            #     output = []
-            #     if len(ground_truth) > 0:
-            #         output.append(activity_id)
-            #         output.append(prefix_size)
-            #         output.append(str(ground_truth).encode("utf-8"))
-            #         output.append(str(prediction).encode("utf-8"))
-            #         result_writer.writerow(output)
+
 
 
 def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes):

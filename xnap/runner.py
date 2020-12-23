@@ -37,8 +37,8 @@ if __name__ == '__main__':
             """
             raise ValueError('cross_validation not yet implemented in XNAP2.0')
         else:
-            output["training_time_seconds"].append(train.train(args, preprocessor, event_log))
-            test.test(args, preprocessor, event_log)
+            train.train(args, preprocessor, event_log, output)
+            test.test(args, preprocessor, event_log, output)
 
             output = utils.get_output(args, preprocessor, output)
             utils.print_output(args, output, -1)
@@ -53,21 +53,11 @@ if __name__ == '__main__':
             lime.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
 
     else:
-
-        manipulated_prefixes = exp_evaluator.get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log)
+        output_exp = utils.load_output()
+        manipulated_prefixes = exp_evaluator.get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log,
+                                                                                          output_exp)
         test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes)
 
-        utils.llprint("\nBEFORE manipulation according to relevance")
-        output = utils.load_output()
-        output = utils.get_output(args, preprocessor, output)
-        utils.print_output(args, output, -1)
-        utils.write_output(args, output, -1)
-
-        utils.llprint("\n\nAFTER manipulation according to relevance")
-        output = utils.load_output()
-        output = utils.get_output(args, preprocessor, output, manipulated=True)
-        utils.print_output(args, output, -1, manipulated=True)
-        utils.write_output(args, output, -1)
-
-
-
+        output_exp = utils.get_output(args, preprocessor, output_exp)
+        utils.print_output(args, output_exp, -1)
+        utils.write_output(args, output_exp, -1)

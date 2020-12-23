@@ -4,7 +4,7 @@ from datetime import datetime
 import xnap.nap.preprocessing.utilts as utils
 
 
-def train(args, preprocessor, event_log):
+def train(args, preprocessor, event_log, output):
 
     # todo: rename variables for a generic way independently of split/cross validation (especially cases of fold)
     if args.cross_validation:
@@ -86,5 +86,7 @@ def train(args, preprocessor, event_log):
               epochs=args.dnn_num_epochs)
 
     training_time = datetime.now() - start_training_time
+    output["training_time_seconds"].append(training_time.total_seconds())
 
-    return training_time.total_seconds()
+    return output
+

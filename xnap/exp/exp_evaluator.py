@@ -2,9 +2,9 @@ import xnap.nap.preprocessing.utilts as preprocessing_utils
 import xnap.exp.lrp.lrp as lrp
 import xnap.exp.lime.lime as lime
 import numpy as np
+from datetime import datetime
 
-
-def get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log):
+def get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log, output):
     """
     Returns manipulated prefixes - events are removed according to relevance scores.
 
@@ -30,6 +30,8 @@ def get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log):
         case_prefixes_manipulated = []
 
         for prefix_size in range(2, len(case)):
+            start_explanation_time = datetime.now()
+
             if args.xai == 'lrp':
                 _, R_words, R_words_context, _ = lrp.calc_relevance_score_prefix(args, preprocessor, event_log, case,
                                                                                  prefix_size)
@@ -40,6 +42,7 @@ def get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log):
             avg_relevance_scores = get_avg_relevance_scores(R_words, R_words_context)
             case_prefixes_manipulated.append(get_manipulated_prefix(args, case[0:prefix_size], avg_relevance_scores))
 
+            output["explanation_times_seconds"].append((datetime.now() - start_explanation_time).total_seconds())
         test_prefixes_manipulated.append(case_prefixes_manipulated)
 
     return test_prefixes_manipulated
