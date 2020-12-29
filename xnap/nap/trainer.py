@@ -1,52 +1,53 @@
 from __future__ import print_function, division
 import tensorflow as tf
 from datetime import datetime
-import xnap.nap.preprocessing.utilts as utils
+import xnap.utils as utils
+from sklearn.ensemble import RandomForestClassifier
+import joblib
 
 
-def train(args, preprocessor, event_log, output):
+def train(args, preprocessor, event_log, train_indices, output):
 
-    # todo: rename variables for a generic way independently of split/cross validation (especially cases of fold)
-    if args.cross_validation:
-        # cases = preprocessor.get_cases_of_fold(event_log, [all_indices])
-        raise ValueError('cross_validation not yet implemented in XNAP2.0')
-    else:
-        # get preprocessed proces instances for split validation
-        train_indices, test_indices = utils.get_indices_split_validation(args, event_log)
-
-    train_cases = []
-    for idx in train_indices:  # 0 because of no cross validation
-        train_cases.append(event_log[idx])
-
-    # similar to nap2.0tf hpo l 76 ff
+    train_cases = preprocessor.get_subset_cases(args, event_log, train_indices)
     train_subseq_cases = preprocessor.get_subsequences_of_cases(train_cases)
 
-    feature_tensor_x_train = preprocessor.get_features_tensor(args, event_log, train_subseq_cases)
-    label_tensor_y_train = preprocessor.get_labels_tensor(args, train_cases)
-
-    max_length_process_instance = preprocessor.get_max_case_length(event_log)
-    num_features = preprocessor.get_num_features()
-    num_event_ids = preprocessor.get_num_activities()
+    features_tensor = preprocessor.get_features_tensor(args, event_log, train_subseq_cases)
+    labels_tensor = preprocessor.get_labels_tensor(args, train_cases)
 
     print('Create machine learning model ... \n')
-    if args.dnn_architecture == 0:
-        # input layer
-        main_input = tf.keras.layers.Input(shape=(max_length_process_instance, num_features), name='main_input')
+    if args.classifier == "DNN":
+        # Deep Neural Network
+        train_dnn(args, preprocessor, event_log, features_tensor, labels_tensor, output)
 
-        # hidden layer
-        b1 = tf.keras.layers.Bidirectional(
-            tf.keras.layers.LSTM(100,
-                                 activation="tanh",
-                                 kernel_initializer='glorot_uniform',
-                                 return_sequences=False,
-                                 dropout=0.2))(
-            main_input)
+    if args.classifier == "RF":
+        # Random Forest
+        train_random_forest(args, preprocessor, features_tensor, labels_tensor, output)
 
-        # output layer
-        act_output = tf.keras.layers.Dense(num_event_ids,
-                                           activation='softmax',
-                                           name='act_output',
-                                           kernel_initializer='glorot_uniform')(b1)
+
+def train_dnn(args, preprocessor, event_log, features_tensor, labels_tensor, output):
+
+    max_case_len = preprocessor.get_max_case_length(event_log)
+    num_features = preprocessor.get_num_features()
+    num_activities = preprocessor.get_num_activities()
+
+    # if args.dnn_architecture == 0:
+    # Bidirectional LSTM
+
+    # input layer
+    main_input = tf.keras.layers.Input(shape=(max_case_len, num_features), name='main_input')
+
+    # hidden layer
+    b1 = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(100,
+                                                            activation="tanh",
+                                                            kernel_initializer='glorot_uniform',
+                                                            return_sequences=False,
+                                                            dropout=0.2))(main_input)
+
+    # output layer
+    act_output = tf.keras.layers.Dense(num_activities,
+                                       activation='softmax',
+                                       name='act_output',
+                                       kernel_initializer='glorot_uniform')(b1)
 
     model = tf.keras.models.Model(inputs=[main_input], outputs=[act_output])
 
@@ -55,12 +56,7 @@ def train(args, preprocessor, event_log, output):
 
     model.compile(loss={'act_output': 'categorical_crossentropy'}, optimizer=optimizer)
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
-
-    model_checkpoint = tf.keras.callbacks.ModelCheckpoint('%sca_%s_%s_%s.h5' % (
-        args.model_dir,
-        args.task,
-        args.data_set[0:len(args.data_set) - 4],
-        preprocessor.iteration_cross_validation),
+    model_checkpoint = tf.keras.callbacks.ModelCheckpoint(utils.get_model_dir(args, preprocessor),
                                                           monitor='val_loss',
                                                           verbose=0,
                                                           save_best_only=True,
@@ -77,16 +73,37 @@ def train(args, preprocessor, event_log, output):
                                                       min_lr=0)
     model.summary()
     start_training_time = datetime.now()
-
-    model.fit(feature_tensor_x_train, {'act_output': label_tensor_y_train},
+    model.fit(features_tensor, {'act_output': labels_tensor},
               validation_split=args.val_split,
               verbose=1,
               callbacks=[early_stopping, model_checkpoint, lr_reducer],
               batch_size=args.batch_size_train,
               epochs=args.dnn_num_epochs)
-
     training_time = datetime.now() - start_training_time
     output["training_time_seconds"].append(training_time.total_seconds())
 
-    return output
 
+def train_random_forest(args, preprocessor, features_tensor_flattened, labels_tensor, output):
+
+    model = RandomForestClassifier(n_jobs=-1,                           # use all processors
+                                   random_state=0,
+                                   n_estimators=100,                    # default value
+                                   criterion="gini",                    # default value
+                                   max_depth=None,                      # default value
+                                   min_samples_split=2,                 # default value
+                                   min_samples_leaf=1,                  # default value
+                                   min_weight_fraction_leaf=0.0,        # default value
+                                   max_features="auto",                 # default value
+                                   max_leaf_nodes=None,                 # default value
+                                   min_impurity_decrease=0.0,           # default value
+                                   bootstrap=True,                      # default value
+                                   oob_score=False,                     # default value
+                                   warm_start=False,                    # default value
+                                   class_weight=None)                   # default value
+
+    start_training_time = datetime.now()
+    model.fit(features_tensor_flattened, labels_tensor)
+    training_time = datetime.now() - start_training_time
+    output["training_time_seconds"].append(training_time.total_seconds())
+
+    joblib.dump(model, utils.get_model_dir(args, preprocessor))

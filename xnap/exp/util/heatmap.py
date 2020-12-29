@@ -33,7 +33,7 @@ def rescale_score_by_abs(score, max_score, min_score):
             else:
                 return 0.5 - 0.5 * (score / min_score)
 
-                # CASE 2: ONLY positive scores occur -----------------------------
+    # CASE 2: ONLY positive scores occur -----------------------------
     elif max_score > 0 and min_score >= 0:
         if max_score == min_score:
             return 1.0
@@ -56,7 +56,9 @@ def div_event(w, score, colormap, scores_dict_context_attr, idx, max_s, min_s):
 
     context_attributes = ""
     for i, context_attr in enumerate(scores_dict_context_attr):
-        score_context_attr = rescale_score_by_abs(scores_dict_context_attr[context_attr][len(scores_dict_context_attr[context_attr]) - idx - 1], max_s, min_s)
+        score_context_attr = rescale_score_by_abs(
+                scores_dict_context_attr[context_attr][len(scores_dict_context_attr[context_attr]) - idx - 1],
+                max_s, min_s)
         context_attributes += get_div(w[i + 1], score_context_attr, colormap, get_context_attr_style())
 
     output_event_word = get_div(w[0] + context_attributes, score, colormap, get_event_attr_style())
@@ -76,14 +78,16 @@ def get_legend(column_names, scores_dict_context_attr):
     for i, context_attr in enumerate(scores_dict_context_attr):
         context_attributes += get_div(column_names[i + 1], 0, None, get_context_attr_style())
     output_event_word = get_div(column_names[0] + context_attributes, 0, None, get_event_attr_style())
-    return output_event_word
+    return "<br>" + "Legend: " + output_event_word  + "<br>"
 
 
 def get_context_attr_style():
     return "margin: 5px; padding: 2px; border-style: solid; border-width: 1px; display:inline-block"
 
+
 def get_event_attr_style():
     return "display:inline-block; border-style: solid; border-width: 1px;"
+
 
 def html_heatmap(words, R_scores, R_scores_dict_context_attr, cmap_name="bwr"):
     """
@@ -113,3 +117,64 @@ def html_heatmap(words, R_scores, R_scores_dict_context_attr, cmap_name="bwr"):
         output_text += div_event(w, score, colormap, R_scores_dict_context_attr, idx, max_s, min_s) + " "
 
     return output_text + "\n"
+
+
+def create_html_heatmap_from_relevance_scores(heatmap, R_words_context, column_names):
+    """
+    Creates html heatmap from calculated relevance scores.
+
+    Parameters
+    ----------
+    heatmap : str
+        HTML code from relevance scores.
+    R_words_context : dict
+        An entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
+    column_names : list of str
+        Names of attributes (activity + context) considered in prediction.
+
+    Returns
+    -------
+    str : html code as string for heatmap
+
+    """
+    # create html skeleton
+    # in head  "<style>" "</style>" could be placed in order to make div tags able to hover/unfold
+    head_and_style = \
+        "<!DOCTYPE html> <html lang=\"en\">" \
+            "<head> " \
+                "<meta charset=\"utf-8\"> " \
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0 \">" \
+                "<title>XNAP2.0</title> " \
+            "</head>" \
+            "<body>"
+
+    body_end = \
+            "</body>" \
+        "</html>"
+
+    # create legend
+    legend = get_legend(column_names, R_words_context)
+
+    return head_and_style + legend + heatmap + body_end
+
+
+def add_relevance_to_heatmap(heatmap, prefix_words, R_words, R_words_context):
+    """
+
+    Parameters
+    ----------
+    heatmap : str
+        HTML code from relevance scores.
+    prefix_words : list of lists, where a sublist list contains strings
+        Sublists represent single events. Strings in a sublist represent original attribute values of this event.
+    R_words : ndarray with shape [1, max case length]
+        Relevance scores of events in the subsequence to be explained.
+    R_words_context : dict
+        An entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
+
+    Returns
+    -------
+
+    """
+    heatmap += "<br>" + html_heatmap(prefix_words, R_words, R_words_context) + "<br>"
+    return heatmap

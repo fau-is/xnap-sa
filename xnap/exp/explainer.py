@@ -1,10 +1,49 @@
-import xnap.nap.preprocessing.utilts as preprocessing_utils
 import xnap.exp.lrp.lrp as lrp
 import xnap.exp.lime.lime as lime
+import xnap.exp.util.heatmap as heatmap_html
+import xnap.exp.util.browser as browser
 import numpy as np
 from datetime import datetime
 
-def get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log, output):
+
+def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor):
+    """
+    Calculates relevance scores and plots these scores in a heatmap.
+
+    Parameters
+    ----------
+    event_log : list of dicts, where single dict represents a case
+        The initial event log.
+    case : dict
+        A case from the event log.
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+
+    """
+    heatmap = ""
+
+    for prefix_size in range(2, len(case)):
+        if args.xai == "lrp":
+            prefix_words, R_words, R_words_context, column_names = lrp.calc_relevance_score_prefix(args, preprocessor,
+                                                                                                   event_log, case,
+                                                                                                   prefix_size)
+        if args.xai == "lime":
+            prefix_words, R_words, R_words_context, column_names = lime.calc_relevance_score_prefix(args, preprocessor,
+                                                                                                    event_log, case,
+                                                                                                    prefix_size)
+
+        heatmap = heatmap_html.add_relevance_to_heatmap(heatmap, prefix_words, R_words, R_words_context)
+        if prefix_size == len(case) - 1:
+            html = heatmap_html.create_html_heatmap_from_relevance_scores(heatmap, R_words_context, column_names)
+            browser.display_html(html)
+
+
+def get_manipulated_prefixes_from_relevance(args, preprocessor, event_log, test_indices, output):
     """
     Returns manipulated prefixes - events are removed according to relevance scores.
 
@@ -16,6 +55,10 @@ def get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log, 
         Object to preprocess input data.
     event_log : list of dicts, where single dict represents a case
         The initial event log.
+    test_indices : list of ints
+        Indices of test cases in event log.
+    output : dict
+        Output for result evaluation.
 
     Returns
     -------
@@ -23,7 +66,7 @@ def get_manipulated_test_prefixes_from_relevance(args, preprocessor, event_log, 
         Manipulated prefixes of test set.
 
     """
-    test_set = preprocessing_utils.get_test_set(args, event_log)
+    test_set = preprocessor.get_subset_cases(args, event_log, test_indices)
     test_prefixes_manipulated = []
 
     for case in test_set:
@@ -57,7 +100,7 @@ def get_avg_relevance_scores(R_words, R_words_context):
     R_words : ndarray with shape [1, max case length]
         Relevance scores of events in the subsequence to be explained.
     R_words_context : dict
-        A entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
+        An entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
 
     Returns
     -------

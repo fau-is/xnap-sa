@@ -6,6 +6,9 @@ import arrow
 import os
 import tensorflow as tf
 import numpy as np
+from tensorflow.keras.models import load_model
+from joblib import load
+
 
 output = {
     "accuracy_values": [],
@@ -87,23 +90,23 @@ def get_output(args, preprocessor, _output):
 
     _output["accuracy_values"].append(sklearn.metrics.accuracy_score(ground_truth_label, predicted_label))
     _output["precision_values"].append(
-        sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted'))
+            sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted'))
     _output["recall_values"].append(
-        sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted'))
+            sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted'))
     _output["f1_values"].append(sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted'))
 
     return _output
 
 
 def print_output(args, _output, index_fold):
-
     if args.cross_validation and index_fold < args.num_folds:
         llprint("\nAccuracy of fold %i: %f\n" % (index_fold, _output["accuracy_values"][index_fold]))
         llprint("Precision of fold %i: %f\n" % (index_fold, _output["precision_values"][index_fold]))
         llprint("Recall of fold %i: %f\n" % (index_fold, _output["recall_values"][index_fold]))
         llprint("F1-Score of fold %i: %f\n" % (index_fold, _output["f1_values"][index_fold]))
         if args.mode == 0:
-            llprint("Training time of fold %i: %f seconds\n" % (index_fold, _output["training_time_seconds"][index_fold]))
+            llprint(
+                "Training time of fold %i: %f seconds\n" % (index_fold, _output["training_time_seconds"][index_fold]))
             # TODO add prediction and explanation times if/when cross-validation is implemented
 
     else:
@@ -135,7 +138,8 @@ def get_mode(index_fold, args):
 
 def get_output_value(_mode, _index_fold, _output, measure, args):
     """
-    If fold < max number of folds in cross validation than use a specific value, else avg works. In addition, this holds for split.
+    If fold < max number of folds in cross validation than use a specific value, else avg works. In addition, this holds
+    for split.
     """
 
     if _mode != "split-%s" % args.split_rate_test and _mode != "avg" and _mode != "sum":
@@ -148,7 +152,6 @@ def get_output_value(_mode, _index_fold, _output, measure, args):
 
 
 def write_output(args, _output, index_fold):
-
     names = ["experiment", "mode", "validation", "accuracy", "precision", "recall", "f1-score"]
     if args.mode == 0:
         names.extend(["training-time-total", "prediction-time-avg", "prediction-time-total"])
@@ -187,3 +190,56 @@ def write_output(args, _output, index_fold):
             # if file is empty
             writer.writerow(names)
         writer.writerow(values)
+
+
+def get_model_dir(args, preprocessor):
+    """
+    Returns the path to the stored trained model for the next activity prediction.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    str :
+        Path to stored model.
+
+    """
+    model_dir = "%sca_%s_%s_%s" % (args.model_dir, args.task, args.data_set[0:len(args.data_set) - 4],
+                                   preprocessor.iteration_cross_validation)
+    if args.classifier == "DNN":
+        model_dir += ".h5"
+    else:
+        model_dir += ".joblib"
+
+    return model_dir
+
+
+def load_nap_model(args, preprocessor):
+    """
+    Returns ML model used for next activity prediction.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    model : type depends on classifier type
+
+    """
+
+    model_dir = get_model_dir(args, preprocessor)
+    if args.classifier == "DNN":
+        model = load_model(model_dir)
+    if args.classifier == "RF":
+        model = load(model_dir)
+
+    return model

@@ -1,9 +1,7 @@
 import numpy
-from tensorflow.keras.models import load_model
 from lime.lime_text import LimeTextExplainer
 import xnap.nap.tester as test
-from xnap.exp.lrp.util.heatmap import html_heatmap, get_legend
-import xnap.exp.lrp.util.browser as browser
+import xnap.utils as utils
 
 
 # used for access in nested function "classifier_fn"
@@ -18,54 +16,6 @@ DELIMITER_WORD = " "
 DELIMITER_ATTR = "_"
 LEN_ACTIVITY_SYNTAX = 2
 LEN_CONTEXT_SYNTAX = 3
-
-
-def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor):
-    """
-    Calculates relevance scores and plots these scores in a heatmap.
-
-    Parameters
-    ----------
-    event_log : list of dicts, where single dict represents a case
-        The initial event log.
-    case : dict
-        A case from the event log.
-    args : Namespace
-        Settings of the configuration parameters.
-    preprocessor : nap.preprocessor.Preprocessor
-        Object to preprocess input data.
-
-    Returns
-    -------
-
-    """
-
-    heatmap: str = ""
-
-    # in head  "<style>" "</style>" could be placed in order to make div tags able to hover/unfold
-    head_and_style = \
-        "<!DOCTYPE html> <html lang=\"en\">" \
-            "<head> " \
-                "<meta charset=\"utf-8\"> " \
-                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0 \">" \
-                "<title>XNAP2.0</title> " \
-            "</head>" \
-            "<body>"
-
-    body_end = \
-            "</body>" \
-        "</html>"
-
-    for prefix_size in range(2, len(case)):
-        prefix_words, R_words, R_words_context, column_names = calc_relevance_score_prefix(args, preprocessor, event_log,
-                                                                                           case, prefix_size)
-        # heatmap
-        legend = "<br>" + "Legend: "
-        legend += get_legend(column_names, R_words_context) + "<br>"
-
-        heatmap += "<br>" + html_heatmap(prefix_words, R_words, R_words_context) + "<br>" # create heatmap
-        if prefix_size == len(case)-1:
-            browser.display_html(head_and_style + legend + heatmap + body_end)  # display heatmap
 
 
 def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size):
@@ -92,7 +42,7 @@ def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size
     R_words : ndarray with shape [1, max case length]
         Relevance scores of events in the subsequence to be explained.
     R_words_context : dict
-        A entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
+        An entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
     column_names : list of str
         Names of attributes (activity + context) considered in prediction.
 
@@ -105,8 +55,8 @@ def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size
     event_log_ = event_log
 
     # next activity prediction
-    predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist \
-        = test.test_prefix(event_log, args, preprocessor, case, prefix_size)
+    predicted_act_class, target_act_class_str, prob_dist = test.test_prefix(event_log, args, preprocessor, case,
+                                                                            prefix_size)
     print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
         prefix_size, predicted_act_class, target_act_class_str))
     print("Probability Distribution:")
@@ -133,7 +83,7 @@ def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size
     current_col = preprocessor.get_num_activities()
     for context_attribute in preprocessor.get_context_attributes():
         column_names.append(context_attribute)
-        current_col += preprocessor.get_context_attribute_encoding_length(context_attribute) + 1
+        current_col += preprocessor.get_length_of_context_encoding(context_attribute) + 1
 
     return prefix_words, R_words, R_words_context, column_names
 
@@ -198,7 +148,7 @@ def get_activity_str(event, event_idx, args, preprocessor):
 
     """
     activity_encoding = tuple(event[args.activity_key])
-    activity_id = preprocessor.activity['one_hot_to_event_ids'][activity_encoding]
+    activity_id = preprocessor.activity['labels_to_ids'][activity_encoding]
     return str(event_idx) + DELIMITER_ATTR + str(activity_id)
 
 
@@ -305,14 +255,14 @@ def get_prefix_words(subseq_case, args, preprocessor):
     for event in subseq_case:
         event_list = []
         activity_enc = tuple(event[args.activity_key])
-        activity_id = preprocessor.activity['one_hot_to_event_ids'][activity_enc]
-        activity = preprocessor.unique_activity_ids_map_to_name[activity_id]
+        activity_id = preprocessor.activity['labels_to_ids'][activity_enc]
+        activity = preprocessor.activity['ids_to_strings'][activity_id]
         event_list.append(activity)
         for context_name in preprocessor.context['attributes']:
             context_enc = event[context_name]
             context_val = context_enc
             if isinstance(context_enc, list):
-                context_val = preprocessor.context['attributes_mapping_one_hot_to_ids'][context_name][tuple(context_enc)]
+                context_val = preprocessor.context['one_hot_to_strings'][context_name][tuple(context_enc)]
             event_list.append(context_val)
         subseq_str_list.append(event_list)
     return subseq_str_list
@@ -334,6 +284,8 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
         Subsequence / subset of a case whose length is prefix_size.
     explanations : lime.explanation.Explanation object
         Explanations object of lime returned by explain_instance. Contains relevance scores of attributes.
+    print_relevance_scores : bool
+        If set to "True", prints relevance scores.
 
     Returns
     -------
@@ -342,7 +294,7 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
     R_words : ndarray with shape [1, max case length]
         Relevance scores of events in the subsequence to be explained.
     R_words_context : dict
-        A entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
+        An entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
 
     """
     max_case_len = preprocessor.get_max_case_length(event_log)
@@ -362,7 +314,7 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
 
             if print_relevance_scores:
                 activity_id = int(str_key.split(DELIMITER_ATTR)[1])
-                activity = preprocessor.unique_activity_ids_map_to_name[activity_id]
+                activity = preprocessor.activity['ids_to_strings'][activity_id]
                 if timestep not in relevance_scores:
                     relevance_scores[timestep] = {}
                 relevance_scores[timestep][activity] = rel_scr
@@ -401,7 +353,7 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
 
     if print_relevance_scores:
         print("Relevance scores per timestep:")
-        print(dict(sorted(relevance_scores.items(), key=lambda item: item[0]))) # sort by key (= time step)
+        print(dict(sorted(relevance_scores.items(), key=lambda item: item[0])))  # sort by key (= time step)
         print("")
 
     return prefix_words, R_words, R_words_context
@@ -435,19 +387,15 @@ def wrapped_classifier_fn(subseq_str_list):
         Returns
         -------
         ndarray : shape [num_samples/perturbed strings, number of activities/classes in event log]
-            Represents probability distributions of next activity predictions within lime (one probab. distr. per
-            perturbed string/sequence of original string/subsequence).
+            Represents probability distributions of next activity predictions within lime (one probability distribution
+            per perturbed string/sequence of original string/subsequence).
 
         """
-        model_index = 0
-        model = load_model('%sca_%s_%s_%s.h5' % (
-            args_.model_dir,
-            args_.task,
-            args_.data_set[0:len(args_.data_set) - 4], model_index))
+        model = utils.load_nap_model(args_, preprocessor_)
         pred_probab = []
         for subseq_str in subseq_str_list:
-            data_tensor = transform_string_to_tensor(subseq_str)
-            y = model.predict(data_tensor)
+            features_tensor = transform_string_to_tensor(subseq_str)
+            y = model.predict(features_tensor)
             y = y[0][:]
             pred_probab.append(y)
         return numpy.asarray(pred_probab)
@@ -455,6 +403,7 @@ def wrapped_classifier_fn(subseq_str_list):
     def transform_string_to_tensor(subseq_str):
         """
         Produces a vector-oriented representation of feature data as a 3-dimensional tensor from a string.
+        If subseq is empty, returns tensor which contains only zeros.
 
         Parameters
         ----------
@@ -499,9 +448,9 @@ def wrapped_classifier_fn(subseq_str_list):
                                 features_tensor[0, timestep + left_pad, idx +
                                                 preprocessor_.get_length_of_activity_label()] = val
                             start_idx += len(context_enc)
-        else:
-            # if subseq is empty, return tensor which contains only zeros
-            return features_tensor
+
+        if args_.classifier == 'RF':
+            features_tensor = preprocessor_.get_flattened_features_tensor(event_log_, features_tensor)
 
         return features_tensor
 
@@ -581,14 +530,14 @@ def wrapped_classifier_fn(subseq_str_list):
             if len_attr_syntax == LEN_ACTIVITY_SYNTAX:
                 # activity is present in perturbed event string, therefore overwrite activity dummy
                 activity_id = int(event[0].split(DELIMITER_ATTR)[1])
-                activity_enc = preprocessor.activity['event_ids_to_one_hot'][activity_id]
+                activity_enc = preprocessor.activity['ids_to_labels'][activity_id]
             event_enc.append(list(activity_enc))
 
             # context
             if preprocessor_.context_exists():
                 context_enc = []
-                for context_idx in range(len(preprocessor_.get_context_attributes())):
-                    context_enc.append(get_dummy_context(context_idx))
+                for context_name in preprocessor_.get_context_attributes():
+                    context_enc.append(get_dummy_context(context_name))
                 if len(event) > 1:
                     # if context attributes are present in perturbed string
                     context_in_str = [val for val in event[1:]]
@@ -618,22 +567,22 @@ def wrapped_classifier_fn(subseq_str_list):
         """
         return tuple([0] * preprocessor_.get_length_of_activity_label())
 
-    def get_dummy_context(current_context_id):
+    def get_dummy_context(current_context_name):
         """
         Creates a dummy for a hidden context value in a perturbed string.
 
         Parameters
         ----------
-        current_context_id : int
-            Indicates a certain context attribute.
+        current_context_name : str
+            Name of a certain context attribute.
 
         Returns
         -------
-        list of int : length of context encoding
+        int : length of context encoding
             Represents a hidden context value in a perturbed string.
 
         """
-        context_encoding_length = preprocessor_.context['encoding_lengths'][current_context_id]
+        context_encoding_length = preprocessor_.get_length_of_context_encoding(current_context_name)
         context_dummy = 0
         if context_encoding_length > 1:
             context_dummy = [0] * context_encoding_length

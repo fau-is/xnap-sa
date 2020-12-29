@@ -10,5 +10,3 @@ def display_html(html):
     with open(path, 'w') as f:
         f.write(str(html))
     webbrowser.open(url)
-
-

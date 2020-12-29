@@ -14,8 +14,8 @@ def load():
         2 = evaluate explanations for predictions (test set) 
     """
     # mode 1 + 2
-    parser.add_argument('--xai', default="lrp", type=str)  # lrp, lime
-    parser.add_argument('--lime_num_samples', default=50, type=int)  # default: 5000
+    parser.add_argument('--xai', default="lime", type=str)  # lrp, lime
+    parser.add_argument('--lime_num_samples', default=250, type=int)  # default: 5000
     # mode 1
     parser.add_argument('--rand_lower_bound', default=5, type=int)
     parser.add_argument('--rand_upper_bound', default=5, type=int)
@@ -23,15 +23,15 @@ def load():
     parser.add_argument('--removed_events_num', default=1, type=int)
     parser.add_argument('--removed_events_relevance', default="highest", type=str)  # lowest, highest
 
+    # Directories
     parser.add_argument('--task', default="nap")
     parser.add_argument('--data_set', default="helpdesk_raw.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
 
-    # pm4py
-    parser.add_argument('--case_id_key', default="case", type=str)
-    parser.add_argument('--activity_key', default="event", type=str)
+    # Classifier (DNN -> Deep Neural Network, RF -> Random Forest)
+    parser.add_argument('--classifier', default="RF", type=str)  # DNN, RF
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=100, type=int)
@@ -51,9 +51,13 @@ def load():
     parser.add_argument('--batch_size_test', default=1, type=int)
 
     # pre-processing
-    parser.add_argument('--encoding_num', default="min_max_norm", type=str)  # onehot or hash for numerical attributes
+    parser.add_argument('--encoding_num', default="min_max_norm", type=str)  # onehot or hash for numerical attributes # TODO comment correct?
     parser.add_argument('--encoding_cat', default="onehot", type=str)  # onehot or hash for categorical attributes
     parser.add_argument('--num_hash_output', default=10, type=int)
+
+    # pm4py
+    parser.add_argument('--case_id_key', default="case", type=str)
+    parser.add_argument('--activity_key', default="event", type=str)
 
     # Parameters for gpu processing
     parser.add_argument('--gpu_ratio', default=0.2, type=float)
