@@ -5,6 +5,7 @@ import xnap.nap.tester as test
 import xnap.nap.trainer as train
 import xnap.exp.explainer as exp
 
+
 if __name__ == '__main__':
 
     args = config.load()

@@ -33,6 +33,9 @@ def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size
         Names of attributes (activity + context) considered in prediction.
 
     """
+    # eager execution to avoid retracing with tensorflow
+    tf.config.run_functions_eagerly(args.eager_execution)
+
     # next activity prediction
     # prefix words now is a 2d array of each event with its context attributes
     predicted_act_class, target_act_class, target_act_class_str, prefix_words, model, input_encoded, prob_dist = \

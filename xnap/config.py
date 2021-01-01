@@ -14,8 +14,9 @@ def load():
         2 = evaluate explanations for predictions (test set) 
     """
     # mode 1 + 2
-    parser.add_argument('--xai', default="lime", type=str)  # lrp, lime
+    parser.add_argument('--xai', default="lrp", type=str)  # lrp, lime
     parser.add_argument('--lime_num_samples', default=250, type=int)  # default: 5000
+    parser.add_argument('--eager_execution', default=True, type=utils.str2bool)  # to avoid retracing with tf for lrp
     # mode 1
     parser.add_argument('--rand_lower_bound', default=5, type=int)
     parser.add_argument('--rand_upper_bound', default=5, type=int)
@@ -31,7 +32,7 @@ def load():
     parser.add_argument('--result_dir', default="./results/")
 
     # Classifier (DNN -> Deep Neural Network, RF -> Random Forest)
-    parser.add_argument('--classifier', default="RF", type=str)  # DNN, RF
+    parser.add_argument('--classifier', default="DNN", type=str)  # DNN, RF
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=100, type=int)
