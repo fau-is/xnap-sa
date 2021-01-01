@@ -47,8 +47,7 @@ def str2bool(v):
 
 
 def clear_measurement_file(args):
-    open('./%s/results/output_%s.csv' % (args.task, args.data_set[:-4]), "w").close()
-    open('./%s/results/output_%s_manipulated.csv' % (args.task, args.data_set[:-4]), "w").close()
+    open(get_output_path_performance_measurements(args), "w").close()
 
 
 def set_seed(args):
@@ -68,16 +67,9 @@ def get_output(args, preprocessor, _output):
     predicted_label = list()
     ground_truth_label = list()
 
-    result_dir_prefix = './' + args.task + args.result_dir[1:] + args.data_set.split(".csv")[0]
-    if args.cross_validation:
-        result_dir = result_dir_prefix + "_%d" % preprocessor.data_structure['support']['iteration_cross_validation']
-    else:
-        result_dir = result_dir_prefix + "_0"
-    if args.mode == 2:
-        result_dir += "_manipulated"
-    result_dir += ".csv"
+    output_path = get_output_path_predictions(args, preprocessor)
 
-    with open(result_dir, 'r') as result_file:
+    with open(output_path, 'r') as result_file:
         result_reader = csv.reader(result_file, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         next(result_reader)
 
@@ -180,17 +172,41 @@ def write_output(args, _output, index_fold):
         values.append(get_output_value("sum", index_fold, _output, "explanation_times_seconds", args))
     values.append(arrow.now())
 
-    if args.mode == 0:
-        file_name = './%s%soutput_%s.csv' % (args.task, args.result_dir[1:], args.data_set[:-4])
-    if args.mode == 2:
-        file_name = './%s%soutput_%s_manipulated.csv' % (args.task, args.result_dir[1:], args.data_set[:-4])
+    output_path = get_output_path_performance_measurements(args)
 
-    with open(file_name, mode='a', newline='') as file:
+    with open(output_path, mode='a', newline='') as file:
         writer = csv.writer(file, delimiter=';', quoting=csv.QUOTE_NONE, escapechar=' ')
-        if os.stat(file_name).st_size == 0:
+        if os.stat(output_path).st_size == 0:
             # if file is empty
             writer.writerow(names)
         writer.writerow(values)
+
+
+def get_output_path_performance_measurements(args):
+
+    directory = './%s%s' % (args.task, args.result_dir[1:])
+
+    if args.mode == 0:
+        file = 'output_%s_%s.csv' % (args.data_set[:-4], args.classifier)
+    if args.mode == 2:
+        file = 'output_%s_%s_manipulated.csv' % (args.data_set[:-4], args.classifier)
+
+    return directory + file
+
+
+def get_output_path_predictions(args, preprocessor):
+
+    directory = './' + args.task + args.result_dir[1:]
+    file = args.data_set.split(".csv")[0]
+    if args.cross_validation:
+        file += "_%d_%s" % (preprocessor.iteration_cross_validation, args.classifier)
+    else:
+        file += "_0_%s" % args.classifier
+    if args.mode == 2:
+        file += "_manipulated"
+    file += ".csv"
+
+    return directory + file
 
 
 def get_model_dir(args, preprocessor):

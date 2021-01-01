@@ -12,7 +12,8 @@ if __name__ == '__main__':
     if args.seed:
         utils.set_seed(args)
     output = utils.load_output()
-    utils.clear_measurement_file(args)
+    if args.mode == 0 or args.mode == 2:
+        utils.clear_measurement_file(args)
     preprocessor = Preprocessor()
     event_log = preprocessor.get_event_log(args)
 

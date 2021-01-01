@@ -27,7 +27,7 @@ def test(args, preprocessor, event_log, test_indices, output):
     test_cases = preprocessor.get_subset_cases(args, event_log, test_indices)
     model = utils.load_nap_model(args, preprocessor)
 
-    with open(get_result_dir_fold(args, preprocessor), 'w') as result_file_fold:
+    with open(utils.get_output_path_predictions(args, preprocessor), 'w') as result_file_fold:
         result_writer = csv.writer(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         result_writer.writerow(["CaseID", "Prefix length", "Ground truth", "Predicted"])
 
@@ -163,7 +163,7 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
 
     # predict only next activity -> prediction_size = 1
     prediction_size = 1
-    with open(get_result_dir_fold(args, preprocessor, manipulated=True), 'w') as result_file_fold:
+    with open(utils.get_output_path_predictions(args, preprocessor), 'w') as result_file_fold:
         result_writer = csv.writer(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         result_writer.writerow(["CaseID", "Prefix length", "Ground truth", "Predicted"])
 
@@ -212,35 +212,6 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
                 store_prediction(args, result_writer, results[prefix_size][case_id]['case'], prefix_size,
                                  results[prefix_size][case_id]['ground_truth"'],
                                  results[prefix_size][case_id]['prediction'])
-
-
-def get_result_dir_fold(args, preprocessor, manipulated=False):
-    """
-    Returns result directory of a fold.
-
-    Parameters
-    ----------
-    args : Namespace
-        Settings of the configuration parameters.
-    preprocessor : nap.preprocessor.Preprocessor
-        Object to preprocess input data.
-    manipulated : bool
-        If set "True", returns directory path for test of manipulated prefixes according to relevance.
-
-    Returns
-    -------
-    str :
-        Directory of the result file for the current fold.
-    """
-
-    data_set_name = args.data_set.split('.csv')[0]
-    result_dir_generic = './' + args.task + args.result_dir[1:] + data_set_name
-    result_dir_fold = result_dir_generic + "_%d%s" % (preprocessor.iteration_cross_validation, ".csv")
-    if manipulated:
-        result_dir_fold = result_dir_generic + "_%d_%s%s" % (preprocessor.iteration_cross_validation,
-                                                             "manipulated", ".csv")
-
-    return result_dir_fold
 
 
 def get_case_subsequence(case, prefix_size):
