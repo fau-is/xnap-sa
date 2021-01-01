@@ -48,6 +48,7 @@ def str2bool(v):
 
 def clear_measurement_file(args):
     open('./%s/results/output_%s.csv' % (args.task, args.data_set[:-4]), "w").close()
+    open('./%s/results/output_%s_manipulated.csv' % (args.task, args.data_set[:-4]), "w").close()
 
 
 def set_seed(args):
