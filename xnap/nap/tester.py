@@ -97,12 +97,8 @@ def test_prefix(event_log, args, preprocessor, case, prefix_size):
     target_act_str = preprocessor.activity['ids_to_strings'][target_act_id]
 
     model = utils.load_nap_model(args, preprocessor)
-    if args.classifier == "DNN":
-        pred_prob = model.predict(features_tensor)[0]
-        features_tensor_reshaped = features_tensor.reshape(-1, features_tensor.shape[2])
-    if args.classifier == "RF":
-        pred_prob = model.predict(features_tensor)[0]
-        features_tensor_reshaped = features_tensor
+    pred_prob = model.predict(features_tensor)[0]
+    features_tensor_reshaped = features_tensor.reshape(-1, features_tensor.shape[2])
 
     pred_act_label = tuple(preprocessor.get_predicted_label(pred_prob))
     pred_act_id = preprocessor.activity['labels_to_ids'][pred_act_label]
@@ -192,12 +188,6 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
 
                     # 1. prepare data
                     features = preprocessor.get_features_tensor(args, event_log, [subseq])
-
-                    if args.classifier == "RF":
-                        max_case_len = preprocessor.get_max_case_length(event_log)
-                        num_features = preprocessor.get_num_features()
-                        # flatten features tensor
-                        features = features.reshape(len(features), max_case_len * num_features)
 
                     # 2. make prediction
                     predicted_label = predict_label(model, features, preprocessor)

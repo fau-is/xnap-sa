@@ -449,9 +449,6 @@ def wrapped_classifier_fn(subseq_str_list):
                                                 preprocessor_.get_length_of_activity_label()] = val
                             start_idx += len(context_enc)
 
-        if args_.classifier == 'RF':
-            features_tensor = preprocessor_.get_flattened_features_tensor(event_log_, features_tensor)
-
         return features_tensor
 
     def get_event_lists_from_string(string):

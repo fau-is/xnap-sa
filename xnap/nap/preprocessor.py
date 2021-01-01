@@ -521,30 +521,10 @@ class Preprocessor(object):
                             start_idx += len(attribute_values)
 
             if args.classifier == 'RF':
-                features_tensor_flattened = self.get_flattened_features_tensor(event_log, features_tensor)
+                features_tensor_flattened = features_tensor.reshape(len(features_tensor), max_case_length * num_features)
                 return features_tensor_flattened
 
         return features_tensor
-
-    def get_flattened_features_tensor(self, event_log, features_tensor):
-        """
-        Flattens a feature tensor.
-
-        Parameters
-        ----------
-        event_log : list of dicts, where single dict represents a case
-            The initial event log.
-        features_tensor : ndarray with shape [num_samples, max_case_len, num_features]
-            Vector-oriented representation of feature data as a 3-dimensional tensor.
-
-        Returns
-        -------
-        ndarray with shape [num_samples, max_case_len * num_features]
-
-        """
-        max_case_len = self.get_max_case_length(event_log)
-        num_features = self.get_num_features()
-        return features_tensor.reshape(len(features_tensor), max_case_len * num_features)
 
     def get_labels_tensor(self, args, cases_of_fold):
         """ Produces a vector-oriented representation of labels as a 2-dimensional tensor """
