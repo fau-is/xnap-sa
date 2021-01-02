@@ -6,17 +6,18 @@ import arrow
 import os
 import tensorflow as tf
 import numpy as np
+from tensorflow.keras.models import load_model
+from joblib import load
+
 
 output = {
     "accuracy_values": [],
-    "accuracy_value": 0.0,
     "precision_values": [],
-    "precision_value": 0.0,
     "recall_values": [],
-    "recall_value": 0.0,
     "f1_values": [],
-    "f1_value": 0.0,
-    "training_time_seconds": []
+    "training_time_seconds": [],
+    "prediction_times_seconds": [],
+    "explanation_times_seconds": []
 }
 
 
@@ -46,7 +47,7 @@ def str2bool(v):
 
 
 def clear_measurement_file(args):
-    open('./%s/results/output_%s.csv' % (args.task, args.data_set[:-4]), "w").close()
+    open(get_output_path_performance_measurements(args), "w").close()
 
 
 def set_seed(args):
@@ -59,45 +60,17 @@ def set_seed(args):
     tf.random.set_seed(args.seed_val)
 
 
-def get_output(args, preprocessor, _output, manipulated=False):
+def get_output(args, preprocessor, _output):
     prefix = 0
     prefix_all_enabled = 1
 
     predicted_label = list()
     ground_truth_label = list()
 
-    if not args.cross_validation:
-        result_dir_fold = \
-            './' + \
-            args.task + \
-            args.result_dir[1:] + \
-            args.data_set.split(".csv")[0] + \
-            "_0.csv"
-        if manipulated:
-            result_dir_fold = \
-                './' + \
-                args.task + \
-                args.result_dir[1:] + \
-                args.data_set.split(".csv")[0] + \
-                "_0" + "_manipulated.csv"
-    else:
-        result_dir_fold = \
-            './' + \
-            args.task + \
-            args.result_dir[1:] + \
-            args.data_set.split(".csv")[0] + \
-            "_%d" % preprocessor.data_structure['support']['iteration_cross_validation'] + ".csv"
-        if manipulated:
-            result_dir_fold = \
-                './' + \
-                args.task + \
-                args.result_dir[1:] + \
-                args.data_set.split(".csv")[0] + \
-                "_%d" % preprocessor.data_structure['support']['iteration_cross_validation'] + "_manipulated" + ".csv"
+    output_path = get_output_path_predictions(args, preprocessor)
 
-
-    with open(result_dir_fold, 'r') as result_file_fold:
-        result_reader = csv.reader(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+    with open(output_path, 'r') as result_file:
+        result_reader = csv.reader(result_file, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         next(result_reader)
 
         for row in result_reader:
@@ -110,29 +83,41 @@ def get_output(args, preprocessor, _output, manipulated=False):
 
     _output["accuracy_values"].append(sklearn.metrics.accuracy_score(ground_truth_label, predicted_label))
     _output["precision_values"].append(
-        sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted'))
+            sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted'))
     _output["recall_values"].append(
-        sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted'))
+            sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted'))
     _output["f1_values"].append(sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted'))
 
     return _output
 
 
-def print_output(args, _output, index_fold, manipulated=False):
+def print_output(args, _output, index_fold):
     if args.cross_validation and index_fold < args.num_folds:
         llprint("\nAccuracy of fold %i: %f\n" % (index_fold, _output["accuracy_values"][index_fold]))
         llprint("Precision of fold %i: %f\n" % (index_fold, _output["precision_values"][index_fold]))
         llprint("Recall of fold %i: %f\n" % (index_fold, _output["recall_values"][index_fold]))
         llprint("F1-Score of fold %i: %f\n" % (index_fold, _output["f1_values"][index_fold]))
-        if not manipulated:
-            llprint("Training time of fold %i: %f seconds\n\n" % (index_fold, _output["training_time_seconds"][index_fold]))
+        if args.mode == 0:
+            llprint(
+                "Training time of fold %i: %f seconds\n" % (index_fold, _output["training_time_seconds"][index_fold]))
+            # TODO add prediction and explanation times if/when cross-validation is implemented
+
     else:
         llprint("\nAccuracy avg: %f\n" % (avg(_output["accuracy_values"])))
         llprint("Precision avg: %f\n" % (avg(_output["precision_values"])))
         llprint("Recall avg: %f\n" % (avg(_output["recall_values"])))
         llprint("F1-Score avg: %f\n" % (avg(_output["f1_values"])))
-        if not manipulated:
-            llprint("Training time avg: %f seconds" % (avg(_output["training_time_seconds"])))
+
+        if args.mode == 0:
+            llprint("Training time total: %f seconds\n" % (avg(_output["training_time_seconds"])))
+            llprint("Prediction time avg: %f seconds\n" % (avg(_output["prediction_times_seconds"])))
+            llprint("Prediction time total: %f seconds\n" % (sum(_output["prediction_times_seconds"])))
+
+        if args.mode == 2:
+            llprint("Explanation time avg: %f seconds\n" % (avg(_output["explanation_times_seconds"])))
+            llprint("Explanation time total: %f seconds\n" % (sum(_output["explanation_times_seconds"])))
+
+    llprint("\n")
 
 
 def get_mode(index_fold, args):
@@ -146,34 +131,132 @@ def get_mode(index_fold, args):
 
 def get_output_value(_mode, _index_fold, _output, measure, args):
     """
-    If fold < max number of folds in cross validation than use a specific value, else avg works. In addition, this holds for split.
+    If fold < max number of folds in cross validation than use a specific value, else avg works. In addition, this holds
+    for split.
     """
 
-    if _mode != "split-%s" % args.split_rate_test and _mode != "avg":
+    if _mode != "split-%s" % args.split_rate_test and _mode != "avg" and _mode != "sum":
         return _output[measure][_index_fold]
     else:
-        return avg(_output[measure])
+        if _mode == "sum":
+            return sum(_output[measure])
+        else:
+            return avg(_output[measure])
 
 
 def write_output(args, _output, index_fold):
+    names = ["experiment", "mode", "validation", "accuracy", "precision", "recall", "f1-score"]
+    if args.mode == 0:
+        names.extend(["training-time-total", "prediction-time-avg", "prediction-time-total"])
+    if args.mode == 2:
+        names.extend(["explanation-time-avg", "explanation-time-total"])
+    names.append("time-stamp")
 
-    with open('./%s%soutput_%s.csv' % (args.task, args.result_dir[1:], args.data_set[:-4]), mode='a',
-              newline='') as file:
+    experiment = "%s-%s" % (args.data_set[:-4], args.dnn_architecture)
+    mode = get_mode(index_fold, args)
+    values = [experiment, mode]
+    if args.cross_validation:
+        values.append("cross-validation")
+    else:
+        values.append("split-validation")
+    values.append(get_output_value(mode, index_fold, _output, "accuracy_values", args))
+    values.append(get_output_value(mode, index_fold, _output, "precision_values", args))
+    values.append(get_output_value(mode, index_fold, _output, "recall_values", args))
+    values.append(get_output_value(mode, index_fold, _output, "f1_values", args))
+    if args.mode == 0:
+        values.append(get_output_value(mode, index_fold, _output, "training_time_seconds", args))
+        values.append(get_output_value(mode, index_fold, _output, "prediction_times_seconds", args))
+        values.append(get_output_value("sum", index_fold, _output, "prediction_times_seconds", args))
+    if args.mode == 2:
+        values.append(get_output_value(mode, index_fold, _output, "explanation_times_seconds", args))
+        values.append(get_output_value("sum", index_fold, _output, "explanation_times_seconds", args))
+    values.append(arrow.now())
+
+    output_path = get_output_path_performance_measurements(args)
+
+    with open(output_path, mode='a', newline='') as file:
         writer = csv.writer(file, delimiter=';', quoting=csv.QUOTE_NONE, escapechar=' ')
+        if os.stat(output_path).st_size == 0:
+            # if file is empty
+            writer.writerow(names)
+        writer.writerow(values)
 
-        # if file is empty
-        if os.stat('./%s%soutput_%s.csv' % (args.task, args.result_dir[1:], args.data_set[:-4])).st_size == 0:
-            writer.writerow(
-                ["experiment", "mode", "validation", "accuracy", "precision", "recall", "f1-score", "training-time",
-                 "time-stamp"])
-        writer.writerow([
-            "%s-%s" % (args.data_set[:-4], args.dnn_architecture),  # experiment
-            get_mode(index_fold, args),  # mode
-            "cross-validation" if args.cross_validation else "split-validation",  # validation
-            get_output_value(get_mode(index_fold, args), index_fold, _output, "accuracy_values", args),
-            get_output_value(get_mode(index_fold, args), index_fold, _output, "precision_values", args),
-            get_output_value(get_mode(index_fold, args), index_fold, _output, "recall_values", args),
-            get_output_value(get_mode(index_fold, args), index_fold, _output, "f1_values", args),
-            get_output_value(get_mode(index_fold, args), index_fold, _output, "training_time_seconds", args),
-            arrow.now()
-        ])
+
+def get_output_path_performance_measurements(args):
+
+    directory = './%s%s' % (args.task, args.result_dir[1:])
+
+    if args.mode == 0:
+        file = 'output_%s_%s.csv' % (args.data_set[:-4], args.classifier)
+    if args.mode == 2:
+        file = 'output_%s_%s_manipulated.csv' % (args.data_set[:-4], args.classifier)
+
+    return directory + file
+
+
+def get_output_path_predictions(args, preprocessor):
+
+    directory = './' + args.task + args.result_dir[1:]
+    file = args.data_set.split(".csv")[0]
+    if args.cross_validation:
+        file += "_%d_%s" % (preprocessor.iteration_cross_validation, args.classifier)
+    else:
+        file += "_0_%s" % args.classifier
+    if args.mode == 2:
+        file += "_manipulated"
+    file += ".csv"
+
+    return directory + file
+
+
+def get_model_dir(args, preprocessor):
+    """
+    Returns the path to the stored trained model for the next activity prediction.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    str :
+        Path to stored model.
+
+    """
+    model_dir = "%sca_%s_%s_%s" % (args.model_dir, args.task, args.data_set[0:len(args.data_set) - 4],
+                                   preprocessor.iteration_cross_validation)
+    if args.classifier == "DNN":
+        model_dir += ".h5"
+    else:
+        model_dir += ".joblib"
+
+    return model_dir
+
+
+def load_nap_model(args, preprocessor):
+    """
+    Returns ML model used for next activity prediction.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    preprocessor : nap.preprocessor.Preprocessor
+        Object to preprocess input data.
+
+    Returns
+    -------
+    model : type depends on classifier type
+
+    """
+
+    model_dir = get_model_dir(args, preprocessor)
+    if args.classifier == "DNN":
+        model = load_model(model_dir)
+    if args.classifier == "RF":
+        model = load(model_dir)
+
+    return model

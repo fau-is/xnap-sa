@@ -4,42 +4,31 @@ from pm4py.objects.conversion.log import converter as log_converter
 from pm4py.objects.log.log import Event
 import xnap.utils as utils
 import category_encoders
-
-
-def get_attribute_data_type(attribute_column):
-    """ Returns the data type of the passed attribute column 'num' for numerical and 'cat' for categorical """
-
-    column_type = str(attribute_column.dtype)
-
-    if column_type.startswith('float'):
-        attribute_type = 'num'
-    else:
-        attribute_type = 'cat'
-
-    return attribute_type
+from sklearn.model_selection import KFold, ShuffleSplit
 
 
 class Preprocessor(object):
+
     iteration_cross_validation = 0
     activity = {}
     context = {}
-    unique_activity_map_to_id = None
-    unique_activity_ids_map_to_name = None
 
-    def __init__(self, args):
+    def __init__(self):
         self.activity = {
             'end_char': '!',
-            'chars_to_labels': {},
+            'chars_to_labels': {},  # label = (e.g. one-hot) encoded activity
             'labels_to_chars': {},
-            'event_ids_to_one_hot': {},
-            'one_hot_to_event_ids': {},
+            'ids_to_labels': {},
+            'labels_to_ids': {},
+            'strings_to_ids': {},
+            'ids_to_strings': {},
             'label_length': 0,
         }
         self.context = {
             'attributes': [],
-            'attributes_mapping_ids_to_one_hot': {},  # can be accessed by attribute name
-            'attributes_mapping_one_hot_to_ids': {},
-            'encoding_lengths': []
+            # 'strings_to_one_hot': {},
+            'one_hot_to_strings': {},  # can be accessed by attribute name
+            'encoding_lengths': {}
         }
 
     def get_event_log(self, args):
@@ -72,15 +61,15 @@ class Preprocessor(object):
     def encode_context_attribute(self, args, df, column_name):
         """ Encodes values of a context attribute for all events in an event log """
 
-        data_type = get_attribute_data_type(df[column_name])
+        data_type = self.get_attribute_data_type(df[column_name])
         encoding_mode = self.get_encoding_mode(args, data_type)
 
         encoding_columns = self.encode_column(args, df, column_name, encoding_mode)
 
         if isinstance(encoding_columns, pandas.DataFrame):
-            self.set_length_of_context_encoding(len(encoding_columns.columns))
+            self.set_length_of_context_encoding(column_name, len(encoding_columns.columns))
         elif isinstance(encoding_columns, pandas.Series):
-            self.set_length_of_context_encoding(1)
+            self.set_length_of_context_encoding(column_name, 1)
 
         df = self.transform_encoded_attribute_columns_to_single_column(encoding_columns, df, column_name)
 
@@ -94,7 +83,7 @@ class Preprocessor(object):
         end_event[args.activity_key] = list(end_label)
 
         for case in event_log:
-            case._list.append(end_event)
+            case.append(end_event)
 
         return event_log
 
@@ -113,34 +102,33 @@ class Preprocessor(object):
                 encoded_df[column_name] = df[column_name]
             else:
                 if column_index == 1:
-                    # Created a mapping in order to also use raw activity names in csv files in contrast to naptf2.0
-                    self.unique_activity_map_to_id = self.map_activity_name_to_activity_id(df[column_name])
-                    self.unique_activity_ids_map_to_name = self.map_activity_id_to_activity_name(
-                        self.unique_activity_map_to_id)
-                    # transform event log activitiy names to activitiy ids
-                    # this can be skipped if event log is not raw (
-                    for index, row in df.iterrows():
-                        event_name = df.iloc[index, column_index]
-                        event_id = self.unique_activity_map_to_id[event_name]
-                        df.iloc[index, column_index] = event_id
-
+                    # activity
                     # todo: encode activities really necessary to convert to chars? why not leave event id as int?
                     encoded_column = self.encode_activities(args, df, column_name)
-                    # save Mapping of one hot activities to ids
-                    self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
                 else:
-                    # encode context attributes
+                    # context attributes
                     # todo: Check why df is replaced in site in contrast to line 128
                     encoded_column = self.encode_context_attribute(args, df.copy(), column_name)
-
-                    data_type = get_attribute_data_type(df[column_name])
+                    data_type = self.get_attribute_data_type(df[column_name])
                     encoding_mode = self.get_encoding_mode(args, data_type)
                     if encoding_mode == args.encoding_cat:
-                        self.save_mapping_one_hot_to_id(args, column_name, df[column_name], encoded_column)
+                        self.save_context_mapping_one_hot_to_id(column_name, df[column_name], encoded_column)
 
                 encoded_df = encoded_df.join(encoded_column)
 
         return encoded_df
+
+    def get_attribute_data_type(self, attribute_column):
+        """ Returns the data type of the passed attribute column 'num' for numerical and 'cat' for categorical """
+
+        column_type = str(attribute_column.dtype)
+
+        if column_type.startswith('float'):
+            attribute_type = 'num'
+        else:
+            attribute_type = 'cat'
+
+        return attribute_type
 
     def get_encoding_mode(self, args, data_type):
         """ Returns the encoding method to be used for a given data type """
@@ -156,7 +144,6 @@ class Preprocessor(object):
         """ Encodes activities for all events in an event log """
 
         encoding_mode = args.encoding_cat
-
         if encoding_mode == 'hash':
             encoding_mode = 'onehot'
 
@@ -172,33 +159,6 @@ class Preprocessor(object):
         df = self.remove_end_char_from_activity_column(df)
 
         return df[column_name]
-
-    def map_activity_name_to_activity_id(self, df_column):
-        """
-        :param df_column:
-        :return: dictionary of unique activities and their related id
-        """
-        unique_activities = []
-        for activity_name in df_column:
-            if activity_name not in unique_activities:
-                unique_activities.append(activity_name)
-
-        unique_activities_map_to_id = {}
-        for i, c in enumerate(unique_activities):
-            unique_activities_map_to_id[c] = i
-
-        return unique_activities_map_to_id
-
-    def map_activity_id_to_activity_name(self, unique_activity_map_to_id):
-        """
-        :param unique_activity_map_to_id: is retrieved from function  map_activity_name_to_activity_id()
-        :return: maps activity ids to names
-        """
-        unique_ids_map_to_activity_names = {}
-        for activity_name in unique_activity_map_to_id:
-            unique_ids_map_to_activity_names[unique_activity_map_to_id[activity_name]] = activity_name
-
-        return unique_ids_map_to_activity_names
 
     def add_end_char_to_activity_column(self, df, column_name):
         """ Adds single row to dataframe containing the end char (activity) representing an artificial end event """
@@ -242,28 +202,40 @@ class Preprocessor(object):
     def save_mapping_of_activities(self, column, encoded_column):
         """ Creates a mapping for activities (chars + labels (= encoded activity)) """
 
-        activities_chars = self.convert_activities_to_chars(column.values.tolist())
+        activity_chars, activity_ids = self.convert_activities_to_chars(column.values.tolist())
 
-        encoded_column_tuples = []
+        activities_encoded = []
         for entry in encoded_column.values.tolist():
             if type(entry) != list:
-                encoded_column_tuples.append((entry,))
+                activities_encoded.append((entry,))
             else:
-                encoded_column_tuples.append(tuple(entry))
+                activities_encoded.append(tuple(entry))
 
-        tuple_all_rows = list(zip(activities_chars, encoded_column_tuples))
+        tuples_chars_labels = list(zip(activity_chars, activities_encoded))
+        tuples_ids_labels = list(zip(activity_ids, activities_encoded))
+        tuples_ids_strings = list(zip(activity_ids, column.values.tolist()))
 
-        tuple_unique_rows = []
-        for tuple_row in tuple_all_rows:
-            if tuple_row not in tuple_unique_rows:
-                tuple_unique_rows.append(tuple_row)
+        unique_chars_labels = []
+        unique_ids_labels = []
+        unique_ids_strings = []
+        for tup_char_label, tup_id_label, tup_id_str in zip(tuples_chars_labels, tuples_ids_labels, tuples_ids_strings):
+            if tup_char_label not in unique_chars_labels:
+                unique_chars_labels.append(tup_char_label)
+            if tup_id_label not in unique_ids_labels:
+                unique_ids_labels.append(tup_id_label)
+            if tup_id_str not in unique_ids_strings:
+                unique_ids_strings.append(tup_id_str)
 
-        self.activity['chars_to_labels'] = dict(tuple_unique_rows)
-        self.activity['labels_to_chars'] = dict([(t[1], t[0]) for t in tuple_unique_rows])
+        self.activity['chars_to_labels'] = dict(unique_chars_labels)
+        self.activity['labels_to_chars'] = dict([(t[1], t[0]) for t in unique_chars_labels])
 
-        return
+        self.activity['ids_to_labels'] = dict(unique_ids_labels)
+        self.activity['labels_to_ids'] = dict([(t[1], t[0]) for t in unique_ids_labels])
 
-    def save_mapping_one_hot_to_id(self, args, column_name, activity_column, encoded_column):
+        self.activity['ids_to_strings'] = dict(unique_ids_strings)
+        self.activity['strings_to_ids'] = dict([(t[1], t[0]) for t in unique_ids_strings])
+
+    def save_context_mapping_one_hot_to_id(self, column_name, activity_column, encoded_column):
         """ Saves the mapping from one hot to its id/name """
 
         activity_ids = activity_column.values.tolist()
@@ -282,25 +254,8 @@ class Preprocessor(object):
             if tuple_row not in tuple_unique_rows:
                 tuple_unique_rows.append(tuple_row)
 
-        if column_name == args.activity_key:
-            self.activity['event_ids_to_one_hot'] = dict(tuple_unique_rows)
-            self.activity['one_hot_to_event_ids'] = dict([(t[1], t[0]) for t in tuple_unique_rows])
-        else:
-            self.context['attributes_mapping_ids_to_one_hot'][column_name] = dict(tuple_unique_rows)
-            self.context['attributes_mapping_one_hot_to_ids'][column_name] = dict(
-                [(t[1], t[0]) for t in tuple_unique_rows])
-
-        return
-
-    def get_context_attribute_encoding_length(self, context_attribute_name):
-        """
-        :param context_attribute_name:
-        :return: amount of columns in one hot encoding if attribute type is categorial or 1 if type is numerical
-        """
-        if context_attribute_name not in self.context['attributes_mapping_one_hot_to_ids']:
-            return 1  # In this case attribute type is numerical
-        else:
-            return len(self.context['attributes_mapping_one_hot_to_ids'][context_attribute_name])
+        # self.context['strings_to_one_hot'][column_name] = dict(tuple_unique_rows)
+        self.context['one_hot_to_strings'][column_name] = dict([(t[1], t[0]) for t in tuple_unique_rows])
 
     def transform_encoded_attribute_columns_to_single_column(self, encoded_columns, df, column_name):
         """ Transforms multiple columns (repr. encoded attribute) to a single column in a data frame """
@@ -315,18 +270,32 @@ class Preprocessor(object):
 
         if activity != self.get_end_char():
             # 161 below is ascii offset
-            activity = chr(int(activity) + 161)  # TODO
+            activity = chr(int(activity) + 161)
 
         return activity
 
     def convert_activities_to_chars(self, activities):
         """ Convert initial activity's representation to char """
+        unique_activities = []
+        for activity in activities:
+            if activity not in unique_activities:
+                unique_activities.append(activity)
+
+        activity_ids = list(range(len(unique_activities)))
+        str_to_id = dict(zip(unique_activities, activity_ids))
 
         chars = []
+        ids = []
         for activity in activities:
-            chars.append(self.convert_activity_to_char(activity))
+            act_id = str_to_id[activity]
+            if activity != self.get_end_char():
+                act_char = self.convert_activity_to_char(act_id)
+            else:
+                act_char = activity
+            chars.append(act_char)
+            ids.append(act_id)
 
-        return chars
+        return chars, ids
 
     def apply_min_max_normalization(self, df, column_name):
         """ Normalizes a data frame column with min max normalization """
@@ -368,25 +337,35 @@ class Preprocessor(object):
         """ Save number of columns representing an encoded activity """
         self.activity['label_length'] = num_columns
 
-    def set_length_of_context_encoding(self, num_columns):
+    def set_length_of_context_encoding(self, column_name, num_columns):
         """ Save number of columns representing an encoded context attribute """
-        self.context['encoding_lengths'].append(num_columns)
+        self.context['encoding_lengths'][column_name] = num_columns
 
     def get_length_of_activity_label(self):
         """ Returns number of columns representing an encoded activity """
         return self.activity['label_length']
 
     def get_lengths_of_context_encoding(self):
-        """ Returns number of columns representing an encoded context attribute """
-        return self.context['encoding_lengths']
+        """ Returns number of columns representing all encoded context attribute """
+        return list(self.context['encoding_lengths'].values())
+
+    def get_length_of_context_encoding(self, attribute_name):
+        """
+        Returns number of columns representing an encoded context attribute
+
+        Parameters
+        ----------
+        attribute_name : Name of context attribute.
+
+        Returns
+        -------
+        int : Number of encoding values representing a context attribute's original value.
+        """
+        return self.context['encoding_lengths'][attribute_name]
 
     def get_activity_labels(self):
         """ Returns labels representing encoded activities of an event log """
         return list(self.activity['labels_to_chars'].keys())
-
-    def get_activity_chars(self):
-        """ Returns chars representing activities of an event log """
-        return list(self.activity['chars_to_labels'].keys())
 
     def char_to_label(self, char):
         """ Maps a char to a label (= encoded activity) """
@@ -395,33 +374,6 @@ class Preprocessor(object):
     def label_to_char(self, label):
         """ Maps a label (= encoded activity) to a char """
         return self.activity['labels_to_chars'][label]
-
-    def get_event_id_from_one_hot(self, one_hot_encoding):
-        """
-        :param one_hot_encoding:
-        :return: event id
-        """
-        if isinstance(one_hot_encoding, list):
-            return self.activity['one_hot_to_event_ids'][tuple(one_hot_encoding)]
-        else:
-            if one_hot_encoding not in self.activity['one_hot_to_event_ids']:
-                return len(self.activity['one_hot_to_event_ids'])
-            else:
-                return self.activity['one_hot_to_event_ids'][one_hot_encoding]
-
-    def get_context_attribute_name_from_one_hot(self, attribute_name, one_hot_encoding):
-        """
-        :param one_hot_encoding:
-        :param attribute_name: column name of context attribute
-        :return: event id
-        """
-        if isinstance(one_hot_encoding, list):
-            return self.context['attributes_mapping_one_hot_to_ids'][attribute_name][tuple(one_hot_encoding)]
-        else:
-            if one_hot_encoding not in self.context['attributes_mapping_one_hot_to_ids'][attribute_name]:
-                return len(self.context['attributes_mapping_one_hot_to_ids'][attribute_name])
-            else:
-                return self.context['attributes_mapping_one_hot_to_ids'][attribute_name][one_hot_encoding]
 
     def get_end_char(self):
         """ Returns a char symbolizing the end (activity) of a case """
@@ -440,10 +392,8 @@ class Preprocessor(object):
     def get_num_features(self):
         """ Returns the number of features used to train and test the model """
 
-        num_features = 0
-        num_features += self.get_length_of_activity_label()
-        for len in self.get_lengths_of_context_encoding():
-            num_features += len
+        num_features = self.get_length_of_activity_label()
+        num_features += sum(self.get_lengths_of_context_encoding())
 
         return num_features
 
@@ -457,15 +407,56 @@ class Preprocessor(object):
 
         return max_case_length
 
-    def get_cases_of_fold(self, event_log, index_per_fold):
+    def get_indices_split_validation(self, args, event_log):
+        """ Produces indices for training and test set of a split-validation """
+
+        if args.shuffle:
+
+            shuffle_split = ShuffleSplit(n_splits=1, test_size=args.val_split, random_state=0)
+
+            train_index_per_fold = []
+            test_index_per_fold = []
+
+            for train_indices, test_indices in shuffle_split.split(event_log):
+                # TODO there is actually no fold (we do have split validation), rename this also
+                train_index_per_fold.append(train_indices)
+                test_index_per_fold.append(test_indices)
+
+            return train_index_per_fold[0], test_index_per_fold[0]
+
+        else:
+
+            indices_ = [index for index in range(0, len(event_log))]
+            return indices_[:int(len(indices_) * args.split_rate_test)], \
+                   indices_[int(len(indices_) * args.split_rate_test):]
+
+    def get_indices_k_fold_validation(self, args, event_log):
+        """ Produces indices for each fold of a k-fold cross-validation """
+
+        kFold = KFold(n_splits=args.num_folds, random_state=args.seed_val, shuffle=args.shuffle)
+
+        train_index_per_fold = []
+        test_index_per_fold = []
+
+        for train_indices, test_indices in kFold.split(event_log):
+            train_index_per_fold.append(train_indices)
+            test_index_per_fold.append(test_indices)
+
+        return train_index_per_fold, test_index_per_fold
+
+    def get_subset_cases(self, args, event_log, indices):
         """ Retrieves cases of a fold """
+        subset_cases = []
 
-        cases_of_fold = []
+        if args.cross_validation:
+            index_per_fold = indices
+            for index in index_per_fold[self.iteration_cross_validation]:
+                subset_cases.append(event_log[index])
+        else:
+            for index in indices:
+                subset_cases.append(event_log[index])
 
-        for index in index_per_fold[self.iteration_cross_validation]:
-            cases_of_fold.append(event_log[index])
-
-        return cases_of_fold
+        return subset_cases
 
     def get_subsequences_of_cases(self, cases):
         """ Creates subsequences of cases representing increasing prefix sizes """
@@ -473,8 +464,8 @@ class Preprocessor(object):
         subseq = []
 
         for case in cases:
-            for idx_event in range(1, len(case._list)):
-                subseq.append(case._list[0:idx_event])
+            for idx_event in range(1, len(case)):
+                subseq.append(case[0:idx_event])
 
         return subseq
 
@@ -484,11 +475,11 @@ class Preprocessor(object):
         next_events = []
 
         for case in cases:
-            for idx_event in range(0, len(case._list)):
+            for idx_event in range(0, len(case)):
                 if idx_event == 0:
                     continue
                 else:
-                    next_events.append(case._list[idx_event])
+                    next_events.append(case[idx_event])
 
         return next_events
 
@@ -520,14 +511,18 @@ class Preprocessor(object):
                         attribute_values = event.get(attribute_key)
 
                         if not isinstance(attribute_values, list):
-                            features_tensor[
-                                idx_subseq, timestep + left_pad, start_idx + self.get_length_of_activity_label()] = attribute_values
+                            features_tensor[idx_subseq, timestep + left_pad, start_idx +
+                                            self.get_length_of_activity_label()] = attribute_values
                             start_idx += 1
                         else:
                             for idx, val in enumerate(attribute_values, start=start_idx):
                                 features_tensor[
                                     idx_subseq, timestep + left_pad, idx + self.get_length_of_activity_label()] = val
                             start_idx += len(attribute_values)
+
+            if args.classifier == 'RF':
+                features_tensor_flattened = features_tensor.reshape(len(features_tensor), max_case_length * num_features)
+                return features_tensor_flattened
 
         return features_tensor
 
@@ -550,42 +545,28 @@ class Preprocessor(object):
 
         return labels_tensor
 
-    def get_predicted_label(self, predictions):
+    def get_predicted_label(self, pred_probabilities):
         """ Returns label of a predicted activity """
 
         labels = self.get_activity_labels()
-        max_prediction = 0
-        event_index = 0
+        max_probability = 0
+        activity_index = 0
 
-        for prediction in predictions:
-            if prediction >= max_prediction:
-                max_prediction = prediction
-                label = labels[event_index]
-            event_index += 1
+        for probability in pred_probabilities:
+            if probability >= max_probability:
+                max_probability = probability
+                label = labels[activity_index]
+            activity_index += 1
 
         return label
 
-    def convert_process_instance_list_id_to_name(self, process_instances):
-        """
-        takes a 2 dimensional input (meaning a list of process instances with their event ids and
-        converts it to event names
-        """
-        process_instances_converted = []
-        for process_instance in process_instances:
-            process_instance_converted = []
-            for event in process_instance:
-                process_instance_converted.append(self.unique_activity_ids_map_to_name[event])
-            process_instances_converted.append(process_instance_converted)
-
-        return process_instances_converted
-
-    def get_random_process_instance(self, event_log, lower_bound, upper_bound):
+    def get_random_case(self, event_log, lower_bound, upper_bound):
         """
         Selects a random process instance from the complete event log.
         :param event_log:
         :param lower_bound:
         :param upper_bound:
-        :return: process instance.
+        :return: case.
         """
 
         while True:
@@ -597,40 +578,3 @@ class Preprocessor(object):
                 break
 
         return event_log[rand]
-
-    def get_cropped_instance_label(self, prefix_size, process_instance):
-        """
-        Crops the next activity label out of a single process instance.
-        :param prefix_size:
-        :param process_instance:
-        :return:
-        """
-
-        if prefix_size == len(process_instance) - 1:
-            # end marker
-            return self.get_end_char()
-        else:
-            # label of next act
-            return process_instance[prefix_size]
-
-    def get_activity_type_from_activity_id(self, activity_id):
-        """
-        :param activity_id:
-        :return: event type as a raw name
-        """
-        if activity_id == len(self.unique_activity_ids_map_to_name):
-            return self.get_end_char()
-        else:
-            return self.unique_activity_ids_map_to_name[activity_id]
-
-    def get_activity_id_from_activity_name(self, activity_name):
-        """
-        :param activity_name:
-        :return: event id
-        """
-        if activity_name == self.get_end_char():
-            return len(self.unique_activity_map_to_id)
-        else:
-            return self.unique_activity_map_to_id[activity_name]
-
-
