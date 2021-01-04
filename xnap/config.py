@@ -7,7 +7,7 @@ def load():
     parser = argparse.ArgumentParser()
 
     # General parameters
-    parser.add_argument('--mode', default=2, type=int)
+    parser.add_argument('--mode', default=0, type=int)
     """ There are three modes
         0 = train and test model
         1 = explain prediction for random process instance
@@ -31,8 +31,11 @@ def load():
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
 
-    # Classifier (DNN -> Deep Neural Network, RF -> Random Forest)
-    parser.add_argument('--classifier', default="DNN", type=str)  # DNN, RF
+    # Classifier
+    #   DNN -> Deep Neural Network
+    #   RF  -> Random Forest
+    #   DT  -> Decision Tree
+    parser.add_argument('--classifier', default="DT", type=str)  # DNN, RF, DT
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=100, type=int)

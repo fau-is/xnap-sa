@@ -256,7 +256,7 @@ def load_nap_model(args, preprocessor):
     model_dir = get_model_dir(args, preprocessor)
     if args.classifier == "DNN":
         model = load_model(model_dir)
-    if args.classifier == "RF":
+    else:
         model = load(model_dir)
 
     return model

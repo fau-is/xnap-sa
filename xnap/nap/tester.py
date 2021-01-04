@@ -54,7 +54,7 @@ def test(args, preprocessor, event_log, test_indices, output):
                     # 1.2. prepare data: features tensor
                     features = preprocessor.get_features_tensor(args, event_log, [subseq])
 
-                    if args.classifier == "RF":
+                    if args.classifier == "RF" or args.classifier == "DT":
                         max_case_len = preprocessor.get_max_case_length(event_log)
                         num_features = preprocessor.get_num_features()
                         # flatten features tensor
