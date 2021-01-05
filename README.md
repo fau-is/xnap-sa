@@ -21,7 +21,7 @@
 - Prediction task: nap
 - Data attributes: yes
 - Data sets: helpdesk, bpi2019 (sample), and bpi2020
-- Metrics: auc_roc, accuracy, precision, recall, f1-score
+- Metrics: auc_roc, accuracy, precision (weighted), recall (weighted), f1-score (weighted)
 - Machine learning models: Bi-LSTM, RandomForest, and Decision Tree
 - Encoding: one-hot (activity and data attributes)
 - Validation: 
