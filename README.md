@@ -23,22 +23,22 @@
 - Data sets: helpdesk, bpi2019 (sample), and bpi2020
 - Metrics: auc_roc, accuracy, precision (weighted), recall (weighted), f1-score (weighted)
 - Machine learning models: Bi-LSTM, RandomForest, and Decision Tree
-- Encoding: one-hot (activity and data attributes)
+- Encoding: one-hot (activity and data attributes) @svwe
 - Validation: 
     - split data set into train (80%) and test (20%); 
     - split train set (80%) into sub-train set (90%) and validation set (10%). 
-- HPO: no (later yes)
+- HPO: yes @svwe
 - Shuffling: no
-- Seed: 1377 (randomly selected, later no)
+- Seed: no
+- Repetitions of experiments: 1 (best case: 10)
 - Baseline: 
-    - Bi-LSTM + LIME
-    - Bi-LSTM + Shap
-    - RF + LIME (optional)
-    - RF + Shap (optional)
+    - RQ1: RF or DT
+    - RQ2: Bi-LSTM + LIME (or Bi-LSTM + SHAP)
+    - RQ3: Bi-LSTM + LIME (or Bi-LSTM + SHAP)    
 
 
 ## Further details
-- Ensuring reproducible results via a seed flag in config. Four seeds are set (holds only for cpu):
+- Ensuring reproducible results via the seed flag in config. Four seeds are set (holds only for cpu):
     - np.random.seed(1377)
     - tf.random.set_seed(1377)
     - random.seed(1377)
