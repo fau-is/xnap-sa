@@ -10,14 +10,19 @@
 2. Create single explanation
 
 3. Evaluate explanations
-   
+
+## Research questions
+
+1. Does an LSTM outperform an traditional ml algorithm (such as RF) in terms of predictive quality?
+2. Does a model-specific post-hoc method generate more reliable explanations for an LSTM than a model-agnostic post-hoc method?
+3. Does a model-specific post-hoc method generate explanations for an LSTM more efficiently than a model-agnostic post-hoc method?    
  
 ## Setting
-- Task: nap
+- Prediction task: nap
 - Data attributes: yes
-- Data sets: primary three bpi real-life data sets (both!); secondary synthetic data sets
-- Metrics: auc_roc, acc, precision, recall, f1-score
-- Model: Bi-LSTM
+- Data sets: helpdesk, bpi2019 (sample), and bpi2020
+- Metrics: auc_roc, accuracy, precision, recall, f1-score
+- Machine learning models: Bi-LSTM, RandomForest, and Decision Tree
 - Encoding: one-hot (activity and data attributes)
 - Validation: 
     - split data set into train (80%) and test (20%); 
