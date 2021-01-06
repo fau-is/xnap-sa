@@ -12,3 +12,4 @@ setuptools~=49.2.0
 lime~=0.2.0.1
 joblib~=0.16.0
 category_encoders~=2.2.2
+shap~=0.37.0

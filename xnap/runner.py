@@ -35,12 +35,13 @@ if __name__ == '__main__':
     elif args.mode == 1:
 
         trace = preprocessor.get_random_case(event_log, args.rand_lower_bound, args.rand_upper_bound)
-        exp.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor)
+        exp.calc_and_plot_relevance_scores_instance(event_log, trace, args, preprocessor, train_indices)
 
-    else:
+    elif args.mode == 2:
+
         output_exp = utils.load_output()
-        manipulated_prefixes = exp.get_manipulated_prefixes_from_relevance(args, preprocessor, event_log, test_indices,
-                                                                           output_exp)
+        manipulated_prefixes = exp.get_manipulated_prefixes_from_relevance(args, preprocessor, event_log,
+                                                                           train_indices, test_indices, output_exp)
         test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices)
 
         output_exp = utils.get_output(args, preprocessor, output_exp)

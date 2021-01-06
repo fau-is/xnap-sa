@@ -1,6 +1,5 @@
 import numpy
 from lime.lime_text import LimeTextExplainer
-import xnap.nap.tester as test
 import xnap.utils as utils
 
 
@@ -37,14 +36,10 @@ def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size
 
     Returns
     -------
-    prefix_words : list of lists, where a sublist list contains strings
-        Sublists represent single events. Strings in a sublist represent original attribute values of this event.
     R_words : ndarray with shape [1, max case length]
         Relevance scores of events in the subsequence to be explained.
     R_words_context : dict
         An entry in the dict contains relevance scores of context attributes (key is attribute name, value is array)
-    column_names : list of str
-        Names of attributes (activity + context) considered in prediction.
 
     """
     global args_
@@ -54,18 +49,10 @@ def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size
     preprocessor_ = preprocessor
     event_log_ = event_log
 
-    # next activity prediction
-    predicted_act_class, target_act_class_str, prob_dist = test.test_prefix(event_log, args, preprocessor, case,
-                                                                            prefix_size)
-    print("Prefix: %s; Next activity prediction: %s; Next activity target: %s" % (
-        prefix_size, predicted_act_class, target_act_class_str))
-    print("Probability Distribution:")
-    print(prob_dist)
-
-    # compute relevance scores through lime
     subseq_case = case[:prefix_size]
     subseq_case_str = transform_subseq_to_string(subseq_case, args, preprocessor)
 
+    # perform lime
     explainer = LimeTextExplainer()
     wrapped_classifier_function = wrapped_classifier_fn([subseq_case_str])  # function returns function!
     explanations = explainer.explain_instance(
@@ -75,17 +62,9 @@ def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size
             num_samples=args.lime_num_samples           # number of perturbed strings per prefix, default=5000
     )
 
-    prefix_words, R_words, R_words_context = create_heatmap_data(args, preprocessor, event_log, subseq_case,
-                                                                 explanations, print_relevance_scores=True)
+    R_words, R_words_context = create_heatmap_data(preprocessor, event_log, explanations, print_relevance_scores=True)
 
-    column_names = [args.activity_key]  # list of event and context attributes in order to print a legend
-
-    current_col = preprocessor.get_num_activities()
-    for context_attribute in preprocessor.get_context_attributes():
-        column_names.append(context_attribute)
-        current_col += preprocessor.get_length_of_context_encoding(context_attribute) + 1
-
-    return prefix_words, R_words, R_words_context, column_names
+    return R_words, R_words_context
 
 
 def transform_subseq_to_string(subseq_case, args, preprocessor):
@@ -232,56 +211,16 @@ def init_reverse_context_lookup():
             context_idx_to_enc[context_name][idx] = val
 
 
-def get_prefix_words(subseq_case, args, preprocessor):
-    """
-    Transforms a subsequence of encoded events into a list of events represented by their original value.
-
-    Parameters
-    ----------
-    subseq_case : list of dicts, where single dict represents an event
-        Subsequence / subset of a case whose length is prefix_size.
-    args : Namespace
-        Settings of the configuration parameters.
-    preprocessor : nap.preprocessor.Preprocessor
-        Object to preprocess input data.
-
-    Returns
-    -------
-    list of lists, where a sublist list contains strings
-        Sublists represent single events. Strings in a sublist represent original attribute values of this event.
-
-    """
-    subseq_str_list = []
-    for event in subseq_case:
-        event_list = []
-        activity_enc = tuple(event[args.activity_key])
-        activity_id = preprocessor.activity['labels_to_ids'][activity_enc]
-        activity = preprocessor.activity['ids_to_strings'][activity_id]
-        event_list.append(activity)
-        for context_name in preprocessor.context['attributes']:
-            context_enc = event[context_name]
-            context_val = context_enc
-            if isinstance(context_enc, list):
-                context_val = preprocessor.context['one_hot_to_strings'][context_name][tuple(context_enc)]
-            event_list.append(context_val)
-        subseq_str_list.append(event_list)
-    return subseq_str_list
-
-
-def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations, print_relevance_scores=False):
+def create_heatmap_data(preprocessor, event_log, explanations, print_relevance_scores=False):
     """
     Prepares explanation data for heatmap visualization.
 
     Parameters
     ----------
-    args : Namespace
-        Settings of the configuration parameters.
     preprocessor : nap.preprocessor.Preprocessor
         Object to preprocess input data.
     event_log : list of dicts, where single dict represents a case
         The initial event log.
-    subseq_case : list of dicts, where single dict represents an event
-        Subsequence / subset of a case whose length is prefix_size.
     explanations : lime.explanation.Explanation object
         Explanations object of lime returned by explain_instance. Contains relevance scores of attributes.
     print_relevance_scores : bool
@@ -331,9 +270,6 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
                     relevance_scores[timestep] = {}
                 relevance_scores[timestep][context_name] = rel_scr
 
-    # prefix_words
-    prefix_words = get_prefix_words(subseq_case, args, preprocessor)
-
     # R_words
     R_words = numpy.zeros(max_case_len)
     for timestep, rel_scr in R_act.items():
@@ -356,7 +292,7 @@ def create_heatmap_data(args, preprocessor, event_log, subseq_case, explanations
         print(dict(sorted(relevance_scores.items(), key=lambda item: item[0])))  # sort by key (= time step)
         print("")
 
-    return prefix_words, R_words, R_words_context
+    return R_words, R_words_context
 
 
 def wrapped_classifier_fn(subseq_str_list):

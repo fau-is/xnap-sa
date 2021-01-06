@@ -73,12 +73,17 @@ def get_div(word, score, colormap, styles):
     return "{}{}{}{}{}{}{}{}".format("<div ", " style=\"background-color:", rgb, ";", styles, "\">", word, "</div>")
 
 
-def get_legend(column_names, scores_dict_context_attr):
-    context_attributes = ""
-    for i, context_attr in enumerate(scores_dict_context_attr):
-        context_attributes += get_div(column_names[i + 1], 0, None, get_context_attr_style())
-    output_event_word = get_div(column_names[0] + context_attributes, 0, None, get_event_attr_style())
-    return "<br>" + "Legend: " + output_event_word  + "<br>"
+def get_legend(args, preprocessor, scores_dict_context_attr):
+
+    context_attributes = preprocessor.get_context_attributes()
+    column_names = [args.activity_key]
+    column_names.extend(context_attributes)
+
+    context_attributes_html = ""
+    for i in range(len(scores_dict_context_attr)):
+        context_attributes_html += get_div(column_names[i + 1], 0, None, get_context_attr_style())
+    output_event_word = get_div(column_names[0] + context_attributes_html, 0, None, get_event_attr_style())
+    return "<br>" + "Legend: " + output_event_word + "<br>"
 
 
 def get_context_attr_style():
@@ -119,7 +124,7 @@ def html_heatmap(words, R_scores, R_scores_dict_context_attr, cmap_name="bwr"):
     return output_text + "\n"
 
 
-def create_html_heatmap_from_relevance_scores(heatmap, R_words_context, column_names):
+def create_html_heatmap_from_relevance_scores(args, preprocessor, heatmap, R_words_context):
     """
     Creates html heatmap from calculated relevance scores.
 
@@ -153,7 +158,7 @@ def create_html_heatmap_from_relevance_scores(heatmap, R_words_context, column_n
         "</html>"
 
     # create legend
-    legend = get_legend(column_names, R_words_context)
+    legend = get_legend(args, preprocessor, R_words_context)
 
     return head_and_style + legend + heatmap + body_end
 

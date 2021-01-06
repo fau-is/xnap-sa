@@ -78,14 +78,14 @@ def test(args, preprocessor, event_log, test_indices, output):
 
 def test_prefix(event_log, args, preprocessor, case, prefix_size):
     """
-    Perform test for LRP and LIME.
+    Perform test for LRP, LIME, or SHAP.
 
     :param event_log:
     :param args:
     :param preprocessor:
     :param case:
     :param prefix_size:
-    :return: parameters for LRP and LIME
+    :return: parameters for LRP, LIME, or SHAP
     """
 
     # todo in case of cross validation select the model with the highest f1-score
@@ -112,27 +112,22 @@ def test_prefix(event_log, args, preprocessor, case, prefix_size):
             act_name = preprocessor.activity['ids_to_strings'][act_id]
         prob_dist[act_name] = pred_prob[act_id]
 
-    if args.xai == "lime":
-        return pred_act_str, target_act_str, prob_dist
+    prefix_words = []
+    for event in subseq_case:
+        act_id = preprocessor.activity['labels_to_ids'][tuple(event[args.activity_key])]
+        act_name = preprocessor.activity['ids_to_strings'][act_id]
+        event_attr = [act_name]
+        for context_attr_name in preprocessor.get_context_attributes():
+            context_encoding = event[context_attr_name]
+            if isinstance(context_encoding, list):
+                # categorical attribute
+                event_attr.append(preprocessor.context['one_hot_to_strings'][context_attr_name][tuple(context_encoding)])
+            else:
+                # numeric attribute
+                event_attr.append(context_encoding)
+        prefix_words.append(event_attr)
 
-    if args.xai == "lrp":
-        prefix_words = []
-        for event in subseq_case:
-            act_id = preprocessor.activity['labels_to_ids'][tuple(event[args.activity_key])]
-            act_name = preprocessor.activity['ids_to_strings'][act_id]
-            event_attr = [act_name]
-            for context_attr_name in preprocessor.get_context_attributes():
-                context_encoding = event[context_attr_name]
-                if isinstance(context_encoding, list):
-                    # categorical
-                    event_attr.append(
-                            preprocessor.context['one_hot_to_strings'][context_attr_name][tuple(context_encoding)])
-                else:
-                    # numeric attribute
-                    event_attr.append(context_encoding)
-            prefix_words.append(event_attr)
-
-        return pred_act_str, target_act_id, target_act_str, prefix_words, model, features_tensor_reshaped, prob_dist
+    return pred_act_str, target_act_id, target_act_str, prefix_words, model, features_tensor_reshaped, prob_dist
 
 
 def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices):

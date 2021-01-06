@@ -7,41 +7,41 @@ def load():
     parser = argparse.ArgumentParser()
 
     # General parameters
-    parser.add_argument('--mode', default=0, type=int)
+    parser.add_argument('--mode', default=2, type=int)
     """ There are three modes
         0 = train and test model
         1 = explain prediction for random process instance
         2 = evaluate explanations for predictions (test set) 
     """
     # mode 1 + 2
-    parser.add_argument('--xai', default="lrp", type=str)  # lrp, lime
+    parser.add_argument('--xai', default="shap", type=str)  # lrp, lime, shap
     parser.add_argument('--lime_num_samples', default=250, type=int)  # default: 5000
-    parser.add_argument('--eager_execution', default=True, type=utils.str2bool)  # to avoid retracing with tf for lrp
+    parser.add_argument('--shap_num_samples', default=100, type=int)  # 100 (good estimate), 1000 (very good estimate)
     # mode 1
     parser.add_argument('--rand_lower_bound', default=5, type=int)
     parser.add_argument('--rand_upper_bound', default=5, type=int)
     # mode 2
     parser.add_argument('--removed_events_num', default=1, type=int)
     parser.add_argument('--removed_events_relevance', default="highest", type=str)  # lowest, highest
-
-    # Directories
-    parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="helpdesk_raw.csv")
-    parser.add_argument('--data_dir', default="./data/")
-    parser.add_argument('--model_dir', default="nap/models/")
-    parser.add_argument('--result_dir', default="./results/")
-
+    parser.add_argument('--eager_execution', default=False, type=utils.str2bool)  # to avoid retracing with tf for lrp
     # Classifier
     #   DNN -> Deep Neural Network
     #   RF  -> Random Forest
     #   DT  -> Decision Tree
-    parser.add_argument('--classifier', default="DT", type=str)  # DNN, RF, DT
+    parser.add_argument('--classifier', default="DNN", type=str)  # DNN, RF, DT
 
     # Parameters for deep neural network
-    parser.add_argument('--dnn_num_epochs', default=100, type=int)
+    parser.add_argument('--dnn_num_epochs', default=3, type=int)
     parser.add_argument('--dnn_architecture', default=0, type=int)
     parser.add_argument('--learning_rate', default=0.002, type=float)
     parser.add_argument('--dim', default=0, type=int)
+
+    # Directories
+    parser.add_argument('--task', default="nap")
+    parser.add_argument('--data_set', default="helpdesk_raw_sample_100.csv")
+    parser.add_argument('--data_dir', default="./data/")
+    parser.add_argument('--model_dir', default="nap/models/")
+    parser.add_argument('--result_dir', default="./results/")
 
     # Parameters for validation
     parser.add_argument('--seed', default=True, type=utils.str2bool)
