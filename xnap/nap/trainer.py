@@ -3,6 +3,7 @@ import tensorflow as tf
 from datetime import datetime
 import xnap.utils as utils
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
 import joblib
 
 
@@ -22,6 +23,10 @@ def train(args, preprocessor, event_log, train_indices, output):
     if args.classifier == "RF":
         # Random Forest
         train_random_forest(args, preprocessor, features_tensor, labels_tensor, output)
+
+    if args.classifier == "DT":
+        # Decision Tree
+        train_decision_tree(args, preprocessor, features_tensor, labels_tensor, output)
 
 
 def train_dnn(args, preprocessor, event_log, features_tensor, labels_tensor, output):
@@ -100,6 +105,30 @@ def train_random_forest(args, preprocessor, features_tensor_flattened, labels_te
                                    oob_score=False,                     # default value
                                    warm_start=False,                    # default value
                                    class_weight=None)                   # default value
+
+    start_training_time = datetime.now()
+    model.fit(features_tensor_flattened, labels_tensor)
+    training_time = datetime.now() - start_training_time
+    output["training_time_seconds"].append(training_time.total_seconds())
+
+    joblib.dump(model, utils.get_model_dir(args, preprocessor))
+
+
+def train_decision_tree(args, preprocessor, features_tensor_flattened, labels_tensor, output):
+
+    model = DecisionTreeClassifier(criterion='gini',
+                                   splitter='best',
+                                   max_depth=None,
+                                   min_samples_split=2,
+                                   min_samples_leaf=1,
+                                   min_weight_fraction_leaf=0.0,
+                                   max_features=None,
+                                   random_state=0,
+                                   max_leaf_nodes=None,
+                                   min_impurity_decrease=0.0,
+                                   min_impurity_split=None,
+                                   class_weight=None,
+                                   ccp_alpha=0.0)
 
     start_training_time = datetime.now()
     model.fit(features_tensor_flattened, labels_tensor)
