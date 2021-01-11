@@ -47,7 +47,7 @@ def load():
     parser.add_argument('--seed', default=True, type=utils.str2bool)
     parser.add_argument('--seed_val', default=1377, type=int)
     parser.add_argument('--shuffle', default=False, type=int)
-    parser.add_argument('--split_rate_test', default=0.8, type=float)
+    parser.add_argument('--split_rate_train', default=0.8, type=float)
     parser.add_argument('--val_split', default=0.1, type=float)
     parser.add_argument('--batch_size_train', default=128, type=int)
     parser.add_argument('--batch_size_test', default=1, type=int)

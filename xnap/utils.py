@@ -158,7 +158,7 @@ def write_measures(args, _measures):
     names.append("time-stamp")
 
     experiment = "%s-%s" % (args.data_set[:-4], args.dnn_architecture)
-    mode = "split-%s" % args.split_rate_test
+    mode = "split-%s" % args.split_rate_train
 
     values = [experiment, mode, "split-validation",
               _measures["accuracy_value"],

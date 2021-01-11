@@ -4,7 +4,7 @@ from pm4py.objects.conversion.log import converter as log_converter
 from pm4py.objects.log.log import Event
 import xnap.utils as utils
 import category_encoders
-from sklearn.model_selection import ShuffleSplit
+from sklearn.model_selection import train_test_split
 
 
 class Preprocessor(object):
@@ -423,25 +423,27 @@ class Preprocessor(object):
     def get_indices_split_validation(self, args, event_log):
         """ Produces indices for training and test set of a split-validation """
 
+        indices_ = [index for index in range(0, len(event_log))]  # Get number of cases from data
+
+        print(len(event_log))
+
         if args.shuffle:
+            if args.seed:
+                train_indices, test_indices, train_indices_, test_indices_ = train_test_split(indices_, indices_,
+                                                                                              train_size=args.split_rate_train,
+                                                                                              shuffle=args.shuffle,
+                                                                                              random_state=args.seed_val)
+                return train_indices, test_indices
 
-            shuffle_split = ShuffleSplit(n_splits=1, test_size=args.val_split, random_state=0)
-
-            train_index_per_fold = []
-            test_index_per_fold = []
-
-            for train_indices, test_indices in shuffle_split.split(event_log):
-                # TODO there is actually no fold (we do have split validation), rename this also
-                train_index_per_fold.append(train_indices)
-                test_index_per_fold.append(test_indices)
-
-            return train_index_per_fold[0], test_index_per_fold[0]
-
+            else:
+                train_indices, test_indices, train_indices_, test_indices_ = train_test_split(indices_, indices_,
+                                                                                              train_size=args.split_rate_train,
+                                                                                              shuffle=args.shuffle,
+                                                                                              random_state=None)
+                return train_indices, test_indices
         else:
-
-            indices_ = [index for index in range(0, len(event_log))]
-            return indices_[:int(len(indices_) * args.split_rate_test)], \
-                   indices_[int(len(indices_) * args.split_rate_test):]
+            return indices_[:int(len(indices_) * args.split_rate_train)], \
+                   indices_[int(len(indices_) * args.split_rate_train):]
 
 
     def get_subset_cases(self, args, event_log, indices):

@@ -1867,17 +1867,3 @@ case_id;activity;time;resource
 99;Accepted-Wait - User;02.02.2012-07:30:31;Bozidar
 99;Completed-Resolved;15.05.2012-14:14:44;Bozidar
 99;Completed-Closed;22.05.2012-23:22:12;Siebel
-100;Accepted-In Progress;29.01.2012-23:41:44;Dennis
-100;Accepted-In Progress;29.01.2012-23:41:52;Dennis
-100;Queued-Awaiting Assignment;29.01.2012-23:43:59;Dennis
-100;Accepted-In Progress;30.01.2012-08:51:07;Dusan
-100;Accepted-Wait - User;31.01.2012-10:43:33;Dusan
-100;Accepted-Wait;15.02.2012-15:36:57;Dusan
-100;Accepted-Wait - Implementation;12.03.2012-16:42:20;Dusan
-100;Accepted-In Progress;16.03.2012-07:12:32;Dusan
-100;Accepted-Wait - User;21.03.2012-15:48:48;Dusan
-100;Accepted-Wait - Implementation;26.03.2012-08:23:10;Dusan
-100;Accepted-Wait - User;28.03.2012-08:59:21;Dusan
-100;Accepted-Wait - Implementation;30.03.2012-13:47:27;Dusan
-100;Completed-Resolved;08.05.2012-08:07:36;Dusan
-100;Completed-Closed;15.05.2012-23:22:43;Siebel

@@ -455,8 +455,3 @@ case_id;activity;time;resource
 99;Require upgrade;24.04.2013-15:51:11;Value 9
 99;Resolve ticket;15.05.2013-13:21:00;Value 2
 99;Closed;30.05.2013-13:21:20;Value 3
-100;Insert ticket;18.06.2010-13:47:15;Value 15
-100;Assign seriousness;18.06.2010-14:18:15;Value 15
-100;Take in charge ticket;29.06.2010-07:35:47;Value 2
-100;Resolve ticket;29.06.2010-08:33:07;Value 2
-100;Closed;05.08.2010-13:50:24;Value 5
