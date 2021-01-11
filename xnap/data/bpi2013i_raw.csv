@@ -1,4 +1,4 @@
-case_id;activity;time;Owner First Name
+case_id;activity;time;resource
 0;Accepted-In Progress;31.03.2010-14:59:42;Frederic
 0;Accepted-In Progress;31.03.2010-15:00:56;Frederic
 0;Queued-Awaiting Assignment;31.03.2010-15:45:48;Frederic

@@ -1,4 +1,4 @@
-case_id;activity;time;org:role
+case_id;activity;time;resource
 0;Start trip;05.10.2016-00:00:00;EMPLOYEE
 0;End trip;05.10.2016-00:00:00;EMPLOYEE
 0;Permit SUBMITTED by EMPLOYEE;06.04.2017-13:32:10;EMPLOYEE
