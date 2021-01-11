@@ -218,7 +218,15 @@ def contains_end_event(args, subseq, preprocessor):
     """ Checks whether a subsequence of events contains an artificial end event, meaning case has ended """
 
     for event in subseq:
-        if is_end_label(tuple(event.get(args.activity_key)), preprocessor):
+
+        act = event.get(args.activity_key)
+
+        # is integer encoded
+        if isinstance(act, int):
+            act = [act]
+
+        if is_end_label(tuple(act), preprocessor):
+
             return True
         else:
             continue

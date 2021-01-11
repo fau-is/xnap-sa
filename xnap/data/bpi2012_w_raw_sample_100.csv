@@ -1,0 +1,903 @@
+case;event;time;resource
+0;W_Completeren aanvraag;01.10.2011-09:45:13;-1
+0;W_Nabellen offertes;01.10.2011-10:17:08;-1
+0;W_Nabellen offertes;08.10.2011-14:32:00;10913
+0;W_Nabellen offertes;10.10.2011-09:33:05;11049
+0;W_Valideren aanvraag;13.10.2011-08:37:37;10629
+1;W_Completeren aanvraag;01.10.2011-09:43:13;-1
+1;W_Completeren aanvraag;01.10.2011-12:35:48;-1
+1;W_Nabellen offertes;01.10.2011-12:36:25;-1
+1;W_Nabellen offertes;03.10.2011-14:56:21;-1
+1;W_Nabellen offertes;03.10.2011-14:57:16;-1
+1;W_Nabellen offertes;10.10.2011-08:14:45;11049
+1;W_Valideren aanvraag;10.10.2011-09:30:54;10809
+1;W_Valideren aanvraag;10.10.2011-12:14:13;10809
+1;W_Valideren aanvraag;10.10.2011-12:17:34;10809
+2;W_Completeren aanvraag;01.10.2011-09:35:59;10912
+2;W_Completeren aanvraag;03.10.2011-09:21:22;-1
+2;W_Completeren aanvraag;03.10.2011-11:32:43;11201
+2;W_Completeren aanvraag;03.10.2011-11:40:17;11201
+2;W_Nabellen offertes;03.10.2011-11:44:21;11201
+2;W_Nabellen offertes;10.10.2011-14:47:18;-1
+2;W_Nabellen offertes;10.10.2011-17:34:36;11119
+2;W_Nabellen offertes;14.10.2011-16:16:42;10912
+2;W_Nabellen offertes;17.10.2011-17:43:57;10861
+2;W_Nabellen offertes;25.10.2011-08:50:48;-1
+2;W_Nabellen offertes;26.10.2011-16:50:22;11203
+2;W_Nabellen offertes;29.10.2011-10:41:29;11181
+2;W_Nabellen offertes;01.11.2011-13:55:35;11189
+2;W_Nabellen offertes;01.11.2011-16:21:02;11119
+2;W_Nabellen offertes;02.11.2011-08:15:18;11049
+2;W_Valideren aanvraag;04.11.2011-15:05:01;10609
+3;W_Completeren aanvraag;01.10.2011-09:40:24;10912
+3;W_Completeren aanvraag;01.10.2011-11:02:12;10912
+4;W_Afhandelen leads;01.10.2011-08:16:49;10912
+4;W_Completeren aanvraag;01.10.2011-09:50:14;10912
+4;W_Completeren aanvraag;01.10.2011-09:53:55;10912
+4;W_Completeren aanvraag;01.10.2011-13:00:02;-1
+5;W_Completeren aanvraag;01.10.2011-08:27:07;10912
+5;W_Completeren aanvraag;01.10.2011-09:43:02;10912
+5;W_Completeren aanvraag;10.10.2011-15:43:13;10982
+5;W_Completeren aanvraag;01.11.2011-08:15:08;10982
+6;W_Afhandelen leads;01.10.2011-08:10:25;10912
+6;W_Completeren aanvraag;01.10.2011-11:03:35;11019
+6;W_Completeren aanvraag;03.10.2011-09:17:29;11180
+6;W_Completeren aanvraag;03.10.2011-12:42:55;11180
+7;W_Completeren aanvraag;01.10.2011-09:46:06;-1
+7;W_Completeren aanvraag;01.10.2011-10:30:24;10912
+7;W_Nabellen offertes;08.10.2011-14:38:17;10913
+7;W_Nabellen offertes;10.10.2011-10:54:04;10899
+7;W_Valideren aanvraag;13.10.2011-09:05:28;10138
+8;W_Completeren aanvraag;01.10.2011-08:44:43;-1
+8;W_Nabellen offertes;01.10.2011-08:44:58;-1
+8;W_Nabellen offertes;01.10.2011-08:46:56;-1
+8;W_Nabellen offertes;01.10.2011-08:50:20;-1
+8;W_Nabellen offertes;01.10.2011-08:50:34;-1
+8;W_Nabellen offertes;08.10.2011-14:31:37;11002
+8;W_Nabellen offertes;10.10.2011-08:55:07;11049
+8;W_Valideren aanvraag;13.10.2011-10:36:12;10629
+8;W_Nabellen incomplete dossiers;13.10.2011-11:05:42;-1
+8;W_Nabellen incomplete dossiers;13.10.2011-11:53:16;10629
+8;W_Nabellen incomplete dossiers;13.10.2011-15:12:01;11122
+8;W_Nabellen incomplete dossiers;13.10.2011-15:14:13;11122
+8;W_Nabellen incomplete dossiers;13.10.2011-15:14:26;11122
+8;W_Nabellen incomplete dossiers;15.10.2011-13:17:31;10913
+8;W_Nabellen incomplete dossiers;15.10.2011-14:56:14;10913
+8;W_Nabellen incomplete dossiers;17.10.2011-11:32:51;-1
+8;W_Nabellen incomplete dossiers;17.10.2011-12:28:36;-1
+8;W_Nabellen incomplete dossiers;18.10.2011-14:46:24;10889
+8;W_Nabellen incomplete dossiers;18.10.2011-15:46:34;11002
+8;W_Valideren aanvraag;19.10.2011-06:53:21;10972
+8;W_Nabellen incomplete dossiers;19.10.2011-07:17:01;-1
+8;W_Nabellen incomplete dossiers;19.10.2011-07:24:19;-1
+8;W_Nabellen incomplete dossiers;20.10.2011-07:30:32;11049
+8;W_Nabellen incomplete dossiers;24.10.2011-13:24:55;11121
+8;W_Nabellen incomplete dossiers;26.10.2011-06:12:38;-1
+8;W_Valideren aanvraag;27.10.2011-07:18:01;10972
+9;W_Completeren aanvraag;01.10.2011-09:20:50;10939
+9;W_Nabellen offertes;01.10.2011-09:22:52;10939
+9;W_Nabellen offertes;01.10.2011-09:32:54;10939
+9;W_Nabellen offertes;04.10.2011-12:47:39;-1
+9;W_Nabellen offertes;06.10.2011-07:49:47;-1
+9;W_Valideren aanvraag;10.10.2011-08:06:09;10609
+9;W_Nabellen incomplete dossiers;10.10.2011-08:20:04;10912
+9;W_Nabellen incomplete dossiers;10.10.2011-09:42:32;10912
+9;W_Nabellen incomplete dossiers;10.10.2011-12:22:14;-1
+9;W_Nabellen incomplete dossiers;10.10.2011-14:28:29;11009
+10;W_Afhandelen leads;01.10.2011-10:12:27;10912
+10;W_Afhandelen leads;01.10.2011-10:20:55;10939
+10;W_Completeren aanvraag;01.10.2011-11:27:08;10912
+10;W_Completeren aanvraag;01.10.2011-12:02:01;-1
+10;W_Completeren aanvraag;01.10.2011-13:15:17;11000
+10;W_Completeren aanvraag;03.10.2011-09:33:42;-1
+10;W_Completeren aanvraag;03.10.2011-13:48:20;11201
+11;W_Completeren aanvraag;01.10.2011-11:55:31;10912
+11;W_Completeren aanvraag;01.10.2011-13:15:12;11203
+11;W_Completeren aanvraag;01.10.2011-13:31:19;11203
+11;W_Completeren aanvraag;01.10.2011-13:40:12;11203
+11;W_Nabellen offertes;01.10.2011-13:48:39;11203
+11;W_Nabellen offertes;08.10.2011-14:20:20;10913
+11;W_Nabellen offertes;10.10.2011-18:49:26;-1
+11;W_Nabellen offertes;11.10.2011-08:47:04;-1
+11;W_Nabellen offertes;11.10.2011-17:55:07;10863
+11;W_Nabellen offertes;12.10.2011-13:37:20;11180
+11;W_Nabellen offertes;13.10.2011-16:35:43;11180
+11;W_Nabellen offertes;14.10.2011-08:21:10;-1
+11;W_Valideren aanvraag;19.10.2011-11:20:05;10809
+11;W_Nabellen incomplete dossiers;19.10.2011-11:32:57;-1
+11;W_Nabellen incomplete dossiers;19.10.2011-11:36:44;-1
+11;W_Nabellen incomplete dossiers;19.10.2011-17:11:47;11122
+11;W_Nabellen incomplete dossiers;20.10.2011-06:10:36;-1
+11;W_Valideren aanvraag;20.10.2011-08:08:56;10972
+11;W_Nabellen incomplete dossiers;20.10.2011-08:27:48;11169
+11;W_Nabellen incomplete dossiers;20.10.2011-08:45:06;-1
+11;W_Valideren aanvraag;20.10.2011-10:00:47;10972
+11;W_Nabellen incomplete dossiers;20.10.2011-10:32:33;11169
+11;W_Nabellen incomplete dossiers;20.10.2011-11:52:22;10972
+11;W_Nabellen incomplete dossiers;20.10.2011-14:25:42;11049
+11;W_Valideren aanvraag;21.10.2011-04:15:05;10972
+11;W_Valideren aanvraag;21.10.2011-07:05:10;10809
+11;W_Valideren aanvraag;21.10.2011-07:08:21;10972
+12;W_Afhandelen leads;01.10.2011-12:54:56;10939
+13;W_Completeren aanvraag;01.10.2011-13:40:09;11019
+13;W_Completeren aanvraag;01.10.2011-13:55:45;11203
+13;W_Completeren aanvraag;01.10.2011-14:05:28;11203
+13;W_Nabellen offertes;04.10.2011-10:59:22;10982
+13;W_Nabellen offertes;10.10.2011-11:34:00;10899
+13;W_Valideren aanvraag;13.10.2011-08:49:09;10138
+13;W_Nabellen incomplete dossiers;13.10.2011-09:03:37;-1
+13;W_Nabellen incomplete dossiers;13.10.2011-09:06:33;-1
+13;W_Nabellen incomplete dossiers;13.10.2011-09:08:21;-1
+13;W_Nabellen incomplete dossiers;13.10.2011-09:36:55;11169
+13;W_Nabellen incomplete dossiers;13.10.2011-10:16:30;-1
+13;W_Nabellen incomplete dossiers;18.10.2011-08:20:38;-1
+13;W_Valideren aanvraag;18.10.2011-10:01:37;10809
+14;W_Completeren aanvraag;01.10.2011-13:27:27;11000
+14;W_Completeren aanvraag;01.10.2011-13:42:01;-1
+14;W_Completeren aanvraag;01.10.2011-13:56:43;11000
+14;W_Nabellen offertes;01.10.2011-14:00:21;11000
+14;W_Nabellen offertes;08.10.2011-13:32:48;11000
+14;W_Nabellen offertes;11.10.2011-08:19:14;-1
+14;W_Valideren aanvraag;13.10.2011-11:12:26;10609
+14;W_Valideren aanvraag;13.10.2011-13:04:19;10629
+14;W_Nabellen incomplete dossiers;13.10.2011-18:01:47;10939
+14;W_Nabellen incomplete dossiers;14.10.2011-08:06:41;11019
+14;W_Nabellen incomplete dossiers;14.10.2011-11:19:58;-1
+14;W_Nabellen incomplete dossiers;14.10.2011-11:37:05;-1
+14;W_Nabellen incomplete dossiers;14.10.2011-12:05:18;11000
+14;W_Nabellen incomplete dossiers;14.10.2011-13:49:18;-1
+14;W_Valideren aanvraag;14.10.2011-14:22:55;10629
+15;W_Afhandelen leads;01.10.2011-12:56:22;10939
+15;W_Completeren aanvraag;01.10.2011-13:50:01;-1
+15;W_Completeren aanvraag;03.10.2011-10:56:17;11180
+15;W_Completeren aanvraag;03.10.2011-13:55:10;11201
+15;W_Completeren aanvraag;04.10.2011-09:35:15;11169
+15;W_Completeren aanvraag;04.10.2011-11:26:21;11179
+15;W_Completeren aanvraag;04.10.2011-15:27:09;11122
+15;W_Completeren aanvraag;05.10.2011-07:32:15;11180
+15;W_Completeren aanvraag;05.10.2011-11:28:37;-1
+15;W_Completeren aanvraag;05.10.2011-16:14:09;-1
+15;W_Completeren aanvraag;05.10.2011-16:53:18;-1
+15;W_Completeren aanvraag;06.10.2011-08:00:04;11201
+15;W_Completeren aanvraag;06.10.2011-18:54:12;11180
+15;W_Completeren aanvraag;07.10.2011-16:34:58;11181
+15;W_Completeren aanvraag;08.10.2011-08:51:27;10913
+15;W_Completeren aanvraag;08.10.2011-09:30:22;11181
+15;W_Completeren aanvraag;14.10.2011-13:52:09;-1
+16;W_Afhandelen leads;01.10.2011-13:21:27;10939
+16;W_Completeren aanvraag;01.10.2011-13:58:47;-1
+16;W_Nabellen offertes;08.10.2011-10:45:59;11000
+17;W_Afhandelen leads;01.10.2011-13:24:17;10939
+17;W_Completeren aanvraag;01.10.2011-13:57:08;10939
+17;W_Completeren aanvraag;01.10.2011-13:57:18;10939
+17;W_Completeren aanvraag;01.10.2011-14:00:29;-1
+17;W_Completeren aanvraag;01.10.2011-14:09:35;11019
+17;W_Completeren aanvraag;01.10.2011-14:37:33;11119
+17;W_Nabellen offertes;01.10.2011-14:39:20;11119
+17;W_Nabellen offertes;01.10.2011-14:42:18;11119
+17;W_Nabellen offertes;01.10.2011-14:48:25;11119
+17;W_Nabellen offertes;03.10.2011-14:44:24;11001
+18;W_Completeren aanvraag;01.10.2011-13:34:03;11000
+18;W_Completeren aanvraag;01.10.2011-14:50:03;-1
+18;W_Nabellen offertes;07.10.2011-10:40:20;10899
+18;W_Valideren aanvraag;11.10.2011-08:39:37;10138
+19;W_Completeren aanvraag;01.10.2011-13:44:41;11000
+19;W_Completeren aanvraag;01.10.2011-14:00:04;10939
+19;W_Completeren aanvraag;03.10.2011-10:57:19;11180
+19;W_Completeren aanvraag;04.10.2011-07:28:25;-1
+19;W_Completeren aanvraag;04.10.2011-11:23:24;11001
+19;W_Completeren aanvraag;04.10.2011-15:57:28;11179
+19;W_Completeren aanvraag;05.10.2011-07:52:18;11180
+19;W_Completeren aanvraag;05.10.2011-11:52:14;-1
+19;W_Completeren aanvraag;05.10.2011-16:39:11;11181
+19;W_Completeren aanvraag;06.10.2011-07:59:11;11189
+19;W_Completeren aanvraag;07.10.2011-07:18:19;-1
+19;W_Completeren aanvraag;07.10.2011-16:41:57;11181
+19;W_Completeren aanvraag;08.10.2011-09:12:22;11181
+19;W_Completeren aanvraag;14.10.2011-11:51:42;10809
+19;W_Completeren aanvraag;14.10.2011-11:52:59;10809
+19;W_Completeren aanvraag;14.10.2011-12:26:30;10809
+19;W_Beoordelen fraude;14.10.2011-12:26:59;10809
+19;W_Beoordelen fraude;14.10.2011-12:28:41;10809
+20;W_Completeren aanvraag;01.10.2011-14:01:45;11019
+20;W_Nabellen offertes;08.10.2011-10:34:58;-1
+20;W_Nabellen offertes;10.10.2011-17:52:09;11119
+20;W_Nabellen offertes;11.10.2011-09:01:39;11049
+20;W_Valideren aanvraag;14.10.2011-13:41:11;10972
+21;W_Afhandelen leads;01.10.2011-14:38:43;10939
+22;W_Completeren aanvraag;01.10.2011-14:45:56;11019
+22;W_Completeren aanvraag;01.10.2011-14:48:23;11203
+22;W_Completeren aanvraag;03.10.2011-11:48:25;11180
+22;W_Completeren aanvraag;04.10.2011-07:34:40;-1
+22;W_Completeren aanvraag;04.10.2011-11:11:09;11169
+22;W_Completeren aanvraag;04.10.2011-15:17:33;11122
+22;W_Completeren aanvraag;05.10.2011-07:20:40;11180
+22;W_Completeren aanvraag;05.10.2011-08:42:52;-1
+22;W_Completeren aanvraag;05.10.2011-12:05:43;-1
+22;W_Completeren aanvraag;05.10.2011-16:50:58;11181
+22;W_Completeren aanvraag;06.10.2011-07:58:22;-1
+22;W_Completeren aanvraag;06.10.2011-18:52:12;11180
+23;W_Completeren aanvraag;03.10.2011-07:20:05;-1
+23;W_Completeren aanvraag;03.10.2011-08:38:04;10913
+24;W_Afhandelen leads;03.10.2011-07:04:57;-1
+25;W_Completeren aanvraag;03.10.2011-07:25:12;11180
+26;W_Completeren aanvraag;03.10.2011-07:19:46;-1
+26;W_Completeren aanvraag;03.10.2011-12:36:50;-1
+26;W_Completeren aanvraag;04.10.2011-08:01:30;-1
+26;W_Completeren aanvraag;04.10.2011-11:41:55;11169
+26;W_Completeren aanvraag;04.10.2011-15:15:04;11121
+26;W_Completeren aanvraag;04.10.2011-15:15:24;11121
+26;W_Completeren aanvraag;04.10.2011-15:19:49;11122
+26;W_Completeren aanvraag;04.10.2011-15:37:29;11122
+26;W_Nabellen offertes;11.10.2011-18:42:59;10982
+26;W_Nabellen offertes;12.10.2011-14:47:33;11180
+26;W_Nabellen offertes;13.10.2011-16:50:05;10982
+26;W_Nabellen offertes;17.10.2011-09:29:16;11049
+26;W_Valideren aanvraag;19.10.2011-11:25:05;10609
+26;W_Nabellen incomplete dossiers;19.10.2011-12:41:13;11189
+26;W_Nabellen incomplete dossiers;19.10.2011-17:37:43;11122
+26;W_Nabellen incomplete dossiers;20.10.2011-07:29:54;11049
+26;W_Nabellen incomplete dossiers;21.10.2011-16:57:41;-1
+26;W_Nabellen incomplete dossiers;24.10.2011-08:35:43;11121
+26;W_Nabellen incomplete dossiers;27.10.2011-12:09:53;11049
+26;W_Nabellen incomplete dossiers;28.10.2011-05:50:44;-1
+26;W_Valideren aanvraag;28.10.2011-07:50:08;10609
+26;W_Nabellen incomplete dossiers;28.10.2011-09:54:32;10861
+26;W_Nabellen incomplete dossiers;28.10.2011-10:35:25;11002
+26;W_Valideren aanvraag;31.10.2011-08:38:48;10609
+26;W_Valideren aanvraag;31.10.2011-10:18:09;10609
+26;W_Nabellen incomplete dossiers;31.10.2011-14:36:47;-1
+26;W_Nabellen incomplete dossiers;31.10.2011-19:37:23;-1
+26;W_Nabellen incomplete dossiers;01.11.2011-13:19:14;11169
+26;W_Nabellen incomplete dossiers;01.11.2011-14:13:12;11169
+26;W_Nabellen incomplete dossiers;03.11.2011-07:38:04;11049
+26;W_Nabellen incomplete dossiers;03.11.2011-15:28:08;11169
+26;W_Nabellen incomplete dossiers;03.11.2011-16:15:31;11002
+26;W_Nabellen incomplete dossiers;05.11.2011-10:18:12;11002
+26;W_Nabellen incomplete dossiers;05.11.2011-13:46:22;-1
+26;W_Nabellen incomplete dossiers;07.11.2011-08:33:11;10809
+26;W_Nabellen incomplete dossiers;07.11.2011-13:39:22;-1
+26;W_Nabellen incomplete dossiers;07.11.2011-14:09:55;-1
+26;W_Nabellen incomplete dossiers;08.11.2011-19:37:59;10228
+26;W_Nabellen incomplete dossiers;10.11.2011-10:20:04;11049
+26;W_Nabellen incomplete dossiers;11.11.2011-08:30:59;11049
+26;W_Valideren aanvraag;11.11.2011-09:25:50;10609
+26;W_Valideren aanvraag;15.11.2011-11:28:14;10138
+26;W_Valideren aanvraag;15.11.2011-11:50:36;10609
+27;W_Completeren aanvraag;03.10.2011-07:31:09;-1
+27;W_Nabellen offertes;03.10.2011-07:36:45;-1
+27;W_Nabellen offertes;03.10.2011-07:39:54;-1
+27;W_Nabellen offertes;03.10.2011-07:54:06;-1
+27;W_Nabellen offertes;10.10.2011-13:10:36;-1
+27;W_Nabellen offertes;10.10.2011-17:59:57;11201
+27;W_Nabellen offertes;10.10.2011-18:55:56;11181
+27;W_Nabellen offertes;18.10.2011-09:49:29;-1
+27;W_Nabellen offertes;19.10.2011-16:51:57;11119
+28;W_Completeren aanvraag;03.10.2011-07:26:12;-1
+28;W_Nabellen offertes;03.10.2011-07:31:22;-1
+28;W_Nabellen offertes;03.10.2011-07:32:18;-1
+28;W_Nabellen offertes;07.10.2011-10:37:08;10789
+28;W_Valideren aanvraag;07.10.2011-15:31:10;10972
+28;W_Valideren aanvraag;10.10.2011-12:22:43;10609
+29;W_Completeren aanvraag;03.10.2011-07:29:52;11180
+29;W_Completeren aanvraag;03.10.2011-12:53:22;-1
+29;W_Nabellen offertes;03.10.2011-12:58:24;-1
+29;W_Nabellen offertes;10.10.2011-15:48:08;11119
+29;W_Nabellen offertes;14.10.2011-08:08:49;-1
+29;W_Valideren aanvraag;18.10.2011-08:17:36;10609
+29;W_Nabellen incomplete dossiers;18.10.2011-08:55:09;10861
+29;W_Valideren aanvraag;18.10.2011-09:18:19;10609
+29;W_Valideren aanvraag;18.10.2011-09:25:11;10609
+30;W_Completeren aanvraag;03.10.2011-07:32:18;11180
+30;W_Completeren aanvraag;03.10.2011-09:16:43;11001
+30;W_Nabellen offertes;10.10.2011-15:23:27;11201
+30;W_Nabellen offertes;10.10.2011-15:23:56;11201
+31;W_Completeren aanvraag;03.10.2011-07:35:35;11180
+31;W_Completeren aanvraag;04.10.2011-16:15:07;11121
+31;W_Completeren aanvraag;04.10.2011-16:15:39;10982
+31;W_Completeren aanvraag;04.10.2011-16:30:30;11121
+32;W_Afhandelen leads;03.10.2011-07:07:20;-1
+33;W_Completeren aanvraag;03.10.2011-07:37:47;11180
+33;W_Completeren aanvraag;03.10.2011-07:53:27;-1
+33;W_Nabellen offertes;03.10.2011-07:59:31;-1
+33;W_Nabellen offertes;03.10.2011-08:06:56;-1
+33;W_Nabellen offertes;10.10.2011-14:16:26;-1
+33;W_Nabellen offertes;18.10.2011-12:04:21;-1
+33;W_Nabellen offertes;18.10.2011-12:09:41;10861
+33;W_Nabellen offertes;19.10.2011-17:17:02;11119
+33;W_Nabellen offertes;25.10.2011-10:02:55;11201
+33;W_Nabellen offertes;25.10.2011-14:11:42;10881
+33;W_Nabellen offertes;25.10.2011-14:12:11;10881
+33;W_Nabellen offertes;27.10.2011-12:55:44;11189
+33;W_Nabellen offertes;31.10.2011-15:11:55;11201
+33;W_Nabellen offertes;31.10.2011-15:28:29;11180
+33;W_Nabellen offertes;03.11.2011-08:15:16;11180
+34;W_Afhandelen leads;03.10.2011-07:09:15;-1
+34;W_Completeren aanvraag;03.10.2011-09:04:49;-1
+34;W_Completeren aanvraag;03.10.2011-09:47:49;11180
+34;W_Nabellen offertes;03.10.2011-09:49:51;11180
+34;W_Nabellen offertes;10.10.2011-14:57:27;-1
+34;W_Nabellen offertes;10.10.2011-17:28:06;11119
+34;W_Nabellen offertes;12.10.2011-14:24:24;11180
+34;W_Nabellen offertes;13.10.2011-18:04:11;11201
+34;W_Nabellen offertes;13.10.2011-18:05:15;11201
+34;W_Nabellen offertes;13.10.2011-18:41:21;11180
+34;W_Nabellen offertes;13.10.2011-18:52:40;11201
+34;W_Nabellen offertes;13.10.2011-18:56:25;11201
+34;W_Nabellen offertes;15.10.2011-13:05:59;-1
+34;W_Nabellen offertes;17.10.2011-18:03:47;11119
+34;W_Nabellen offertes;19.10.2011-08:49:55;11180
+34;W_Nabellen offertes;19.10.2011-17:57:09;11119
+34;W_Nabellen offertes;19.10.2011-18:32:33;11119
+34;W_Nabellen offertes;03.11.2011-08:15:25;11119
+35;W_Afhandelen leads;03.10.2011-07:10:52;-1
+35;W_Completeren aanvraag;03.10.2011-09:15:49;-1
+36;W_Completeren aanvraag;03.10.2011-07:52:40;11180
+36;W_Nabellen offertes;03.10.2011-07:53:29;11180
+36;W_Nabellen offertes;03.10.2011-07:54:32;11180
+36;W_Nabellen offertes;07.10.2011-11:23:34;10899
+36;W_Valideren aanvraag;11.10.2011-07:15:48;10609
+37;W_Completeren aanvraag;03.10.2011-07:57:34;-1
+37;W_Nabellen offertes;03.10.2011-08:04:14;-1
+37;W_Nabellen offertes;10.10.2011-12:01:46;10899
+37;W_Valideren aanvraag;12.10.2011-06:58:20;10138
+37;W_Valideren aanvraag;13.10.2011-07:36:24;10138
+38;W_Afhandelen leads;03.10.2011-07:34:55;-1
+38;W_Afhandelen leads;03.10.2011-07:42:11;11001
+38;W_Afhandelen leads;03.10.2011-07:44:49;11001
+38;W_Completeren aanvraag;03.10.2011-07:46:31;11001
+38;W_Completeren aanvraag;03.10.2011-11:59:04;-1
+38;W_Completeren aanvraag;03.10.2011-12:11:03;11180
+38;W_Completeren aanvraag;03.10.2011-12:39:28;10889
+39;W_Afhandelen leads;03.10.2011-07:34:55;-1
+39;W_Afhandelen leads;03.10.2011-07:37:45;10889
+39;W_Completeren aanvraag;03.10.2011-07:38:50;10889
+40;W_Completeren aanvraag;03.10.2011-07:57:13;11180
+40;W_Completeren aanvraag;03.10.2011-08:10:38;-1
+40;W_Completeren aanvraag;03.10.2011-08:36:01;11180
+40;W_Nabellen offertes;03.10.2011-08:37:01;11180
+40;W_Nabellen offertes;03.10.2011-08:55:32;11180
+40;W_Nabellen offertes;10.10.2011-14:41:10;-1
+40;W_Nabellen offertes;18.10.2011-08:21:12;-1
+40;W_Nabellen offertes;18.10.2011-11:37:40;10861
+40;W_Nabellen offertes;18.10.2011-12:12:46;10861
+41;W_Completeren aanvraag;03.10.2011-08:25:27;-1
+41;W_Completeren aanvraag;04.10.2011-10:12:53;-1
+41;W_Completeren aanvraag;04.10.2011-11:59:22;11001
+42;W_Completeren aanvraag;03.10.2011-08:11:17;11180
+42;W_Completeren aanvraag;03.10.2011-11:15:40;11201
+42;W_Completeren aanvraag;03.10.2011-11:19:48;11201
+42;W_Nabellen offertes;10.10.2011-08:17:49;11049
+42;W_Valideren aanvraag;11.10.2011-12:57:09;10629
+43;W_Completeren aanvraag;03.10.2011-08:22:08;-1
+43;W_Nabellen offertes;10.10.2011-11:52:48;10899
+43;W_Valideren aanvraag;12.10.2011-08:52:13;10138
+44;W_Afhandelen leads;03.10.2011-07:23:52;11001
+44;W_Afhandelen leads;03.10.2011-07:26:39;11001
+45;W_Afhandelen leads;03.10.2011-07:28:44;11001
+45;W_Completeren aanvraag;03.10.2011-10:37:08;-1
+45;W_Nabellen offertes;03.10.2011-10:38:46;-1
+45;W_Nabellen offertes;10.10.2011-14:43:55;-1
+46;W_Afhandelen leads;03.10.2011-07:30:10;11001
+47;W_Completeren aanvraag;03.10.2011-08:17:33;11180
+47;W_Completeren aanvraag;03.10.2011-08:21:43;11180
+47;W_Nabellen offertes;10.10.2011-14:28:12;-1
+47;W_Nabellen offertes;18.10.2011-09:41:06;-1
+47;W_Nabellen offertes;19.10.2011-16:47:17;11119
+47;W_Nabellen offertes;20.10.2011-07:11:50;-1
+47;W_Valideren aanvraag;26.10.2011-06:07:39;10609
+48;W_Completeren aanvraag;03.10.2011-08:28:37;-1
+48;W_Completeren aanvraag;03.10.2011-12:41:00;11201
+48;W_Completeren aanvraag;03.10.2011-13:15:36;10889
+48;W_Completeren aanvraag;03.10.2011-13:18:02;10889
+48;W_Completeren aanvraag;04.10.2011-17:38:50;10909
+48;W_Completeren aanvraag;04.10.2011-17:40:49;10909
+48;W_Nabellen offertes;04.10.2011-17:41:00;10909
+48;W_Nabellen offertes;04.10.2011-17:42:29;10909
+48;W_Nabellen offertes;11.10.2011-08:01:13;-1
+48;W_Valideren aanvraag;14.10.2011-07:56:18;10138
+48;W_Valideren aanvraag;14.10.2011-08:05:57;10138
+49;W_Afhandelen leads;03.10.2011-07:31:47;11001
+49;W_Completeren aanvraag;03.10.2011-10:54:18;11180
+49;W_Completeren aanvraag;03.10.2011-12:00:48;11201
+49;W_Nabellen offertes;03.10.2011-12:02:13;11201
+49;W_Nabellen offertes;10.10.2011-16:19:22;11119
+49;W_Nabellen offertes;10.10.2011-16:22:25;11119
+49;W_Nabellen offertes;11.10.2011-14:20:52;10889
+49;W_Nabellen offertes;19.10.2011-18:01:09;11122
+49;W_Nabellen offertes;24.10.2011-09:28:27;-1
+49;W_Valideren aanvraag;28.10.2011-10:02:13;10138
+49;W_Valideren aanvraag;28.10.2011-10:19:46;10138
+49;W_Nabellen incomplete dossiers;28.10.2011-13:50:05;10982
+49;W_Nabellen incomplete dossiers;28.10.2011-14:27:27;11169
+49;W_Nabellen incomplete dossiers;28.10.2011-14:33:57;11169
+49;W_Nabellen incomplete dossiers;28.10.2011-17:51:35;10913
+49;W_Nabellen incomplete dossiers;03.11.2011-07:54:48;11049
+49;W_Nabellen incomplete dossiers;04.11.2011-10:46:12;10789
+49;W_Valideren aanvraag;04.11.2011-12:09:47;10138
+50;W_Afhandelen leads;03.10.2011-07:36:33;11001
+51;W_Afhandelen leads;03.10.2011-07:37:07;10889
+51;W_Completeren aanvraag;03.10.2011-11:58:22;-1
+51;W_Completeren aanvraag;03.10.2011-14:45:50;11201
+51;W_Completeren aanvraag;03.10.2011-14:51:51;10889
+51;W_Nabellen offertes;10.10.2011-16:44:19;11119
+51;W_Nabellen offertes;12.10.2011-14:22:54;11180
+51;W_Nabellen offertes;13.10.2011-18:00:48;11201
+52;W_Afhandelen leads;03.10.2011-07:33:46;10889
+53;W_Afhandelen leads;03.10.2011-07:35:23;10889
+54;W_Completeren aanvraag;03.10.2011-08:43:52;-1
+54;W_Nabellen offertes;03.10.2011-08:52:28;-1
+54;W_Nabellen offertes;06.10.2011-09:14:33;10939
+54;W_Nabellen offertes;10.10.2011-11:51:23;10899
+54;W_Valideren aanvraag;12.10.2011-13:54:05;10809
+54;W_Valideren aanvraag;12.10.2011-14:01:06;10809
+55;W_Beoordelen fraude;03.10.2011-09:00:29;10188
+55;W_Beoordelen fraude;03.10.2011-09:01:13;10188
+55;W_Beoordelen fraude;03.10.2011-09:19:30;10188
+56;W_Afhandelen leads;03.10.2011-07:30:25;10889
+56;W_Completeren aanvraag;03.10.2011-10:28:21;11180
+56;W_Completeren aanvraag;03.10.2011-14:08:25;11201
+56;W_Completeren aanvraag;03.10.2011-14:16:07;-1
+56;W_Completeren aanvraag;03.10.2011-14:52:30;11001
+56;W_Completeren aanvraag;04.10.2011-10:04:02;-1
+57;W_Afhandelen leads;03.10.2011-07:28:17;10889
+57;W_Completeren aanvraag;03.10.2011-10:21:41;-1
+57;W_Completeren aanvraag;03.10.2011-10:23:42;-1
+58;W_Completeren aanvraag;03.10.2011-08:29:11;-1
+58;W_Completeren aanvraag;03.10.2011-08:58:03;11180
+58;W_Completeren aanvraag;03.10.2011-13:29:08;11180
+58;W_Nabellen offertes;03.10.2011-13:30:11;11180
+58;W_Nabellen offertes;03.10.2011-13:31:48;11180
+58;W_Nabellen offertes;10.10.2011-16:28:06;11119
+58;W_Nabellen offertes;12.10.2011-14:13:02;11180
+58;W_Nabellen offertes;21.10.2011-10:32:29;-1
+58;W_Nabellen offertes;21.10.2011-18:25:44;10609
+58;W_Nabellen offertes;24.10.2011-14:13:24;11180
+58;W_Nabellen offertes;26.10.2011-08:23:29;-1
+58;W_Valideren aanvraag;31.10.2011-12:19:02;10629
+58;W_Nabellen incomplete dossiers;31.10.2011-16:17:03;10889
+58;W_Nabellen incomplete dossiers;01.11.2011-10:19:59;11169
+58;W_Nabellen incomplete dossiers;01.11.2011-15:40:13;11169
+58;W_Nabellen incomplete dossiers;01.11.2011-18:00:06;10913
+58;W_Nabellen incomplete dossiers;03.11.2011-07:49:14;11049
+58;W_Nabellen incomplete dossiers;07.11.2011-07:57:43;10809
+58;W_Nabellen incomplete dossiers;09.11.2011-09:38:12;11049
+58;W_Valideren aanvraag;09.11.2011-11:18:51;10629
+58;W_Nabellen incomplete dossiers;09.11.2011-12:22:22;11169
+58;W_Nabellen incomplete dossiers;09.11.2011-12:22:39;11169
+58;W_Nabellen incomplete dossiers;09.11.2011-17:16:05;11119
+58;W_Nabellen incomplete dossiers;10.11.2011-10:31:22;11049
+58;W_Nabellen incomplete dossiers;10.11.2011-19:50:24;11169
+58;W_Nabellen incomplete dossiers;12.11.2011-09:33:10;10913
+58;W_Nabellen incomplete dossiers;17.11.2011-14:34:29;11049
+58;W_Nabellen incomplete dossiers;18.11.2011-08:29:30;11169
+58;W_Nabellen incomplete dossiers;18.11.2011-14:40:10;-1
+58;W_Nabellen incomplete dossiers;18.11.2011-15:25:37;-1
+58;W_Nabellen incomplete dossiers;18.11.2011-19:46:59;11122
+58;W_Nabellen incomplete dossiers;19.11.2011-09:40:38;10861
+58;W_Nabellen incomplete dossiers;19.11.2011-12:58:56;10861
+58;W_Nabellen incomplete dossiers;21.11.2011-08:33:07;10629
+58;W_Nabellen incomplete dossiers;21.11.2011-09:01:50;10910
+58;W_Nabellen incomplete dossiers;21.11.2011-19:44:46;10929
+58;W_Nabellen incomplete dossiers;22.11.2011-10:27:47;-1
+58;W_Nabellen incomplete dossiers;22.11.2011-13:49:49;11189
+58;W_Nabellen incomplete dossiers;24.11.2011-09:48:23;11049
+58;W_Nabellen incomplete dossiers;25.11.2011-13:16:47;10910
+58;W_Nabellen incomplete dossiers;26.11.2011-09:15:39;11000
+58;W_Nabellen incomplete dossiers;26.11.2011-13:34:49;11000
+58;W_Nabellen incomplete dossiers;28.11.2011-09:47:59;10931
+58;W_Nabellen incomplete dossiers;28.11.2011-14:33:09;11259
+58;W_Valideren aanvraag;29.11.2011-08:27:33;10972
+59;W_Afhandelen leads;03.10.2011-07:29:09;10889
+60;W_Completeren aanvraag;03.10.2011-08:32:58;-1
+60;W_Completeren aanvraag;03.10.2011-16:29:18;11119
+60;W_Completeren aanvraag;04.10.2011-10:31:34;-1
+60;W_Completeren aanvraag;04.10.2011-12:04:32;11001
+60;W_Completeren aanvraag;04.10.2011-15:49:43;11179
+60;W_Completeren aanvraag;05.10.2011-07:46:04;-1
+60;W_Completeren aanvraag;05.10.2011-11:44:36;-1
+60;W_Completeren aanvraag;05.10.2011-16:30:10;-1
+60;W_Completeren aanvraag;06.10.2011-18:44:54;10913
+60;W_Completeren aanvraag;07.10.2011-07:21:28;-1
+60;W_Completeren aanvraag;07.10.2011-16:52:53;11181
+60;W_Completeren aanvraag;08.10.2011-09:31:22;10913
+60;W_Completeren aanvraag;26.10.2011-17:29:26;10881
+60;W_Completeren aanvraag;02.11.2011-08:15:09;10881
+61;W_Completeren aanvraag;03.10.2011-08:44:53;-1
+61;W_Completeren aanvraag;03.10.2011-16:31:26;11119
+61;W_Completeren aanvraag;03.10.2011-16:51:15;11119
+61;W_Nabellen offertes;10.10.2011-11:48:25;10899
+61;W_Valideren aanvraag;12.10.2011-10:18:36;10138
+61;W_Nabellen incomplete dossiers;12.10.2011-10:36:15;-1
+61;W_Nabellen incomplete dossiers;12.10.2011-11:25:38;-1
+61;W_Nabellen incomplete dossiers;13.10.2011-07:16:14;11049
+61;W_Nabellen incomplete dossiers;13.10.2011-11:36:36;11049
+61;W_Valideren aanvraag;13.10.2011-12:11:33;10138
+61;W_Nabellen incomplete dossiers;13.10.2011-12:23:57;-1
+61;W_Nabellen incomplete dossiers;13.10.2011-12:27:01;-1
+61;W_Nabellen incomplete dossiers;13.10.2011-17:06:11;10939
+61;W_Valideren aanvraag;14.10.2011-06:30:29;10138
+62;W_Afhandelen leads;03.10.2011-07:23:43;10889
+62;W_Completeren aanvraag;03.10.2011-09:35:58;-1
+62;W_Completeren aanvraag;03.10.2011-10:26:09;11180
+62;W_Completeren aanvraag;03.10.2011-14:05:15;11201
+62;W_Completeren aanvraag;03.10.2011-14:05:36;11201
+62;W_Completeren aanvraag;03.10.2011-17:58:18;10982
+62;W_Completeren aanvraag;03.10.2011-18:02:00;10982
+62;W_Completeren aanvraag;03.10.2011-18:06:28;10982
+62;W_Nabellen offertes;10.10.2011-17:59:57;11201
+62;W_Nabellen offertes;10.10.2011-18:58:36;11181
+62;W_Nabellen offertes;18.10.2011-07:47:10;-1
+62;W_Nabellen offertes;19.10.2011-13:17:06;11189
+62;W_Nabellen offertes;19.10.2011-17:55:01;11119
+62;W_Nabellen offertes;21.10.2011-17:25:10;11201
+62;W_Nabellen offertes;24.10.2011-13:24:34;11180
+62;W_Nabellen offertes;31.10.2011-18:13:19;10863
+62;W_Nabellen offertes;03.11.2011-08:15:32;10863
+63;W_Completeren aanvraag;03.10.2011-08:53:08;11180
+63;W_Nabellen offertes;03.10.2011-08:54:08;11180
+63;W_Nabellen offertes;10.10.2011-15:25:03;11119
+63;W_Nabellen offertes;11.10.2011-10:20:46;-1
+63;W_Nabellen offertes;03.11.2011-08:15:22;-1
+64;W_Afhandelen leads;03.10.2011-07:21:51;10889
+64;W_Completeren aanvraag;03.10.2011-10:06:55;-1
+64;W_Completeren aanvraag;04.10.2011-09:13:24;11169
+64;W_Completeren aanvraag;04.10.2011-10:25:27;11169
+64;W_Nabellen offertes;05.10.2011-15:13:11;11119
+64;W_Nabellen offertes;11.10.2011-16:12:53;11119
+64;W_Nabellen offertes;11.10.2011-16:56:04;10982
+64;W_Nabellen offertes;24.10.2011-07:08:09;11121
+64;W_Nabellen offertes;24.10.2011-07:12:59;11121
+64;W_Nabellen offertes;24.10.2011-07:14:11;11121
+64;W_Nabellen offertes;25.10.2011-16:16:43;10909
+64;W_Nabellen offertes;25.10.2011-17:05:07;10909
+64;W_Nabellen offertes;27.10.2011-08:53:54;11049
+64;W_Valideren aanvraag;31.10.2011-13:34:00;10629
+65;W_Completeren aanvraag;03.10.2011-08:54:11;-1
+65;W_Completeren aanvraag;03.10.2011-17:00:23;11119
+65;W_Completeren aanvraag;04.10.2011-07:20:53;-1
+65;W_Nabellen offertes;11.10.2011-15:59:04;11181
+65;W_Nabellen offertes;12.10.2011-08:00:15;-1
+65;W_Nabellen offertes;17.10.2011-08:19:50;-1
+65;W_Valideren aanvraag;19.10.2011-06:15:38;10609
+65;W_Valideren aanvraag;19.10.2011-12:20:43;10972
+65;W_Nabellen incomplete dossiers;19.10.2011-12:53:53;11189
+65;W_Nabellen incomplete dossiers;19.10.2011-18:16:11;11122
+65;W_Nabellen incomplete dossiers;19.10.2011-18:28:35;11122
+65;W_Nabellen incomplete dossiers;20.10.2011-07:33:49;11049
+65;W_Nabellen incomplete dossiers;26.10.2011-09:20:35;11189
+65;W_Nabellen incomplete dossiers;27.10.2011-07:23:56;-1
+65;W_Nabellen incomplete dossiers;27.10.2011-07:26:53;-1
+65;W_Nabellen incomplete dossiers;27.10.2011-12:08:19;11049
+65;W_Nabellen incomplete dossiers;01.11.2011-08:39:20;-1
+65;W_Nabellen incomplete dossiers;01.11.2011-15:43:41;11169
+65;W_Nabellen incomplete dossiers;01.11.2011-18:10:18;10913
+65;W_Nabellen incomplete dossiers;03.11.2011-07:46:32;11049
+65;W_Nabellen incomplete dossiers;07.11.2011-08:05:54;10809
+65;W_Nabellen incomplete dossiers;09.11.2011-20:02:15;11169
+65;W_Nabellen incomplete dossiers;10.11.2011-10:27:24;11049
+65;W_Nabellen incomplete dossiers;11.11.2011-08:21:00;-1
+65;W_Nabellen incomplete dossiers;16.11.2011-14:11:15;11169
+65;W_Nabellen incomplete dossiers;17.11.2011-14:29:41;11049
+65;W_Nabellen incomplete dossiers;19.11.2011-09:29:07;10861
+65;W_Nabellen incomplete dossiers;21.11.2011-09:26:04;10931
+65;W_Nabellen incomplete dossiers;23.11.2011-09:50:06;11169
+65;W_Nabellen incomplete dossiers;23.11.2011-13:19:30;11169
+65;W_Nabellen incomplete dossiers;23.11.2011-19:01:20;10939
+65;W_Nabellen incomplete dossiers;24.11.2011-09:41:05;11049
+65;W_Nabellen incomplete dossiers;24.11.2011-10:09:45;-1
+65;W_Nabellen incomplete dossiers;24.11.2011-16:37:33;10929
+65;W_Nabellen incomplete dossiers;29.11.2011-11:13:21;11049
+65;W_Nabellen incomplete dossiers;29.11.2011-14:05:31;10972
+66;W_Completeren aanvraag;03.10.2011-08:49:53;-1
+66;W_Completeren aanvraag;03.10.2011-16:59:05;11119
+66;W_Completeren aanvraag;04.10.2011-09:27:30;-1
+66;W_Completeren aanvraag;10.10.2011-07:31:10;11019
+66;W_Completeren aanvraag;20.10.2011-10:48:36;11189
+66;W_Completeren aanvraag;27.10.2011-09:03:05;-1
+66;W_Completeren aanvraag;01.11.2011-19:23:23;11119
+66;W_Completeren aanvraag;01.11.2011-19:36:40;11119
+66;W_Completeren aanvraag;02.11.2011-08:15:12;11119
+67;W_Afhandelen leads;03.10.2011-07:23:39;10889
+68;W_Afhandelen leads;03.10.2011-07:19:24;10889
+68;W_Completeren aanvraag;03.10.2011-09:33:34;-1
+69;W_Completeren aanvraag;03.10.2011-09:00:25;-1
+69;W_Completeren aanvraag;03.10.2011-09:35:29;10913
+69;W_Nabellen offertes;10.10.2011-08:41:35;11049
+69;W_Valideren aanvraag;11.10.2011-12:01:53;10972
+70;W_Completeren aanvraag;03.10.2011-10:32:27;11180
+70;W_Completeren aanvraag;03.10.2011-10:36:34;11180
+70;W_Nabellen offertes;10.10.2011-15:27:04;11119
+71;W_Afhandelen leads;03.10.2011-07:46:40;-1
+71;W_Completeren aanvraag;03.10.2011-07:54:39;-1
+71;W_Nabellen offertes;10.10.2011-10:52:19;10899
+71;W_Valideren aanvraag;12.10.2011-15:38:24;-1
+71;W_Valideren aanvraag;13.10.2011-08:26:10;10609
+72;W_Afhandelen leads;03.10.2011-07:55:15;11001
+72;W_Completeren aanvraag;03.10.2011-08:00:22;11001
+72;W_Completeren aanvraag;03.10.2011-08:33:59;-1
+72;W_Nabellen offertes;10.10.2011-14:32:20;-1
+73;W_Completeren aanvraag;03.10.2011-12:07:57;11201
+73;W_Completeren aanvraag;04.10.2011-07:51:16;-1
+73;W_Completeren aanvraag;04.10.2011-10:11:34;10982
+73;W_Completeren aanvraag;04.10.2011-10:44:44;-1
+73;W_Nabellen offertes;11.10.2011-16:15:36;11119
+73;W_Nabellen offertes;13.10.2011-10:11:57;11189
+73;W_Nabellen offertes;19.10.2011-08:30:58;11180
+74;W_Afhandelen leads;03.10.2011-08:43:00;-1
+74;W_Completeren aanvraag;03.10.2011-08:47:20;-1
+74;W_Nabellen offertes;03.10.2011-08:49:04;-1
+74;W_Nabellen offertes;10.10.2011-14:36:34;-1
+74;W_Nabellen offertes;11.10.2011-18:56:01;11119
+74;W_Nabellen offertes;13.10.2011-10:28:07;10909
+74;W_Nabellen offertes;15.10.2011-10:39:40;-1
+74;W_Nabellen offertes;18.10.2011-10:18:48;-1
+74;W_Nabellen offertes;19.10.2011-15:41:02;11119
+74;W_Nabellen offertes;21.10.2011-09:27:33;-1
+74;W_Nabellen offertes;22.10.2011-14:54:04;-1
+74;W_Nabellen offertes;24.10.2011-12:28:48;11180
+74;W_Nabellen offertes;24.10.2011-17:25:42;10913
+74;W_Nabellen offertes;03.11.2011-08:15:19;10913
+75;W_Afhandelen leads;03.10.2011-10:10:48;11001
+76;W_Completeren aanvraag;03.10.2011-09:02:32;-1
+76;W_Completeren aanvraag;03.10.2011-09:11:10;-1
+76;W_Completeren aanvraag;03.10.2011-10:08:02;11001
+76;W_Completeren aanvraag;03.10.2011-13:15:36;-1
+76;W_Completeren aanvraag;03.10.2011-13:31:56;11201
+76;W_Nabellen offertes;05.10.2011-18:54:18;10939
+76;W_Nabellen offertes;06.10.2011-10:26:42;11169
+76;W_Nabellen offertes;10.10.2011-11:25:03;10899
+76;W_Valideren aanvraag;13.10.2011-07:35:30;10609
+77;W_Completeren aanvraag;03.10.2011-12:11:53;11201
+77;W_Completeren aanvraag;03.10.2011-12:29:11;-1
+77;W_Nabellen offertes;03.10.2011-12:31:12;-1
+77;W_Nabellen offertes;03.10.2011-12:34:33;-1
+77;W_Nabellen offertes;10.10.2011-15:37:44;11119
+77;W_Nabellen offertes;12.10.2011-14:07:56;11180
+77;W_Nabellen offertes;13.10.2011-17:47:10;11201
+77;W_Nabellen offertes;13.10.2011-18:20:31;11201
+77;W_Nabellen offertes;13.10.2011-18:24:01;11201
+77;W_Nabellen offertes;15.10.2011-13:00:41;-1
+77;W_Nabellen offertes;18.10.2011-13:00:46;10861
+77;W_Nabellen offertes;18.10.2011-15:35:56;11181
+78;W_Afhandelen leads;03.10.2011-10:12:57;11001
+79;W_Completeren aanvraag;03.10.2011-12:25:05;11180
+79;W_Nabellen offertes;03.10.2011-12:28:40;11180
+79;W_Nabellen offertes;03.10.2011-12:30:04;11180
+79;W_Nabellen offertes;10.10.2011-15:35:08;11119
+79;W_Nabellen offertes;17.10.2011-09:35:07;10912
+80;W_Afhandelen leads;03.10.2011-10:14:47;11001
+81;W_Afhandelen leads;03.10.2011-10:16:26;11001
+81;W_Completeren aanvraag;03.10.2011-10:19:19;-1
+81;W_Completeren aanvraag;03.10.2011-12:31:35;11180
+81;W_Completeren aanvraag;03.10.2011-12:46:01;11201
+82;W_Afhandelen leads;03.10.2011-10:18:16;11001
+83;W_Completeren aanvraag;03.10.2011-12:15:20;11201
+83;W_Completeren aanvraag;03.10.2011-15:13:02;11119
+83;W_Completeren aanvraag;03.10.2011-15:13:56;-1
+83;W_Completeren aanvraag;03.10.2011-15:16:26;11201
+83;W_Completeren aanvraag;03.10.2011-15:32:51;11119
+83;W_Completeren aanvraag;04.10.2011-07:28:47;-1
+83;W_Completeren aanvraag;04.10.2011-11:24:51;11001
+83;W_Completeren aanvraag;04.10.2011-17:17:17;11122
+83;W_Completeren aanvraag;04.10.2011-18:39:25;11121
+83;W_Completeren aanvraag;04.10.2011-18:45:49;11121
+83;W_Completeren aanvraag;05.10.2011-07:19:58;11189
+83;W_Completeren aanvraag;05.10.2011-09:01:37;11180
+83;W_Completeren aanvraag;05.10.2011-09:09:15;11180
+83;W_Completeren aanvraag;05.10.2011-13:15:13;-1
+83;W_Completeren aanvraag;05.10.2011-16:47:40;10982
+83;W_Completeren aanvraag;05.10.2011-17:59:39;10982
+83;W_Completeren aanvraag;06.10.2011-09:08:33;-1
+83;W_Completeren aanvraag;06.10.2011-18:13:51;-1
+83;W_Nabellen offertes;14.10.2011-07:33:48;11201
+83;W_Nabellen offertes;15.10.2011-14:52:24;-1
+83;W_Nabellen offertes;18.10.2011-10:14:58;-1
+83;W_Nabellen offertes;18.10.2011-10:45:33;10861
+83;W_Nabellen offertes;25.10.2011-10:37:27;11189
+83;W_Nabellen offertes;31.10.2011-18:36:31;10863
+83;W_Nabellen offertes;02.11.2011-17:21:59;11203
+83;W_Nabellen offertes;04.11.2011-16:47:06;11201
+84;W_Completeren aanvraag;03.10.2011-14:45:50;11201
+84;W_Completeren aanvraag;03.10.2011-15:16:56;11201
+84;W_Completeren aanvraag;03.10.2011-15:18:32;11119
+84;W_Completeren aanvraag;03.10.2011-15:43:39;11119
+84;W_Nabellen offertes;10.10.2011-16:42:04;11119
+84;W_Nabellen offertes;13.10.2011-09:34:20;11049
+84;W_Valideren aanvraag;17.10.2011-08:31:24;10912
+84;W_Valideren aanvraag;17.10.2011-09:11:31;10809
+84;W_Nabellen incomplete dossiers;17.10.2011-09:25:58;11009
+84;W_Nabellen incomplete dossiers;17.10.2011-09:36:14;11009
+84;W_Nabellen incomplete dossiers;17.10.2011-10:24:11;10881
+84;W_Nabellen incomplete dossiers;17.10.2011-11:39:04;11180
+84;W_Nabellen incomplete dossiers;17.10.2011-13:44:25;-1
+84;W_Nabellen incomplete dossiers;17.10.2011-13:50:33;11180
+84;W_Nabellen incomplete dossiers;17.10.2011-13:56:19;-1
+84;W_Nabellen incomplete dossiers;17.10.2011-14:02:26;11180
+84;W_Nabellen incomplete dossiers;17.10.2011-15:29:57;10861
+84;W_Nabellen incomplete dossiers;18.10.2011-08:34:27;10809
+84;W_Nabellen incomplete dossiers;18.10.2011-09:06:58;10809
+85;W_Completeren aanvraag;03.10.2011-12:20:03;10889
+85;W_Completeren aanvraag;04.10.2011-07:54:41;-1
+85;W_Completeren aanvraag;04.10.2011-11:38:58;11169
+85;W_Completeren aanvraag;04.10.2011-14:07:00;11001
+85;W_Completeren aanvraag;04.10.2011-16:22:01;10982
+85;W_Completeren aanvraag;05.10.2011-15:59:07;11181
+85;W_Completeren aanvraag;06.10.2011-07:52:54;11201
+85;W_Completeren aanvraag;06.10.2011-07:55:55;-1
+85;W_Completeren aanvraag;06.10.2011-18:48:48;11180
+85;W_Completeren aanvraag;07.10.2011-16:29:51;11181
+85;W_Completeren aanvraag;08.10.2011-08:47:56;10913
+85;W_Completeren aanvraag;08.10.2011-12:34:40;11181
+85;W_Completeren aanvraag;10.10.2011-10:12:11;11189
+85;W_Nabellen offertes;17.10.2011-16:30:31;11119
+85;W_Nabellen offertes;19.10.2011-08:45:29;11189
+85;W_Nabellen offertes;21.10.2011-07:33:55;11049
+85;W_Valideren aanvraag;27.10.2011-08:01:40;10972
+86;W_Completeren aanvraag;03.10.2011-10:27:17;-1
+86;W_Nabellen offertes;03.10.2011-10:37:58;-1
+86;W_Nabellen offertes;04.10.2011-10:56:05;10982
+86;W_Nabellen offertes;06.10.2011-07:54:36;-1
+86;W_Valideren aanvraag;10.10.2011-07:31:57;10609
+86;W_Nabellen incomplete dossiers;10.10.2011-07:43:17;10912
+86;W_Nabellen incomplete dossiers;10.10.2011-10:39:52;10912
+86;W_Valideren aanvraag;10.10.2011-11:22:16;10609
+86;W_Valideren aanvraag;11.10.2011-13:22:22;-1
+86;W_Valideren aanvraag;11.10.2011-13:25:50;-1
+86;W_Valideren aanvraag;11.10.2011-13:28:16;-1
+86;W_Valideren aanvraag;11.10.2011-14:43:18;10609
+87;W_Completeren aanvraag;03.10.2011-10:19:32;10809
+87;W_Nabellen offertes;03.10.2011-10:24:40;10809
+87;W_Valideren aanvraag;03.10.2011-10:25:01;10809
+87;W_Valideren aanvraag;03.10.2011-10:58:35;10809
+87;W_Nabellen incomplete dossiers;03.10.2011-13:07:37;10863
+87;W_Nabellen incomplete dossiers;06.10.2011-07:25:59;11049
+87;W_Nabellen incomplete dossiers;07.10.2011-13:14:25;11009
+87;W_Nabellen incomplete dossiers;08.10.2011-09:08:16;11002
+87;W_Nabellen incomplete dossiers;10.10.2011-07:54:51;10912
+87;W_Nabellen incomplete dossiers;11.10.2011-09:13:45;10889
+87;W_Nabellen incomplete dossiers;11.10.2011-14:55:54;10982
+87;W_Nabellen incomplete dossiers;11.10.2011-15:52:41;10982
+87;W_Nabellen incomplete dossiers;12.10.2011-13:04:23;-1
+87;W_Nabellen incomplete dossiers;13.10.2011-07:26:59;11049
+87;W_Nabellen incomplete dossiers;17.10.2011-13:39:52;-1
+87;W_Valideren aanvraag;18.10.2011-08:10:42;10809
+88;W_Completeren aanvraag;03.10.2011-10:27:54;10779
+89;W_Afhandelen leads;03.10.2011-11:13:35;11001
+89;W_Afhandelen leads;03.10.2011-11:29:33;11001
+90;W_Completeren aanvraag;03.10.2011-12:28:07;11201
+90;W_Nabellen offertes;03.10.2011-12:30:21;11201
+90;W_Nabellen offertes;03.10.2011-12:48:39;-1
+90;W_Nabellen offertes;03.10.2011-12:52:34;-1
+90;W_Nabellen offertes;03.10.2011-13:09:14;-1
+90;W_Nabellen offertes;10.10.2011-15:41:24;11119
+90;W_Nabellen offertes;12.10.2011-14:10:48;11180
+90;W_Nabellen offertes;24.10.2011-13:29:34;11201
+90;W_Nabellen offertes;25.10.2011-10:41:05;11201
+90;W_Nabellen offertes;25.10.2011-14:16:10;11189
+90;W_Nabellen offertes;27.10.2011-18:09:08;-1
+90;W_Nabellen offertes;27.10.2011-18:13:14;-1
+90;W_Nabellen offertes;27.10.2011-18:40:57;-1
+90;W_Nabellen offertes;03.11.2011-18:08:41;-1
+90;W_Nabellen offertes;05.11.2011-12:28:34;11002
+90;W_Nabellen offertes;07.11.2011-13:31:59;-1
+90;W_Nabellen offertes;07.11.2011-13:41:26;-1
+90;W_Nabellen offertes;08.11.2011-12:56:51;-1
+90;W_Nabellen offertes;10.11.2011-16:33:22;11181
+90;W_Nabellen offertes;14.11.2011-17:20:53;11180
+90;W_Nabellen offertes;17.11.2011-11:24:00;-1
+90;W_Nabellen offertes;17.11.2011-14:07:59;-1
+90;W_Nabellen offertes;19.11.2011-11:29:13;10913
+90;W_Nabellen offertes;26.11.2011-15:04:06;11000
+90;W_Nabellen offertes;29.11.2011-17:18:08;-1
+90;W_Nabellen offertes;30.11.2011-13:12:06;10899
+90;W_Valideren aanvraag;05.12.2011-13:30:18;10138
+90;W_Valideren aanvraag;05.12.2011-13:52:03;10809
+90;W_Valideren aanvraag;06.12.2011-07:50:01;10809
+90;W_Valideren aanvraag;06.12.2011-10:58:14;10138
+90;W_Nabellen incomplete dossiers;06.12.2011-11:48:58;11121
+90;W_Nabellen incomplete dossiers;06.12.2011-12:19:28;11121
+90;W_Nabellen incomplete dossiers;09.12.2011-07:24:01;10609
+90;W_Valideren aanvraag;09.12.2011-07:53:21;10609
+90;W_Valideren aanvraag;09.12.2011-08:51:43;10609
+90;W_Valideren aanvraag;09.12.2011-09:21:35;10609
+90;W_Valideren aanvraag;09.12.2011-13:18:02;10609
+90;W_Valideren aanvraag;12.12.2011-15:42:55;10609
+90;W_Valideren aanvraag;13.12.2011-05:15:05;10609
+90;W_Valideren aanvraag;13.12.2011-07:04:04;10609
+90;W_Valideren aanvraag;13.12.2011-07:13:16;10609
+90;W_Valideren aanvraag;13.12.2011-08:44:26;10609
+91;W_Afhandelen leads;03.10.2011-11:26:37;11001
+91;W_Completeren aanvraag;03.10.2011-13:38:54;11180
+91;W_Completeren aanvraag;03.10.2011-15:22:34;-1
+91;W_Nabellen offertes;03.10.2011-15:26:18;-1
+91;W_Nabellen offertes;10.10.2011-11:06:21;10899
+91;W_Valideren aanvraag;13.10.2011-09:01:05;10809
+91;W_Nabellen incomplete dossiers;13.10.2011-09:11:50;-1
+91;W_Nabellen incomplete dossiers;13.10.2011-09:12:08;-1
+91;W_Nabellen incomplete dossiers;13.10.2011-09:18:38;-1
+91;W_Nabellen incomplete dossiers;13.10.2011-09:19:14;-1
+91;W_Nabellen incomplete dossiers;13.10.2011-09:19:21;-1
+91;W_Nabellen incomplete dossiers;13.10.2011-10:33:13;-1
+91;W_Nabellen incomplete dossiers;13.10.2011-10:34:50;-1
+91;W_Nabellen incomplete dossiers;13.10.2011-10:35:37;10909
+91;W_Nabellen incomplete dossiers;13.10.2011-10:36:01;10909
+91;W_Nabellen incomplete dossiers;13.10.2011-10:57:08;-1
+91;W_Nabellen incomplete dossiers;13.10.2011-11:17:54;11122
+91;W_Nabellen incomplete dossiers;13.10.2011-11:22:06;11122
+91;W_Valideren aanvraag;13.10.2011-14:28:42;10809
+92;W_Afhandelen leads;03.10.2011-11:37:16;11001
+93;W_Afhandelen leads;03.10.2011-11:31:16;11001
+94;W_Completeren aanvraag;03.10.2011-13:14:50;11180
+94;W_Completeren aanvraag;03.10.2011-13:41:02;-1
+94;W_Completeren aanvraag;03.10.2011-14:10:39;11180
+94;W_Nabellen offertes;03.10.2011-14:13:02;11180
+94;W_Nabellen offertes;10.10.2011-16:36:13;11119
+94;W_Nabellen offertes;13.10.2011-07:16:42;-1
+94;W_Valideren aanvraag;17.10.2011-18:11:25;10972
+95;W_Completeren aanvraag;03.10.2011-11:59:52;10809
+95;W_Completeren aanvraag;03.10.2011-12:30:11;10809
+95;W_Completeren aanvraag;03.10.2011-12:31:21;10809
+95;W_Nabellen offertes;03.10.2011-12:34:08;10809
+95;W_Valideren aanvraag;03.10.2011-12:34:41;10809
+95;W_Nabellen incomplete dossiers;03.10.2011-12:36:30;10809
+95;W_Nabellen incomplete dossiers;03.10.2011-13:07:54;10809
+95;W_Nabellen incomplete dossiers;03.10.2011-13:59:56;10863
+95;W_Nabellen incomplete dossiers;04.10.2011-06:22:10;11049
+95;W_Nabellen incomplete dossiers;04.10.2011-07:47:36;10809
+95;W_Nabellen incomplete dossiers;04.10.2011-08:09:50;10809
+95;W_Nabellen incomplete dossiers;04.10.2011-08:17:33;10809
+96;W_Completeren aanvraag;03.10.2011-11:53:32;10863
+96;W_Nabellen offertes;03.10.2011-11:56:48;10863
+96;W_Nabellen offertes;05.10.2011-14:56:43;10881
+96;W_Nabellen offertes;11.10.2011-07:58:56;-1
+96;W_Valideren aanvraag;11.10.2011-09:49:21;10138
+97;W_Completeren aanvraag;03.10.2011-13:41:20;11180
+97;W_Completeren aanvraag;04.10.2011-08:02:38;-1
+97;W_Completeren aanvraag;04.10.2011-11:43:28;11169
+97;W_Completeren aanvraag;04.10.2011-15:53:11;11179
+97;W_Completeren aanvraag;05.10.2011-15:55:12;-1
+97;W_Completeren aanvraag;06.10.2011-07:48:49;11189
+97;W_Completeren aanvraag;06.10.2011-18:45:52;11180
+97;W_Completeren aanvraag;06.10.2011-18:54:48;10913
+97;W_Completeren aanvraag;07.10.2011-16:36:10;11181
+97;W_Completeren aanvraag;08.10.2011-09:00:40;-1
+97;W_Completeren aanvraag;03.11.2011-08:15:06;-1
+98;W_Completeren aanvraag;03.10.2011-13:57:37;11180
+98;W_Nabellen offertes;03.10.2011-13:59:15;11180
+98;W_Nabellen offertes;10.10.2011-16:35:37;-1
+98;W_Nabellen offertes;12.10.2011-14:14:28;11180
+98;W_Nabellen offertes;13.10.2011-04:15:05;11189
+98;W_Nabellen offertes;13.10.2011-16:15:55;11201
+98;W_Nabellen offertes;19.10.2011-18:41:51;10982
+98;W_Nabellen offertes;20.10.2011-17:54:58;10914
+98;W_Nabellen offertes;28.10.2011-18:52:36;11203
+98;W_Nabellen offertes;31.10.2011-18:25:06;10863
+98;W_Nabellen offertes;02.11.2011-18:10:12;11203
+98;W_Nabellen offertes;03.11.2011-08:15:29;11203
+99;W_Completeren aanvraag;03.10.2011-13:46:51;-1
+99;W_Completeren aanvraag;03.10.2011-14:23:16;-1
+99;W_Nabellen offertes;03.10.2011-14:28:05;-1
+99;W_Nabellen offertes;04.10.2011-10:25:51;10982
+99;W_Nabellen offertes;04.10.2011-10:28:50;10982
+99;W_Nabellen offertes;11.10.2011-09:03:14;11049
+99;W_Valideren aanvraag;14.10.2011-13:06:18;10629
+99;W_Nabellen incomplete dossiers;14.10.2011-17:36:25;10913
+99;W_Nabellen incomplete dossiers;14.10.2011-18:20:03;10912
+99;W_Nabellen incomplete dossiers;17.10.2011-15:01:38;11009
+99;W_Nabellen incomplete dossiers;17.10.2011-15:02:10;11009
+99;W_Nabellen incomplete dossiers;17.10.2011-15:35:48;10861
+99;W_Nabellen incomplete dossiers;20.10.2011-08:33:35;11049
+99;W_Nabellen incomplete dossiers;21.10.2011-07:53:55;11049
+99;W_Valideren aanvraag;21.10.2011-08:32:17;10809
+99;W_Valideren aanvraag;21.10.2011-08:36:36;10809
+100;W_Completeren aanvraag;03.10.2011-13:50:01;-1
+100;W_Completeren aanvraag;04.10.2011-09:34:49;-1
+100;W_Completeren aanvraag;04.10.2011-12:06:00;11169
+100;W_Nabellen offertes;06.10.2011-17:51:56;10909
+100;W_Nabellen offertes;06.10.2011-17:56:16;10909
+100;W_Nabellen offertes;06.10.2011-18:05:54;10909
+100;W_Nabellen offertes;14.10.2011-07:28:03;11201
+100;W_Nabellen offertes;19.10.2011-08:35:40;11180
+100;W_Nabellen offertes;20.10.2011-07:24:56;-1
+100;W_Valideren aanvraag;26.10.2011-10:55:24;10138

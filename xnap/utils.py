@@ -91,31 +91,21 @@ def get_output(args, preprocessor, _output):
     return _output
 
 
-def print_output(args, _output, index_fold):
-    if args.cross_validation and index_fold < args.num_folds:
-        llprint("\nAccuracy of fold %i: %f\n" % (index_fold, _output["accuracy_values"][index_fold]))
-        llprint("Precision of fold %i: %f\n" % (index_fold, _output["precision_values"][index_fold]))
-        llprint("Recall of fold %i: %f\n" % (index_fold, _output["recall_values"][index_fold]))
-        llprint("F1-Score of fold %i: %f\n" % (index_fold, _output["f1_values"][index_fold]))
-        if args.mode == 0:
-            llprint(
-                "Training time of fold %i: %f seconds\n" % (index_fold, _output["training_time_seconds"][index_fold]))
-            # TODO add prediction and explanation times if/when cross-validation is implemented
+def print_output(args, _output):
 
-    else:
-        llprint("\nAccuracy avg: %f\n" % (avg(_output["accuracy_values"])))
-        llprint("Precision avg: %f\n" % (avg(_output["precision_values"])))
-        llprint("Recall avg: %f\n" % (avg(_output["recall_values"])))
-        llprint("F1-Score avg: %f\n" % (avg(_output["f1_values"])))
+    llprint("\nAccuracy avg: %f\n" % (avg(_output["accuracy_values"])))
+    llprint("Precision avg: %f\n" % (avg(_output["precision_values"])))
+    llprint("Recall avg: %f\n" % (avg(_output["recall_values"])))
+    llprint("F1-Score avg: %f\n" % (avg(_output["f1_values"])))
 
-        if args.mode == 0:
-            llprint("Training time total: %f seconds\n" % (avg(_output["training_time_seconds"])))
-            llprint("Prediction time avg: %f seconds\n" % (avg(_output["prediction_times_seconds"])))
-            llprint("Prediction time total: %f seconds\n" % (sum(_output["prediction_times_seconds"])))
+    if args.mode == 0:
+        llprint("Training time total: %f seconds\n" % (avg(_output["training_time_seconds"])))
+        llprint("Prediction time avg: %f seconds\n" % (avg(_output["prediction_times_seconds"])))
+        llprint("Prediction time total: %f seconds\n" % (sum(_output["prediction_times_seconds"])))
 
-        if args.mode == 2:
-            llprint("Explanation time avg: %f seconds\n" % (avg(_output["explanation_times_seconds"])))
-            llprint("Explanation time total: %f seconds\n" % (sum(_output["explanation_times_seconds"])))
+    if args.mode == 2:
+        llprint("Explanation time avg: %f seconds\n" % (avg(_output["explanation_times_seconds"])))
+        llprint("Explanation time total: %f seconds\n" % (sum(_output["explanation_times_seconds"])))
 
     llprint("\n")
 
@@ -198,10 +188,9 @@ def get_output_path_predictions(args, preprocessor):
 
     directory = './' + args.task + args.result_dir[1:]
     file = args.data_set.split(".csv")[0]
-    if args.cross_validation:
-        file += "_%d_%s" % (preprocessor.iteration_cross_validation, args.classifier)
-    else:
-        file += "_0_%s" % args.classifier
+
+    file += "_0_%s" % args.classifier
+
     if args.mode == 2:
         file += "_manipulated"
     file += ".csv"

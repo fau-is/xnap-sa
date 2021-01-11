@@ -26,7 +26,7 @@ if __name__ == '__main__':
         test.test(args, preprocessor, event_log, test_indices, output)
 
         output = utils.get_output(args, preprocessor, output)
-        utils.print_output(args, output, -1)
+        utils.print_output(args, output)
         utils.write_output(args, output, -1)
 
     elif args.mode == 1:

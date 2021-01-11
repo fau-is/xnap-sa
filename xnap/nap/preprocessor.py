@@ -193,6 +193,10 @@ class Preprocessor(object):
 
         elif mode == 'hash':
             encoding_columns = self.apply_hash_encoding(args, df, column_name)
+
+        elif mode == 'int':
+            encoding_columns = self.apply_integer_mapping(df, column_name)
+
         else:
             # no encoding
             encoding_columns = df[column_name]
@@ -313,6 +317,16 @@ class Preprocessor(object):
 
         encoded_column = encoded_df[
             encoded_df.columns[pandas.Series(encoded_df.columns).str.startswith("%s_" % column_name)]]
+
+        return encoded_column
+
+    def apply_integer_mapping(self, df, column_name):
+        """ Encodes a data frame column with one hot encoding """
+
+        column = df[column_name].fillna("missing")
+        unique_values = column.unique().tolist()
+        int_mapping = dict(zip(unique_values, range(len(unique_values))))
+        encoded_column = column.map(int_mapping)
 
         return encoded_column
 
@@ -448,13 +462,8 @@ class Preprocessor(object):
         """ Retrieves cases of a fold """
         subset_cases = []
 
-        if args.cross_validation:
-            index_per_fold = indices
-            for index in index_per_fold[self.iteration_cross_validation]:
-                subset_cases.append(event_log[index])
-        else:
-            for index in indices:
-                subset_cases.append(event_log[index])
+        for index in indices:
+            subset_cases.append(event_log[index])
 
         return subset_cases
 
@@ -500,8 +509,11 @@ class Preprocessor(object):
 
                 # activity
                 activity_values = event.get(args.activity_key)
-                for idx, val in enumerate(activity_values):
-                    features_tensor[idx_subseq, timestep + left_pad, idx] = val
+                if args.encoding_cat == 'int':
+                    features_tensor[idx_subseq, timestep + left_pad, 0] = activity_values
+                else:
+                    for idx, val in enumerate(activity_values):
+                        features_tensor[idx_subseq, timestep + left_pad, idx] = val
 
                 # context
                 if self.context_exists():

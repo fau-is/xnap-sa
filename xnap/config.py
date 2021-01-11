@@ -38,7 +38,7 @@ def load():
 
     # Directories
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="bpi2013i_raw.csv")
+    parser.add_argument('--data_set', default="helpdesk_raw.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
@@ -48,7 +48,6 @@ def load():
     parser.add_argument('--seed_val', default=1377, type=int)
     parser.add_argument('--shuffle', default=False, type=int)
     parser.add_argument('--num_folds', default=1, type=int)
-    parser.add_argument('--cross_validation', default=False, type=utils.str2bool)
     parser.add_argument('--split_rate_test', default=0.8, type=float)
     parser.add_argument('--val_split', default=0.1, type=float)
     parser.add_argument('--batch_size_train', default=128, type=int)
@@ -56,7 +55,7 @@ def load():
 
     # pre-processing
     parser.add_argument('--encoding_num', default="min_max_norm", type=str)
-    parser.add_argument('--encoding_cat', default="onehot", type=str)  # onehot or hash for categorical attributes
+    parser.add_argument('--encoding_cat', default="int", type=str)  # onehot, hash or int for categorical attributes
     parser.add_argument('--num_hash_output', default=10, type=int)
 
     # pm4py
