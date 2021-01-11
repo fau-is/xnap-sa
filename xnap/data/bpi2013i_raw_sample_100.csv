@@ -1,0 +1,1883 @@
+case;event;time;resource
+0;Accepted-In Progress;31.03.2010-14:59:42;Frederic
+0;Accepted-In Progress;31.03.2010-15:00:56;Frederic
+0;Queued-Awaiting Assignment;31.03.2010-15:45:48;Frederic
+0;Accepted-In Progress;06.04.2010-14:44:07;Anne Claire
+0;Queued-Awaiting Assignment;06.04.2010-14:44:38;Anne Claire
+0;Accepted-In Progress;06.04.2010-14:44:47;Anne Claire
+0;Completed-Resolved;06.04.2010-14:44:51;Anne Claire
+0;Queued-Awaiting Assignment;06.04.2010-14:45:07;Anne Claire
+0;Accepted-In Progress;08.04.2010-10:52:23;Eric
+0;Queued-Awaiting Assignment;08.04.2010-10:53:35;Eric
+0;Accepted-In Progress;20.04.2010-09:07:11;Anne Claire
+0;Accepted-Assigned;20.04.2010-09:07:19;Anne Claire
+0;Accepted-In Progress;11.04.2012-15:11:17;Sarah
+0;Accepted-Assigned;11.04.2012-15:11:25;Sarah
+0;Accepted-In Progress;03.05.2012-09:10:10;Loic
+0;Completed-Resolved;03.05.2012-09:10:12;Loic
+0;Completed-Closed;10.05.2012-23:26:15;Siebel
+1;Accepted-In Progress;31.01.2011-10:12:22;Adam
+1;Accepted-In Progress;31.01.2011-10:18:44;Adam
+1;Queued-Awaiting Assignment;31.01.2011-10:19:05;Adam
+1;Accepted-In Progress;31.01.2011-11:59:46;Denny
+1;Accepted-Wait - User;31.01.2011-13:37:55;Denny
+1;Queued-Awaiting Assignment;03.02.2011-07:28:58;Denny
+1;Accepted-In Progress;07.02.2011-11:37:33;Paul
+1;Accepted-Wait - Implementation;07.02.2011-11:38:25;Paul
+1;Accepted-In Progress;09.03.2011-10:08:06;Åse
+1;Accepted-Wait - Implementation;09.03.2011-10:27:05;Åse
+1;Accepted-In Progress;10.03.2011-10:53:10;Joseph
+1;Accepted-Assigned;10.03.2011-10:53:22;Joseph
+1;Accepted-In Progress;10.03.2011-11:17:22;Björn T
+1;Accepted-Wait - User;10.03.2011-11:21:51;Björn T
+1;Accepted-Wait;10.03.2011-13:45:27;Björn T
+1;Accepted-Assigned;14.03.2011-06:56:20;Björn T
+1;Accepted-In Progress;14.03.2011-06:58:01;Åse
+1;Accepted-Wait;14.03.2011-06:58:55;Åse
+1;Accepted-In Progress;05.04.2011-15:59:52;Suliman
+1;Queued-Awaiting Assignment;05.04.2011-16:02:01;Suliman
+1;Accepted-In Progress;06.04.2011-08:32:07;Denny
+1;Accepted-Assigned;06.04.2011-09:47:50;Denny
+1;Accepted-In Progress;06.04.2011-09:48:33;Jon
+1;Accepted-Wait - User;06.04.2011-10:08:47;Jon
+1;Accepted-In Progress;07.04.2011-11:36:47;Jon
+1;Accepted-Wait;07.04.2011-12:06:06;Jon
+1;Accepted-In Progress;08.04.2011-12:10:59;Jon
+1;Accepted-Wait;08.04.2011-12:17:44;Jon
+1;Queued-Awaiting Assignment;08.04.2011-12:20:00;Jon
+1;Accepted-In Progress;12.04.2011-13:16:47;Gustav
+1;Accepted-In Progress;08.08.2011-13:28:38;Magnus
+1;Accepted-Assigned;12.09.2011-09:22:38;Magnus
+1;Accepted-In Progress;21.11.2011-12:52:19;Magnus
+1;Accepted-Wait - Implementation;21.11.2011-12:52:57;Magnus
+1;Queued-Awaiting Assignment;25.01.2012-14:50:41;Magnus
+1;Accepted-In Progress;25.01.2012-14:53:07;Andreas
+1;Queued-Awaiting Assignment;25.01.2012-14:54:00;Andreas
+1;Accepted-In Progress;15.05.2012-15:56:51;Torbjörn
+1;Completed-Resolved;15.05.2012-15:57:39;Torbjörn
+1;Completed-Closed;22.05.2012-23:22:25;Siebel
+2;Accepted-In Progress;24.02.2011-15:17:46;Bert
+2;Accepted-In Progress;24.02.2011-15:17:52;Bert
+2;Queued-Awaiting Assignment;24.02.2011-15:19:35;Bert
+2;Accepted-In Progress;28.02.2011-12:46:38;Luc
+2;Queued-Awaiting Assignment;28.02.2011-12:47:22;Luc
+2;Accepted-In Progress;28.02.2011-12:48:12;Henk
+2;Queued-Awaiting Assignment;28.02.2011-12:53:24;Henk
+2;Accepted-In Progress;04.05.2011-16:07:37;Earl
+2;Queued-Awaiting Assignment;17.02.2012-13:49:34;Tsun Fai
+2;Accepted-In Progress;21.03.2012-15:21:44;Juan
+2;Accepted-In Progress;26.03.2012-09:55:35;Juan
+2;Queued-Awaiting Assignment;26.03.2012-09:57:04;Juan
+2;Accepted-In Progress;03.04.2012-13:29:44;Earl
+2;Accepted-Wait;03.04.2012-13:29:49;Earl
+2;Accepted-In Progress;04.05.2012-06:58:20;Juan
+2;Completed-Resolved;04.05.2012-06:59:39;Juan
+2;Completed-Closed;11.05.2012-23:21:31;Siebel
+3;Accepted-In Progress;28.02.2011-13:13:33;Ilona
+3;Accepted-In Progress;28.02.2011-13:13:40;Ilona
+3;Queued-Awaiting Assignment;28.02.2011-13:17:09;Ilona
+3;Accepted-In Progress;01.03.2011-14:59:36;Luc
+3;Queued-Awaiting Assignment;01.03.2011-15:00:16;Luc
+3;Accepted-In Progress;01.03.2011-17:34:25;Evy
+3;Accepted-Assigned;01.03.2011-17:46:00;Evy
+3;Accepted-In Progress;02.03.2011-06:42:49;Ilona
+3;Queued-Awaiting Assignment;02.03.2011-06:44:11;Ilona
+3;Accepted-In Progress;04.05.2011-16:08:55;Earl
+3;Queued-Awaiting Assignment;13.03.2012-09:53:43;Reinier
+3;Accepted-In Progress;13.03.2012-10:11:24;Juan
+3;Queued-Awaiting Assignment;13.03.2012-10:27:20;Juan
+3;Accepted-In Progress;03.04.2012-13:59:27;Earl
+3;Accepted-Wait - Implementation;04.04.2012-13:53:31;Earl
+3;Accepted-In Progress;04.04.2012-13:54:40;Earl
+3;Accepted-In Progress;04.05.2012-06:55:03;Juan
+3;Completed-Resolved;04.05.2012-06:57:02;Juan
+3;Completed-Closed;11.05.2012-23:21:30;Siebel
+4;Accepted-In Progress;07.03.2011-09:42:08;Olga
+4;Accepted-In Progress;07.03.2011-09:44:43;Olga
+4;Accepted-In Progress;07.03.2011-09:51:59;Olga
+4;Queued-Awaiting Assignment;07.03.2011-09:52:51;Olga
+4;Accepted-In Progress;07.03.2011-10:48:31;Luc
+4;Queued-Awaiting Assignment;07.03.2011-10:55:20;Luc
+4;Accepted-In Progress;07.03.2011-11:03:37;Olga
+4;Accepted-Wait - User;07.03.2011-11:04:35;Olga
+4;Accepted-In Progress;07.03.2011-12:22:56;Olga
+4;Queued-Awaiting Assignment;07.03.2011-12:24:38;Olga
+4;Accepted-In Progress;07.03.2011-13:13:15;Luc
+4;Queued-Awaiting Assignment;07.03.2011-13:13:58;Luc
+4;Accepted-In Progress;08.03.2011-05:53:06;Olga
+4;Queued-Awaiting Assignment;08.03.2011-05:55:54;Olga
+4;Accepted-In Progress;08.03.2011-08:16:24;Luc
+4;Queued-Awaiting Assignment;08.03.2011-08:18:18;Luc
+4;Accepted-In Progress;08.03.2011-08:20:32;Olga
+4;Accepted-Wait - User;08.03.2011-08:22:46;Olga
+4;Accepted-In Progress;09.03.2011-06:16:14;Olga
+4;Queued-Awaiting Assignment;09.03.2011-06:17:16;Olga
+4;Accepted-In Progress;09.03.2011-16:03:41;Luc
+4;Queued-Awaiting Assignment;09.03.2011-16:05:12;Luc
+4;Accepted-In Progress;10.03.2011-11:29:05;Olga
+4;Accepted-Wait - User;10.03.2011-11:47:33;Olga
+4;Accepted-In Progress;14.03.2011-09:19:53;Olga
+4;Accepted-Assigned;14.03.2011-09:28:30;Olga
+4;Accepted-In Progress;14.03.2011-09:28:35;Olga
+4;Queued-Awaiting Assignment;14.03.2011-09:29:13;Olga
+4;Accepted-In Progress;14.03.2011-09:30:27;Olga
+4;Queued-Awaiting Assignment;14.03.2011-09:37:19;Olga
+4;Accepted-In Progress;15.03.2011-09:41:17;Luc
+4;Queued-Awaiting Assignment;15.03.2011-09:53:36;Luc
+4;Accepted-In Progress;15.03.2011-10:00:18;Olga
+4;Queued-Awaiting Assignment;15.03.2011-10:12:52;Olga
+4;Accepted-In Progress;15.03.2011-10:21:49;Luc
+4;Queued-Awaiting Assignment;15.03.2011-10:23:58;Luc
+4;Accepted-In Progress;15.03.2011-10:27:28;Olga
+4;Accepted-Wait - User;15.03.2011-10:33:30;Olga
+4;Accepted-In Progress;15.03.2011-11:38:16;Olga
+4;Accepted-Wait - User;15.03.2011-13:39:01;Olga
+4;Accepted-In Progress;23.03.2011-09:13:28;Olga
+4;Accepted-In Progress;23.03.2011-09:13:29;Olga
+4;Accepted-Wait - User;23.03.2011-09:17:21;Olga
+4;Accepted-In Progress;24.03.2011-09:12:18;Olga
+4;Queued-Awaiting Assignment;24.03.2011-09:13:25;Olga
+4;Accepted-In Progress;24.03.2011-12:20:10;Luc
+4;Queued-Awaiting Assignment;24.03.2011-12:20:46;Luc
+4;Accepted-In Progress;24.03.2011-16:50:30;Olga
+4;Queued-Awaiting Assignment;24.03.2011-16:54:55;Olga
+4;Accepted-In Progress;04.05.2011-16:36:03;Earl
+4;Queued-Awaiting Assignment;23.05.2011-12:52:07;Earl
+4;Accepted-In Progress;24.05.2011-13:02:14;Olga
+4;Accepted-Wait - User;24.05.2011-15:16:36;Olga
+4;Accepted-In Progress;25.05.2011-14:25:09;Olga
+4;Accepted-In Progress;26.05.2011-12:52:07;Siebel
+4;Accepted-Wait - User;26.05.2011-14:20:06;Olga
+4;Accepted-In Progress;26.05.2011-14:21:36;Olga
+4;Queued-Awaiting Assignment;26.05.2011-14:21:59;Olga
+4;Accepted-In Progress;20.07.2011-13:55:42;Earl
+4;Accepted-In Progress;04.05.2012-07:00:07;Juan
+4;Completed-Resolved;04.05.2012-07:01:21;Juan
+4;Completed-Closed;11.05.2012-23:21:30;Siebel
+5;Accepted-In Progress;04.04.2011-14:51:24;Marcus
+5;Accepted-In Progress;04.04.2011-14:52:15;Marcus
+5;Queued-Awaiting Assignment;04.04.2011-14:58:11;Marcus
+5;Accepted-In Progress;04.04.2011-15:11:27;Sandra
+5;Accepted-Assigned;04.04.2011-15:11:37;Sandra
+5;Accepted-In Progress;04.04.2011-15:18:04;Daniel
+5;Accepted-Wait - User;04.04.2011-15:24:46;Daniel
+5;Completed-Resolved;08.04.2011-09:42:53;Daniel
+5;Accepted-Assigned;11.04.2011-16:53:52;Simon
+5;Accepted-In Progress;11.04.2011-16:56:47;Simon
+5;Queued-Awaiting Assignment;11.04.2011-16:57:06;Simon
+5;Accepted-In Progress;12.04.2011-06:21:26;Marie
+5;Accepted-Assigned;12.04.2011-06:22:36;Marie
+5;Accepted-In Progress;12.04.2011-07:12:13;Daniel
+5;Accepted-Wait - User;12.04.2011-07:12:19;Daniel
+5;Accepted-In Progress;31.05.2011-08:39:43;Sandra
+5;Accepted-Wait - User;31.05.2011-08:39:48;Sandra
+5;Accepted-Assigned;28.10.2011-13:22:35;Sandra
+5;Accepted-In Progress;31.10.2011-07:06:01;Björn
+5;Accepted-Wait - User;31.10.2011-07:06:05;Björn
+5;Accepted-Assigned;09.12.2011-10:24:12;Björn
+5;Accepted-In Progress;09.12.2011-14:00:24;Mats
+5;Accepted-Wait - User;09.12.2011-14:00:29;Mats
+5;Accepted-In Progress;12.03.2012-09:03:11;Per
+5;Accepted-Wait - User;12.03.2012-09:03:15;Per
+5;Accepted-Assigned;19.03.2012-12:15:59;Per
+5;Accepted-In Progress;19.03.2012-13:21:01;Björn
+5;Accepted-Assigned;19.03.2012-13:23:52;Björn
+5;Accepted-In Progress;20.03.2012-08:32:27;Mats
+5;Accepted-Wait - User;20.03.2012-08:32:53;Mats
+5;Completed-Resolved;02.05.2012-14:01:42;Mats
+5;Completed-Closed;09.05.2012-23:20:47;Siebel
+6;Accepted-In Progress;13.04.2011-14:04:32;Olga
+6;Accepted-In Progress;13.04.2011-14:05:38;Olga
+6;Queued-Awaiting Assignment;13.04.2011-14:12:39;Olga
+6;Accepted-In Progress;19.04.2011-12:23:12;Luc
+6;Queued-Awaiting Assignment;19.04.2011-12:27:05;Luc
+6;Accepted-In Progress;19.04.2011-12:57:53;Olga
+6;Accepted-Wait - User;19.04.2011-13:01:16;Olga
+6;Accepted-In Progress;22.04.2011-09:29:18;Olga
+6;Accepted-Wait - User;22.04.2011-09:30:27;Olga
+6;Accepted-In Progress;27.04.2011-16:38:48;Olga
+6;Queued-Awaiting Assignment;27.04.2011-16:42:38;Olga
+6;Accepted-In Progress;28.04.2011-09:06:05;Luc
+6;Queued-Awaiting Assignment;28.04.2011-09:07:04;Luc
+6;Accepted-In Progress;28.04.2011-10:02:04;Olga
+6;Queued-Awaiting Assignment;28.04.2011-10:08:04;Olga
+6;Accepted-In Progress;11.05.2011-13:31:55;Earl
+6;Queued-Awaiting Assignment;27.07.2011-12:28:46;Tsun Fai
+6;Accepted-In Progress;16.08.2011-15:42:06;Earl
+6;Accepted-In Progress;04.05.2012-07:01:57;Juan
+6;Completed-Resolved;04.05.2012-07:02:52;Juan
+6;Completed-Closed;11.05.2012-23:21:30;Siebel
+7;Accepted-In Progress;03.05.2011-07:42:21;Henk
+7;Accepted-In Progress;03.05.2011-07:42:31;Henk
+7;Queued-Awaiting Assignment;03.05.2011-07:46:47;Henk
+7;Accepted-In Progress;03.05.2011-08:44:47;Luc
+7;Queued-Awaiting Assignment;03.05.2011-08:45:41;Luc
+7;Accepted-In Progress;03.05.2011-10:05:52;Katia
+7;Accepted-Assigned;03.05.2011-10:05:57;Katia
+7;Accepted-In Progress;03.05.2011-11:20:46;Henk
+7;Queued-Awaiting Assignment;03.05.2011-11:24:45;Henk
+7;Accepted-In Progress;11.05.2011-13:39:42;Earl
+7;Accepted-Wait - Implementation;04.04.2012-13:56:22;Earl
+7;Accepted-In Progress;04.05.2012-07:03:26;Juan
+7;Completed-Resolved;04.05.2012-07:06:01;Juan
+7;Completed-Closed;11.05.2012-23:21:29;Siebel
+8;Accepted-In Progress;05.05.2011-13:47:54;Elaine
+8;Accepted-In Progress;05.05.2011-13:48:38;Elaine
+8;Accepted-Wait - Vendor;05.05.2011-14:01:23;Elaine
+8;Accepted-In Progress;05.05.2011-17:21:53;Elaine
+8;Accepted-Wait - User;09.08.2011-18:34:05;Elaine
+8;Accepted-In Progress;07.03.2012-14:26:40;Rafael
+8;Completed-Resolved;03.05.2012-12:49:21;Rafael
+8;Completed-Closed;03.05.2012-23:21:11;Siebel
+9;Accepted-In Progress;26.05.2011-13:57:29;Olga
+9;Accepted-In Progress;26.05.2011-13:57:50;Olga
+9;Queued-Awaiting Assignment;26.05.2011-14:07:31;Olga
+9;Accepted-In Progress;30.05.2011-10:44:09;Luc
+9;Queued-Awaiting Assignment;30.05.2011-10:46:01;Luc
+9;Accepted-In Progress;30.05.2011-11:47:27;Olga
+9;Accepted-Wait - User;30.05.2011-11:49:28;Olga
+9;Accepted-In Progress;31.05.2011-05:30:30;Olga
+9;Queued-Awaiting Assignment;31.05.2011-05:31:53;Olga
+9;Accepted-In Progress;31.05.2011-08:02:29;Luc
+9;Queued-Awaiting Assignment;31.05.2011-08:15:32;Luc
+9;Accepted-In Progress;31.05.2011-08:16:56;Olga
+9;Queued-Awaiting Assignment;31.05.2011-08:21:50;Olga
+9;Accepted-In Progress;06.07.2011-14:51:06;Earl
+9;Accepted-Assigned;06.07.2011-14:51:08;Earl
+9;Accepted-In Progress;20.07.2011-12:39:07;Earl
+9;Accepted-In Progress;04.05.2012-07:20:17;Juan
+9;Completed-Resolved;04.05.2012-07:21:09;Juan
+9;Completed-Closed;11.05.2012-23:21:29;Siebel
+10;Accepted-In Progress;26.05.2011-16:01:53;Olga
+10;Accepted-In Progress;26.05.2011-16:02:23;Olga
+10;Queued-Awaiting Assignment;26.05.2011-16:10:38;Olga
+10;Accepted-In Progress;30.05.2011-10:46:17;Tsun Fai
+10;Queued-Awaiting Assignment;30.05.2011-10:48:32;Tsun Fai
+10;Accepted-In Progress;30.05.2011-10:52:42;Olga
+10;Accepted-Wait - User;30.05.2011-10:57:50;Olga
+10;Accepted-In Progress;31.05.2011-12:01:27;Olga
+10;Queued-Awaiting Assignment;31.05.2011-12:03:30;Olga
+10;Accepted-In Progress;01.06.2011-07:52:10;Luc
+10;Accepted-Assigned;01.06.2011-07:52:25;Luc
+10;Accepted-In Progress;01.06.2011-09:36:51;Tsun Fai
+10;Queued-Awaiting Assignment;01.06.2011-09:37:06;Tsun Fai
+10;Accepted-In Progress;01.06.2011-09:38:08;Olga
+10;Accepted-Wait - User;01.06.2011-09:41:39;Olga
+10;Accepted-In Progress;01.06.2011-10:09:35;Olga
+10;Accepted-Wait - User;01.06.2011-10:11:02;Olga
+10;Accepted-In Progress;01.06.2011-10:11:09;Olga
+10;Queued-Awaiting Assignment;01.06.2011-10:11:26;Olga
+10;Accepted-In Progress;01.06.2011-11:07:38;Luc
+10;Accepted-Assigned;01.06.2011-11:07:50;Luc
+10;Accepted-In Progress;11.07.2011-09:36:40;Luc
+10;Queued-Awaiting Assignment;11.07.2011-09:58:50;Luc
+10;Accepted-In Progress;11.07.2011-10:06:14;Marcin
+10;Accepted-Assigned;11.07.2011-10:06:18;Marcin
+10;Accepted-In Progress;11.07.2011-10:14:25;Olga
+10;Accepted-Wait - User;11.07.2011-10:21:28;Olga
+10;Accepted-Wait - User;14.07.2011-09:58:50;Siebel
+10;Accepted-Wait - User;15.07.2011-08:22:05;Olga
+10;Accepted-Wait - User;18.07.2011-08:22:10;Siebel
+10;Accepted-In Progress;25.07.2011-12:43:58;Tamara
+10;Accepted-Wait;25.07.2011-12:44:03;Tamara
+10;Accepted-In Progress;31.08.2011-09:39:40;Olga
+10;Queued-Awaiting Assignment;31.08.2011-09:41:40;Olga
+10;Accepted-In Progress;31.08.2011-12:39:45;Luc
+10;Queued-Awaiting Assignment;31.08.2011-12:40:02;Luc
+10;Accepted-In Progress;31.08.2011-12:42:35;Olga
+10;Queued-Awaiting Assignment;31.08.2011-12:51:27;Olga
+10;Accepted-In Progress;31.08.2011-14:30:39;Luc
+10;Queued-Awaiting Assignment;31.08.2011-14:30:52;Luc
+10;Accepted-In Progress;31.08.2011-14:35:34;Olga
+10;Accepted-Wait - User;31.08.2011-14:38:36;Olga
+10;Accepted-In Progress;31.08.2011-14:49:06;Olga
+10;Queued-Awaiting Assignment;31.08.2011-14:50:41;Olga
+10;Accepted-In Progress;31.08.2011-15:41:51;Luc
+10;Queued-Awaiting Assignment;31.08.2011-15:43:59;Luc
+10;Accepted-In Progress;31.08.2011-15:46:46;Olga
+10;Queued-Awaiting Assignment;31.08.2011-15:49:16;Olga
+10;Accepted-In Progress;16.09.2011-16:00:17;Earl
+10;Accepted-In Progress;04.05.2012-07:24:21;Juan
+10;Completed-Resolved;04.05.2012-07:25:13;Juan
+10;Completed-Closed;11.05.2012-23:21:29;Siebel
+11;Accepted-In Progress;01.06.2011-07:55:53;Olga
+11;Accepted-In Progress;01.06.2011-07:58:17;Olga
+11;Queued-Awaiting Assignment;01.06.2011-08:02:37;Olga
+11;Accepted-In Progress;06.06.2011-12:51:13;Luc
+11;Queued-Awaiting Assignment;06.06.2011-13:21:04;Luc
+11;Accepted-In Progress;07.06.2011-12:04:41;Olga
+11;Accepted-Wait - User;07.06.2011-12:08:14;Olga
+11;Accepted-Wait - User;09.06.2011-13:21:05;Siebel
+11;Accepted-In Progress;10.06.2011-09:19:23;Olga
+11;Queued-Awaiting Assignment;10.06.2011-09:21:07;Olga
+11;Accepted-In Progress;14.06.2011-10:36:29;Luc
+11;Queued-Awaiting Assignment;14.06.2011-14:06:36;Tsun Fai
+11;Accepted-In Progress;15.06.2011-09:14:27;Olga
+11;Accepted-Wait - User;15.06.2011-09:25:57;Olga
+11;Accepted-In Progress;15.06.2011-12:55:06;Olga
+11;Queued-Awaiting Assignment;15.06.2011-12:57:08;Olga
+11;Accepted-In Progress;16.06.2011-09:43:41;Luc
+11;Accepted-Assigned;16.06.2011-09:44:53;Luc
+11;Accepted-In Progress;22.06.2011-15:38:39;Tsun Fai
+11;Queued-Awaiting Assignment;22.06.2011-15:39:48;Tsun Fai
+11;Accepted-In Progress;22.06.2011-16:22:56;Olga
+11;Queued-Awaiting Assignment;22.06.2011-16:26:25;Olga
+11;Accepted-In Progress;06.07.2011-14:48:02;Earl
+11;Accepted-Assigned;06.07.2011-14:48:05;Earl
+11;Accepted-In Progress;20.07.2011-12:34:41;Earl
+11;Completed-Resolved;06.04.2012-09:12:33;Earl
+11;Accepted-In Progress;06.04.2012-09:13:09;Earl
+11;Accepted-Wait;06.04.2012-09:13:14;Earl
+11;Accepted-In Progress;04.05.2012-07:25:45;Juan
+11;Completed-Resolved;04.05.2012-07:26:18;Juan
+11;Completed-Closed;11.05.2012-23:21:29;Siebel
+12;Accepted-In Progress;02.06.2011-07:22:45;Olga
+12;Accepted-In Progress;02.06.2011-07:23:13;Olga
+12;Queued-Awaiting Assignment;02.06.2011-07:36:23;Olga
+12;Accepted-In Progress;06.06.2011-11:16:57;Luc
+12;Queued-Awaiting Assignment;06.06.2011-11:17:50;Luc
+12;Accepted-In Progress;06.06.2011-12:06:29;Olga
+12;Queued-Awaiting Assignment;06.06.2011-12:08:54;Olga
+12;Accepted-In Progress;06.07.2011-14:47:36;Earl
+12;Accepted-Assigned;06.07.2011-14:47:39;Earl
+12;Accepted-In Progress;20.07.2011-12:31:33;Earl
+12;Queued-Awaiting Assignment;19.04.2012-16:05:54;Tsun Fai
+12;Accepted-In Progress;04.05.2012-07:26:59;Juan
+12;Completed-Resolved;04.05.2012-07:27:21;Juan
+12;Completed-Closed;11.05.2012-23:21:29;Siebel
+13;Accepted-In Progress;02.06.2011-15:17:44;Marco
+13;Accepted-In Progress;02.06.2011-15:24:37;Marco
+13;Queued-Awaiting Assignment;02.06.2011-15:28:48;Marco
+13;Accepted-In Progress;06.06.2011-10:54:51;Tsun Fai
+13;Queued-Awaiting Assignment;06.06.2011-10:57:46;Tsun Fai
+13;Accepted-In Progress;06.06.2011-11:23:05;Marco
+13;Accepted-Wait - User;06.06.2011-11:25:31;Marco
+13;Queued-Awaiting Assignment;07.06.2011-14:31:26;Marco
+13;Queued-Awaiting Assignment;07.06.2011-14:31:27;Marco
+13;Accepted-In Progress;07.06.2011-17:40:40;Ilona
+13;Accepted-Wait;07.06.2011-17:40:42;Ilona
+13;Accepted-In Progress;06.07.2011-14:45:09;Marco
+13;Completed-Resolved;06.07.2011-14:45:50;Marco
+13;Queued-Awaiting Assignment;06.07.2011-16:35:36;Iván
+13;Accepted-In Progress;06.07.2011-16:51:44;Marco
+13;Queued-Awaiting Assignment;06.07.2011-16:53:49;Marco
+13;Accepted-In Progress;06.07.2011-16:53:53;Marco
+13;Queued-Awaiting Assignment;06.07.2011-16:54:21;Marco
+13;Accepted-In Progress;07.07.2011-07:54:32;Luc
+13;Accepted-Assigned;07.07.2011-08:12:26;Luc
+13;Accepted-In Progress;07.07.2011-13:25:52;Tsun Fai
+13;Queued-Awaiting Assignment;07.07.2011-13:25:59;Tsun Fai
+13;Accepted-In Progress;07.07.2011-13:26:47;Valeria
+13;Accepted-Assigned;07.07.2011-13:27:57;Valeria
+13;Accepted-In Progress;07.07.2011-14:49:37;Marco
+13;Accepted-Wait - User;07.07.2011-14:58:09;Marco
+13;Queued-Awaiting Assignment;08.07.2011-11:31:55;Marco
+13;Accepted-In Progress;08.07.2011-12:16:14;Luc
+13;Queued-Awaiting Assignment;08.07.2011-12:17:18;Luc
+13;Accepted-In Progress;08.07.2011-12:17:21;Luc
+13;Accepted-Assigned;08.07.2011-12:17:25;Luc
+13;Accepted-In Progress;11.07.2011-09:55:00;Tsun Fai
+13;Queued-Awaiting Assignment;11.07.2011-12:32:37;Tsun Fai
+13;Accepted-In Progress;11.07.2011-12:41:23;Valeria
+13;Accepted-Assigned;11.07.2011-12:43:21;Valeria
+13;Accepted-Assigned;14.07.2011-12:32:37;Siebel
+13;Accepted-In Progress;18.07.2011-15:01:05;Tamara
+13;Queued-Awaiting Assignment;18.07.2011-15:01:42;Tamara
+13;Accepted-In Progress;16.08.2011-15:33:46;Earl
+13;Accepted-Wait;06.04.2012-09:18:12;Earl
+13;Accepted-In Progress;04.05.2012-07:27:48;Juan
+13;Completed-Resolved;04.05.2012-07:28:43;Juan
+13;Completed-Closed;11.05.2012-23:21:28;Siebel
+14;Accepted-In Progress;08.06.2011-12:58:15;Ilona
+14;Accepted-In Progress;08.06.2011-12:58:20;Ilona
+14;Queued-Awaiting Assignment;08.06.2011-13:02:01;Ilona
+14;Accepted-In Progress;08.06.2011-15:20:33;Ilona
+14;Queued-Awaiting Assignment;08.06.2011-15:21:14;Ilona
+14;Accepted-In Progress;08.06.2011-15:55:56;Luc
+14;Queued-Awaiting Assignment;09.06.2011-08:34:50;Luc
+14;Accepted-In Progress;09.06.2011-10:19:26;Ilona
+14;Accepted-Wait - User;09.06.2011-10:21:37;Ilona
+14;Queued-Awaiting Assignment;09.06.2011-16:54:41;Ilona
+14;Accepted-In Progress;10.06.2011-14:16:38;Tsun Fai
+14;Queued-Awaiting Assignment;10.06.2011-14:29:07;Tsun Fai
+14;Accepted-In Progress;10.06.2011-14:29:59;Ilona
+14;Queued-Awaiting Assignment;10.06.2011-14:31:48;Ilona
+14;Accepted-In Progress;06.07.2011-14:45:53;Earl
+14;Accepted-Assigned;06.07.2011-14:45:56;Earl
+14;Accepted-In Progress;20.07.2011-12:30:13;Earl
+14;Accepted-Wait;06.04.2012-09:09:19;Earl
+14;Accepted-In Progress;04.05.2012-07:29:15;Juan
+14;Completed-Resolved;04.05.2012-07:30:26;Juan
+14;Completed-Closed;11.05.2012-23:21:28;Siebel
+15;Accepted-In Progress;24.06.2011-12:23:13;Olga
+15;Accepted-In Progress;24.06.2011-12:23:15;Olga
+15;Queued-Awaiting Assignment;24.06.2011-12:25:58;Olga
+15;Accepted-In Progress;24.06.2011-12:46:34;Luc
+15;Queued-Awaiting Assignment;24.06.2011-13:37:42;Luc
+15;Accepted-In Progress;24.06.2011-14:08:11;Olga
+15;Queued-Awaiting Assignment;24.06.2011-14:10:52;Olga
+15;Accepted-In Progress;06.07.2011-14:40:51;Earl
+15;Accepted-Assigned;06.07.2011-14:40:55;Earl
+15;Accepted-In Progress;20.07.2011-12:23:24;Earl
+15;Accepted-Wait;06.04.2012-09:20:07;Earl
+15;Accepted-In Progress;04.05.2012-07:31:16;Juan
+15;Completed-Resolved;04.05.2012-07:31:48;Juan
+15;Completed-Closed;11.05.2012-23:21:28;Siebel
+16;Accepted-In Progress;24.06.2011-13:58:54;Olga
+16;Accepted-In Progress;24.06.2011-13:58:56;Olga
+16;Queued-Awaiting Assignment;24.06.2011-14:02:31;Olga
+16;Accepted-In Progress;24.06.2011-14:42:25;Luc
+16;Queued-Awaiting Assignment;27.06.2011-08:34:41;Luc
+16;Accepted-In Progress;27.06.2011-08:41:23;Olga
+16;Accepted-Wait - User;27.06.2011-08:45:13;Olga
+16;Accepted-In Progress;27.06.2011-08:48:50;Olga
+16;Queued-Awaiting Assignment;27.06.2011-09:05:48;Olga
+16;Accepted-In Progress;27.06.2011-10:24:37;Luc
+16;Queued-Awaiting Assignment;27.06.2011-10:32:59;Luc
+16;Accepted-In Progress;27.06.2011-10:54:24;Olga
+16;Queued-Awaiting Assignment;27.06.2011-10:59:32;Olga
+16;Accepted-In Progress;06.07.2011-14:39:12;Earl
+16;Accepted-Assigned;06.07.2011-14:39:30;Earl
+16;Accepted-In Progress;20.07.2011-13:53:58;Earl
+16;Accepted-Wait;06.04.2012-09:14:17;Earl
+16;Accepted-In Progress;04.05.2012-07:32:16;Juan
+16;Completed-Resolved;04.05.2012-07:32:47;Juan
+16;Completed-Closed;11.05.2012-23:21:28;Siebel
+17;Accepted-In Progress;28.06.2011-10:35:39;Frederic
+17;Accepted-In Progress;28.06.2011-10:35:57;Frederic
+17;Queued-Awaiting Assignment;28.06.2011-10:50:20;Frederic
+17;Accepted-In Progress;28.06.2011-10:58:24;Fabrice
+17;Queued-Awaiting Assignment;28.06.2011-10:59:36;Fabrice
+17;Accepted-In Progress;28.06.2011-16:45:50;Frederic
+17;Queued-Awaiting Assignment;28.06.2011-16:46:58;Frederic
+17;Accepted-In Progress;29.06.2011-08:47:40;Julien
+17;Queued-Awaiting Assignment;29.06.2011-08:48:21;Julien
+17;Accepted-In Progress;29.06.2011-08:51:19;Frederic
+17;Accepted-In Progress;02.07.2011-08:48:21;Siebel
+17;Queued-Awaiting Assignment;20.09.2011-15:27:24;Adeline
+17;Accepted-In Progress;18.04.2012-14:25:03;Julien
+17;Queued-Awaiting Assignment;18.04.2012-14:26:29;Julien
+17;Accepted-In Progress;02.05.2012-13:34:18;Julien
+17;Queued-Awaiting Assignment;02.05.2012-13:35:45;Julien
+17;Accepted-In Progress;04.05.2012-10:46:38;Bernard
+17;Completed-Resolved;04.05.2012-10:46:58;Bernard
+17;Completed-Closed;11.05.2012-23:21:28;Siebel
+18;Accepted-In Progress;11.07.2011-07:20:50;Ilona
+18;Accepted-In Progress;11.07.2011-07:20:55;Ilona
+18;Queued-Awaiting Assignment;11.07.2011-07:28:43;Ilona
+18;Accepted-In Progress;11.07.2011-07:28:45;Ilona
+18;Accepted-Wait;11.07.2011-07:28:47;Ilona
+18;Queued-Awaiting Assignment;11.07.2011-11:34:18;Ilona
+18;Accepted-In Progress;11.07.2011-13:18:29;Luc
+18;Queued-Awaiting Assignment;11.07.2011-13:28:02;Luc
+18;Accepted-In Progress;11.07.2011-13:35:23;Ilona
+18;Queued-Awaiting Assignment;11.07.2011-13:37:42;Ilona
+18;Accepted-In Progress;20.07.2011-12:47:48;Earl
+18;Accepted-In Progress;04.05.2012-07:33:21;Juan
+18;Completed-Resolved;04.05.2012-07:34:16;Juan
+18;Completed-Closed;11.05.2012-23:21:27;Siebel
+19;Accepted-In Progress;14.07.2011-17:20:42;Henk
+19;Accepted-In Progress;14.07.2011-17:20:49;Henk
+19;Queued-Awaiting Assignment;14.07.2011-17:22:51;Henk
+19;Accepted-In Progress;15.07.2011-07:43:36;Luc
+19;Queued-Awaiting Assignment;15.07.2011-08:02:31;Luc
+19;Accepted-In Progress;15.07.2011-08:52:29;Jan
+19;Queued-Awaiting Assignment;15.07.2011-08:56:59;Jan
+19;Accepted-In Progress;20.07.2011-13:50:38;Earl
+19;Accepted-Wait - Implementation;14.03.2012-15:29:41;Earl
+19;Accepted-In Progress;04.05.2012-07:34:46;Juan
+19;Completed-Resolved;04.05.2012-07:35:37;Juan
+19;Completed-Closed;11.05.2012-23:21:27;Siebel
+20;Accepted-In Progress;25.07.2011-13:45:15;Olga
+20;Accepted-In Progress;25.07.2011-13:45:29;Olga
+20;Queued-Awaiting Assignment;25.07.2011-13:50:11;Olga
+20;Accepted-In Progress;25.07.2011-14:28:03;Tsun Fai
+20;Queued-Awaiting Assignment;25.07.2011-14:34:15;Tsun Fai
+20;Accepted-In Progress;25.07.2011-14:50:14;Olga
+20;Accepted-Wait - User;25.07.2011-14:52:35;Olga
+20;Accepted-In Progress;25.07.2011-14:57:23;Olga
+20;Queued-Awaiting Assignment;25.07.2011-14:58:34;Olga
+20;Accepted-In Progress;25.07.2011-15:55:44;Tsun Fai
+20;Queued-Awaiting Assignment;25.07.2011-16:02:17;Tsun Fai
+20;Queued-Awaiting Assignment;25.07.2011-16:02:18;Tsun Fai
+20;Accepted-In Progress;25.07.2011-16:03:41;Olga
+20;Queued-Awaiting Assignment;25.07.2011-16:05:51;Olga
+20;Accepted-In Progress;26.07.2011-11:03:30;Tsun Fai
+20;Queued-Awaiting Assignment;26.07.2011-13:54:14;Tsun Fai
+20;Accepted-In Progress;26.07.2011-13:55:06;Olga
+20;Queued-Awaiting Assignment;26.07.2011-13:59:46;Olga
+20;Accepted-In Progress;16.08.2011-15:37:40;Earl
+20;Accepted-Wait;06.04.2012-09:19:00;Earl
+20;Accepted-In Progress;04.05.2012-07:36:08;Juan
+20;Completed-Resolved;04.05.2012-07:36:32;Juan
+20;Completed-Closed;11.05.2012-23:21:27;Siebel
+21;Accepted-In Progress;28.07.2011-09:12:37;Jens
+21;Accepted-In Progress;28.07.2011-09:16:47;Jens
+21;Queued-Awaiting Assignment;28.07.2011-09:21:15;Jens
+21;Accepted-In Progress;08.05.2012-07:52:10;Sandra
+21;Completed-Resolved;08.05.2012-07:52:48;Sandra
+21;Completed-Closed;15.05.2012-23:22:58;Siebel
+22;Accepted-In Progress;03.08.2011-12:17:22;Olga
+22;Accepted-In Progress;03.08.2011-12:17:49;Olga
+22;Queued-Awaiting Assignment;03.08.2011-12:24:10;Olga
+22;Accepted-In Progress;04.08.2011-11:02:25;Tsun Fai
+22;Queued-Awaiting Assignment;04.08.2011-12:55:28;Tsun Fai
+22;Queued-Awaiting Assignment;04.08.2011-12:55:29;Tsun Fai
+22;Accepted-In Progress;04.08.2011-15:05:00;Pawel
+22;Accepted-Assigned;04.08.2011-15:05:04;Pawel
+22;Accepted-In Progress;05.08.2011-05:36:03;Olga
+22;Queued-Awaiting Assignment;05.08.2011-05:38:54;Olga
+22;Accepted-In Progress;16.08.2011-15:43:52;Earl
+22;Accepted-Wait - Implementation;14.03.2012-15:45:08;Earl
+22;Accepted-In Progress;04.05.2012-07:38:40;Juan
+22;Completed-Resolved;04.05.2012-07:39:19;Juan
+22;Completed-Closed;11.05.2012-23:21:27;Siebel
+23;Accepted-In Progress;03.08.2011-11:29:56;Evy
+23;Accepted-In Progress;03.08.2011-11:31:12;Evy
+23;Queued-Awaiting Assignment;03.08.2011-11:41:04;Evy
+23;Accepted-In Progress;04.08.2011-10:55:05;Tsun Fai
+23;Queued-Awaiting Assignment;04.08.2011-12:56:55;Tsun Fai
+23;Accepted-In Progress;04.08.2011-15:04:01;Tsun Fai
+23;Queued-Awaiting Assignment;04.08.2011-15:14:33;Tsun Fai
+23;Accepted-In Progress;04.08.2011-15:20:52;Evy
+23;Queued-Awaiting Assignment;04.08.2011-15:26:53;Evy
+23;Accepted-In Progress;16.08.2011-15:43:23;Earl
+23;Accepted-Wait - Implementation;14.03.2012-15:44:27;Earl
+23;Accepted-In Progress;04.05.2012-07:37:15;Juan
+23;Completed-Resolved;04.05.2012-07:38:06;Juan
+23;Completed-Closed;11.05.2012-23:21:27;Siebel
+24;Accepted-In Progress;16.08.2011-09:20:48;Annick
+24;Accepted-In Progress;16.08.2011-09:21:07;Annick
+24;Accepted-Wait - User;16.08.2011-09:21:44;Annick
+24;Queued-Awaiting Assignment;16.08.2011-12:40:27;Annick
+24;Queued-Awaiting Assignment;16.08.2011-12:40:28;Annick
+24;Accepted-In Progress;16.08.2011-13:21:08;Luc
+24;Queued-Awaiting Assignment;16.08.2011-13:26:29;Luc
+24;Accepted-In Progress;16.08.2011-13:32:30;Annick
+24;Accepted-Wait - User;16.08.2011-13:35:13;Annick
+24;Queued-Awaiting Assignment;16.08.2011-13:50:48;Annick
+24;Accepted-In Progress;16.08.2011-14:35:43;Luc
+24;Queued-Awaiting Assignment;16.08.2011-14:36:11;Luc
+24;Queued-Awaiting Assignment;16.08.2011-14:36:12;Luc
+24;Accepted-In Progress;16.08.2011-14:39:52;Annick
+24;Accepted-Wait;16.08.2011-14:39:58;Annick
+24;Accepted-Wait - User;17.08.2011-06:17:53;Annick
+24;Queued-Awaiting Assignment;18.08.2011-12:12:11;Annick
+24;Accepted-In Progress;18.08.2011-12:12:15;Annick
+24;Queued-Awaiting Assignment;18.08.2011-12:13:28;Annick
+24;Accepted-In Progress;19.08.2011-10:41:09;Tamara
+24;Accepted-Wait;19.08.2011-10:41:15;Tamara
+24;Queued-Awaiting Assignment;05.09.2011-10:28:51;Tamara
+24;Accepted-In Progress;26.09.2011-15:22:04;Earl
+24;Accepted-Wait - Implementation;14.03.2012-15:46:45;Earl
+24;Accepted-In Progress;04.05.2012-07:39:49;Juan
+24;Completed-Resolved;04.05.2012-07:41:26;Juan
+24;Completed-Closed;11.05.2012-23:21:26;Siebel
+25;Accepted-In Progress;19.08.2011-10:09:56;Jan
+25;Accepted-In Progress;19.08.2011-10:11:11;Jan
+25;Queued-Awaiting Assignment;19.08.2011-10:12:40;Jan
+25;Accepted-In Progress;19.08.2011-11:23:13;Luc
+25;Queued-Awaiting Assignment;19.08.2011-11:24:05;Luc
+25;Queued-Awaiting Assignment;19.08.2011-11:24:06;Luc
+25;Accepted-In Progress;19.08.2011-11:58:45;Katia
+25;Accepted-Assigned;19.08.2011-11:58:52;Katia
+25;Accepted-In Progress;19.08.2011-14:04:49;Jan
+25;Accepted-Wait - User;19.08.2011-14:05:46;Jan
+25;Queued-Awaiting Assignment;19.08.2011-14:26:44;Jan
+25;Accepted-In Progress;19.08.2011-15:16:41;Luc
+25;Queued-Awaiting Assignment;19.08.2011-15:17:50;Luc
+25;Accepted-In Progress;19.08.2011-16:17:21;Jan
+25;Queued-Awaiting Assignment;19.08.2011-16:18:24;Jan
+25;Accepted-In Progress;26.09.2011-15:20:30;Earl
+25;Accepted-Wait - Implementation;14.03.2012-15:51:16;Earl
+25;Accepted-In Progress;04.05.2012-07:42:22;Juan
+25;Completed-Resolved;04.05.2012-07:43:01;Juan
+25;Completed-Closed;07.05.2012-23:22:09;Siebel
+26;Queued-Awaiting Assignment;22.08.2011-13:54:38;Marcus
+26;Queued-Awaiting Assignment;22.08.2011-13:57:40;Marcus
+26;Accepted-In Progress;22.08.2011-14:52:00;Luiz
+26;Queued-Awaiting Assignment;26.08.2011-14:52:15;Luiz
+26;Accepted-In Progress;26.08.2011-14:59:01;Eric
+26;Accepted-Wait - User;26.08.2011-15:12:50;Eric
+26;Accepted-In Progress;26.08.2011-15:40:31;Sue
+26;Queued-Awaiting Assignment;26.08.2011-15:43:11;Sue
+26;Accepted-In Progress;29.08.2011-06:12:35;Stina
+26;Queued-Awaiting Assignment;29.08.2011-06:13:48;Stina
+26;Accepted-In Progress;29.08.2011-12:03:12;Sue
+26;Queued-Awaiting Assignment;29.08.2011-12:04:01;Sue
+26;Accepted-In Progress;29.08.2011-12:12:17;Charan
+26;Queued-Awaiting Assignment;29.08.2011-12:30:11;Charan
+26;Accepted-In Progress;29.08.2011-12:36:52;Josef
+26;Queued-Awaiting Assignment;29.08.2011-12:38:40;Josef
+26;Accepted-In Progress;29.08.2011-13:13:58;Josef
+26;Queued-Awaiting Assignment;29.08.2011-13:15:20;Josef
+26;Accepted-In Progress;29.08.2011-13:50:12;Luiz
+26;Accepted-Wait - User;29.08.2011-14:57:34;Luiz
+26;Accepted-Assigned;02.09.2011-19:42:33;Luiz
+26;Accepted-In Progress;06.09.2011-13:05:41;Lucas
+26;Accepted-Wait - User;25.11.2011-10:35:19;Lucas
+26;Accepted-In Progress;03.05.2012-11:42:55;Kent
+26;Completed-Resolved;03.05.2012-11:49:04;Kent
+26;Completed-Closed;10.05.2012-23:26:10;Siebel
+27;Accepted-In Progress;31.08.2011-11:10:52;Nina
+27;Accepted-In Progress;31.08.2011-11:11:13;Nina
+27;Accepted-Wait - Implementation;31.08.2011-11:14:00;Nina
+27;Accepted-In Progress;31.08.2011-11:14:02;Nina
+27;Queued-Awaiting Assignment;31.08.2011-11:14:56;Nina
+27;Accepted-In Progress;31.08.2011-13:33:56;Edward
+27;Accepted-Wait - User;31.08.2011-13:34:23;Edward
+27;Queued-Awaiting Assignment;31.08.2011-14:30:18;Edward
+27;Accepted-In Progress;31.08.2011-14:34:14;Rijin
+27;Accepted-Assigned;31.08.2011-14:35:19;Rijin
+27;Accepted-In Progress;31.08.2011-15:31:21;Ganesh
+27;Accepted-Wait - User;31.08.2011-15:32:07;Ganesh
+27;Accepted-In Progress;09.09.2011-13:44:37;Ganesh
+27;Queued-Awaiting Assignment;09.09.2011-13:54:42;Ganesh
+27;Accepted-In Progress;10.09.2011-00:28:43;Josef
+27;Queued-Awaiting Assignment;10.09.2011-00:29:32;Josef
+27;Accepted-In Progress;12.09.2011-09:42:34;Dawid
+27;Accepted-Assigned;12.09.2011-09:42:42;Dawid
+27;Accepted-In Progress;12.09.2011-09:49:51;Pawel
+27;Accepted-Wait - User;12.09.2011-09:50:07;Pawel
+27;Queued-Awaiting Assignment;13.09.2011-08:25:04;Pawel
+27;Accepted-In Progress;13.09.2011-08:29:26;Abdul
+27;Accepted-Assigned;13.09.2011-09:21:35;Abdul
+27;Accepted-In Progress;13.09.2011-15:37:04;Ganesh
+27;Accepted-Wait;13.09.2011-15:37:11;Ganesh
+27;Accepted-In Progress;21.09.2011-10:06:55;Ganesh
+27;Queued-Awaiting Assignment;21.09.2011-10:08:24;Ganesh
+27;Accepted-In Progress;21.09.2011-11:01:52;Mica
+27;Accepted-Wait - User;07.11.2011-11:56:32;Mica
+27;Completed-Resolved;15.05.2012-06:07:31;Mica
+27;Completed-Closed;22.05.2012-23:22:23;Siebel
+28;Accepted-In Progress;05.09.2011-13:35:46;Marcin
+28;Accepted-In Progress;05.09.2011-13:36:01;Marcin
+28;Queued-Awaiting Assignment;05.09.2011-13:43:48;Marcin
+28;Accepted-In Progress;05.09.2011-14:05:51;Luc
+28;Queued-Awaiting Assignment;06.09.2011-10:57:51;Luc
+28;Queued-Awaiting Assignment;06.09.2011-10:57:52;Luc
+28;Accepted-In Progress;06.09.2011-11:25:20;Marcin
+28;Queued-Awaiting Assignment;06.09.2011-11:27:10;Marcin
+28;Accepted-In Progress;16.09.2011-16:01:29;Earl
+28;Accepted-Wait - Implementation;14.03.2012-15:52:15;Earl
+28;Accepted-In Progress;04.05.2012-07:43:33;Juan
+28;Completed-Resolved;04.05.2012-07:46:00;Juan
+28;Completed-Closed;11.05.2012-23:21:25;Siebel
+29;Accepted-In Progress;23.09.2011-11:31:56;Ilona
+29;Accepted-In Progress;23.09.2011-11:32:04;Ilona
+29;Queued-Awaiting Assignment;23.09.2011-11:36:52;Ilona
+29;Accepted-In Progress;26.09.2011-09:29:57;Luc
+29;Queued-Awaiting Assignment;27.09.2011-12:39:18;Luc
+29;Accepted-In Progress;27.09.2011-12:39:32;Ilona
+29;Queued-Awaiting Assignment;27.09.2011-12:43:00;Ilona
+29;Accepted-In Progress;15.10.2011-11:20:36;Ilona
+29;Accepted-Wait;15.10.2011-11:20:39;Ilona
+29;Queued-Awaiting Assignment;21.10.2011-15:38:43;Ilona
+29;Accepted-In Progress;28.10.2011-10:01:53;Luc
+29;Queued-Awaiting Assignment;28.10.2011-10:03:05;Luc
+29;Accepted-In Progress;28.10.2011-10:25:19;Ilona
+29;Queued-Awaiting Assignment;28.10.2011-10:27:44;Ilona
+29;Accepted-In Progress;03.11.2011-12:32:59;Earl
+29;Accepted-Wait - Implementation;14.03.2012-15:52:37;Earl
+29;Accepted-In Progress;04.05.2012-07:46:45;Juan
+29;Completed-Resolved;04.05.2012-07:47:08;Juan
+29;Completed-Closed;11.05.2012-23:21:25;Siebel
+30;Accepted-In Progress;28.09.2011-19:45:00;Maria
+30;Accepted-In Progress;28.09.2011-19:45:12;Maria
+30;Accepted-In Progress;28.09.2011-19:52:49;Maria
+30;Queued-Awaiting Assignment;28.09.2011-19:53:08;Maria
+30;Accepted-In Progress;29.09.2011-08:13:03;Kari
+30;Queued-Awaiting Assignment;29.09.2011-08:15:32;Kari
+30;Accepted-In Progress;03.10.2011-08:47:24;Mattias
+30;Completed-Resolved;03.10.2011-08:48:26;Mattias
+30;Queued-Awaiting Assignment;03.10.2011-13:55:46;Luis
+30;Accepted-In Progress;27.12.2011-10:05:06;Mattias
+30;Queued-Awaiting Assignment;27.12.2011-10:06:02;Mattias
+30;Accepted-In Progress;08.05.2012-15:55:54;Mattias
+30;Completed-Resolved;08.05.2012-15:56:17;Mattias
+30;Completed-Closed;15.05.2012-23:22:55;Siebel
+31;Accepted-In Progress;04.10.2011-11:57:50;Ilona
+31;Accepted-In Progress;04.10.2011-11:57:58;Ilona
+31;Queued-Awaiting Assignment;04.10.2011-12:04:29;Ilona
+31;Accepted-In Progress;04.10.2011-12:04:31;Ilona
+31;Accepted-Wait;04.10.2011-12:04:34;Ilona
+31;Accepted-In Progress;31.10.2011-17:46:54;Tamara
+31;Queued-Awaiting Assignment;31.10.2011-17:47:42;Tamara
+31;Accepted-In Progress;07.11.2011-09:34:08;Edward
+31;Queued-Awaiting Assignment;07.11.2011-09:35:12;Edward
+31;Accepted-In Progress;07.11.2011-09:59:32;Luc
+31;Queued-Awaiting Assignment;07.11.2011-10:29:27;Luc
+31;Queued-Awaiting Assignment;07.11.2011-10:29:28;Luc
+31;Accepted-In Progress;07.11.2011-10:30:01;Ilona
+31;Queued-Awaiting Assignment;07.11.2011-10:33:20;Ilona
+31;Accepted-In Progress;21.11.2011-13:19:11;Earl
+31;Accepted-Wait - Implementation;14.03.2012-15:53:35;Earl
+31;Accepted-In Progress;04.05.2012-07:47:40;Juan
+31;Completed-Resolved;04.05.2012-07:48:24;Juan
+31;Completed-Closed;11.05.2012-23:21:24;Siebel
+32;Queued-Awaiting Assignment;06.10.2011-07:37:52;Lars
+32;Queued-Awaiting Assignment;06.10.2011-07:49:10;Lars
+32;Accepted-In Progress;06.10.2011-07:58:53;Björn
+32;Accepted-Wait - User;10.10.2011-14:39:42;Lucas
+32;Accepted-In Progress;14.10.2011-08:17:05;Björn
+32;Accepted-Wait - User;14.10.2011-15:01:58;Björn
+32;Accepted-In Progress;03.05.2012-12:31:52;Kent
+32;Completed-Resolved;03.05.2012-12:34:54;Kent
+32;Completed-Closed;10.05.2012-23:26:08;Siebel
+33;Accepted-In Progress;07.10.2011-12:03:58;Riitta
+33;Accepted-In Progress;07.10.2011-12:04:32;Riitta
+33;Accepted-Wait - User;07.10.2011-13:02:01;Riitta
+33;Accepted-Wait - User;10.10.2011-12:48:18;Siebel
+33;Accepted-In Progress;12.10.2011-08:42:06;Riitta
+33;Accepted-Wait;12.10.2011-10:05:35;Riitta
+33;Accepted-In Progress;07.05.2012-10:23:54;Riitta
+33;Completed-In Call;07.05.2012-10:25:36;Riitta
+34;Accepted-In Progress;14.10.2011-10:36:56;Valeria
+34;Accepted-In Progress;14.10.2011-10:38:36;Valeria
+34;Queued-Awaiting Assignment;14.10.2011-10:44:27;Valeria
+34;Accepted-In Progress;14.10.2011-15:25:47;Ray
+34;Accepted-Wait - User;19.10.2011-09:03:49;Ray
+34;Accepted-In Progress;20.10.2011-12:54:32;Ray
+34;Accepted-Wait - Implementation;26.10.2011-17:07:08;Ray
+34;Accepted-Wait - User;20.03.2012-13:40:10;Ray
+34;Accepted-In Progress;15.05.2012-09:41:39;Lars
+34;Queued-Awaiting Assignment;15.05.2012-09:42:51;Lars
+34;Accepted-In Progress;15.05.2012-09:47:51;Valeria
+34;Completed-Resolved;15.05.2012-09:50:11;Valeria
+34;Completed-Closed;15.05.2012-23:22:54;Siebel
+35;Accepted-In Progress;24.10.2011-13:43:56;Riitta
+35;Accepted-In Progress;24.10.2011-13:44:09;Riitta
+35;Accepted-Wait;24.10.2011-13:50:38;Riitta
+35;Accepted-Wait;27.10.2011-13:45:16;Siebel
+35;Accepted-In Progress;31.10.2011-09:14:40;Riitta
+35;Accepted-Wait;31.10.2011-09:17:37;Riitta
+35;Accepted-In Progress;05.12.2011-08:01:34;Riitta
+35;Accepted-Wait;05.12.2011-08:03:07;Riitta
+35;Accepted-In Progress;07.05.2012-09:47:18;Christopher
+35;Completed-Resolved;07.05.2012-09:47:27;Christopher
+35;Completed-Closed;07.05.2012-09:47:28;Christopher
+36;Accepted-In Progress;25.10.2011-07:19:37;Olga
+36;Accepted-In Progress;25.10.2011-07:26:42;Olga
+36;Queued-Awaiting Assignment;25.10.2011-07:42:31;Olga
+36;Accepted-In Progress;25.10.2011-13:11:16;Luc
+36;Queued-Awaiting Assignment;25.10.2011-13:12:09;Luc
+36;Queued-Awaiting Assignment;25.10.2011-13:12:10;Luc
+36;Accepted-In Progress;26.10.2011-05:18:43;Olga
+36;Queued-Awaiting Assignment;26.10.2011-05:21:56;Olga
+36;Accepted-In Progress;03.11.2011-14:17:59;Earl
+36;Accepted-Wait - Implementation;14.03.2012-15:54:01;Earl
+36;Accepted-In Progress;04.05.2012-07:49:09;Juan
+36;Completed-Resolved;04.05.2012-07:49:41;Juan
+36;Completed-Closed;11.05.2012-23:21:23;Siebel
+37;Accepted-In Progress;28.10.2011-11:31:29;Riitta
+37;Accepted-In Progress;28.10.2011-11:33:25;Riitta
+37;Queued-Awaiting Assignment;28.10.2011-11:36:39;Riitta
+37;Accepted-In Progress;28.10.2011-11:40:09;Paulina
+37;Queued-Awaiting Assignment;28.10.2011-12:02:20;Paulina
+37;Queued-Awaiting Assignment;28.10.2011-12:02:21;Paulina
+37;Accepted-In Progress;28.10.2011-13:22:37;Riitta
+37;Accepted-Wait;28.10.2011-13:28:53;Riitta
+37;Accepted-Wait;29.10.2011-11:34:49;Siebel
+37;Accepted-In Progress;31.10.2011-08:48:58;Riitta
+37;Accepted-Wait;31.10.2011-08:50:36;Riitta
+37;Accepted-In Progress;07.05.2012-09:34:49;Christopher
+37;Accepted-Wait - Vendor;07.05.2012-09:36:05;Christopher
+37;Completed-Resolved;07.05.2012-09:37:17;Christopher
+37;Completed-Closed;07.05.2012-09:37:19;Christopher
+38;Accepted-In Progress;03.11.2011-07:52:35;Maria
+38;Accepted-In Progress;03.11.2011-07:57:38;Maria
+38;Queued-Awaiting Assignment;03.11.2011-08:04:38;Maria
+38;Accepted-In Progress;03.11.2011-11:51:22;Annica
+38;Accepted-Assigned;03.11.2011-11:51:28;Annica
+38;Accepted-In Progress;03.05.2012-06:16:49;Thomas
+38;Accepted-Assigned;03.05.2012-06:16:56;Thomas
+38;Accepted-In Progress;03.05.2012-07:15:15;Tomas
+38;Completed-Resolved;03.05.2012-07:20:50;Tomas
+38;Completed-Closed;10.05.2012-23:26:07;Siebel
+39;Accepted-In Progress;07.11.2011-07:01:02;Christine
+39;Accepted-In Progress;07.11.2011-07:01:20;Christine
+39;Accepted-Assigned;07.11.2011-07:07:06;Christine
+39;Accepted-In Progress;07.11.2011-11:47:38;Martin
+39;Queued-Awaiting Assignment;07.11.2011-11:47:58;Martin
+39;Accepted-In Progress;07.11.2011-14:35:12;Tomas
+39;Accepted-Assigned;07.11.2011-14:35:19;Tomas
+39;Accepted-In Progress;30.11.2011-12:22:51;Niklas
+39;Accepted-Wait - User;12.01.2012-08:36:07;Niklas
+39;Completed-Resolved;04.05.2012-14:25:22;Niklas
+39;Completed-Closed;11.05.2012-23:21:22;Siebel
+40;Accepted-In Progress;07.11.2011-10:15:25;Laleh
+40;Accepted-In Progress;07.11.2011-10:15:56;Laleh
+40;Queued-Awaiting Assignment;07.11.2011-10:20:25;Laleh
+40;Accepted-In Progress;07.11.2011-10:30:48;Magali
+40;Queued-Awaiting Assignment;07.11.2011-10:31:26;Magali
+40;Accepted-In Progress;22.11.2011-15:05:19;Christopher
+40;Queued-Awaiting Assignment;22.11.2011-15:05:42;Christopher
+40;Accepted-In Progress;22.11.2011-15:22:22;Paulo
+40;Queued-Awaiting Assignment;22.11.2011-15:22:46;Paulo
+40;Accepted-In Progress;23.11.2011-13:27:29;Riitta
+40;Accepted-Wait - User;23.11.2011-14:02:37;Riitta
+40;Accepted-In Progress;24.11.2011-07:19:24;Riitta
+40;Accepted-Wait;24.11.2011-07:23:35;Riitta
+40;Accepted-Wait;25.11.2011-15:05:42;Siebel
+40;Accepted-In Progress;07.05.2012-09:48:19;Christopher
+40;Completed-Resolved;07.05.2012-09:48:36;Christopher
+40;Completed-Closed;07.05.2012-23:22:04;Siebel
+41;Accepted-In Progress;07.11.2011-16:16:16;Olga
+41;Accepted-In Progress;07.11.2011-16:16:40;Olga
+41;Queued-Awaiting Assignment;07.11.2011-16:20:28;Olga
+41;Accepted-In Progress;08.11.2011-08:42:15;Luc
+41;Queued-Awaiting Assignment;08.11.2011-08:48:33;Luc
+41;Queued-Awaiting Assignment;08.11.2011-08:48:34;Luc
+41;Accepted-In Progress;08.11.2011-08:48:59;Pawel
+41;Accepted-Assigned;08.11.2011-08:49:05;Pawel
+41;Accepted-In Progress;08.11.2011-09:03:19;Olga
+41;Queued-Awaiting Assignment;08.11.2011-09:06:35;Olga
+41;Accepted-In Progress;18.11.2011-16:25:05;Earl
+41;Accepted-Wait;21.03.2012-08:12:15;Earl
+41;Accepted-In Progress;04.05.2012-07:51:40;Juan
+41;Completed-Resolved;04.05.2012-07:52:09;Juan
+41;Completed-Closed;11.05.2012-23:21:22;Siebel
+42;Queued-Awaiting Assignment;11.11.2011-12:45:04;Lars
+42;Queued-Awaiting Assignment;11.11.2011-12:49:29;Lars
+42;Accepted-In Progress;11.11.2011-13:54:03;Luiz
+42;Accepted-Wait - User;16.11.2011-08:22:17;Lars
+42;Completed-Resolved;02.05.2012-07:52:57;Lars
+42;Completed-Closed;09.05.2012-23:20:41;Siebel
+43;Accepted-In Progress;10.11.2011-14:55:46;Izabela
+43;Accepted-In Progress;10.11.2011-14:56:15;Izabela
+43;Queued-Awaiting Assignment;10.11.2011-14:57:34;Izabela
+43;Accepted-In Progress;12.11.2011-00:46:26;Anna
+43;Queued-Awaiting Assignment;12.11.2011-00:46:33;Anna
+43;Accepted-In Progress;21.11.2011-08:58:34;Urszula
+43;Accepted-Wait - User;21.11.2011-09:01:33;Urszula
+43;Accepted-In Progress;21.11.2011-09:33:13;Urszula
+43;Queued-Awaiting Assignment;21.11.2011-11:24:27;Urszula
+43;Accepted-In Progress;21.11.2011-11:34:27;Varghese
+43;Accepted-Assigned;21.11.2011-11:34:48;Varghese
+43;Accepted-In Progress;21.11.2011-11:52:55;Saidur
+43;Accepted-Wait;21.11.2011-11:58:49;Saidur
+43;Queued-Awaiting Assignment;21.11.2011-12:42:39;Saidur
+43;Accepted-In Progress;22.11.2011-14:28:09;Piotr
+43;Accepted-Assigned;22.11.2011-14:28:17;Piotr
+43;Accepted-In Progress;22.11.2011-14:35:40;Marika
+43;Queued-Awaiting Assignment;22.11.2011-14:36:26;Marika
+43;Accepted-In Progress;22.11.2011-14:37:46;Johanna
+43;Queued-Awaiting Assignment;22.11.2011-14:39:18;Johanna
+43;Accepted-In Progress;22.11.2011-14:50:01;Piotr
+43;Accepted-Assigned;22.11.2011-14:50:05;Piotr
+43;Accepted-In Progress;24.11.2011-14:07:12;Marika
+43;Queued-Awaiting Assignment;24.11.2011-14:20:45;Marika
+43;Accepted-In Progress;03.05.2012-14:27:55;Johan
+43;Completed-Resolved;03.05.2012-14:28:18;Johan
+43;Completed-Closed;10.05.2012-23:26:07;Siebel
+44;Accepted-In Progress;14.11.2011-09:47:32;Janice
+44;Accepted-In Progress;14.11.2011-09:49:35;Janice
+44;Queued-Awaiting Assignment;15.11.2011-02:46:57;Janice
+44;Accepted-In Progress;29.11.2011-15:00:39;Brian
+44;Accepted-Wait - User;29.11.2011-15:04:54;Brian
+44;Completed-Resolved;02.05.2012-20:45:44;Brian
+44;Completed-Closed;09.05.2012-23:20:41;Siebel
+45;Accepted-In Progress;17.11.2011-10:39:45;Olga
+45;Accepted-In Progress;17.11.2011-10:40:06;Olga
+45;Queued-Awaiting Assignment;17.11.2011-10:45:24;Olga
+45;Accepted-In Progress;17.11.2011-13:25:11;Luc
+45;Queued-Awaiting Assignment;17.11.2011-13:26:05;Luc
+45;Accepted-In Progress;17.11.2011-15:02:59;Marcin
+45;Accepted-Assigned;17.11.2011-15:03:03;Marcin
+45;Accepted-In Progress;18.11.2011-06:18:25;Olga
+45;Queued-Awaiting Assignment;18.11.2011-06:21:01;Olga
+45;Accepted-In Progress;18.11.2011-16:24:00;Earl
+45;Accepted-Wait - Implementation;15.03.2012-12:37:33;Earl
+45;Accepted-In Progress;04.05.2012-07:52:31;Juan
+45;Completed-Resolved;04.05.2012-07:53:10;Juan
+45;Completed-Closed;11.05.2012-23:21:22;Siebel
+46;Accepted-In Progress;18.11.2011-05:45:58;Olga
+46;Accepted-In Progress;18.11.2011-05:46:23;Olga
+46;Queued-Awaiting Assignment;18.11.2011-06:03:37;Olga
+46;Accepted-In Progress;18.11.2011-06:09:13;Olga
+46;Queued-Awaiting Assignment;18.11.2011-06:10:10;Olga
+46;Accepted-In Progress;18.11.2011-09:35:12;Luc
+46;Queued-Awaiting Assignment;18.11.2011-09:36:13;Luc
+46;Accepted-In Progress;18.11.2011-10:19:58;Olga
+46;Accepted-In Progress;18.11.2011-10:24:11;Olga
+46;Accepted-Wait - User;18.11.2011-10:24:14;Olga
+46;Accepted-Wait - User;21.11.2011-10:24:15;Siebel
+46;Accepted-In Progress;23.11.2011-10:43:08;Olga
+46;Accepted-Wait - User;23.11.2011-10:45:41;Olga
+46;Accepted-In Progress;23.11.2011-11:56:21;Olga
+46;Queued-Awaiting Assignment;23.11.2011-11:58:42;Olga
+46;Accepted-In Progress;23.11.2011-12:15:30;Luc
+46;Queued-Awaiting Assignment;23.11.2011-13:35:47;Luc
+46;Accepted-In Progress;23.11.2011-15:49:06;Pawel
+46;Accepted-Assigned;23.11.2011-15:49:12;Pawel
+46;Accepted-In Progress;24.11.2011-09:42:13;Olga
+46;Queued-Awaiting Assignment;24.11.2011-09:44:05;Olga
+46;Accepted-In Progress;29.11.2011-08:18:27;Earl
+46;Accepted-Wait;06.04.2012-09:25:53;Earl
+46;Accepted-In Progress;04.05.2012-07:53:38;Juan
+46;Completed-Resolved;04.05.2012-07:54:15;Juan
+46;Completed-Closed;11.05.2012-23:21:21;Siebel
+47;Queued-Awaiting Assignment;22.11.2011-08:45:45;Niclas
+47;Queued-Awaiting Assignment;22.11.2011-08:46:38;Niclas
+47;Accepted-In Progress;22.11.2011-09:48:58;Martin
+47;Accepted-Wait - User;22.11.2011-12:32:14;Martin
+47;Accepted-In Progress;03.05.2012-12:37:23;Kent
+47;Completed-Resolved;03.05.2012-12:38:34;Kent
+47;Completed-Closed;10.05.2012-23:26:06;Siebel
+48;Accepted-In Progress;23.11.2011-09:40:38;Olga
+48;Accepted-In Progress;23.11.2011-09:42:19;Olga
+48;Queued-Awaiting Assignment;23.11.2011-09:55:10;Olga
+48;Accepted-In Progress;24.11.2011-10:19:12;Luc
+48;Accepted-Assigned;24.11.2011-10:19:21;Luc
+48;Accepted-In Progress;24.11.2011-16:22:31;Tsun Fai
+48;Queued-Awaiting Assignment;24.11.2011-16:24:46;Tsun Fai
+48;Accepted-In Progress;24.11.2011-16:53:38;Pawel
+48;Accepted-Assigned;24.11.2011-16:53:40;Pawel
+48;Accepted-In Progress;25.11.2011-05:35:23;Olga
+48;Accepted-Wait - User;25.11.2011-05:38:47;Olga
+48;Accepted-In Progress;25.11.2011-08:57:01;Olga
+48;Queued-Awaiting Assignment;25.11.2011-09:07:21;Olga
+48;Accepted-In Progress;25.11.2011-09:08:00;Luc
+48;Accepted-Assigned;25.11.2011-09:08:03;Luc
+48;Accepted-In Progress;25.11.2011-11:10:10;Tsun Fai
+48;Queued-Awaiting Assignment;25.11.2011-11:13:24;Tsun Fai
+48;Accepted-In Progress;25.11.2011-12:49:42;Olga
+48;Queued-Awaiting Assignment;25.11.2011-12:56:06;Olga
+48;Accepted-In Progress;06.04.2012-09:26:57;Earl
+48;Accepted-Wait;06.04.2012-09:27:01;Earl
+48;Accepted-In Progress;04.05.2012-07:54:50;Juan
+48;Completed-Resolved;04.05.2012-07:55:13;Juan
+48;Completed-Closed;11.05.2012-23:21:20;Siebel
+49;Accepted-In Progress;29.11.2011-11:36:35;Jan
+49;Accepted-In Progress;29.11.2011-11:39:07;Jan
+49;Queued-Awaiting Assignment;29.11.2011-12:02:33;Jan
+49;Accepted-In Progress;29.11.2011-12:06:42;Sonia
+49;Accepted-Wait;29.11.2011-12:47:31;Sonia
+49;Completed-Resolved;29.11.2011-12:47:34;Sonia
+49;Accepted-Assigned;30.11.2011-11:20:18;Henk
+49;Accepted-In Progress;30.11.2011-11:20:21;Henk
+49;Queued-Awaiting Assignment;30.11.2011-11:20:47;Henk
+49;Accepted-In Progress;30.11.2011-11:57:49;Prashant
+49;Accepted-Wait - User;30.11.2011-12:50:00;Prashant
+49;Queued-Awaiting Assignment;01.12.2011-11:40:57;Prashant
+49;Accepted-In Progress;06.12.2011-06:17:23;Florian
+49;Accepted-Assigned;06.12.2011-06:17:36;Florian
+49;Accepted-In Progress;11.01.2012-09:27:30;Susanne
+49;Queued-Awaiting Assignment;11.01.2012-09:29:12;Susanne
+49;Accepted-In Progress;11.01.2012-09:50:02;Debashish
+49;Accepted-Wait - User;11.01.2012-09:50:08;Debashish
+49;Accepted-Assigned;12.01.2012-16:44:13;Debashish
+49;Accepted-In Progress;13.01.2012-01:57:26;Prashant
+49;Accepted-Wait - User;13.01.2012-01:57:33;Prashant
+49;Accepted-Assigned;13.01.2012-09:19:29;Prashant
+49;Accepted-In Progress;13.01.2012-09:28:12;Garima
+49;Accepted-Wait - User;13.01.2012-09:31:23;Garima
+49;Accepted-In Progress;13.01.2012-10:33:33;Sreelesh
+49;Accepted-Wait - User;13.01.2012-12:46:53;Garima
+49;Accepted-Assigned;13.01.2012-16:35:14;Garima
+49;Accepted-In Progress;13.01.2012-17:54:44;Sonia
+49;Accepted-Assigned;13.01.2012-17:59:24;Sonia
+49;Accepted-In Progress;14.01.2012-08:56:54;Garima
+49;Accepted-Wait - User;14.01.2012-08:57:01;Garima
+49;Queued-Awaiting Assignment;18.01.2012-10:44:15;Garima
+49;Accepted-In Progress;18.01.2012-10:51:04;Tapan
+49;Accepted-Wait - User;20.01.2012-13:35:28;Tapan
+49;Queued-Awaiting Assignment;23.01.2012-15:32:01;Tapan
+49;Accepted-In Progress;13.02.2012-14:00:20;Claudia
+49;Accepted-Assigned;13.02.2012-14:00:28;Claudia
+49;Accepted-In Progress;01.05.2012-15:28:23;Susanne
+49;Completed-Resolved;01.05.2012-15:29:02;Susanne
+49;Completed-Closed;07.05.2012-23:22:02;Siebel
+50;Accepted-In Progress;01.12.2011-17:32:44;Rafal
+50;Accepted-In Progress;01.12.2011-17:32:54;Rafal
+50;Queued-Awaiting Assignment;01.12.2011-17:44:45;Rafal
+50;Accepted-In Progress;02.12.2011-12:56:51;Rafal
+50;Accepted-Wait;02.12.2011-12:58:36;Rafal
+50;Queued-Awaiting Assignment;02.12.2011-14:59:30;Rafal
+50;Accepted-In Progress;05.12.2011-14:28:33;Daniel
+50;Accepted-Wait - User;05.12.2011-14:36:03;Daniel
+50;Completed-Resolved;20.03.2012-10:52:11;Daniel
+50;Queued-Awaiting Assignment;20.03.2012-11:11:27;Johanna
+50;Accepted-In Progress;02.05.2012-16:01:49;Daniel
+50;Queued-Awaiting Assignment;02.05.2012-16:10:42;Daniel
+50;Accepted-In Progress;02.05.2012-16:13:43;Abdul
+50;Accepted-Assigned;02.05.2012-16:22:22;Abdul
+50;Accepted-In Progress;02.05.2012-18:09:36;Abdul
+50;Accepted-Wait - User;02.05.2012-18:10:29;Abdul
+50;Completed-Resolved;04.05.2012-12:41:01;Abdul
+50;Completed-Closed;04.05.2012-23:18:22;Siebel
+51;Accepted-In Progress;02.12.2011-09:32:47;Katia
+51;Accepted-In Progress;02.12.2011-09:33:00;Katia
+51;Accepted-Wait - User;02.12.2011-09:44:22;Katia
+51;Queued-Awaiting Assignment;02.12.2011-10:12:28;Katia
+51;Accepted-In Progress;02.12.2011-10:34:40;Przemyslaw
+51;Queued-Awaiting Assignment;02.12.2011-11:14:51;Przemyslaw
+51;Accepted-In Progress;02.12.2011-12:09:07;Armin
+51;Queued-Awaiting Assignment;02.12.2011-12:10:24;Armin
+51;Accepted-In Progress;02.12.2011-12:18:19;Przemyslaw
+51;Queued-Awaiting Assignment;02.12.2011-12:20:01;Przemyslaw
+51;Accepted-In Progress;06.12.2011-06:15:16;Florian
+51;Accepted-Assigned;06.12.2011-06:15:22;Florian
+51;Accepted-In Progress;06.12.2011-09:17:22;Christian
+51;Queued-Awaiting Assignment;06.12.2011-09:21:49;Christian
+51;Accepted-In Progress;06.12.2011-11:39:11;Katia
+51;Accepted-Wait - User;06.12.2011-11:39:15;Katia
+51;Queued-Awaiting Assignment;06.12.2011-13:32:22;Katia
+51;Queued-Awaiting Assignment;06.12.2011-13:32:23;Katia
+51;Accepted-In Progress;03.05.2012-08:16:24;Christian
+51;Queued-Awaiting Assignment;03.05.2012-08:17:57;Christian
+51;Accepted-In Progress;03.05.2012-09:02:46;Zoi
+51;Completed-Resolved;03.05.2012-09:10:10;Zoi
+51;Completed-Closed;03.05.2012-23:21:05;Siebel
+52;Accepted-In Progress;07.12.2011-12:54:21;Lisbeth
+52;Accepted-In Progress;07.12.2011-12:54:33;Lisbeth
+52;Queued-Awaiting Assignment;07.12.2011-13:03:25;Lisbeth
+52;Accepted-In Progress;07.12.2011-13:09:46;Lars
+52;Queued-Awaiting Assignment;08.05.2012-08:29:54;Lars
+52;Accepted-In Progress;08.05.2012-16:08:35;Emil
+52;Accepted-Wait - User;09.05.2012-09:10:36;Emil
+52;Completed-Resolved;09.05.2012-14:44:20;Emil
+52;Completed-Closed;09.05.2012-14:44:24;Emil
+53;Accepted-In Progress;08.12.2011-07:03:30;Olga
+53;Accepted-In Progress;08.12.2011-07:03:59;Olga
+53;Queued-Awaiting Assignment;08.12.2011-07:30:03;Olga
+53;Accepted-In Progress;08.12.2011-08:53:52;Luc
+53;Queued-Awaiting Assignment;08.12.2011-09:20:37;Luc
+53;Accepted-In Progress;08.12.2011-11:07:38;Olga
+53;Queued-Awaiting Assignment;08.12.2011-11:15:26;Olga
+53;Accepted-In Progress;08.12.2011-13:58:32;Tsun Fai
+53;Queued-Awaiting Assignment;08.12.2011-13:58:38;Tsun Fai
+53;Accepted-In Progress;06.04.2012-09:27:42;Earl
+53;Accepted-Wait;06.04.2012-09:27:46;Earl
+53;Accepted-In Progress;04.05.2012-07:55:58;Juan
+53;Completed-Resolved;04.05.2012-07:56:56;Juan
+53;Completed-Closed;11.05.2012-23:21:19;Siebel
+54;Accepted-In Progress;12.12.2011-07:21:05;Olga
+54;Accepted-In Progress;12.12.2011-07:21:08;Olga
+54;Queued-Awaiting Assignment;12.12.2011-07:26:15;Olga
+54;Accepted-In Progress;14.12.2011-14:30:57;Luc
+54;Queued-Awaiting Assignment;14.12.2011-14:33:46;Luc
+54;Accepted-In Progress;15.12.2011-10:37:48;Olga
+54;Accepted-Wait - User;15.12.2011-10:48:55;Olga
+54;Accepted-In Progress;15.12.2011-12:31:03;Olga
+54;Queued-Awaiting Assignment;15.12.2011-12:34:37;Olga
+54;Accepted-In Progress;19.12.2011-17:22:06;Tsun Fai
+54;Queued-Awaiting Assignment;22.12.2011-11:14:30;Tsun Fai
+54;Accepted-In Progress;22.12.2011-12:24:36;Olga
+54;Accepted-Wait - User;22.12.2011-12:44:38;Olga
+54;Accepted-In Progress;22.12.2011-13:48:15;Olga
+54;Queued-Awaiting Assignment;22.12.2011-13:49:25;Olga
+54;Accepted-In Progress;02.01.2012-09:13:49;Tsun Fai
+54;Queued-Awaiting Assignment;02.01.2012-09:14:26;Tsun Fai
+54;Accepted-In Progress;13.03.2012-12:20:49;Tsun Fai
+54;Queued-Awaiting Assignment;13.03.2012-12:20:55;Tsun Fai
+54;Accepted-In Progress;21.03.2012-08:41:36;Earl
+54;Accepted-Wait;21.03.2012-08:41:41;Earl
+54;Accepted-In Progress;04.05.2012-09:50:55;Juan
+54;Completed-Resolved;04.05.2012-09:51:38;Juan
+54;Completed-Closed;11.05.2012-23:21:19;Siebel
+55;Accepted-In Progress;14.12.2011-14:05:31;Renaat
+55;Accepted-In Progress;14.12.2011-14:05:55;Renaat
+55;Queued-Awaiting Assignment;14.12.2011-14:10:14;Renaat
+55;Accepted-In Progress;19.12.2011-15:59:26;Yann
+55;Queued-Awaiting Assignment;19.12.2011-15:59:47;Yann
+55;Accepted-In Progress;09.05.2012-15:37:32;Herve
+55;Queued-Awaiting Assignment;09.05.2012-15:54:09;Herve
+55;Accepted-In Progress;09.05.2012-15:55:36;Renaat
+55;Completed-Resolved;09.05.2012-15:57:18;Renaat
+55;Completed-Closed;09.05.2012-23:20:38;Siebel
+56;Queued-Awaiting Assignment;21.12.2011-16:00:52;Henrik
+56;Queued-Awaiting Assignment;21.12.2011-16:01:30;Henrik
+56;Accepted-In Progress;22.12.2011-07:36:11;Daniel
+56;Accepted-Wait - User;22.12.2011-07:36:36;Daniel
+56;Accepted-In Progress;22.12.2011-07:47:04;Daniel
+56;Accepted-Wait - User;27.12.2011-09:20:54;Daniel
+56;Accepted-In Progress;02.05.2012-07:25:13;Daniel
+56;Accepted-Wait - User;02.05.2012-07:25:18;Daniel
+56;Accepted-In Progress;03.05.2012-12:41:29;Kent
+56;Completed-Resolved;03.05.2012-12:42:33;Kent
+56;Completed-Closed;10.05.2012-23:26:02;Siebel
+57;Accepted-In Progress;22.12.2011-02:19:50;Shuwen
+57;Accepted-In Progress;22.12.2011-02:21:52;Shuwen
+57;Accepted-In Progress;22.12.2011-02:24:24;Shuwen
+57;Queued-Awaiting Assignment;22.12.2011-02:24:47;Shuwen
+57;Accepted-In Progress;22.12.2011-08:20:28;Tamara
+57;Queued-Awaiting Assignment;22.12.2011-08:20:42;Tamara
+57;Accepted-In Progress;22.12.2011-08:35:40;Shuwen
+57;Queued-Awaiting Assignment;22.12.2011-08:36:03;Shuwen
+57;Accepted-In Progress;02.01.2012-15:29:59;Tsun Fai
+57;Queued-Awaiting Assignment;02.01.2012-15:31:44;Tsun Fai
+57;Accepted-In Progress;04.01.2012-01:24:45;Shuwen
+57;Accepted-Wait - User;04.01.2012-01:24:55;Shuwen
+57;Queued-Awaiting Assignment;04.01.2012-07:59:37;Shuwen
+57;Accepted-In Progress;17.01.2012-10:34:27;Tsun Fai
+57;Queued-Awaiting Assignment;17.01.2012-10:37:07;Tsun Fai
+57;Accepted-In Progress;17.01.2012-23:36:37;Abby
+57;Accepted-Wait - User;17.01.2012-23:36:50;Abby
+57;Queued-Awaiting Assignment;20.01.2012-01:17:12;Abby
+57;Accepted-In Progress;27.01.2012-09:30:50;Tsun Fai
+57;Queued-Awaiting Assignment;27.01.2012-09:31:24;Tsun Fai
+57;Accepted-In Progress;30.01.2012-07:29:58;Danny
+57;Accepted-Assigned;30.01.2012-07:31:34;Danny
+57;Accepted-In Progress;30.01.2012-08:53:31;Juan
+57;Queued-Awaiting Assignment;30.01.2012-08:53:41;Juan
+57;Accepted-In Progress;03.02.2012-00:53:37;Abby
+57;Accepted-In Progress;03.02.2012-00:53:44;Abby
+57;Queued-Awaiting Assignment;03.02.2012-00:54:58;Abby
+57;Accepted-In Progress;21.03.2012-09:11:47;Earl
+57;Queued-Awaiting Assignment;21.03.2012-09:12:04;Earl
+57;Accepted-In Progress;21.03.2012-12:40:07;Juan
+57;Queued-Awaiting Assignment;21.03.2012-12:40:35;Juan
+57;Accepted-In Progress;21.03.2012-12:56:34;Earl
+57;Accepted-Wait;21.03.2012-12:56:39;Earl
+57;Accepted-Assigned;21.03.2012-13:03:17;Earl
+57;Accepted-In Progress;21.03.2012-13:03:22;Earl
+57;Accepted-Wait;21.03.2012-13:03:28;Earl
+57;Accepted-Assigned;21.03.2012-13:03:47;Earl
+57;Accepted-In Progress;21.03.2012-13:03:55;Earl
+57;Accepted-Wait;21.03.2012-13:04:00;Earl
+57;Accepted-In Progress;04.05.2012-10:21:09;Juan
+57;Completed-Resolved;04.05.2012-10:27:48;Juan
+57;Completed-Closed;11.05.2012-23:21:17;Siebel
+58;Accepted-In Progress;22.12.2011-09:48:28;Katia
+58;Accepted-Wait - User;22.12.2011-09:48:51;Katia
+58;Accepted-Wait - User;22.12.2011-09:48:52;Katia
+58;Queued-Awaiting Assignment;22.12.2011-09:58:30;Katia
+58;Accepted-In Progress;22.12.2011-10:16:51;Slawomir
+58;Queued-Awaiting Assignment;22.12.2011-10:18:03;Slawomir
+58;Accepted-In Progress;22.12.2011-10:23:59;Armin
+58;Queued-Awaiting Assignment;22.12.2011-12:57:42;Armin
+58;Accepted-In Progress;22.12.2011-13:09:00;Isaide
+58;Queued-Awaiting Assignment;22.12.2011-13:09:39;Isaide
+58;Accepted-In Progress;22.12.2011-13:14:35;Katia
+58;Accepted-In Progress;22.12.2011-13:29:09;Katia
+58;Queued-Awaiting Assignment;22.12.2011-13:29:21;Katia
+58;Accepted-In Progress;22.12.2011-13:32:55;Isaide
+58;Queued-Awaiting Assignment;22.12.2011-13:33:49;Isaide
+58;Accepted-In Progress;22.12.2011-13:34:26;Claudia
+58;Queued-Awaiting Assignment;22.12.2011-13:36:23;Claudia
+58;Accepted-In Progress;22.12.2011-13:50:58;Katia
+58;Queued-Awaiting Assignment;22.12.2011-13:54:06;Katia
+58;Accepted-In Progress;22.12.2011-14:07:21;Isaide
+58;Queued-Awaiting Assignment;22.12.2011-14:12:55;Isaide
+58;Accepted-In Progress;22.12.2011-15:06:52;Armin
+58;Queued-Awaiting Assignment;22.12.2011-15:08:03;Armin
+58;Accepted-In Progress;22.12.2011-15:11:46;Magali
+58;Queued-Awaiting Assignment;22.12.2011-15:12:44;Magali
+58;Accepted-In Progress;23.12.2011-09:53:31;Bart
+58;Queued-Awaiting Assignment;23.12.2011-09:56:52;Bart
+58;Accepted-In Progress;23.12.2011-09:57:09;Bart
+58;Queued-Awaiting Assignment;23.12.2011-09:57:43;Bart
+58;Accepted-In Progress;23.12.2011-10:52:24;Slawomir
+58;Queued-Awaiting Assignment;23.12.2011-10:52:47;Slawomir
+58;Accepted-In Progress;23.12.2011-11:56:12;Katia
+58;Queued-Awaiting Assignment;23.12.2011-12:42:56;Katia
+58;Accepted-In Progress;23.12.2011-12:45:12;Magali
+58;Queued-Awaiting Assignment;23.12.2011-12:45:43;Magali
+58;Accepted-In Progress;27.12.2011-14:47:37;Robert
+58;Queued-Awaiting Assignment;27.12.2011-14:56:25;Robert
+58;Queued-Awaiting Assignment;27.12.2011-14:56:26;Robert
+58;Accepted-In Progress;27.12.2011-15:36:08;Kåre_OLD
+58;Queued-Awaiting Assignment;27.12.2011-15:37:53;Kåre_OLD
+58;Accepted-In Progress;04.01.2012-13:38:59;Armin
+58;Queued-Awaiting Assignment;04.01.2012-13:41:37;Armin
+58;Accepted-In Progress;04.01.2012-13:57:48;Isaide
+58;Queued-Awaiting Assignment;04.01.2012-13:58:22;Isaide
+58;Accepted-In Progress;05.01.2012-12:36:34;Zoi
+58;Accepted-Wait;06.01.2012-17:35:19;Zoi
+58;Accepted-In Progress;09.01.2012-11:01:22;Katia
+58;Queued-Awaiting Assignment;09.01.2012-11:08:20;Katia
+58;Accepted-In Progress;09.01.2012-11:10:13;Magali
+58;Queued-Awaiting Assignment;09.01.2012-11:11:46;Magali
+58;Accepted-In Progress;09.01.2012-11:43:23;Armin
+58;Accepted-Wait - Implementation;09.01.2012-11:43:28;Armin
+58;Accepted-In Progress;24.01.2012-08:07:45;Armin
+58;Queued-Awaiting Assignment;24.01.2012-08:09:14;Armin
+58;Accepted-In Progress;24.01.2012-08:38:06;Brecht
+58;Accepted-Assigned;24.01.2012-08:38:12;Brecht
+58;Accepted-In Progress;24.01.2012-09:08:07;Katia
+58;Accepted-In Progress;24.01.2012-09:08:10;Katia
+58;Accepted-Wait - Vendor;24.01.2012-09:08:14;Katia
+58;Accepted-Wait - User;24.01.2012-10:00:11;Katia
+58;Accepted-Wait - User;31.01.2012-09:09:24;Siebel
+58;Accepted-Wait - User;31.01.2012-09:31:23;Katia
+58;Accepted-Wait - User;07.02.2012-09:31:25;Siebel
+58;Accepted-Wait - User;07.02.2012-12:11:20;Katia
+58;Accepted-Wait - User;14.02.2012-12:11:23;Siebel
+58;Accepted-Wait - User;14.02.2012-12:40:57;Katia
+58;Accepted-Wait - User;21.02.2012-12:40:57;Siebel
+58;Accepted-Wait - User;23.02.2012-12:52:33;Katia
+58;Accepted-Wait - User;01.03.2012-12:52:42;Siebel
+58;Accepted-Wait - User;01.03.2012-15:37:21;Katia
+58;Accepted-Wait - User;08.03.2012-15:37:22;Siebel
+58;Accepted-Wait - User;08.03.2012-16:23:08;Katia
+58;Accepted-Wait - User;15.03.2012-16:23:09;Siebel
+58;Accepted-Wait - User;16.03.2012-07:29:57;Katia
+58;Accepted-Wait - User;23.03.2012-07:30:05;Siebel
+58;Accepted-Wait - User;23.03.2012-08:00:51;Katia
+58;Accepted-Wait - User;30.03.2012-09:00:52;Siebel
+58;Accepted-Wait - User;30.03.2012-13:13:42;Katia
+58;Queued-Awaiting Assignment;02.04.2012-15:17:36;Katia
+58;Accepted-In Progress;02.05.2012-10:50:18;Katia
+58;Queued-Awaiting Assignment;02.05.2012-10:54:04;Katia
+58;Accepted-In Progress;08.05.2012-15:56:30;Patricia
+58;Queued-Awaiting Assignment;08.05.2012-15:56:49;Patricia
+58;Accepted-In Progress;09.05.2012-10:02:39;Armin
+58;Queued-Awaiting Assignment;09.05.2012-10:03:36;Armin
+58;Accepted-In Progress;09.05.2012-10:05:14;Przemyslaw
+58;Queued-Awaiting Assignment;09.05.2012-10:08:39;Przemyslaw
+58;Accepted-In Progress;09.05.2012-10:14:03;Katia
+58;Completed-Resolved;09.05.2012-10:19:52;Katia
+58;Completed-Closed;09.05.2012-10:20:05;Katia
+59;Accepted-In Progress;26.12.2011-03:28:33;Amy
+59;Accepted-In Progress;26.12.2011-03:34:32;Amy
+59;Queued-Awaiting Assignment;27.12.2011-02:53:41;Amy
+59;Accepted-In Progress;27.12.2011-02:53:45;Amy
+59;Accepted-Wait - User;29.12.2011-01:22:21;Amy
+59;Accepted-Assigned;29.12.2011-05:10:43;Amy
+59;Accepted-In Progress;04.05.2012-15:34:35;Jonathan
+59;Completed-Resolved;04.05.2012-15:35:15;Jonathan
+59;Completed-Closed;11.05.2012-23:21:17;Siebel
+60;Accepted-In Progress;27.12.2011-15:10:12;Brecht
+60;Accepted-In Progress;27.12.2011-15:10:49;Brecht
+60;Queued-Awaiting Assignment;27.12.2011-15:14:14;Brecht
+60;Accepted-In Progress;30.12.2011-13:39:06;Tsun Fai
+60;Queued-Awaiting Assignment;30.12.2011-13:39:29;Tsun Fai
+60;Accepted-In Progress;03.01.2012-10:25:55;Danny
+60;Queued-Awaiting Assignment;03.01.2012-10:27:53;Danny
+60;Accepted-In Progress;03.01.2012-10:30:54;Danny
+60;Queued-Awaiting Assignment;03.01.2012-10:31:08;Danny
+60;Accepted-In Progress;03.01.2012-11:56:15;Katia
+60;Accepted-Assigned;03.01.2012-11:56:24;Katia
+60;Accepted-In Progress;03.01.2012-12:27:03;Brecht
+60;Completed-Resolved;03.01.2012-12:27:51;Brecht
+60;Completed-Closed;03.01.2012-22:20:22;Siebel
+60;Accepted-In Progress;05.01.2012-15:05:39;Jan
+60;Queued-Awaiting Assignment;05.01.2012-15:07:33;Jan
+60;Accepted-In Progress;06.01.2012-15:21:13;Tsun Fai
+60;Queued-Awaiting Assignment;06.01.2012-15:40:32;Tsun Fai
+60;Queued-Awaiting Assignment;06.01.2012-15:40:33;Tsun Fai
+60;Accepted-In Progress;10.02.2012-13:21:29;Maurice
+60;Completed-Resolved;10.02.2012-13:21:41;Maurice
+60;Accepted-In Progress;16.02.2012-16:22:34;Brecht
+60;Accepted-Assigned;16.02.2012-16:22:35;Brecht
+60;Accepted-In Progress;16.02.2012-16:22:39;Brecht
+60;Queued-Awaiting Assignment;16.02.2012-16:23:58;Brecht
+60;Accepted-In Progress;17.02.2012-07:12:55;Juan
+60;Accepted-Wait;17.02.2012-07:13:25;Juan
+60;Accepted-Assigned;20.02.2012-08:12:44;Juan
+60;Accepted-In Progress;20.02.2012-08:12:56;Juan
+60;Accepted-Wait - User;20.02.2012-09:45:38;Juan
+60;Queued-Awaiting Assignment;20.02.2012-12:41:37;Juan
+60;Accepted-In Progress;20.02.2012-13:46:18;Zoi
+60;Accepted-Wait - User;20.02.2012-13:48:56;Zoi
+60;Accepted-In Progress;23.02.2012-08:31:54;Jan
+60;Queued-Awaiting Assignment;23.02.2012-08:32:24;Jan
+60;Accepted-In Progress;14.03.2012-16:22:46;Juan
+60;Queued-Awaiting Assignment;14.03.2012-16:23:44;Juan
+60;Accepted-In Progress;14.03.2012-16:28:56;Brecht
+60;Accepted-Wait - User;14.03.2012-16:42:26;Brecht
+60;Queued-Awaiting Assignment;15.03.2012-12:52:34;Brecht
+60;Accepted-In Progress;19.03.2012-07:24:31;Juan
+60;Accepted-Wait;19.03.2012-07:24:40;Juan
+60;Accepted-In Progress;19.03.2012-07:45:11;Juan
+60;Accepted-Wait;19.03.2012-08:57:07;Juan
+60;Queued-Awaiting Assignment;20.03.2012-12:21:42;Juan
+60;Accepted-In Progress;17.04.2012-16:52:39;Tsun Fai
+60;Queued-Awaiting Assignment;17.04.2012-16:52:58;Tsun Fai
+60;Accepted-In Progress;04.05.2012-08:00:24;Juan
+60;Completed-Resolved;04.05.2012-08:01:15;Juan
+60;Completed-Closed;11.05.2012-23:21:16;Siebel
+61;Accepted-In Progress;28.12.2011-10:40:52;Michael
+61;Accepted-In Progress;28.12.2011-10:41:12;Michael
+61;Queued-Awaiting Assignment;28.12.2011-10:44:03;Michael
+61;Accepted-In Progress;28.12.2011-11:00:36;Magali
+61;Queued-Awaiting Assignment;28.12.2011-11:06:19;Magali
+61;Queued-Awaiting Assignment;28.12.2011-11:06:20;Magali
+61;Accepted-In Progress;28.12.2011-11:31:08;Hans-Eric
+61;Accepted-Assigned;28.12.2011-11:55:01;Hans-Eric
+61;Accepted-In Progress;29.12.2011-09:41:56;Michael
+61;Accepted-Wait;29.12.2011-09:42:04;Michael
+61;Accepted-Wait;31.12.2011-10:41:41;Siebel
+61;Accepted-In Progress;07.05.2012-08:31:38;Christopher
+61;Completed-Resolved;07.05.2012-08:32:07;Christopher
+61;Completed-Closed;07.05.2012-08:32:08;Christopher
+62;Accepted-In Progress;03.01.2012-01:51:47;Cristian
+62;Accepted-In Progress;03.01.2012-01:53:14;Cristian
+62;Accepted-Wait - User;03.01.2012-01:53:23;Cristian
+62;Queued-Awaiting Assignment;03.01.2012-01:58:34;Cristian
+62;Accepted-In Progress;03.01.2012-01:58:40;Cristian
+62;Accepted-Assigned;03.01.2012-01:58:58;Cristian
+62;Accepted-In Progress;03.01.2012-02:57:36;Cincellia
+62;Accepted-Wait;03.01.2012-03:02:00;Cincellia
+62;Completed-Resolved;01.05.2012-06:48:12;Cincellia
+62;Completed-Closed;08.05.2012-23:15:57;Siebel
+63;Accepted-In Progress;04.01.2012-07:49:51;Oskar
+63;Accepted-In Progress;04.01.2012-07:50:49;Oskar
+63;Accepted-Assigned;04.01.2012-07:51:26;Oskar
+63;Accepted-In Progress;05.01.2012-12:54:50;Aparna
+63;Accepted-Assigned;05.01.2012-12:56:03;Aparna
+63;Accepted-In Progress;09.01.2012-07:52:33;Vikrant
+63;Completed-Resolved;14.05.2012-13:14:02;Vikrant
+63;Completed-Closed;21.05.2012-23:25:20;Siebel
+64;Queued-Awaiting Assignment;06.01.2012-08:38:05;Santi
+64;Accepted-In Progress;19.01.2012-14:22:41;Pongsak
+64;Accepted-Wait;02.02.2012-05:52:15;Pongsak
+64;Accepted-Wait - User;02.04.2012-04:50:46;Jinos
+64;Accepted-In Progress;18.04.2012-10:43:22;Thachuda
+64;Queued-Awaiting Assignment;18.04.2012-10:45:01;Thachuda
+64;Accepted-In Progress;18.04.2012-10:52:36;Sudindran
+64;Queued-Awaiting Assignment;18.04.2012-11:01:45;Sudindran
+64;Accepted-In Progress;18.04.2012-12:18:52;Marika
+64;Queued-Awaiting Assignment;18.04.2012-12:19:18;Marika
+64;Accepted-In Progress;20.04.2012-09:13:42;Jinos
+64;Accepted-Wait - User;20.04.2012-09:30:16;Jinos
+64;Queued-Awaiting Assignment;24.04.2012-03:52:06;Jinos
+64;Queued-Awaiting Assignment;24.04.2012-03:52:07;Jinos
+64;Accepted-In Progress;24.04.2012-04:22:34;Suresh
+64;Accepted-Assigned;24.04.2012-04:27:55;Suresh
+64;Accepted-In Progress;24.04.2012-07:00:17;Sudindran
+64;Accepted-Wait - User;24.04.2012-07:01:53;Sudindran
+64;Accepted-In Progress;03.05.2012-06:07:38;Prasat
+64;Accepted-Wait - User;03.05.2012-07:14:40;Prasat
+64;Accepted-In Progress;03.05.2012-07:59:24;Prasat
+64;Completed-Resolved;03.05.2012-08:00:23;Prasat
+64;Completed-Closed;03.05.2012-23:21:00;Siebel
+65;Accepted-In Progress;05.01.2012-10:37:41;Adam
+65;Accepted-In Progress;05.01.2012-10:39:53;Adam
+65;Queued-Awaiting Assignment;05.01.2012-10:47:14;Adam
+65;Accepted-In Progress;09.01.2012-13:22:56;Tsun Fai
+65;Queued-Awaiting Assignment;09.01.2012-13:25:36;Tsun Fai
+65;Accepted-In Progress;09.01.2012-13:31:50;Tsun Fai
+65;Queued-Awaiting Assignment;09.01.2012-13:32:02;Tsun Fai
+65;Accepted-In Progress;09.01.2012-13:32:05;Tsun Fai
+65;Queued-Awaiting Assignment;09.01.2012-13:32:14;Tsun Fai
+65;Accepted-In Progress;09.01.2012-14:49:08;Pawel
+65;Accepted-Assigned;09.01.2012-14:49:18;Pawel
+65;Accepted-In Progress;10.01.2012-06:28:03;Adam
+65;Queued-Awaiting Assignment;10.01.2012-06:33:55;Adam
+65;Accepted-In Progress;21.03.2012-09:27:48;Earl
+65;Queued-Awaiting Assignment;21.03.2012-09:50:55;Earl
+65;Accepted-In Progress;21.03.2012-12:45:14;Juan
+65;Queued-Awaiting Assignment;21.03.2012-12:45:52;Juan
+65;Accepted-In Progress;21.03.2012-12:55:30;Earl
+65;Accepted-Wait;21.03.2012-12:55:34;Earl
+65;Accepted-In Progress;21.03.2012-13:07:30;Juan
+65;Accepted-Wait;21.03.2012-13:07:39;Juan
+65;Accepted-In Progress;17.04.2012-13:37:56;Juan
+65;Queued-Awaiting Assignment;17.04.2012-15:29:20;Danny
+65;Accepted-In Progress;04.05.2012-10:28:23;Juan
+65;Completed-Resolved;04.05.2012-11:16:12;Juan
+65;Completed-Closed;11.05.2012-23:21:16;Siebel
+66;Accepted-In Progress;05.01.2012-12:58:48;Laleh
+66;Accepted-In Progress;05.01.2012-12:59:23;Laleh
+66;Queued-Awaiting Assignment;05.01.2012-13:01:26;Laleh
+66;Accepted-In Progress;06.01.2012-14:47:39;Tsun Fai
+66;Queued-Awaiting Assignment;06.01.2012-14:57:08;Tsun Fai
+66;Accepted-In Progress;09.01.2012-06:48:02;Laleh
+66;Queued-Awaiting Assignment;09.01.2012-07:00:48;Laleh
+66;Accepted-In Progress;21.03.2012-10:12:37;Earl
+66;Queued-Awaiting Assignment;21.03.2012-10:38:31;Earl
+66;Accepted-In Progress;22.03.2012-06:42:04;Juan
+66;Accepted-Wait;22.03.2012-06:42:12;Juan
+66;Accepted-In Progress;23.03.2012-09:18:53;Tsun Fai
+66;Queued-Awaiting Assignment;23.03.2012-09:22:45;Tsun Fai
+66;Accepted-In Progress;04.05.2012-11:17:03;Juan
+66;Completed-Resolved;04.05.2012-11:22:50;Juan
+66;Completed-Closed;11.05.2012-23:21:15;Siebel
+67;Accepted-In Progress;09.01.2012-09:34:22;Stanislaw
+67;Accepted-In Progress;09.01.2012-09:35:14;Stanislaw
+67;Queued-Awaiting Assignment;09.01.2012-09:41:03;Stanislaw
+67;Accepted-In Progress;09.01.2012-13:32:38;Tsun Fai
+67;Queued-Awaiting Assignment;11.01.2012-10:10:36;Danny
+67;Accepted-In Progress;11.01.2012-11:01:30;Danny
+67;Queued-Awaiting Assignment;11.01.2012-14:27:03;Danny
+67;Accepted-In Progress;22.03.2012-16:06:41;Earl
+67;Queued-Awaiting Assignment;22.03.2012-16:07:26;Earl
+67;Accepted-In Progress;23.03.2012-08:32:04;Juan
+67;Queued-Awaiting Assignment;23.03.2012-09:30:10;Tsun Fai
+67;Accepted-In Progress;04.05.2012-11:23:26;Juan
+67;Completed-Resolved;04.05.2012-11:27:49;Juan
+67;Completed-Closed;11.05.2012-23:21:15;Siebel
+68;Accepted-In Progress;10.01.2012-12:00:30;Jeroen
+68;Accepted-In Progress;10.01.2012-12:00:39;Jeroen
+68;Queued-Awaiting Assignment;10.01.2012-12:15:13;Jeroen
+68;Accepted-In Progress;10.01.2012-12:26:15;Danny
+68;Queued-Awaiting Assignment;10.01.2012-15:31:41;Danny
+68;Queued-Awaiting Assignment;10.01.2012-15:31:42;Danny
+68;Accepted-In Progress;10.01.2012-15:57:38;Renaat
+68;Accepted-Assigned;10.01.2012-16:54:37;Renaat
+68;Accepted-In Progress;10.01.2012-17:46:02;Ellen
+68;Accepted-Assigned;10.01.2012-17:46:22;Ellen
+68;Accepted-In Progress;11.01.2012-06:56:45;Jeroen
+68;Accepted-Wait - Vendor;11.01.2012-07:11:36;Jeroen
+68;Completed-Resolved;11.01.2012-12:22:47;Jeroen
+68;Accepted-In Progress;11.01.2012-14:30:58;Jeroen
+68;Queued-Awaiting Assignment;11.01.2012-14:39:43;Jeroen
+68;Accepted-In Progress;12.01.2012-08:51:41;Danny
+68;Queued-Awaiting Assignment;12.01.2012-08:54:56;Danny
+68;Accepted-In Progress;12.01.2012-11:59:33;Jeroen
+68;Queued-Awaiting Assignment;12.01.2012-12:02:09;Jeroen
+68;Accepted-In Progress;13.01.2012-07:10:41;Danny
+68;Queued-Awaiting Assignment;13.01.2012-08:12:01;Danny
+68;Accepted-In Progress;13.01.2012-08:26:15;Jeroen
+68;Queued-Awaiting Assignment;13.01.2012-08:31:39;Jeroen
+68;Accepted-In Progress;23.03.2012-15:45:29;Earl
+68;Accepted-Wait;23.03.2012-15:45:33;Earl
+68;Accepted-In Progress;04.05.2012-12:13:19;Juan
+68;Completed-Resolved;04.05.2012-12:18:45;Juan
+68;Completed-Closed;11.05.2012-23:21:15;Siebel
+69;Queued-Awaiting Assignment;11.01.2012-10:47:12;Niclas
+69;Accepted-In Progress;11.01.2012-11:06:11;Andre
+69;Queued-Awaiting Assignment;11.01.2012-11:07:00;Andre
+69;Queued-Awaiting Assignment;11.01.2012-11:07:01;Andre
+69;Accepted-In Progress;11.01.2012-13:46:24;Aparna
+69;Accepted-Assigned;09.03.2012-15:33:41;Aparna
+69;Accepted-In Progress;13.03.2012-16:50:55;Venkata
+69;Accepted-Wait - Customer;27.04.2012-13:53:09;Venkata
+69;Accepted-Wait - User;04.05.2012-07:22:14;Venkata
+69;Accepted-Wait - Implementation;04.05.2012-16:33:51;Venkata
+69;Completed-Resolved;14.05.2012-13:41:38;Venkata
+69;Completed-Closed;21.05.2012-23:25:19;Siebel
+70;Accepted-In Progress;11.01.2012-06:22:42;Riitta
+70;Accepted-In Progress;11.01.2012-06:22:53;Riitta
+70;Accepted-Wait;11.01.2012-06:29:52;Riitta
+70;Accepted-Wait;14.01.2012-06:27:27;Siebel
+70;Accepted-In Progress;07.05.2012-09:52:41;Christopher
+70;Completed-Resolved;07.05.2012-09:52:56;Christopher
+70;Completed-Closed;07.05.2012-23:21:52;Siebel
+71;Accepted-In Progress;11.01.2012-11:11:15;Renaat
+71;Accepted-In Progress;11.01.2012-11:11:37;Renaat
+71;Queued-Awaiting Assignment;11.01.2012-11:19:36;Renaat
+71;Queued-Awaiting Assignment;11.01.2012-11:19:37;Renaat
+71;Accepted-In Progress;11.01.2012-14:03:05;Tsun Fai
+71;Queued-Awaiting Assignment;11.01.2012-14:10:35;Tsun Fai
+71;Accepted-In Progress;11.01.2012-15:03:55;Renaat
+71;Accepted-Wait - User;11.01.2012-15:07:46;Renaat
+71;Accepted-Wait - User;14.01.2012-14:10:37;Siebel
+71;Accepted-In Progress;16.01.2012-16:55:02;Jeroen
+71;Queued-Awaiting Assignment;16.01.2012-16:56:07;Jeroen
+71;Accepted-In Progress;17.01.2012-10:04:48;Juan
+71;Accepted-Assigned;17.01.2012-10:06:15;Juan
+71;Accepted-In Progress;19.01.2012-14:31:00;Tsun Fai
+71;Queued-Awaiting Assignment;19.01.2012-14:38:16;Tsun Fai
+71;Accepted-In Progress;19.01.2012-14:40:09;Renaat
+71;Accepted-Wait - User;19.01.2012-14:46:19;Renaat
+71;Accepted-In Progress;19.01.2012-15:02:58;Sarah
+71;Queued-Awaiting Assignment;19.01.2012-15:03:10;Sarah
+71;Accepted-In Progress;19.01.2012-15:42:55;Juan
+71;Queued-Awaiting Assignment;20.01.2012-09:17:43;Tsun Fai
+71;Accepted-In Progress;20.01.2012-09:42:07;Nele
+71;Queued-Awaiting Assignment;20.01.2012-09:43:18;Nele
+71;Accepted-In Progress;20.01.2012-15:57:13;Tsun Fai
+71;Queued-Awaiting Assignment;23.01.2012-09:47:33;Tsun Fai
+71;Accepted-In Progress;25.01.2012-15:24:54;Nele
+71;Queued-Awaiting Assignment;25.01.2012-15:26:10;Nele
+71;Accepted-In Progress;26.01.2012-08:28:51;Juan
+71;Queued-Awaiting Assignment;26.01.2012-09:29:40;Juan
+71;Accepted-In Progress;26.01.2012-11:39:53;Renaat
+71;Queued-Awaiting Assignment;26.01.2012-11:41:37;Renaat
+71;Accepted-In Progress;02.02.2012-10:35:59;Nele
+71;Queued-Awaiting Assignment;02.02.2012-10:36:56;Nele
+71;Accepted-In Progress;02.02.2012-10:45:42;Juan
+71;Accepted-Assigned;02.02.2012-10:45:45;Juan
+71;Accepted-In Progress;03.02.2012-10:01:37;Tsun Fai
+71;Queued-Awaiting Assignment;03.02.2012-10:18:25;Tsun Fai
+71;Accepted-In Progress;15.02.2012-13:42:51;Nele
+71;Queued-Awaiting Assignment;15.02.2012-13:43:42;Nele
+71;Accepted-In Progress;15.02.2012-13:47:07;Renaat
+71;Queued-Awaiting Assignment;15.02.2012-13:56:46;Renaat
+71;Accepted-In Progress;06.04.2012-09:32:54;Earl
+71;Accepted-Wait;06.04.2012-09:32:59;Earl
+71;Accepted-In Progress;04.05.2012-08:07:21;Juan
+71;Completed-Resolved;04.05.2012-08:08:29;Juan
+71;Completed-Closed;11.05.2012-23:21:14;Siebel
+72;Accepted-In Progress;11.01.2012-12:21:02;Riitta
+72;Accepted-In Progress;11.01.2012-12:22:15;Riitta
+72;Accepted-Wait - User;11.01.2012-12:50:39;Riitta
+72;Accepted-In Progress;11.01.2012-13:22:22;Riitta
+72;Accepted-Wait;11.01.2012-13:23:33;Riitta
+72;Accepted-Wait;14.01.2012-12:34:46;Siebel
+72;Accepted-In Progress;07.05.2012-09:53:36;Christopher
+72;Completed-Resolved;07.05.2012-09:53:54;Christopher
+72;Completed-Closed;07.05.2012-09:53:56;Christopher
+73;Queued-Awaiting Assignment;12.01.2012-12:34:15;Katie
+73;Accepted-In Progress;12.01.2012-13:23:40;Krzysztof
+73;Queued-Awaiting Assignment;12.01.2012-13:24:09;Krzysztof
+73;Accepted-In Progress;12.01.2012-14:09:28;Aparna
+73;Accepted-Wait - User;13.01.2012-13:32:08;Aparna
+73;Accepted-Assigned;27.03.2012-14:24:01;Aparna
+73;Accepted-In Progress;28.03.2012-11:01:01;Venkata
+73;Accepted-Wait - Customer;27.04.2012-08:11:39;Venkata
+73;Accepted-In Progress;27.04.2012-13:52:50;Venkata
+73;Completed-Resolved;03.05.2012-13:26:51;Venkata
+73;Completed-Closed;10.05.2012-23:25:56;Siebel
+74;Accepted-In Progress;16.01.2012-05:59:24;Marcin
+74;Accepted-In Progress;16.01.2012-06:01:51;Marcin
+74;Queued-Awaiting Assignment;16.01.2012-06:07:05;Marcin
+74;Accepted-In Progress;16.01.2012-14:21:07;Juan
+74;Accepted-Wait;16.01.2012-14:21:11;Juan
+74;Accepted-In Progress;16.01.2012-16:01:22;Tsun Fai
+74;Accepted-Wait;16.01.2012-16:01:30;Tsun Fai
+74;Queued-Awaiting Assignment;20.01.2012-10:51:40;Tsun Fai
+74;Accepted-In Progress;20.01.2012-11:31:29;Marcin
+74;Accepted-Wait - User;20.01.2012-11:34:47;Marcin
+74;Queued-Awaiting Assignment;20.01.2012-11:43:14;Marcin
+74;Queued-Awaiting Assignment;20.01.2012-11:43:15;Marcin
+74;Accepted-In Progress;20.01.2012-12:09:38;Tsun Fai
+74;Queued-Awaiting Assignment;24.01.2012-15:17:10;Tsun Fai
+74;Accepted-In Progress;24.01.2012-15:21:37;Marcin
+74;Accepted-Wait - User;24.01.2012-15:25:00;Marcin
+74;Queued-Awaiting Assignment;27.01.2012-04:45:02;Marcin
+74;Accepted-In Progress;23.03.2012-16:12:59;Earl
+74;Accepted-Wait;23.03.2012-16:13:02;Earl
+74;Queued-Awaiting Assignment;26.03.2012-15:52:09;Earl
+74;Accepted-In Progress;28.03.2012-09:58:46;Tsun Fai
+74;Completed-Resolved;28.03.2012-10:12:15;Tsun Fai
+74;Queued-Awaiting Assignment;28.03.2012-10:33:19;Charlotte
+74;Accepted-In Progress;28.03.2012-10:33:22;Tsun Fai
+74;Queued-Awaiting Assignment;29.03.2012-07:12:34;Juan
+74;Accepted-In Progress;04.04.2012-13:42:59;Earl
+74;Accepted-Wait;04.04.2012-13:43:03;Earl
+74;Accepted-In Progress;04.05.2012-12:25:02;Juan
+74;Completed-Resolved;04.05.2012-12:30:16;Juan
+74;Completed-Closed;11.05.2012-23:21:12;Siebel
+75;Queued-Awaiting Assignment;16.01.2012-07:53:59;Niclas
+75;Queued-Awaiting Assignment;16.01.2012-07:54:46;Niclas
+75;Queued-Awaiting Assignment;16.01.2012-07:55:10;Niclas
+75;Accepted-In Progress;16.01.2012-09:50:57;Henrik
+75;Accepted-Wait - User;18.01.2012-07:45:52;Lars
+75;Accepted-In Progress;03.05.2012-12:48:40;Kent
+75;Completed-Resolved;03.05.2012-12:50:04;Kent
+75;Completed-Closed;10.05.2012-23:25:55;Siebel
+76;Accepted-In Progress;16.01.2012-06:50:02;Kelly
+76;Accepted-In Progress;16.01.2012-06:50:35;Kelly
+76;Accepted-Wait - User;16.01.2012-07:00:39;Kelly
+76;Accepted-In Progress;16.01.2012-07:02:12;Kelly
+76;Completed-In Call;16.01.2012-07:02:18;Kelly
+76;Accepted-In Progress;19.01.2012-06:09:10;Kelly
+76;Queued-Awaiting Assignment;19.01.2012-06:10:41;Kelly
+76;Accepted-In Progress;19.01.2012-06:44:56;Joyce
+76;Accepted-Assigned;19.01.2012-07:44:58;Joyce
+76;Accepted-In Progress;19.01.2012-08:02:12;Kimi
+76;Accepted-Wait - User;19.01.2012-08:02:29;Kimi
+76;Completed-Resolved;08.05.2012-07:30:26;Kimi
+76;Completed-Closed;15.05.2012-23:22:46;Siebel
+77;Accepted-In Progress;16.01.2012-12:41:18;Marco
+77;Accepted-In Progress;16.01.2012-12:42:39;Marco
+77;Queued-Awaiting Assignment;16.01.2012-12:44:12;Marco
+77;Accepted-In Progress;16.01.2012-14:20:10;Juan
+77;Accepted-Wait;16.01.2012-14:20:15;Juan
+77;Accepted-In Progress;16.01.2012-15:37:13;Tsun Fai
+77;Accepted-Wait;16.01.2012-15:37:44;Tsun Fai
+77;Accepted-In Progress;20.01.2012-10:16:58;Danny
+77;Queued-Awaiting Assignment;23.01.2012-11:12:28;Tsun Fai
+77;Accepted-In Progress;23.01.2012-11:16:14;Valeria
+77;Accepted-Assigned;23.01.2012-11:16:21;Valeria
+77;Accepted-In Progress;23.01.2012-12:37:31;Marco
+77;Queued-Awaiting Assignment;23.01.2012-12:40:50;Marco
+77;Queued-Awaiting Assignment;23.01.2012-12:40:51;Marco
+77;Accepted-In Progress;23.03.2012-16:14:09;Earl
+77;Accepted-Wait;23.03.2012-16:14:14;Earl
+77;Accepted-In Progress;30.03.2012-12:48:12;Marco
+77;Queued-Awaiting Assignment;30.03.2012-13:06:06;Marco
+77;Accepted-In Progress;04.05.2012-12:30:39;Juan
+77;Completed-Resolved;04.05.2012-12:37:51;Juan
+77;Completed-Closed;11.05.2012-23:21:12;Siebel
+78;Accepted-In Progress;16.01.2012-13:44:45;Jeroen
+78;Accepted-In Progress;16.01.2012-13:44:53;Jeroen
+78;Queued-Awaiting Assignment;16.01.2012-13:50:03;Jeroen
+78;Accepted-In Progress;16.01.2012-14:19:54;Juan
+78;Accepted-Wait;16.01.2012-14:20:00;Juan
+78;Accepted-In Progress;23.01.2012-15:34:15;Tsun Fai
+78;Queued-Awaiting Assignment;23.01.2012-15:48:30;Tsun Fai
+78;Accepted-In Progress;23.01.2012-16:01:19;Jeroen
+78;Queued-Awaiting Assignment;23.01.2012-16:07:23;Jeroen
+78;Accepted-In Progress;21.03.2012-08:30:10;Earl
+78;Accepted-Wait;21.03.2012-08:30:16;Earl
+78;Accepted-In Progress;04.05.2012-08:11:13;Juan
+78;Completed-Resolved;04.05.2012-08:11:58;Juan
+78;Completed-Closed;11.05.2012-23:21:12;Siebel
+79;Accepted-In Progress;16.01.2012-13:47:43;Rafael
+79;Accepted-In Progress;16.01.2012-13:48:34;Rafael
+79;Completed-Resolved;08.05.2012-15:34:17;Rafael
+79;Completed-Closed;08.05.2012-23:15:54;Siebel
+80;Accepted-In Progress;17.01.2012-08:59:56;Riitta
+80;Accepted-In Progress;17.01.2012-09:00:10;Riitta
+80;Accepted-Wait;17.01.2012-09:18:01;Riitta
+80;Accepted-Wait;20.01.2012-09:04:25;Siebel
+80;Accepted-In Progress;07.05.2012-09:54:38;Christopher
+80;Completed-Resolved;07.05.2012-09:54:46;Christopher
+80;Completed-Closed;07.05.2012-09:54:47;Christopher
+81;Accepted-In Progress;17.01.2012-13:10:40;Henk
+81;Accepted-In Progress;17.01.2012-13:10:46;Henk
+81;Queued-Awaiting Assignment;17.01.2012-13:14:39;Henk
+81;Accepted-In Progress;19.01.2012-12:53:03;Tsun Fai
+81;Queued-Awaiting Assignment;19.01.2012-12:56:34;Tsun Fai
+81;Accepted-In Progress;19.01.2012-13:17:12;Brecht
+81;Accepted-Assigned;19.01.2012-13:17:17;Brecht
+81;Accepted-In Progress;23.01.2012-13:31:43;Henk
+81;Queued-Awaiting Assignment;23.01.2012-13:33:35;Henk
+81;Accepted-In Progress;04.05.2012-08:14:16;Juan
+81;Completed-Resolved;04.05.2012-08:15:46;Juan
+81;Completed-Closed;11.05.2012-23:21:11;Siebel
+82;Queued-Awaiting Assignment;18.01.2012-09:48:14;Niclas
+82;Queued-Awaiting Assignment;18.01.2012-09:48:28;Niclas
+82;Queued-Awaiting Assignment;18.01.2012-09:48:41;Niclas
+82;Accepted-In Progress;18.01.2012-10:20:11;Lars
+82;Accepted-Wait;23.01.2012-09:44:53;Lars
+82;Accepted-In Progress;03.05.2012-11:23:58;Kent
+82;Completed-Resolved;03.05.2012-11:26:50;Kent
+82;Completed-Closed;10.05.2012-23:25:54;Siebel
+83;Accepted-In Progress;17.01.2012-15:17:24;Mattia
+83;Accepted-In Progress;17.01.2012-15:17:57;Mattia
+83;Queued-Awaiting Assignment;17.01.2012-15:19:18;Mattia
+83;Accepted-In Progress;19.01.2012-12:57:31;Tsun Fai
+83;Queued-Awaiting Assignment;19.01.2012-12:58:59;Tsun Fai
+83;Accepted-In Progress;19.01.2012-14:07:40;Valeria
+83;Accepted-Assigned;19.01.2012-14:07:52;Valeria
+83;Accepted-In Progress;19.01.2012-14:26:36;Mattia
+83;Queued-Awaiting Assignment;19.01.2012-14:33:26;Mattia
+83;Accepted-In Progress;23.01.2012-14:48:45;Iván
+83;Queued-Awaiting Assignment;23.01.2012-14:50:58;Iván
+83;Accepted-In Progress;23.03.2012-16:24:11;Earl
+83;Accepted-Wait;23.03.2012-16:24:16;Earl
+83;Accepted-In Progress;04.05.2012-12:42:30;Juan
+83;Completed-Resolved;04.05.2012-12:50:47;Juan
+83;Completed-Closed;11.05.2012-23:21:11;Siebel
+84;Accepted-In Progress;18.01.2012-09:44:15;Jeroen
+84;Accepted-In Progress;18.01.2012-09:44:30;Jeroen
+84;Queued-Awaiting Assignment;18.01.2012-09:59:27;Jeroen
+84;Accepted-In Progress;19.01.2012-15:43:08;Juan
+84;Accepted-Wait;19.01.2012-15:43:13;Juan
+84;Accepted-In Progress;20.01.2012-15:30:07;Danny
+84;Queued-Awaiting Assignment;20.01.2012-16:33:16;Tsun Fai
+84;Accepted-In Progress;20.01.2012-16:41:55;Jeroen
+84;Queued-Awaiting Assignment;20.01.2012-16:42:29;Jeroen
+84;Accepted-In Progress;27.02.2012-13:38:18;Nele
+84;Queued-Awaiting Assignment;27.02.2012-13:41:18;Nele
+84;Accepted-In Progress;29.02.2012-10:54:20;Juan
+84;Queued-Awaiting Assignment;29.02.2012-15:00:43;Juan
+84;Accepted-In Progress;21.03.2012-11:17:11;Nele
+84;Queued-Awaiting Assignment;21.03.2012-11:18:54;Nele
+84;Accepted-In Progress;21.03.2012-15:34:30;Juan
+84;Accepted-Wait;21.03.2012-15:35:12;Juan
+84;Accepted-In Progress;23.03.2012-09:31:25;Tsun Fai
+84;Queued-Awaiting Assignment;23.03.2012-09:36:52;Tsun Fai
+84;Accepted-In Progress;23.03.2012-16:24:59;Earl
+84;Accepted-Wait;23.03.2012-16:25:02;Earl
+84;Accepted-In Progress;04.05.2012-12:51:25;Juan
+84;Completed-Resolved;04.05.2012-12:59:36;Juan
+84;Completed-Closed;11.05.2012-23:21:11;Siebel
+85;Accepted-In Progress;19.01.2012-09:36:47;Katia
+85;Accepted-In Progress;19.01.2012-09:37:28;Katia
+85;Accepted-In Progress;19.01.2012-09:45:57;Katia
+85;Queued-Awaiting Assignment;19.01.2012-09:46:08;Katia
+85;Accepted-In Progress;19.01.2012-09:46:38;Katia
+85;Queued-Awaiting Assignment;19.01.2012-09:47:36;Katia
+85;Accepted-In Progress;19.01.2012-14:43:58;Danny
+85;Queued-Awaiting Assignment;19.01.2012-15:41:15;Danny
+85;Accepted-In Progress;27.03.2012-13:58:10;Earl
+85;Accepted-In Progress;04.05.2012-13:06:27;Juan
+85;Queued-Awaiting Assignment;08.05.2012-11:44:43;Danny
+85;Accepted-In Progress;08.05.2012-13:49:09;Katia
+85;Accepted-Wait - User;08.05.2012-13:49:21;Katia
+85;Accepted-Wait - User;08.05.2012-13:50:17;Katia
+85;Completed-Resolved;09.05.2012-06:29:07;Katia
+85;Completed-Closed;09.05.2012-06:29:09;Katia
+86;Accepted-In Progress;19.01.2012-12:10:43;David
+86;Accepted-In Progress;19.01.2012-12:10:57;David
+86;Queued-Awaiting Assignment;19.01.2012-13:00:49;David
+86;Accepted-In Progress;19.01.2012-15:39:49;Juan
+86;Accepted-Wait;19.01.2012-15:39:54;Juan
+86;Queued-Awaiting Assignment;24.01.2012-11:05:07;Juan
+86;Queued-Awaiting Assignment;24.01.2012-11:05:08;Juan
+86;Accepted-In Progress;20.04.2012-11:02:44;Tsun Fai
+86;Queued-Awaiting Assignment;20.04.2012-11:02:50;Tsun Fai
+86;Accepted-In Progress;20.04.2012-11:05:19;Tsun Fai
+86;Queued-Awaiting Assignment;20.04.2012-11:41:46;Tsun Fai
+86;Accepted-In Progress;04.05.2012-13:10:43;Juan
+86;Completed-Resolved;04.05.2012-13:14:45;Juan
+86;Completed-Closed;11.05.2012-23:21:10;Siebel
+87;Accepted-In Progress;20.01.2012-02:06:30;Meishan
+87;Accepted-In Progress;20.01.2012-02:07:21;Meishan
+87;Accepted-Wait - User;20.01.2012-02:12:10;Meishan
+87;Queued-Awaiting Assignment;20.01.2012-02:30:03;Meishan
+87;Accepted-In Progress;23.01.2012-08:01:49;Juan
+87;Accepted-Wait;23.01.2012-08:01:53;Juan
+87;Accepted-In Progress;23.01.2012-12:03:32;Danny
+87;Queued-Awaiting Assignment;23.01.2012-12:10:53;Danny
+87;Accepted-In Progress;24.01.2012-09:20:55;Abby
+87;Accepted-Wait - User;24.01.2012-09:21:07;Abby
+87;Queued-Awaiting Assignment;26.01.2012-02:37:55;Abby
+87;Queued-Awaiting Assignment;26.01.2012-02:37:56;Abby
+87;Accepted-In Progress;26.01.2012-10:32:09;Tsun Fai
+87;Accepted-In Progress;26.01.2012-10:53:47;Tsun Fai
+87;Queued-Awaiting Assignment;26.01.2012-10:56:23;Tsun Fai
+87;Accepted-In Progress;27.01.2012-00:15:49;Abby
+87;Accepted-Wait - User;27.01.2012-00:16:37;Abby
+87;Accepted-In Progress;03.02.2012-08:23:09;Meishan
+87;Queued-Awaiting Assignment;03.02.2012-08:26:57;Meishan
+87;Queued-Awaiting Assignment;03.02.2012-08:26:58;Meishan
+87;Accepted-In Progress;03.02.2012-08:40:13;Juan
+87;Accepted-Assigned;03.02.2012-08:40:18;Juan
+87;Accepted-In Progress;03.02.2012-08:50:32;Danny
+87;Queued-Awaiting Assignment;03.02.2012-08:51:07;Danny
+87;Accepted-In Progress;03.02.2012-08:52:19;Danny
+87;Accepted-In Progress;03.02.2012-08:52:23;Danny
+87;Queued-Awaiting Assignment;03.02.2012-08:53:06;Danny
+87;Accepted-In Progress;27.03.2012-16:45:01;Earl
+87;Accepted-Wait;27.03.2012-16:45:35;Earl
+87;Accepted-In Progress;04.05.2012-13:15:31;Juan
+87;Completed-Resolved;04.05.2012-13:19:49;Juan
+87;Completed-Closed;11.05.2012-23:21:10;Siebel
+88;Accepted-In Progress;20.01.2012-12:21:35;Marie
+88;Accepted-In Progress;20.01.2012-12:22:16;Marie
+88;Accepted-Wait - User;20.01.2012-14:44:54;Marie
+88;Accepted-In Progress;02.05.2012-14:38:13;Stig
+88;Accepted-In Progress;02.05.2012-14:46:30;Stig
+88;Completed-Resolved;03.05.2012-07:12:55;Stig
+88;Completed-Closed;10.05.2012-23:25:53;Siebel
+89;Accepted-In Progress;23.01.2012-06:22:53;Muthu
+89;Accepted-In Progress;23.01.2012-06:22:58;Muthu
+89;Accepted-Wait - User;23.01.2012-06:24:25;Muthu
+89;Accepted-In Progress;24.01.2012-00:19:46;Muthu
+89;Queued-Awaiting Assignment;24.01.2012-00:22:58;Muthu
+89;Accepted-In Progress;24.01.2012-13:32:32;André
+89;Accepted-Wait - User;25.01.2012-19:01:12;André
+89;Completed-Resolved;27.01.2012-18:16:16;André
+89;Accepted-In Progress;31.01.2012-13:30:31;André
+89;Accepted-Wait - User;31.01.2012-13:30:40;André
+89;Completed-Resolved;09.02.2012-13:33:15;André
+89;Completed-Closed;16.02.2012-22:37:00;Siebel
+89;Completed-Closed;11.03.2012-21:14:09;Dennis
+89;Accepted-In Progress;11.03.2012-21:14:12;Dennis
+89;Queued-Awaiting Assignment;11.03.2012-21:14:50;Dennis
+89;Accepted-In Progress;12.03.2012-05:51:52;Sudhakar Moses
+89;Queued-Awaiting Assignment;12.03.2012-05:52:01;Sudhakar Moses
+89;Accepted-In Progress;12.03.2012-15:59:24;Eduardo
+89;Queued-Awaiting Assignment;12.03.2012-16:39:45;Eduardo
+89;Accepted-In Progress;12.03.2012-18:26:39;Eric
+89;Completed-Resolved;08.05.2012-15:35:41;Eric
+89;Completed-Closed;15.05.2012-23:22:45;Siebel
+90;Accepted-In Progress;23.01.2012-08:34:34;Katia
+90;Accepted-In Progress;23.01.2012-08:34:46;Katia
+90;Queued-Awaiting Assignment;23.01.2012-08:40:13;Katia
+90;Accepted-In Progress;25.01.2012-09:22:08;Juan
+90;Queued-Awaiting Assignment;25.01.2012-11:27:54;Juan
+90;Queued-Awaiting Assignment;25.01.2012-11:27:55;Juan
+90;Accepted-In Progress;25.01.2012-13:17:10;Katia
+90;Accepted-Wait - User;25.01.2012-13:17:58;Katia
+90;Queued-Awaiting Assignment;25.01.2012-13:39:25;Katia
+90;Accepted-In Progress;25.01.2012-13:39:28;Katia
+90;Queued-Awaiting Assignment;25.01.2012-13:39:58;Katia
+90;Accepted-In Progress;25.01.2012-15:24:34;Juan
+90;Queued-Awaiting Assignment;26.01.2012-10:17:06;Juan
+90;Accepted-In Progress;26.01.2012-10:30:16;Earl
+90;Queued-Awaiting Assignment;26.01.2012-10:33:54;Earl
+90;Accepted-In Progress;26.01.2012-12:08:25;Katia
+90;Accepted-Wait - User;26.01.2012-12:08:29;Katia
+90;Queued-Awaiting Assignment;26.01.2012-12:14:36;Katia
+90;Accepted-In Progress;21.03.2012-08:28:30;Earl
+90;Accepted-Wait;21.03.2012-08:28:39;Earl
+90;Accepted-In Progress;04.05.2012-08:22:56;Juan
+90;Completed-Resolved;04.05.2012-08:23:22;Juan
+90;Completed-Closed;11.05.2012-23:21:09;Siebel
+91;Accepted-In Progress;23.01.2012-09:43:58;Andre
+91;Accepted-In Progress;23.01.2012-09:44:27;Andre
+91;Queued-Awaiting Assignment;23.01.2012-09:47:21;Andre
+91;Accepted-In Progress;23.01.2012-10:46:19;Piotr
+91;Accepted-Assigned;23.01.2012-10:46:37;Piotr
+91;Accepted-In Progress;26.01.2012-01:35:23;Minkyu
+91;Accepted-Wait - User;26.01.2012-04:58:59;Minkyu
+91;Completed-Resolved;07.05.2012-00:19:12;Minkyu
+91;Completed-Closed;14.05.2012-23:24:19;Siebel
+92;Accepted-In Progress;24.01.2012-14:00:45;Alexandre
+92;Accepted-In Progress;24.01.2012-14:01:41;Alexandre
+92;Queued-Awaiting Assignment;24.01.2012-14:04:55;Alexandre
+92;Accepted-In Progress;25.01.2012-10:02:50;Samuel
+92;Accepted-Wait - Vendor;25.01.2012-12:47:38;Samuel
+92;Accepted-In Progress;02.04.2012-14:28:05;Lars
+92;Queued-Awaiting Assignment;09.05.2012-10:10:59;Lars
+92;Accepted-In Progress;09.05.2012-12:38:16;Valeria
+92;Accepted-Assigned;09.05.2012-12:45:03;Valeria
+92;Accepted-In Progress;10.05.2012-08:50:06;Alexandre
+92;Completed-Resolved;10.05.2012-08:51:17;Alexandre
+92;Completed-Closed;10.05.2012-23:25:52;Siebel
+93;Accepted-In Progress;24.01.2012-17:08:57;Marco
+93;Accepted-In Progress;24.01.2012-17:09:20;Marco
+93;Queued-Awaiting Assignment;24.01.2012-17:13:40;Marco
+93;Accepted-In Progress;26.01.2012-08:18:27;Daniel
+93;Accepted-Wait - User;31.01.2012-13:15:53;Daniel
+93;Completed-Resolved;02.05.2012-10:17:12;Daniel
+93;Completed-Closed;09.05.2012-23:20:31;Siebel
+94;Accepted-In Progress;25.01.2012-14:26:05;Evy
+94;Accepted-In Progress;25.01.2012-14:26:24;Evy
+94;Queued-Awaiting Assignment;25.01.2012-14:33:47;Evy
+94;Accepted-In Progress;25.01.2012-16:33:27;Stéphane
+94;Queued-Awaiting Assignment;08.05.2012-10:26:16;Stéphane
+94;Accepted-In Progress;08.05.2012-10:55:42;Renaat
+94;Completed-Resolved;08.05.2012-10:56:23;Renaat
+94;Completed-Closed;08.05.2012-23:15:53;Siebel
+95;Accepted-In Progress;26.01.2012-04:26:14;Chie
+95;Accepted-In Progress;26.01.2012-04:53:38;Chie
+95;Completed-In Call;26.01.2012-04:59:10;Chie
+95;Accepted-In Progress;27.01.2012-08:57:46;Yoko
+95;Accepted-Wait - User;27.01.2012-09:41:05;Yoko
+95;Accepted-In Progress;30.01.2012-00:45:43;Santosh
+95;Accepted-Wait - User;30.01.2012-00:58:44;Santosh
+95;Accepted-In Progress;03.05.2012-21:47:28;Santosh
+95;Accepted-In Progress;03.05.2012-21:47:35;Santosh
+95;Completed-Resolved;03.05.2012-21:49:07;Santosh
+95;Completed-Closed;03.05.2012-21:49:13;Santosh
+96;Accepted-In Progress;26.01.2012-08:26:35;Santosh
+96;Accepted-In Progress;26.01.2012-08:27:14;Santosh
+96;Accepted-Wait - User;26.01.2012-08:44:21;Santosh
+96;Accepted-In Progress;03.05.2012-21:57:38;Santosh
+96;Completed-Resolved;03.05.2012-21:58:27;Santosh
+96;Completed-Closed;03.05.2012-21:58:34;Santosh
+97;Queued-Awaiting Assignment;27.01.2012-10:57:13;Henrik
+97;Queued-Awaiting Assignment;27.01.2012-10:59:37;Henrik
+97;Queued-Awaiting Assignment;27.01.2012-11:02:08;Henrik
+97;Accepted-In Progress;30.01.2012-08:36:57;Tommy
+97;Accepted-Assigned;30.01.2012-08:37:08;Tommy
+97;Accepted-In Progress;31.01.2012-09:23:52;Lars
+97;Accepted-Wait - User;31.01.2012-12:41:20;Lars
+97;Accepted-In Progress;01.02.2012-07:40:26;Lars
+97;Accepted-Wait - User;03.02.2012-07:24:28;Lars
+97;Completed-Resolved;02.05.2012-08:34:45;Lars
+97;Completed-Closed;09.05.2012-23:20:30;Siebel
+98;Accepted-In Progress;26.01.2012-21:36:33;Rick
+98;Accepted-In Progress;26.01.2012-21:36:54;Rick
+98;Accepted-Assigned;26.01.2012-21:38:58;Rick
+98;Accepted-In Progress;27.01.2012-13:40:25;Ram
+98;Accepted-Wait;20.03.2012-12:30:29;Ram
+98;Completed-Resolved;04.05.2012-14:25:09;Ram
+98;Completed-Closed;11.05.2012-23:21:08;Siebel
+99;Accepted-In Progress;27.01.2012-22:38:16;Joakim
+99;Accepted-In Progress;27.01.2012-22:40:01;Joakim
+99;Queued-Awaiting Assignment;27.01.2012-22:42:41;Joakim
+99;Accepted-In Progress;30.01.2012-16:02:24;Carolyn
+99;Queued-Awaiting Assignment;30.01.2012-16:02:48;Carolyn
+99;Accepted-In Progress;31.01.2012-22:50:24;Yangeun
+99;Queued-Awaiting Assignment;31.01.2012-22:50:49;Yangeun
+99;Accepted-In Progress;01.02.2012-19:50:36;Jenny
+99;Accepted-Assigned;01.02.2012-19:51:44;Jenny
+99;Accepted-In Progress;02.02.2012-07:30:19;Bozidar
+99;Accepted-Wait - User;02.02.2012-07:30:31;Bozidar
+99;Completed-Resolved;15.05.2012-14:14:44;Bozidar
+99;Completed-Closed;22.05.2012-23:22:12;Siebel
+100;Accepted-In Progress;29.01.2012-23:41:44;Dennis
+100;Accepted-In Progress;29.01.2012-23:41:52;Dennis
+100;Queued-Awaiting Assignment;29.01.2012-23:43:59;Dennis
+100;Accepted-In Progress;30.01.2012-08:51:07;Dusan
+100;Accepted-Wait - User;31.01.2012-10:43:33;Dusan
+100;Accepted-Wait;15.02.2012-15:36:57;Dusan
+100;Accepted-Wait - Implementation;12.03.2012-16:42:20;Dusan
+100;Accepted-In Progress;16.03.2012-07:12:32;Dusan
+100;Accepted-Wait - User;21.03.2012-15:48:48;Dusan
+100;Accepted-Wait - Implementation;26.03.2012-08:23:10;Dusan
+100;Accepted-Wait - User;28.03.2012-08:59:21;Dusan
+100;Accepted-Wait - Implementation;30.03.2012-13:47:27;Dusan
+100;Completed-Resolved;08.05.2012-08:07:36;Dusan
+100;Completed-Closed;15.05.2012-23:22:43;Siebel
