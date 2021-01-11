@@ -1,7 +1,6 @@
 import shap
 import xnap.utils as utils
 import numpy
-import tensorflow as tf
 
 
 def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size, background, model, pred_act_str,
@@ -41,7 +40,7 @@ def calc_relevance_score_prefix(args, preprocessor, event_log, case, prefix_size
     subseq_case = case[:prefix_size]
     features_tensor = preprocessor.get_features_tensor(args, event_log, [subseq_case])
 
-    # perform shap
+    # Perform shap
     explainer = shap.DeepExplainer(model, background)
     shap_values = explainer.shap_values(features_tensor)
 
@@ -120,12 +119,12 @@ def create_heatmap_data(preprocessor, event_log, subseq_case, shap_values, prefi
         i_val = 0
         act_relevance = 0
         context_relevance = 0
-        # activity
+        # Activity
         while i_val < act_enc_length:
             act_relevance += shap_event[i_val]
             i_val += 1
         R_act[timestep] = act_relevance
-        # context
+        # Context
         for context_name, context_length in context_enc_lengths.items():
             i_end = i_val + context_length
             while i_val < i_end:
@@ -156,13 +155,13 @@ def create_heatmap_data(preprocessor, event_log, subseq_case, shap_values, prefi
         print("Relevance scores:")
         for timestep, event_attributes in enumerate(prefix_words):
             # activity
-            utils.llprint("'%s' : %s, " % (event_attributes[0], R_act[timestep]))
+            utils.ll_print("'%s' : %s, " % (event_attributes[0], R_act[timestep]))
             # context
             for i_context, context_attr in enumerate(context_attributes):
                 if i_context == len(context_attributes)-1 and timestep == len(prefix_words)-1:
-                    utils.llprint("'%s' : %s " % (event_attributes[i_context+1], R_context[timestep][context_attr]))
+                    utils.ll_print("'%s' : %s " % (event_attributes[i_context + 1], R_context[timestep][context_attr]))
                 else:
-                    utils.llprint("'%s' : %s, " % (event_attributes[i_context+1], R_context[timestep][context_attr]))
+                    utils.ll_print("'%s' : %s, " % (event_attributes[i_context + 1], R_context[timestep][context_attr]))
         print("\n")
 
     return R_words, R_words_context

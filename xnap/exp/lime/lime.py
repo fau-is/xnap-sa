@@ -327,7 +327,7 @@ def wrapped_classifier_fn(subseq_str_list):
             per perturbed string/sequence of original string/subsequence).
 
         """
-        model = utils.load_nap_model(args_, preprocessor_)
+        model = utils.load_nap_model(args_)
         pred_probab = []
         for subseq_str in subseq_str_list:
             features_tensor = transform_string_to_tensor(subseq_str)

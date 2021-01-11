@@ -10,34 +10,40 @@ from tensorflow.keras.models import load_model
 from joblib import load
 
 
-output = {
-    "accuracy_value": 0,
-    "precision_value": 0,
-    "recall_value": 0,
-    "f1_value": 0,
-    "training_time_seconds": 0,
-    "prediction_times_seconds": 0,
-    "explanation_times_seconds": 0
+measures = {
+    "accuracy_value": 0.0,
+    "precision_micro_value": 0.0,
+    "precision_macro_value": 0.0,
+    "precision_weighted_value": 0.0,
+    "recall_micro_value": 0.0,
+    "recall_macro_value": 0.0,
+    "recall_weighted_value": 0.0,
+    "f1_micro_value": 0.0,
+    "f1_macro_value": 0.0,
+    "f1_weighted_value": 0.0,
+    "auc_roc_value": 0.0,
+    "training_time_seconds": 0.0,
+    "prediction_times_seconds": 0.0,
+    "explanation_times_seconds": 0.0
 }
 
 
 def load_output():
-    return output
+    return measures
 
 
-def avg(numbers):
-    if len(numbers) == 0:
-        return sum(numbers)
 
-    return sum(numbers) / len(numbers)
-
-
-def llprint(message):
+def ll_print(message):
     sys.stdout.write(message)
     sys.stdout.flush()
 
 
 def str2bool(v):
+    """
+    Helper method.
+    :param v:
+    :return:
+    """
     if v.lower() in ('yes', 'true', 't', 'y', '1'):
         return True
     elif v.lower() in ('no', 'false', 'f', 'n', '0'):
@@ -47,6 +53,11 @@ def str2bool(v):
 
 
 def clear_measurement_file(args):
+    """
+    Cleans the measurement file.
+    :param args:
+    :return:
+    """
     open(get_output_path_performance_measurements(args), "w").close()
 
 
@@ -60,10 +71,9 @@ def set_seed(args):
     tf.random.set_seed(args.seed_val)
 
 
-def get_output(args, _output):
+def calculate_measures(args, _measures):
     prefix = 0
     prefix_all_enabled = 1
-
     predicted_label = list()
     ground_truth_label = list()
 
@@ -81,34 +91,49 @@ def get_output(args, _output):
                     ground_truth_label.append(row[2])
                     predicted_label.append(row[3])
 
-    _output["accuracy_value"] = sklearn.metrics.accuracy_score(ground_truth_label, predicted_label)
-    _output["precision_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted')
-    _output["recall_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted')
-    _output["f1_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted')
+    _measures["accuracy_value"] = sklearn.metrics.accuracy_score(ground_truth_label, predicted_label)
+    _measures["precision_micro_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='micro')
+    _measures["precision_macro_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='macro')
+    _measures["precision_weighted_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted')
+    _measures["recall_micro_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='micro')
+    _measures["recall_macro_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='macro')
+    _measures["recall_weighted_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted')
+    _measures["f1_micro_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='micro')
+    _measures["f1_macro_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='macro')
+    _measures["f1_weighted_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted')
 
-    return _output
+    return _measures
 
 
 def print_output(args, _output):
 
-    llprint("\nAccuracy: %f\n" % (_output["accuracy_value"]))
-    llprint("Precision (weighted): %f\n" % (_output["precision_value"]))
-    llprint("Recall (weighted): %f\n" % (_output["recall_value"]))
-    llprint("F1-Score (weighted): %f\n" % (_output["f1_value"]))
+    ll_print("\nAccuracy: %f\n" % (_output["accuracy_value"]))
+
+    ll_print("Precision (micro): %f\n" % (_output["precision_micro_value"]))
+    ll_print("Precision (macro): %f\n" % (_output["precision_macro_value"]))
+    ll_print("Precision (weighted): %f\n" % (_output["precision_weighted_value"]))
+
+    ll_print("Recall (micro): %f\n" % (_output["recall_micro_value"]))
+    ll_print("Recall (macro): %f\n" % (_output["recall_macro_value"]))
+    ll_print("Recall (weighted): %f\n" % (_output["recall_weighted_value"]))
+
+    ll_print("F1-Score (micro): %f\n" % (_output["f1_micro_value"]))
+    ll_print("F1-Score (macro): %f\n" % (_output["f1_macro_value"]))
+    ll_print("F1-Score (weighted): %f\n" % (_output["f1_weighted_value"]))
 
     if args.mode == 0:
-        llprint("Training time total: %f seconds\n" % (_output["training_time_seconds"]))
-        llprint("Prediction time avg: %f seconds\n" % (_output["prediction_times_seconds"]))
-        llprint("Prediction time total: %f seconds\n" % (_output["prediction_times_seconds"]))
+        ll_print("Training time total: %f seconds\n" % (_output["training_time_seconds"]))
+        ll_print("Prediction time avg: %f seconds\n" % (_output["prediction_times_seconds"]))
+        ll_print("Prediction time total: %f seconds\n" % (_output["prediction_times_seconds"]))
 
     if args.mode == 2:
-        llprint("Explanation time avg: %f seconds\n" % (_output["explanation_times_seconds"]))
-        llprint("Explanation time total: %f seconds\n" % (_output["explanation_times_seconds"]))
-    llprint("\n")
+        ll_print("Explanation time avg: %f seconds\n" % (_output["explanation_times_seconds"]))
+        ll_print("Explanation time total: %f seconds\n" % (_output["explanation_times_seconds"]))
+    ll_print("\n")
 
 
 
-def write_output(args, _output):
+def write_output(args, _measures):
     names = ["experiment",
              "mode",
              "validation",
@@ -129,19 +154,25 @@ def write_output(args, _output):
     mode = "split-%s" % args.split_rate_test
 
     values = [experiment, mode, "split-validation",
-              _output["accuracy_value"],
-              _output["precision_value"],
-              _output["recall_value"],
-              _output["f1_value"]]
+              _measures["accuracy_value"],
+              _measures["precision_micro_value"],
+              _measures["precision_macro_value"],
+              _measures["precision_weighted_value"],
+              _measures["recall_micro_value"],
+              _measures["recall_macro_value"],
+              _measures["recall_weighted_value"],
+              _measures["f1_micro_value"],
+              _measures["f1_macro_value"],
+              _measures["f1_weighted_value"]]
 
     if args.mode == 0:
-        values.append(_output["training_time_seconds"])
-        values.append(_output["prediction_times_seconds"])
-        values.append(_output["prediction_times_seconds"])
+        values.append(_measures["training_time_seconds"])
+        values.append(_measures["prediction_times_seconds"])
+        values.append(_measures["prediction_times_seconds"])
 
     if args.mode == 2:
-        values.append(_output["explanation_times_seconds"])
-        values.append(_output["explanation_times_seconds"])
+        values.append(_measures["explanation_times_seconds"])
+        values.append(_measures["explanation_times_seconds"])
     values.append(arrow.now())
 
     output_path = get_output_path_performance_measurements(args)
@@ -149,7 +180,7 @@ def write_output(args, _output):
     with open(output_path, mode='a', newline='') as file:
         writer = csv.writer(file, delimiter=';', quoting=csv.QUOTE_NONE, escapechar=' ')
         if os.stat(output_path).st_size == 0:
-            # if file is empty
+            # If file is empty
             writer.writerow(names)
         writer.writerow(values)
 
@@ -159,9 +190,9 @@ def get_output_path_performance_measurements(args):
     directory = './%s%s' % (args.task, args.result_dir[1:])
 
     if args.mode == 0:
-        file = 'output_%s_%s.csv' % (args.data_set[:-4], args.classifier)
+        file = 'measures_%s_%s.csv' % (args.data_set[:-4], args.classifier)
     if args.mode == 2:
-        file = 'output_%s_%s_manipulated.csv' % (args.data_set[:-4], args.classifier)
+        file = 'measures_%s_%s_manipulated.csv' % (args.data_set[:-4], args.classifier)
 
     return directory + file
 
@@ -180,7 +211,7 @@ def get_output_path_predictions(args):
     return directory + file
 
 
-def get_model_dir(args, preprocessor):
+def get_model_dir(args):
     """
     Returns the path to the stored trained model for the next activity prediction.
 
@@ -188,8 +219,6 @@ def get_model_dir(args, preprocessor):
     ----------
     args : Namespace
         Settings of the configuration parameters.
-    preprocessor : nap.preprocessor.Preprocessor
-        Object to preprocess input data.
 
     Returns
     -------
@@ -197,9 +226,8 @@ def get_model_dir(args, preprocessor):
         Path to stored model.
 
     """
-    model_dir = "%sca_%s_%s_%s" % (args.model_dir, args.task, args.data_set[0:len(args.data_set) - 4],
-                                   preprocessor.iteration_cross_validation)
-    if args.classifier == "DNN":
+    model_dir = "%sca_%s_%s" % (args.model_dir, args.task, args.data_set[0:len(args.data_set) - 4])
+    if args.classifier == "LSTM":
         model_dir += ".h5"
     else:
         model_dir += ".joblib"
@@ -207,7 +235,7 @@ def get_model_dir(args, preprocessor):
     return model_dir
 
 
-def load_nap_model(args, preprocessor):
+def load_nap_model(args):
     """
     Returns ML model used for next activity prediction.
 
@@ -215,8 +243,6 @@ def load_nap_model(args, preprocessor):
     ----------
     args : Namespace
         Settings of the configuration parameters.
-    preprocessor : nap.preprocessor.Preprocessor
-        Object to preprocess input data.
 
     Returns
     -------
@@ -224,8 +250,8 @@ def load_nap_model(args, preprocessor):
 
     """
 
-    model_dir = get_model_dir(args, preprocessor)
-    if args.classifier == "DNN":
+    model_dir = get_model_dir(args)
+    if args.classifier == "LSTM":
         model = load_model(model_dir)
     else:
         model = load(model_dir)

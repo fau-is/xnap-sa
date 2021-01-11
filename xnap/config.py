@@ -25,10 +25,10 @@ def load():
     parser.add_argument('--removed_events_relevance', default="highest", type=str)  # lowest, highest
     parser.add_argument('--eager_execution', default=False, type=utils.str2bool)  # to avoid retracing with tf for lrp
     # Classifier
-    #   DNN -> Deep Neural Network
+    #   LSTM -> Bi-directional long short-term neural network
     #   RF  -> Random Forest
     #   DT  -> Decision Tree
-    parser.add_argument('--classifier', default="DT", type=str)  # DNN, RF, DT
+    parser.add_argument('--classifier', default="LSTM", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=3, type=int)
@@ -38,7 +38,7 @@ def load():
 
     # Directories
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="helpdesk_raw.csv")
+    parser.add_argument('--data_set', default="helpdesk_raw_sample_100.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
@@ -47,13 +47,12 @@ def load():
     parser.add_argument('--seed', default=True, type=utils.str2bool)
     parser.add_argument('--seed_val', default=1377, type=int)
     parser.add_argument('--shuffle', default=False, type=int)
-    parser.add_argument('--num_folds', default=1, type=int)
     parser.add_argument('--split_rate_test', default=0.8, type=float)
     parser.add_argument('--val_split', default=0.1, type=float)
     parser.add_argument('--batch_size_train', default=128, type=int)
     parser.add_argument('--batch_size_test', default=1, type=int)
 
-    # pre-processing
+    # Pre-processing
     parser.add_argument('--encoding_num', default="min_max_norm", type=str)
     parser.add_argument('--encoding_cat', default="int", type=str)  # onehot, hash or int for categorical attributes
     parser.add_argument('--num_hash_output', default=10, type=int)

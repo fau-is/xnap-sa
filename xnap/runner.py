@@ -11,7 +11,7 @@ if __name__ == '__main__':
     args = config.load()
     if args.seed:
         utils.set_seed(args)
-    output = utils.load_output()
+    measures = utils.measures
     if args.mode == 0 or args.mode == 2:
         utils.clear_measurement_file(args)
     preprocessor = Preprocessor()
@@ -22,12 +22,12 @@ if __name__ == '__main__':
 
     if args.mode == 0:
 
-        train.train(args, preprocessor, event_log, train_indices, output)
-        test.test(args, preprocessor, event_log, test_indices, output)
+        train.train(args, preprocessor, event_log, train_indices, measures)
+        test.test(args, preprocessor, event_log, test_indices, measures)
 
-        output = utils.get_output(args, output)
-        utils.print_output(args, output)
-        utils.write_output(args, output)
+        measures = utils.calculate_measures(args, measures)
+        utils.print_output(args, measures)
+        utils.write_output(args, measures)
 
     elif args.mode == 1:
 
@@ -41,6 +41,6 @@ if __name__ == '__main__':
                                                                            train_indices, test_indices, output_exp)
         test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices)
 
-        output_exp = utils.get_output(args, output_exp)
+        output_exp = utils.calculate_measures(args, output_exp)
         utils.print_output(args, output_exp)
         utils.write_output(args, output_exp)

@@ -25,16 +25,16 @@ def test(args, preprocessor, event_log, test_indices, output):
     """
 
     test_cases = preprocessor.get_subset_cases(args, event_log, test_indices)
-    model = utils.load_nap_model(args, preprocessor)
+    model = utils.load_nap_model(args)
 
     with open(utils.get_output_path_predictions(args), 'w') as result_file_fold:
         result_writer = csv.writer(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        result_writer.writerow(["CaseID", "Prefix length", "Ground truth", "Predicted"])
+        result_writer.writerow(["CaseID", "Prefix length", "Ground truth activity", "Predicted activity"])
 
         prediction_size = 1
         # for prefix_size >= 1
         for prefix_size in range(1, preprocessor.get_max_case_length(event_log)):
-            utils.llprint("Prefix size: %d\n" % prefix_size)
+            utils.ll_print("Prefix size: %d\n" % prefix_size)
 
             for case in test_cases:
                 # 1.1.) prepare data: case subsequence
@@ -67,7 +67,7 @@ def test(args, preprocessor, event_log, test_indices, output):
                     prediction.append(list(predicted_label))
 
                     if is_end_label(predicted_label, preprocessor):
-                        utils.llprint('-- End of case is predicted -- \n')
+                        utils.ll_print('-- End of case is predicted -- \n')
                         break
 
                 # 3.) store prediction in file
@@ -168,7 +168,7 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
                 prefix_size = len(subseq)
                 case = test_set[idx_case]
                 case_id = case[0].get(args.case_id_key)
-                utils.llprint("Prefix size: %d  Case ID: %d\n" % (prefix_size, case_id))
+                utils.ll_print("Prefix size: %d  Case ID: %d\n" % (prefix_size, case_id))
 
                 if contains_end_event(args, subseq, preprocessor):
                     # make no prediction for this subsequence, since this case has ended already
@@ -189,7 +189,7 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
                     prediction.append(list(predicted_label))
 
                     if is_end_label(predicted_label, preprocessor):
-                        utils.llprint('-- End of case is predicted -- \n')
+                        utils.ll_print('-- End of case is predicted -- \n')
                         break
 
                 # 3. save prediction in certain format

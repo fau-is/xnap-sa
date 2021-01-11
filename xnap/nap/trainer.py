@@ -7,7 +7,7 @@ from sklearn.tree import DecisionTreeClassifier
 import joblib
 
 
-def train(args, preprocessor, event_log, train_indices, output):
+def train(args, preprocessor, event_log, train_indices, measures):
 
     train_cases = preprocessor.get_subset_cases(args, event_log, train_indices)
     train_subseq_cases = preprocessor.get_subsequences_of_cases(train_cases)
@@ -16,20 +16,20 @@ def train(args, preprocessor, event_log, train_indices, output):
     labels_tensor = preprocessor.get_labels_tensor(args, train_cases)
 
     print('Create machine learning model ... \n')
-    if args.classifier == "DNN":
+    if args.classifier == "LSTM":
         # Deep Neural Network
-        train_dnn(args, preprocessor, event_log, features_tensor, labels_tensor, output)
+        train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, measures)
 
     if args.classifier == "RF":
         # Random Forest
-        train_random_forest(args, preprocessor, features_tensor, labels_tensor, output)
+        train_random_forest(args, preprocessor, features_tensor, labels_tensor, measures)
 
     if args.classifier == "DT":
         # Decision Tree
-        train_decision_tree(args, preprocessor, features_tensor, labels_tensor, output)
+        train_decision_tree(args, preprocessor, features_tensor, labels_tensor, measures)
 
 
-def train_dnn(args, preprocessor, event_log, features_tensor, labels_tensor, output):
+def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, output):
 
     max_case_len = preprocessor.get_max_case_length(event_log)
     num_features = preprocessor.get_num_features()
@@ -61,7 +61,7 @@ def train_dnn(args, preprocessor, event_log, features_tensor, labels_tensor, out
 
     model.compile(loss={'act_output': 'categorical_crossentropy'}, optimizer=optimizer)
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
-    model_checkpoint = tf.keras.callbacks.ModelCheckpoint(utils.get_model_dir(args, preprocessor),
+    model_checkpoint = tf.keras.callbacks.ModelCheckpoint(utils.get_model_dir(args),
                                                           monitor='val_loss',
                                                           verbose=0,
                                                           save_best_only=True,
@@ -84,8 +84,9 @@ def train_dnn(args, preprocessor, event_log, features_tensor, labels_tensor, out
               callbacks=[early_stopping, model_checkpoint, lr_reducer],
               batch_size=args.batch_size_train,
               epochs=args.dnn_num_epochs)
+
     training_time = datetime.now() - start_training_time
-    output["training_time_seconds"].append(training_time.total_seconds())
+    output["training_time_seconds"] = training_time.total_seconds()
 
 
 def train_random_forest(args, preprocessor, features_tensor_flattened, labels_tensor, output):

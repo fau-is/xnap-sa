@@ -90,7 +90,7 @@ class Preprocessor(object):
     def encode_data(self, args, df):
         """ Encodes an event log represented by a data frame """
 
-        utils.llprint('Encode data ... \n')
+        utils.ll_print('Encode data ... \n')
 
         encoded_df = pandas.DataFrame(df.iloc[:, 0])
 
