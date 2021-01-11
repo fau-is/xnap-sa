@@ -4,7 +4,7 @@ from pm4py.objects.conversion.log import converter as log_converter
 from pm4py.objects.log.log import Event
 import xnap.utils as utils
 import category_encoders
-from sklearn.model_selection import KFold, ShuffleSplit
+from sklearn.model_selection import ShuffleSplit
 
 
 class Preprocessor(object):
@@ -258,7 +258,6 @@ class Preprocessor(object):
             if tuple_row not in tuple_unique_rows:
                 tuple_unique_rows.append(tuple_row)
 
-        # self.context['strings_to_one_hot'][column_name] = dict(tuple_unique_rows)
         self.context['one_hot_to_strings'][column_name] = dict([(t[1], t[0]) for t in tuple_unique_rows])
 
     def transform_encoded_attribute_columns_to_single_column(self, encoded_columns, df, column_name):
@@ -444,19 +443,6 @@ class Preprocessor(object):
             return indices_[:int(len(indices_) * args.split_rate_test)], \
                    indices_[int(len(indices_) * args.split_rate_test):]
 
-    def get_indices_k_fold_validation(self, args, event_log):
-        """ Produces indices for each fold of a k-fold cross-validation """
-
-        kFold = KFold(n_splits=args.num_folds, random_state=args.seed_val, shuffle=args.shuffle)
-
-        train_index_per_fold = []
-        test_index_per_fold = []
-
-        for train_indices, test_indices in kFold.split(event_log):
-            train_index_per_fold.append(train_indices)
-            test_index_per_fold.append(test_indices)
-
-        return train_index_per_fold, test_index_per_fold
 
     def get_subset_cases(self, args, event_log, indices):
         """ Retrieves cases of a fold """

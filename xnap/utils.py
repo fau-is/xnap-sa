@@ -144,15 +144,11 @@ def write_output(args, _output, index_fold):
 
     experiment = "%s-%s" % (args.data_set[:-4], args.dnn_architecture)
     mode = get_mode(index_fold, args)
-    values = [experiment, mode]
-    if args.cross_validation:
-        values.append("cross-validation")
-    else:
-        values.append("split-validation")
-    values.append(get_output_value(mode, index_fold, _output, "accuracy_values", args))
-    values.append(get_output_value(mode, index_fold, _output, "precision_values", args))
-    values.append(get_output_value(mode, index_fold, _output, "recall_values", args))
-    values.append(get_output_value(mode, index_fold, _output, "f1_values", args))
+    values = [experiment, mode, "split-validation",
+              get_output_value(mode, index_fold, _output, "accuracy_values", args),
+              get_output_value(mode, index_fold, _output, "precision_values", args),
+              get_output_value(mode, index_fold, _output, "recall_values", args),
+              get_output_value(mode, index_fold, _output, "f1_values", args)]
     if args.mode == 0:
         values.append(get_output_value(mode, index_fold, _output, "training_time_seconds", args))
         values.append(get_output_value(mode, index_fold, _output, "prediction_times_seconds", args))

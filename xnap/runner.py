@@ -42,5 +42,5 @@ if __name__ == '__main__':
         test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices)
 
         output_exp = utils.get_output(args, preprocessor, output_exp)
-        utils.print_output(args, output_exp, -1)
+        utils.print_output(args, output_exp)
         utils.write_output(args, output_exp, -1)
