@@ -22,12 +22,12 @@ def test(args, preprocessor, event_log, test_indices, output):
 
     Returns
     -------
-
     """
+
     test_cases = preprocessor.get_subset_cases(args, event_log, test_indices)
     model = utils.load_nap_model(args, preprocessor)
 
-    with open(utils.get_output_path_predictions(args, preprocessor), 'w') as result_file_fold:
+    with open(utils.get_output_path_predictions(args), 'w') as result_file_fold:
         result_writer = csv.writer(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         result_writer.writerow(["CaseID", "Prefix length", "Ground truth", "Predicted"])
 
@@ -37,7 +37,7 @@ def test(args, preprocessor, event_log, test_indices, output):
             utils.llprint("Prefix size: %d\n" % prefix_size)
 
             for case in test_cases:
-                # 1.1. prepare data: case subsequence
+                # 1.1.) prepare data: case subsequence
                 subseq = get_case_subsequence(case, prefix_size)
 
                 if contains_end_event(args, subseq, preprocessor):
@@ -51,7 +51,7 @@ def test(args, preprocessor, event_log, test_indices, output):
                     if current_prediction_size >= len(ground_truth):
                         continue
 
-                    # 1.2. prepare data: features tensor
+                    # 1.2.) prepare data: features tensor
                     features = preprocessor.get_features_tensor(args, event_log, [subseq])
 
                     if args.classifier == "RF" or args.classifier == "DT":
@@ -60,17 +60,17 @@ def test(args, preprocessor, event_log, test_indices, output):
                         # flatten features tensor
                         features = features.reshape(len(features), max_case_len * num_features)
 
-                    # 2. make prediction
+                    # 2.) make prediction
                     start_prediction_time = datetime.now()
                     predicted_label = predict_label(model, features, preprocessor)
-                    output["prediction_times_seconds"].append((datetime.now() - start_prediction_time).total_seconds())
+                    output["prediction_times_seconds"] = (datetime.now() - start_prediction_time).total_seconds()
                     prediction.append(list(predicted_label))
 
                     if is_end_label(predicted_label, preprocessor):
                         utils.llprint('-- End of case is predicted -- \n')
                         break
 
-                # 3. store prediction in file
+                # 3.) store prediction in file
                 if len(ground_truth) > 0:
                     store_prediction(args, result_writer, case, prefix_size, ground_truth[0],
                                      prediction[0])

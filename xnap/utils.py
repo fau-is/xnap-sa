@@ -11,13 +11,13 @@ from joblib import load
 
 
 output = {
-    "accuracy_values": [],
-    "precision_values": [],
-    "recall_values": [],
-    "f1_values": [],
-    "training_time_seconds": [],
-    "prediction_times_seconds": [],
-    "explanation_times_seconds": []
+    "accuracy_value": 0,
+    "precision_value": 0,
+    "recall_value": 0,
+    "f1_value": 0,
+    "training_time_seconds": 0,
+    "prediction_times_seconds": 0,
+    "explanation_times_seconds": 0
 }
 
 
@@ -60,14 +60,14 @@ def set_seed(args):
     tf.random.set_seed(args.seed_val)
 
 
-def get_output(args, preprocessor, _output):
+def get_output(args, _output):
     prefix = 0
     prefix_all_enabled = 1
 
     predicted_label = list()
     ground_truth_label = list()
 
-    output_path = get_output_path_predictions(args, preprocessor)
+    output_path = get_output_path_predictions(args)
 
     with open(output_path, 'r') as result_file:
         result_reader = csv.reader(result_file, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -81,81 +81,67 @@ def get_output(args, preprocessor, _output):
                     ground_truth_label.append(row[2])
                     predicted_label.append(row[3])
 
-    _output["accuracy_values"].append(sklearn.metrics.accuracy_score(ground_truth_label, predicted_label))
-    _output["precision_values"].append(
-            sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted'))
-    _output["recall_values"].append(
-            sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted'))
-    _output["f1_values"].append(sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted'))
+    _output["accuracy_value"] = sklearn.metrics.accuracy_score(ground_truth_label, predicted_label)
+    _output["precision_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted')
+    _output["recall_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted')
+    _output["f1_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted')
 
     return _output
 
 
 def print_output(args, _output):
 
-    llprint("\nAccuracy avg: %f\n" % (avg(_output["accuracy_values"])))
-    llprint("Precision avg: %f\n" % (avg(_output["precision_values"])))
-    llprint("Recall avg: %f\n" % (avg(_output["recall_values"])))
-    llprint("F1-Score avg: %f\n" % (avg(_output["f1_values"])))
+    llprint("\nAccuracy: %f\n" % (_output["accuracy_value"]))
+    llprint("Precision (weighted): %f\n" % (_output["precision_value"]))
+    llprint("Recall (weighted): %f\n" % (_output["recall_value"]))
+    llprint("F1-Score (weighted): %f\n" % (_output["f1_value"]))
 
     if args.mode == 0:
-        llprint("Training time total: %f seconds\n" % (avg(_output["training_time_seconds"])))
-        llprint("Prediction time avg: %f seconds\n" % (avg(_output["prediction_times_seconds"])))
-        llprint("Prediction time total: %f seconds\n" % (sum(_output["prediction_times_seconds"])))
+        llprint("Training time total: %f seconds\n" % (_output["training_time_seconds"]))
+        llprint("Prediction time avg: %f seconds\n" % (_output["prediction_times_seconds"]))
+        llprint("Prediction time total: %f seconds\n" % (_output["prediction_times_seconds"]))
 
     if args.mode == 2:
-        llprint("Explanation time avg: %f seconds\n" % (avg(_output["explanation_times_seconds"])))
-        llprint("Explanation time total: %f seconds\n" % (sum(_output["explanation_times_seconds"])))
-
+        llprint("Explanation time avg: %f seconds\n" % (_output["explanation_times_seconds"]))
+        llprint("Explanation time total: %f seconds\n" % (_output["explanation_times_seconds"]))
     llprint("\n")
 
 
-def get_mode(index_fold, args):
-    if index_fold == -1:
-        return "split-%s" % args.split_rate_test
-    elif index_fold != args.num_folds:
-        return "fold%s" % index_fold
-    else:
-        return "avg"
 
+def write_output(args, _output):
+    names = ["experiment",
+             "mode",
+             "validation",
+             "accuracy",
+             "precision",
+             "recall",
+             "f1-score"]
 
-def get_output_value(_mode, _index_fold, _output, measure, args):
-    """
-    If fold < max number of folds in cross validation than use a specific value, else avg works. In addition, this holds
-    for split.
-    """
-
-    if _mode != "split-%s" % args.split_rate_test and _mode != "avg" and _mode != "sum":
-        return _output[measure][_index_fold]
-    else:
-        if _mode == "sum":
-            return sum(_output[measure])
-        else:
-            return avg(_output[measure])
-
-
-def write_output(args, _output, index_fold):
-    names = ["experiment", "mode", "validation", "accuracy", "precision", "recall", "f1-score"]
     if args.mode == 0:
         names.extend(["training-time-total", "prediction-time-avg", "prediction-time-total"])
+
     if args.mode == 2:
         names.extend(["explanation-time-avg", "explanation-time-total"])
+
     names.append("time-stamp")
 
     experiment = "%s-%s" % (args.data_set[:-4], args.dnn_architecture)
-    mode = get_mode(index_fold, args)
+    mode = "split-%s" % args.split_rate_test
+
     values = [experiment, mode, "split-validation",
-              get_output_value(mode, index_fold, _output, "accuracy_values", args),
-              get_output_value(mode, index_fold, _output, "precision_values", args),
-              get_output_value(mode, index_fold, _output, "recall_values", args),
-              get_output_value(mode, index_fold, _output, "f1_values", args)]
+              _output["accuracy_value"],
+              _output["precision_value"],
+              _output["recall_value"],
+              _output["f1_value"]]
+
     if args.mode == 0:
-        values.append(get_output_value(mode, index_fold, _output, "training_time_seconds", args))
-        values.append(get_output_value(mode, index_fold, _output, "prediction_times_seconds", args))
-        values.append(get_output_value("sum", index_fold, _output, "prediction_times_seconds", args))
+        values.append(_output["training_time_seconds"])
+        values.append(_output["prediction_times_seconds"])
+        values.append(_output["prediction_times_seconds"])
+
     if args.mode == 2:
-        values.append(get_output_value(mode, index_fold, _output, "explanation_times_seconds", args))
-        values.append(get_output_value("sum", index_fold, _output, "explanation_times_seconds", args))
+        values.append(_output["explanation_times_seconds"])
+        values.append(_output["explanation_times_seconds"])
     values.append(arrow.now())
 
     output_path = get_output_path_performance_measurements(args)
@@ -180,7 +166,7 @@ def get_output_path_performance_measurements(args):
     return directory + file
 
 
-def get_output_path_predictions(args, preprocessor):
+def get_output_path_predictions(args):
 
     directory = './' + args.task + args.result_dir[1:]
     file = args.data_set.split(".csv")[0]

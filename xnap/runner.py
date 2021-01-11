@@ -25,9 +25,9 @@ if __name__ == '__main__':
         train.train(args, preprocessor, event_log, train_indices, output)
         test.test(args, preprocessor, event_log, test_indices, output)
 
-        output = utils.get_output(args, preprocessor, output)
+        output = utils.get_output(args, output)
         utils.print_output(args, output)
-        utils.write_output(args, output, -1)
+        utils.write_output(args, output)
 
     elif args.mode == 1:
 
@@ -41,6 +41,6 @@ if __name__ == '__main__':
                                                                            train_indices, test_indices, output_exp)
         test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices)
 
-        output_exp = utils.get_output(args, preprocessor, output_exp)
+        output_exp = utils.get_output(args, output_exp)
         utils.print_output(args, output_exp)
-        utils.write_output(args, output_exp, -1)
+        utils.write_output(args, output_exp)

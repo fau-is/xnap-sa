@@ -28,7 +28,7 @@ def load():
     #   DNN -> Deep Neural Network
     #   RF  -> Random Forest
     #   DT  -> Decision Tree
-    parser.add_argument('--classifier', default="RF", type=str)  # DNN, RF, DT
+    parser.add_argument('--classifier', default="DT", type=str)  # DNN, RF, DT
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=3, type=int)

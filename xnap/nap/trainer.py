@@ -90,7 +90,7 @@ def train_dnn(args, preprocessor, event_log, features_tensor, labels_tensor, out
 
 def train_random_forest(args, preprocessor, features_tensor_flattened, labels_tensor, output):
 
-    model = RandomForestClassifier(n_jobs=-1,                           # use all processors
+    model = RandomForestClassifier(n_jobs=-1,  # use all processors
                                    random_state=0,
                                    n_estimators=1000,
                                    criterion="gini",
@@ -133,6 +133,5 @@ def train_decision_tree(args, preprocessor, features_tensor_flattened, labels_te
     start_training_time = datetime.now()
     model.fit(features_tensor_flattened, labels_tensor)
     training_time = datetime.now() - start_training_time
-    output["training_time_seconds"].append(training_time.total_seconds())
-
+    output["training_time_seconds"] = training_time.total_seconds()
     joblib.dump(model, utils.get_model_dir(args, preprocessor))
