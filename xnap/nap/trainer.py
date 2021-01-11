@@ -92,19 +92,19 @@ def train_random_forest(args, preprocessor, features_tensor_flattened, labels_te
 
     model = RandomForestClassifier(n_jobs=-1,                           # use all processors
                                    random_state=0,
-                                   n_estimators=100,                    # default value
-                                   criterion="gini",                    # default value
-                                   max_depth=None,                      # default value
-                                   min_samples_split=2,                 # default value
-                                   min_samples_leaf=1,                  # default value
-                                   min_weight_fraction_leaf=0.0,        # default value
-                                   max_features="auto",                 # default value
-                                   max_leaf_nodes=None,                 # default value
-                                   min_impurity_decrease=0.0,           # default value
-                                   bootstrap=True,                      # default value
-                                   oob_score=False,                     # default value
-                                   warm_start=False,                    # default value
-                                   class_weight=None)                   # default value
+                                   n_estimators=1000,
+                                   criterion="gini",
+                                   max_depth=None,
+                                   min_samples_split=2,
+                                   min_samples_leaf=1,
+                                   min_weight_fraction_leaf=0.0,
+                                   max_features="auto",
+                                   max_leaf_nodes=None,
+                                   min_impurity_decrease=0.0,
+                                   bootstrap=True,
+                                   oob_score=False,
+                                   warm_start=False,
+                                   class_weight=None)
 
     start_training_time = datetime.now()
     model.fit(features_tensor_flattened, labels_tensor)

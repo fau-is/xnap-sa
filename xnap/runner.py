@@ -17,11 +17,8 @@ if __name__ == '__main__':
     preprocessor = Preprocessor()
     event_log = preprocessor.get_event_log(args)
 
-    if args.cross_validation:
-        # train_indices, test_indices = preprocessor.get_indices_k_fold_validation(args, event_log)
-        raise ValueError('cross_validation not yet implemented in XNAP2.0')
-    if not args.cross_validation:
-        train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
+    # split validation
+    train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
 
     if args.mode == 0:
 
