@@ -38,7 +38,7 @@ def load():
 
     # Directories
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="bpi2013i_raw.csv")
+    parser.add_argument('--data_set', default="bpi2020p_raw.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
@@ -56,7 +56,7 @@ def load():
 
     # pre-processing
     parser.add_argument('--encoding_num', default="min_max_norm", type=str)
-    parser.add_argument('--encoding_cat', default="onehot", type=str)  # onehot or hash for categorical attributes
+    parser.add_argument('--encoding_cat', default="int", type=str)  # onehot, hash or int for categorical attributes
     parser.add_argument('--num_hash_output', default=10, type=int)
 
     # pm4py
