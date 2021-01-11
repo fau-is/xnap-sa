@@ -22,14 +22,14 @@ def train(args, preprocessor, event_log, train_indices, measures):
 
     if args.classifier == "RF":
         # Random Forest
-        train_random_forest(args, preprocessor, features_tensor, labels_tensor, measures)
+        train_random_forest(args, features_tensor, labels_tensor, measures)
 
     if args.classifier == "DT":
         # Decision Tree
-        train_decision_tree(args, preprocessor, features_tensor, labels_tensor, measures)
+        train_decision_tree(args, features_tensor, labels_tensor, measures)
 
 
-def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, output):
+def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, measures):
 
     max_case_len = preprocessor.get_max_case_length(event_log)
     num_features = preprocessor.get_num_features()
@@ -86,10 +86,10 @@ def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, ou
               epochs=args.dnn_num_epochs)
 
     training_time = datetime.now() - start_training_time
-    output["training_time_seconds"] = training_time.total_seconds()
+    measures["training_time_seconds"] = training_time.total_seconds()
 
 
-def train_random_forest(args, preprocessor, features_tensor_flattened, labels_tensor, output):
+def train_random_forest(args, features_tensor_flattened, labels_tensor, measures):
 
     model = RandomForestClassifier(n_jobs=-1,  # use all processors
                                    random_state=0,
@@ -110,12 +110,12 @@ def train_random_forest(args, preprocessor, features_tensor_flattened, labels_te
     start_training_time = datetime.now()
     model.fit(features_tensor_flattened, labels_tensor)
     training_time = datetime.now() - start_training_time
-    output["training_time_seconds"].append(training_time.total_seconds())
+    measures["training_time_seconds"].append(training_time.total_seconds())
 
-    joblib.dump(model, utils.get_model_dir(args, preprocessor))
+    joblib.dump(model, utils.get_model_dir(args))
 
 
-def train_decision_tree(args, preprocessor, features_tensor_flattened, labels_tensor, output):
+def train_decision_tree(args, features_tensor_flattened, labels_tensor, measures):
 
     model = DecisionTreeClassifier(criterion='gini',
                                    splitter='best',
@@ -134,5 +134,5 @@ def train_decision_tree(args, preprocessor, features_tensor_flattened, labels_te
     start_training_time = datetime.now()
     model.fit(features_tensor_flattened, labels_tensor)
     training_time = datetime.now() - start_training_time
-    output["training_time_seconds"] = training_time.total_seconds()
-    joblib.dump(model, utils.get_model_dir(args, preprocessor))
+    measures["training_time_seconds"] = training_time.total_seconds()
+    joblib.dump(model, utils.get_model_dir(args))

@@ -28,12 +28,12 @@ measures = {
 }
 
 
-def load_output():
-    return measures
-
-
-
 def ll_print(message):
+    """
+    Helper function
+    :param message:
+    :return:
+    """
     sys.stdout.write(message)
     sys.stdout.flush()
 
@@ -105,42 +105,49 @@ def calculate_measures(args, _measures):
     return _measures
 
 
-def print_output(args, _output):
+def print_measures(args, _measures):
 
-    ll_print("\nAccuracy: %f\n" % (_output["accuracy_value"]))
+    ll_print("\nAccuracy: %f\n" % (_measures["accuracy_value"]))
 
-    ll_print("Precision (micro): %f\n" % (_output["precision_micro_value"]))
-    ll_print("Precision (macro): %f\n" % (_output["precision_macro_value"]))
-    ll_print("Precision (weighted): %f\n" % (_output["precision_weighted_value"]))
+    ll_print("Precision (micro): %f\n" % (_measures["precision_micro_value"]))
+    ll_print("Precision (macro): %f\n" % (_measures["precision_macro_value"]))
+    ll_print("Precision (weighted): %f\n" % (_measures["precision_weighted_value"]))
 
-    ll_print("Recall (micro): %f\n" % (_output["recall_micro_value"]))
-    ll_print("Recall (macro): %f\n" % (_output["recall_macro_value"]))
-    ll_print("Recall (weighted): %f\n" % (_output["recall_weighted_value"]))
+    ll_print("Recall (micro): %f\n" % (_measures["recall_micro_value"]))
+    ll_print("Recall (macro): %f\n" % (_measures["recall_macro_value"]))
+    ll_print("Recall (weighted): %f\n" % (_measures["recall_weighted_value"]))
 
-    ll_print("F1-Score (micro): %f\n" % (_output["f1_micro_value"]))
-    ll_print("F1-Score (macro): %f\n" % (_output["f1_macro_value"]))
-    ll_print("F1-Score (weighted): %f\n" % (_output["f1_weighted_value"]))
+    ll_print("F1-Score (micro): %f\n" % (_measures["f1_micro_value"]))
+    ll_print("F1-Score (macro): %f\n" % (_measures["f1_macro_value"]))
+    ll_print("F1-Score (weighted): %f\n" % (_measures["f1_weighted_value"]))
 
     if args.mode == 0:
-        ll_print("Training time total: %f seconds\n" % (_output["training_time_seconds"]))
-        ll_print("Prediction time avg: %f seconds\n" % (_output["prediction_times_seconds"]))
-        ll_print("Prediction time total: %f seconds\n" % (_output["prediction_times_seconds"]))
+        ll_print("Training time total: %f seconds\n" % (_measures["training_time_seconds"]))
+        ll_print("Prediction time avg: %f seconds\n" % (_measures["prediction_times_seconds"]))
+        ll_print("Prediction time total: %f seconds\n" % (_measures["prediction_times_seconds"]))
 
     if args.mode == 2:
-        ll_print("Explanation time avg: %f seconds\n" % (_output["explanation_times_seconds"]))
-        ll_print("Explanation time total: %f seconds\n" % (_output["explanation_times_seconds"]))
+        ll_print("Explanation time avg: %f seconds\n" % (_measures["explanation_times_seconds"]))
+        ll_print("Explanation time total: %f seconds\n" % (_measures["explanation_times_seconds"]))
     ll_print("\n")
 
 
 
-def write_output(args, _measures):
+def write_measures(args, _measures):
     names = ["experiment",
              "mode",
              "validation",
              "accuracy",
-             "precision",
-             "recall",
-             "f1-score"]
+             "precision (micro)",
+             "precision (macro)",
+             "precision (weighted)",
+             "recall (micro)",
+             "recall (macro)",
+             "recall (weighted)",
+             "f1-score (micro)",
+             "f1-score (macro)",
+             "f1-score (weighted)",
+             ]
 
     if args.mode == 0:
         names.extend(["training-time-total", "prediction-time-avg", "prediction-time-total"])

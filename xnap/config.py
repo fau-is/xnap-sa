@@ -28,7 +28,7 @@ def load():
     #   LSTM -> Bi-directional long short-term neural network
     #   RF  -> Random Forest
     #   DT  -> Decision Tree
-    parser.add_argument('--classifier', default="LSTM", type=str)  # LSTM, RF, DT
+    parser.add_argument('--classifier', default="DT", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=3, type=int)

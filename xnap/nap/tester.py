@@ -96,7 +96,7 @@ def test_prefix(event_log, args, preprocessor, case, prefix_size):
     target_act_id = preprocessor.activity['labels_to_ids'][target_act_label]
     target_act_str = preprocessor.activity['ids_to_strings'][target_act_id]
 
-    model = utils.load_nap_model(args, preprocessor)
+    model = utils.load_nap_model(args)
     pred_prob = model.predict(features_tensor)[0]
     features_tensor_reshaped = features_tensor.reshape(-1, features_tensor.shape[2])
 

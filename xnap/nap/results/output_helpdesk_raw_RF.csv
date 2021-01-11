@@ -1,2 +1,0 @@
-experiment;mode;validation;accuracy;precision;recall;f1-score;training-time-total;prediction-time-avg;prediction-time-total;time-stamp
-helpdesk_raw-0;split-0.8;split-validation;0.21598679556708322;0.046650295859337;0.21598679556708322;0.07672829348049184;8.204309;0.3289785194529625;1395.197901000014;2021-01-11T20:55:54.994063+01:00

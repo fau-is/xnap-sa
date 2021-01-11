@@ -1,4 +1,4 @@
-CaseID;Prefix length;Ground truth;Predicted
+CaseID;Prefix length;Ground truth activity;Predicted activity
 80;1;b'1';b'[8]'
 81;1;b'1';b'[8]'
 82;1;b'1';b'[8]'
