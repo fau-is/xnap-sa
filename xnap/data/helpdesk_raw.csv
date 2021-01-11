@@ -1,4 +1,4 @@
-case;event;time;Resource
+case_id;activity;time;Resource
 0;Assign seriousness;09.10.2012-14:50:17;Value 1
 0;Take in charge ticket;09.10.2012-14:51:01;Value 1
 0;Take in charge ticket;12.10.2012-15:02:56;Value 2

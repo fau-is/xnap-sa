@@ -17,7 +17,7 @@ def train(args, preprocessor, event_log, train_indices, measures):
 
     print('Create machine learning model ... \n')
     if args.classifier == "LSTM":
-        # Deep Neural Network
+        # LSTM
         train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, measures)
 
     if args.classifier == "RF":
@@ -38,17 +38,17 @@ def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, me
     # if args.dnn_architecture == 0:
     # Bidirectional LSTM
 
-    # input layer
+    # Input layer
     main_input = tf.keras.layers.Input(shape=(max_case_len, num_features), name='main_input')
 
-    # hidden layer
+    # Hidden layer
     b1 = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(100,
                                                             activation="tanh",
                                                             kernel_initializer='glorot_uniform',
                                                             return_sequences=False,
                                                             dropout=0.2))(main_input)
 
-    # output layer
+    # Output layer
     act_output = tf.keras.layers.Dense(num_activities,
                                        activation='softmax',
                                        name='act_output',
@@ -93,7 +93,7 @@ def train_random_forest(args, features_tensor_flattened, labels_tensor, measures
 
     model = RandomForestClassifier(n_jobs=-1,  # use all processors
                                    random_state=0,
-                                   n_estimators=1000,
+                                   n_estimators=100,
                                    criterion="gini",
                                    max_depth=None,
                                    min_samples_split=2,
@@ -110,7 +110,7 @@ def train_random_forest(args, features_tensor_flattened, labels_tensor, measures
     start_training_time = datetime.now()
     model.fit(features_tensor_flattened, labels_tensor)
     training_time = datetime.now() - start_training_time
-    measures["training_time_seconds"].append(training_time.total_seconds())
+    measures["training_time_seconds"] = training_time.total_seconds()
 
     joblib.dump(model, utils.get_model_dir(args))
 

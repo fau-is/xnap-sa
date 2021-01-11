@@ -88,7 +88,7 @@ def test_prefix(event_log, args, preprocessor, case, prefix_size):
     :return: parameters for LRP, LIME, or SHAP
     """
 
-    # todo in case of cross validation select the model with the highest f1-score
+    # ToDo in case of cross validation select the model with the highest f1-score
     subseq_case = case[:prefix_size]
     features_tensor = preprocessor.get_features_tensor(args, event_log, [subseq_case])
 

@@ -1,4 +1,4 @@
-case;event;time
+case_id;activity;time
 0;Assign seriousness;09.10.2012-14:50:17
 0;Take in charge ticket;09.10.2012-14:51:01
 0;Take in charge ticket;12.10.2012-15:02:56
