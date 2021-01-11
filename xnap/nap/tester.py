@@ -27,6 +27,10 @@ def test(args, preprocessor, event_log, test_indices, output):
     test_cases = preprocessor.get_subset_cases(args, event_log, test_indices)
     model = utils.load_nap_model(args)
 
+    # start prediction
+    prediction_distributions = []
+    ground_truths = []
+
     with open(utils.get_output_path_predictions(args), 'w') as result_file_fold:
         result_writer = csv.writer(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         result_writer.writerow(["CaseID", "Prefix length", "Ground truth activity", "Predicted activity"])
@@ -41,12 +45,13 @@ def test(args, preprocessor, event_log, test_indices, output):
                 subseq = get_case_subsequence(case, prefix_size)
 
                 if contains_end_event(args, subseq, preprocessor):
-                    # make no prediction for this subsequence, since this case has ended already
+                    # make no prediction for this subsequence since this case has ended already
                     continue
 
                 ground_truth = get_ground_truth(args, case, prefix_size, prediction_size)
-
+                ground_truths.append(ground_truth[0])
                 prediction = []
+
                 for current_prediction_size in range(prediction_size):
                     if current_prediction_size >= len(ground_truth):
                         continue
@@ -62,9 +67,10 @@ def test(args, preprocessor, event_log, test_indices, output):
 
                     # 2.) make prediction
                     start_prediction_time = datetime.now()
-                    predicted_label = predict_label(model, features, preprocessor)
+                    predicted_label, predicted_dist = predict_label_and_dist(model, features, preprocessor)
                     output["prediction_times_seconds"] = (datetime.now() - start_prediction_time).total_seconds()
                     prediction.append(list(predicted_label))
+                    prediction_distributions.append(predicted_dist)
 
                     if is_end_label(predicted_label, preprocessor):
                         utils.ll_print('-- End of case is predicted -- \n')
@@ -74,6 +80,8 @@ def test(args, preprocessor, event_log, test_indices, output):
                 if len(ground_truth) > 0:
                     store_prediction(args, result_writer, case, prefix_size, ground_truth[0],
                                      prediction[0])
+
+    return prediction_distributions, ground_truths
 
 
 def test_prefix(event_log, args, preprocessor, case, prefix_size):
@@ -185,7 +193,7 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
                     features = preprocessor.get_features_tensor(args, event_log, [subseq])
 
                     # 2. make prediction
-                    predicted_label = predict_label(model, features, preprocessor)
+                    predicted_label = predict_label_and_dist(model, features, preprocessor)
                     prediction.append(list(predicted_label))
 
                     if is_end_label(predicted_label, preprocessor):
@@ -252,14 +260,14 @@ def get_ground_truth(args, case, prefix_size, prediction_size):
     return ground_truth_activities
 
 
-def predict_label(model, features, preprocessor):
+def predict_label_and_dist(model, features, preprocessor):
     """ Predicts and returns a label """
 
-    y = model.predict(features)
-    y_char = y[0][:]
-    predicted_label = preprocessor.get_predicted_label(y_char)
+    Y = model.predict(features)
+    predicted_dist = Y[0][:]
+    predicted_label = preprocessor.get_predicted_label(predicted_dist)
 
-    return predicted_label
+    return predicted_label, predicted_dist
 
 
 def store_prediction(args, result_writer, case, prefix_size, ground_truth, prediction):

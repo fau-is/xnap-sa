@@ -23,9 +23,9 @@ if __name__ == '__main__':
     if args.mode == 0:
 
         train.train(args, preprocessor, event_log, train_indices, measures)
-        test.test(args, preprocessor, event_log, test_indices, measures)
+        predicted_distributions, ground_truths = test.test(args, preprocessor, event_log, test_indices, measures)
 
-        measures = utils.calculate_measures(args, measures)
+        measures = utils.calculate_measures(args, measures, predicted_distributions, ground_truths)
         utils.print_measures(args, measures)
         utils.write_measures(args, measures)
 
@@ -36,11 +36,11 @@ if __name__ == '__main__':
 
     elif args.mode == 2:
 
-        output_exp = utils.measures
+        measures_exp = utils.measures
         manipulated_prefixes = exp.get_manipulated_prefixes_from_relevance(args, preprocessor, event_log,
-                                                                           train_indices, test_indices, output_exp)
+                                                                           train_indices, test_indices, measures_exp)
         test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices)
 
-        output_exp = utils.calculate_measures(args, output_exp)
-        utils.print_measures(args, output_exp)
-        utils.write_measures(args, output_exp)
+        measures_exp = utils.calculate_measures(args, measures_exp)
+        utils.print_measures(args, measures_exp)
+        utils.write_measures(args, measures_exp)

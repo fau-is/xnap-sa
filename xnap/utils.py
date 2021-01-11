@@ -8,7 +8,7 @@ import tensorflow as tf
 import numpy as np
 from tensorflow.keras.models import load_model
 from joblib import load
-
+import warnings
 
 measures = {
     "accuracy_value": 0.0,
@@ -71,7 +71,7 @@ def set_seed(args):
     tf.random.set_seed(args.seed_val)
 
 
-def calculate_measures(args, _measures):
+def calculate_measures(args, _measures, predicted_distributions, ground_truths):
     prefix = 0
     prefix_all_enabled = 1
     predicted_label = list()
@@ -92,21 +92,86 @@ def calculate_measures(args, _measures):
                     predicted_label.append(row[3])
 
     _measures["accuracy_value"] = sklearn.metrics.accuracy_score(ground_truth_label, predicted_label)
-    _measures["precision_micro_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='micro')
-    _measures["precision_macro_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='macro')
-    _measures["precision_weighted_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label, average='weighted')
+    _measures["precision_micro_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label,
+                                                                         average='micro')
+    _measures["precision_macro_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label,
+                                                                         average='macro')
+    _measures["precision_weighted_value"] = sklearn.metrics.precision_score(ground_truth_label, predicted_label,
+                                                                            average='weighted')
     _measures["recall_micro_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='micro')
     _measures["recall_macro_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='macro')
-    _measures["recall_weighted_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label, average='weighted')
+    _measures["recall_weighted_value"] = sklearn.metrics.recall_score(ground_truth_label, predicted_label,
+                                                                      average='weighted')
     _measures["f1_micro_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='micro')
     _measures["f1_macro_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='macro')
     _measures["f1_weighted_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted')
+    _measures["f1_weighted_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted')
+    _measures["auc_roc_value"] = multi_class_roc_auc_score(ground_truths, predicted_distributions)
 
     return _measures
 
 
-def print_measures(args, _measures):
+def multi_class_roc_auc_score(ground_truths, prob_dist, average='macro', multi_class='ovr'):
+    """
+    Calculate roc_auc_score
+    Note:
+    - multi-class ROC AUC currently only handles the ‘macro’ and ‘weighted’ averages.
+    - this implementation can be used with binary, multi-class and
+    multi-label classification, but some restrictions apply (see Parameters).
+    - https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html
+    - one-vs-rest ROC AUC scores
+    We calculate the ROC AUC according to:
+    Fawcett, T., 2006, "An introduction to ROC analysis. Pattern Recognition Letters", 27(8), pp. 861-874.
+    Parameters
+    ----------
+    ground_truth_label : list of lists
+        A sublist represents the encoding of a true activity (= label)
+    predicted_label : list of lists
+        A sublist represents the encoding of a predicted activity (= label)
+    average : str
+        The type of averaging performed on the data.
+    Returns
+    -------
+    float :
+        ROC AUC score
+    """
 
+    num_classes = len(prob_dist[0])
+    num_instances = len(prob_dist)
+    ground_truths_ = [np.argmax(ground_truth) for ground_truth in ground_truths]
+    ground_truths_unique = list(set(ground_truths_))
+    ground_truths = np.asarray(ground_truths)
+    prob_dist = np.asarray(prob_dist)
+
+    prob_dist_existing_column = np.zeros((num_instances, len(ground_truths_unique)))
+    ground_truths_existing_column = np.zeros((num_instances, len(ground_truths_unique)))
+
+    # set prob dist
+    idx_existing_column = 0
+    for idx_column in range(0, num_classes):
+        if idx_column in ground_truths_unique:
+            for idx_row in range(0, num_instances):
+                prob_dist_existing_column[idx_row, idx_existing_column] = prob_dist[idx_row, idx_column]
+            idx_existing_column += 1
+
+    # set ground truths
+    idx_existing_column = 0
+    for idx_column in range(0, num_classes):
+        if idx_column in ground_truths_unique:
+            for idx_row in range(0, num_instances):
+                ground_truths_existing_column[idx_row, idx_existing_column] = ground_truths[idx_row, idx_column]
+            idx_existing_column += 1
+
+    try:
+        value = sklearn.metrics.roc_auc_score(ground_truths_existing_column, prob_dist_existing_column, average=average,
+                                              multi_class=multi_class)
+    except:
+        value = 0
+
+    return value
+
+
+def print_measures(args, _measures):
     ll_print("\nAccuracy: %f\n" % (_measures["accuracy_value"]))
 
     ll_print("Precision (micro): %f\n" % (_measures["precision_micro_value"]))
@@ -121,6 +186,8 @@ def print_measures(args, _measures):
     ll_print("F1-Score (macro): %f\n" % (_measures["f1_macro_value"]))
     ll_print("F1-Score (weighted): %f\n" % (_measures["f1_weighted_value"]))
 
+    ll_print("AUC ROC Score: %f\n" % (_measures["auc_roc_value"]))
+
     if args.mode == 0:
         ll_print("Training time total: %f seconds\n" % (_measures["training_time_seconds"]))
         ll_print("Prediction time avg: %f seconds\n" % (_measures["prediction_times_seconds"]))
@@ -132,8 +199,14 @@ def print_measures(args, _measures):
     ll_print("\n")
 
 
-
 def write_measures(args, _measures):
+    """
+    Writes measures.
+    :param args:
+    :param _measures:
+    :return:
+    """
+
     names = ["experiment",
              "mode",
              "validation",
@@ -147,6 +220,7 @@ def write_measures(args, _measures):
              "f1-score (micro)",
              "f1-score (macro)",
              "f1-score (weighted)",
+             "auc-roc"
              ]
 
     if args.mode == 0:
@@ -170,7 +244,8 @@ def write_measures(args, _measures):
               _measures["recall_weighted_value"],
               _measures["f1_micro_value"],
               _measures["f1_macro_value"],
-              _measures["f1_weighted_value"]]
+              _measures["f1_weighted_value"],
+              _measures["auc_roc_value"]]
 
     if args.mode == 0:
         values.append(_measures["training_time_seconds"])
@@ -193,7 +268,6 @@ def write_measures(args, _measures):
 
 
 def get_output_path_performance_measurements(args):
-
     directory = './%s%s' % (args.task, args.result_dir[1:])
 
     if args.mode == 0:
@@ -205,7 +279,6 @@ def get_output_path_performance_measurements(args):
 
 
 def get_output_path_predictions(args):
-
     directory = './' + args.task + args.result_dir[1:]
     file = args.data_set.split(".csv")[0]
 

@@ -425,8 +425,6 @@ class Preprocessor(object):
 
         indices_ = [index for index in range(0, len(event_log))]  # Get number of cases from data
 
-        print(len(event_log))
-
         if args.shuffle:
             if args.seed:
                 train_indices, test_indices, train_indices_, test_indices_ = train_test_split(indices_, indices_,

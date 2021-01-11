@@ -28,7 +28,7 @@ def load():
     #   LSTM -> Bi-directional long short-term neural network
     #   RF  -> Random Forest
     #   DT  -> Decision Tree
-    parser.add_argument('--classifier', default="DT", type=str)  # LSTM, RF, DT
+    parser.add_argument('--classifier', default="RF", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=3, type=int)
@@ -54,7 +54,7 @@ def load():
 
     # Pre-processing
     parser.add_argument('--encoding_num', default="min_max_norm", type=str)
-    parser.add_argument('--encoding_cat', default="int", type=str)  # onehot, hash or int for categorical attributes
+    parser.add_argument('--encoding_cat', default="onehot", type=str)  # onehot, hash or int for categorical attributes
     parser.add_argument('--num_hash_output', default=10, type=int)
 
     # pm4py
