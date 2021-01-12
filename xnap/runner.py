@@ -39,8 +39,8 @@ if __name__ == '__main__':
         measures_exp = utils.measures
         manipulated_prefixes = exp.get_manipulated_prefixes_from_relevance(args, preprocessor, event_log,
                                                                            train_indices, test_indices, measures_exp)
-        test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices)
+        prediction_distributions, ground_truths = test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices)
 
-        measures_exp = utils.calculate_measures(args, measures_exp)
+        measures_exp = utils.calculate_measures(args, measures_exp, prediction_distributions, ground_truths)
         utils.print_measures(args, measures_exp)
         utils.write_measures(args, measures_exp)
