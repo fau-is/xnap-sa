@@ -7,14 +7,14 @@ def load():
     parser = argparse.ArgumentParser()
 
     # General parameters
-    parser.add_argument('--mode', default=0, type=int)
+    parser.add_argument('--mode', default=2, type=int)
     """ There are three modes
         0 = train and test model
         1 = explain prediction for random process instance
         2 = evaluate explanations for predictions (test set) 
     """
     # Mode 1 + 2
-    parser.add_argument('--xai', default="shap", type=str)  # lrp, lime, shap
+    parser.add_argument('--xai', default="lrp", type=str)  # lrp, lime, shap
     parser.add_argument('--lime_num_samples', default=50, type=int)  # 5000 (default)
     parser.add_argument('--shap_num_samples', default=100, type=int)  # 100 (good estimate), 1000 (very good estimate)
     # Mode 1

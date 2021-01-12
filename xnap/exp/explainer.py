@@ -60,7 +60,7 @@ def calc_and_plot_relevance_scores_instance(event_log, case, args, preprocessor,
             browser.display_html(html)
 
 
-def get_manipulated_prefixes_from_relevance(args, preprocessor, event_log, train_indices, test_indices, output):
+def get_manipulated_prefixes_from_relevance(args, preprocessor, event_log, train_indices, test_indices, measures):
     """
     Returns manipulated prefixes - events are removed according to relevance scores.
 
@@ -74,7 +74,7 @@ def get_manipulated_prefixes_from_relevance(args, preprocessor, event_log, train
         The initial event log.
     test_indices : list of ints
         Indices of test cases in event log.
-    output : dict
+    measures : dict
         Output for result evaluation.
 
     Returns
@@ -117,7 +117,7 @@ def get_manipulated_prefixes_from_relevance(args, preprocessor, event_log, train
             avg_relevance_scores = get_avg_relevance_scores(R_words, R_words_context)
             case_prefixes_manipulated.append(get_manipulated_prefix(args, case[0:prefix_size], avg_relevance_scores))
 
-            output["explanation_times_seconds"].append((datetime.now() - start_explanation_time).total_seconds())
+            measures["explanation_times_seconds"].append((datetime.now() - start_explanation_time).total_seconds())
         test_prefixes_manipulated.append(case_prefixes_manipulated)
 
     return test_prefixes_manipulated

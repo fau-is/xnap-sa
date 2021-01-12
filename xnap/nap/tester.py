@@ -162,11 +162,14 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
     """
 
     test_set = preprocessor.get_subset_cases(args, event_log, test_indices)
-    model = utils.load_nap_model(args, preprocessor)
+    model = utils.load_nap_model(args)
+
+    prediction_distributions = []
+    ground_truths = []
 
     # predict only next activity -> prediction_size = 1
     prediction_size = 1
-    with open(utils.get_output_path_predictions(args, preprocessor), 'w') as result_file_fold:
+    with open(utils.get_output_path_predictions(args), 'w') as result_file_fold:
         result_writer = csv.writer(result_file_fold, delimiter=';', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         result_writer.writerow(["CaseID", "Prefix length", "Ground truth", "Predicted"])
 
@@ -183,24 +186,26 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
                     continue
 
                 ground_truth = get_ground_truth(args, case, prefix_size, prediction_size)
-
+                ground_truths.append(ground_truth[0])
                 prediction = []
+
                 for current_prediction_size in range(prediction_size):
                     if current_prediction_size >= len(ground_truth):
                         continue
 
-                    # 1. prepare data
+                    # 1.) prepare data
                     features = preprocessor.get_features_tensor(args, event_log, [subseq])
 
-                    # 2. make prediction
-                    predicted_label = predict_label_and_dist(model, features, preprocessor)
+                    # 2.) make prediction
+                    predicted_label, predicted_dist = predict_label_and_dist(args, model, features, preprocessor)
                     prediction.append(list(predicted_label))
+                    prediction_distributions.append(predicted_dist)
 
                     if is_end_label(predicted_label, preprocessor):
                         utils.ll_print('-- End of case is predicted -- \n')
                         break
 
-                # 3. save prediction in certain format
+                # 3.) save prediction in certain format
                 if len(ground_truth) > 0:
                     if prefix_size not in results:
                         results[prefix_size] = {}
@@ -215,6 +220,8 @@ def test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixe
                 store_prediction(args, result_writer, results[prefix_size][case_id]['case'], prefix_size,
                                  results[prefix_size][case_id]['ground_truth"'],
                                  results[prefix_size][case_id]['prediction'])
+
+    return prediction_distributions, ground_truths
 
 
 def get_case_subsequence(case, prefix_size):
