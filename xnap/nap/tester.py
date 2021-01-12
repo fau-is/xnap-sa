@@ -67,7 +67,7 @@ def test(args, preprocessor, event_log, test_indices, output):
 
                     # 2.) make prediction
                     start_prediction_time = datetime.now()
-                    predicted_label, predicted_dist = predict_label_and_dist(model, features, preprocessor)
+                    predicted_label, predicted_dist = predict_label_and_dist(args, model, features, preprocessor)
                     output["prediction_times_seconds"] = (datetime.now() - start_prediction_time).total_seconds()
                     prediction.append(list(predicted_label))
                     prediction_distributions.append(predicted_dist)
@@ -260,11 +260,17 @@ def get_ground_truth(args, case, prefix_size, prediction_size):
     return ground_truth_activities
 
 
-def predict_label_and_dist(model, features, preprocessor):
+def predict_label_and_dist(args, model, features, preprocessor):
     """ Predicts and returns a label """
 
-    Y = model.predict(features)
-    predicted_dist = Y[0][:]
+    if args.classifier == 'LSTM':
+        Y = model.predict(features)
+        predicted_dist = Y[0][:]
+    else:
+        # todo: predict_proba??
+        Y = model.predict_proba(features)
+
+
     predicted_label = preprocessor.get_predicted_label(predicted_dist)
 
     return predicted_label, predicted_dist
