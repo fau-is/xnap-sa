@@ -3,7 +3,7 @@ import xnap.utils as utils
 from datetime import datetime
 
 
-def test(args, preprocessor, event_log, test_indices, output):
+def test(args, preprocessor, event_log, test_indices, measures):
     """
     Perform test for model validation.
 
@@ -17,7 +17,7 @@ def test(args, preprocessor, event_log, test_indices, output):
         The initial event log.
     test_indices : list of ints
         Indices of test cases in event log.
-    output : dict
+    measures : dict
         Output for result evaluation.
 
     Returns
@@ -68,7 +68,7 @@ def test(args, preprocessor, event_log, test_indices, output):
                     # 2.) make prediction
                     start_prediction_time = datetime.now()
                     predicted_label, predicted_dist = predict_label_and_dist(args, model, features, preprocessor)
-                    output["prediction_times_seconds"] = (datetime.now() - start_prediction_time).total_seconds()
+                    measures["prediction_times_seconds"].append((datetime.now() - start_prediction_time).total_seconds())
                     prediction.append(list(predicted_label))
                     prediction_distributions.append(predicted_dist)
 

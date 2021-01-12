@@ -22,15 +22,15 @@ measures = {
     "f1_macro_value": 0.0,
     "f1_weighted_value": 0.0,
     "auc_roc_value": 0.0,
-    "training_time_seconds": 0.0,
-    "prediction_times_seconds": 0.0,
-    "explanation_times_seconds": 0.0
+    "training_time_seconds": 0.0,  # time for complete training
+    "prediction_times_seconds": [],  # time for each prediction
+    "explanation_times_seconds": []  # time for each explanation
 }
 
 
 def ll_print(message):
     """
-    Helper function
+    Prints message.
     :param message:
     :return:
     """
@@ -38,9 +38,21 @@ def ll_print(message):
     sys.stdout.flush()
 
 
+def avg(numbers):
+    """
+    Calculates average.
+    :param numbers:
+    :return:
+    """
+    if len(numbers) == 0:
+        return sum(numbers)
+
+    return sum(numbers) / len(numbers)
+
+
 def str2bool(v):
     """
-    Helper method.
+    Maps string to boolean.
     :param v:
     :return:
     """
@@ -190,12 +202,13 @@ def print_measures(args, _measures):
 
     if args.mode == 0:
         ll_print("Training time total: %f seconds\n" % (_measures["training_time_seconds"]))
-        ll_print("Prediction time avg: %f seconds\n" % (_measures["prediction_times_seconds"]))
-        ll_print("Prediction time total: %f seconds\n" % (_measures["prediction_times_seconds"]))
+
+        ll_print("Prediction time avg: %f seconds\n" % (avg(_measures["prediction_times_seconds"])))
+        ll_print("Prediction time total: %f seconds\n" % (sum(_measures["prediction_times_seconds"])))
 
     if args.mode == 2:
-        ll_print("Explanation time avg: %f seconds\n" % (_measures["explanation_times_seconds"]))
-        ll_print("Explanation time total: %f seconds\n" % (_measures["explanation_times_seconds"]))
+        ll_print("Explanation time avg: %f seconds\n" % (avg(_measures["explanation_times_seconds"])))
+        ll_print("Explanation time total: %f seconds\n" % (sum(_measures["explanation_times_seconds"])))
     ll_print("\n")
 
 
@@ -249,12 +262,12 @@ def write_measures(args, _measures):
 
     if args.mode == 0:
         values.append(_measures["training_time_seconds"])
-        values.append(_measures["prediction_times_seconds"])
-        values.append(_measures["prediction_times_seconds"])
+        values.append(avg(_measures["prediction_times_seconds"]))
+        values.append(sum(_measures["prediction_times_seconds"]))
 
     if args.mode == 2:
-        values.append(_measures["explanation_times_seconds"])
-        values.append(_measures["explanation_times_seconds"])
+        values.append(avg(_measures["explanation_times_seconds"]))
+        values.append(sum(_measures["explanation_times_seconds"]))
     values.append(arrow.now())
 
     output_path = get_output_path_performance_measurements(args)
