@@ -276,6 +276,7 @@ def predict_label_and_dist(args, model, features, preprocessor):
     else:
         # todo: predict_proba??
         Y = model.predict_proba(features)
+        predicted_dist = Y[0][:]
 
 
     predicted_label = preprocessor.get_predicted_label(predicted_dist)

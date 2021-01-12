@@ -495,6 +495,7 @@ class Preprocessor(object):
 
                 # activity
                 activity_values = event.get(args.activity_key)
+
                 if args.encoding_cat == 'int':
                     features_tensor[idx_subseq, timestep + left_pad, 0] = activity_values
                 else:
@@ -518,9 +519,9 @@ class Preprocessor(object):
                                     idx_subseq, timestep + left_pad, idx + self.get_length_of_activity_label()] = val
                             start_idx += len(attribute_values)
 
-            if args.classifier == 'RF' or args.classifier == "DT":
-                features_tensor_flattened = features_tensor.reshape(len(features_tensor), max_case_length * num_features)
-                return features_tensor_flattened
+        if args.classifier == 'RF' or args.classifier == "DT":
+            features_tensor_flattened = features_tensor.reshape(len(features_tensor), max_case_length * num_features)
+            return features_tensor_flattened
 
         return features_tensor
 
