@@ -28,17 +28,17 @@ def load():
     #   LSTM -> Bi-directional long short-term neural network
     #   RF  -> Random Forest
     #   DT  -> Decision Tree
-    parser.add_argument('--classifier', default="DT", type=str)  # LSTM, RF, DT
+    parser.add_argument('--classifier', default="LSTM", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
-    parser.add_argument('--dnn_num_epochs', default=100, type=int)
+    parser.add_argument('--dnn_num_epochs', default=10, type=int)
     parser.add_argument('--dnn_architecture', default=0, type=int)
     parser.add_argument('--learning_rate', default=0.002, type=float)
     parser.add_argument('--dim', default=0, type=int)
 
     # Directories
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="helpdesk_raw_sample_100.csv")
+    parser.add_argument('--data_set', default="helpdesk_raw.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
@@ -51,6 +51,21 @@ def load():
     parser.add_argument('--val_split', default=0.1, type=float)
     parser.add_argument('--batch_size_train', default=128, type=int)
     parser.add_argument('--batch_size_test', default=1, type=int)
+
+    # hpo general
+    parser.add_argument('--hpo', default=True, type=utils.str2bool)
+    parser.add_argument('--hpo_eval_runs', default=6, type=int)
+    parser.add_argument('--split_rate_train_hpo', default=0.9, type=float)
+    # hpo LSTM
+    parser.add_argument('--hpo_units', default=[50, 100, 200, 300], type=list)
+    parser.add_argument('--hpo_activation', default=['linear', 'tanh', 'relu'], type=list)
+    parser.add_argument('--hpo_kernel_initializer', default=['glorot_uniform'], type=list)
+    parser.add_argument('--hpo_optimizer', default=['adam', 'nadam', 'rmsprop'], type=list)
+    parser.add_argument('--hpo_dropout', default=[0.2], type=list)
+    # hpo RF + DT
+    parser.add_argument('--hpo_n_estimators', default=[50, 100, 200], type=list)
+    parser.add_argument('--hpo_criterion', default=['gini', 'entropy'], type=list)
+    parser.add_argument('--hpo_min_samples_split', default=[2, 3, 4], type=list)
 
     # Pre-processing
     parser.add_argument('--encoding_num', default="min_max_norm", type=str)

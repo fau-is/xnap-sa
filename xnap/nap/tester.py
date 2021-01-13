@@ -3,7 +3,7 @@ import xnap.utils as utils
 from datetime import datetime
 
 
-def test(args, preprocessor, event_log, test_indices, measures):
+def test(args, preprocessor, event_log, test_indices, best_model_id, measures):
     """
     Perform test for model validation.
 
@@ -17,6 +17,8 @@ def test(args, preprocessor, event_log, test_indices, measures):
         The initial event log.
     test_indices : list of ints
         Indices of test cases in event log.
+    best_model_id : int
+        ID of best performing model found during hyperparameter optimization.
     measures : dict
         Output for result evaluation.
 
@@ -25,7 +27,7 @@ def test(args, preprocessor, event_log, test_indices, measures):
     """
 
     test_cases = preprocessor.get_subset_cases(args, event_log, test_indices)
-    model = utils.load_nap_model(args)
+    model = utils.load_nap_model(args, best_model_id)
 
     # start prediction
     prediction_distributions = []

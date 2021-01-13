@@ -5,37 +5,217 @@ import xnap.utils as utils
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 import joblib
+import optuna
+import xnap.nap.hyperparameter_optimization as hpo
+
+# used access during hpo
+global train_cases_
+global event_log_
+global preprocessor_
+global args_
 
 
 def train(args, preprocessor, event_log, train_indices, measures):
 
     train_cases = preprocessor.get_subset_cases(args, event_log, train_indices)
-    train_subseq_cases = preprocessor.get_subsequences_of_cases(train_cases)
 
-    features_tensor = preprocessor.get_features_tensor(args, event_log, train_subseq_cases)
-    labels_tensor = preprocessor.get_labels_tensor(args, train_cases)
-
+    best_model_id = -1
     print('Create machine learning model ... \n')
-    if args.classifier == "LSTM":
-        # LSTM
-        train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, measures)
 
-    if args.classifier == "RF":
-        # Random Forest
-        train_random_forest(args, features_tensor, labels_tensor, measures)
+    if args.hpo:
 
-    if args.classifier == "DT":
-        # Decision Tree
-        train_decision_tree(args, features_tensor, labels_tensor, measures)
+        # set global variables
+        global train_cases_
+        global event_log_
+        global preprocessor_
+        global args_
+        train_cases_ = train_cases
+        event_log_ = event_log
+        preprocessor_ = preprocessor
+        args_ = args
+
+        if args.seed:
+            sampler = optuna.samplers.TPESampler(seed=args.seed_val)  # make the sampler behave in a deterministic way.
+        else:
+            sampler = optuna.samplers.TPESampler()
+        study = optuna.create_study(direction='maximize', sampler=sampler)
+
+        start_training_time = datetime.now()
+
+        if args.classifier == "LSTM":
+            # Deep Neural Network
+            study.optimize(train_lstm_hpo, n_trials=args.hpo_eval_runs)
+
+        if args.classifier == "RF":
+            # Random Forest
+            study.optimize(train_rf_hpo, n_trials=args.hpo_eval_runs)
+
+        if args.classifier == "DT":
+            # Decision Tree
+            study.optimize(train_dt_hpo, n_trials=args.hpo_eval_runs)
+
+        print("Number of finished trials: {}".format(len(study.trials)))
+        print("Best trial:")
+        trial = study.best_trial
+        print("  Value: {}".format(trial.value))
+        print("  Params: ")
+        for key, value in trial.params.items():
+            print("    {}: {}".format(key, value))
+
+        utils.add_to_file(args, "hyper_params", trial)
+        best_model_id = study.best_trial.number
+
+    else:
+
+        # prepare data
+        train_subseq_cases = preprocessor.get_subsequences_of_cases(train_cases)
+        features_tensor = preprocessor.get_features_tensor(args, event_log, train_subseq_cases)
+        labels_tensor = preprocessor.get_labels_tensor(args, train_cases)
+
+        start_training_time = datetime.now()
+
+        if args.classifier == "LSTM":
+            # LSTM
+            train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor)
+
+        if args.classifier == "RF":
+            # Random Forest
+            train_rf(args, features_tensor, labels_tensor)
+
+        if args.classifier == "DT":
+            # Decision Tree
+            train_dt(args, features_tensor, labels_tensor)
+
+    training_time = datetime.now() - start_training_time
+    measures["training_time_seconds"] = training_time.total_seconds()
+    return best_model_id
 
 
-def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, measures):
+def train_lstm_hpo(trial):
+
+    x_train, x_test, y_train, y_test = hpo.create_data(args_, event_log_, preprocessor_, train_cases_)
+
+    max_case_len = preprocessor_.get_max_case_length(event_log_)
+    num_features = preprocessor_.get_num_features()
+    num_activities = preprocessor_.get_num_activities()
+
+    # if args.dnn_architecture == 0: # TODO remove this parameter if there is only one architecture ?
+    # Bidirectional LSTM
+
+    # Input layer
+    main_input = tf.keras.layers.Input(shape=(max_case_len, num_features), name='main_input')
+
+    # Hidden layer
+    b1 = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(
+            units=trial.suggest_categorical('units', args_.hpo_units),
+            activation=trial.suggest_categorical('activation', args_.hpo_activation),
+            kernel_initializer=trial.suggest_categorical('kernel_initializer', args_.hpo_kernel_initializer),
+            return_sequences=False,
+            dropout=trial.suggest_categorical('dropout', args_.hpo_dropout)))(main_input)
+
+    # Output layer
+    act_output = tf.keras.layers.Dense(
+            num_activities,
+            activation='softmax',
+            name='act_output',
+            kernel_initializer='glorot_uniform')(b1)
+
+
+    model = tf.keras.models.Model(inputs=[main_input], outputs=[act_output])
+
+    optimizer = tf.keras.optimizers.Nadam(lr=args_.learning_rate, beta_1=0.9, beta_2=0.999, epsilon=1e-8,
+                                          schedule_decay=0.004, clipvalue=3)
+
+    model.compile(loss={'act_output': 'categorical_crossentropy'}, optimizer=optimizer)
+    early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
+    model_checkpoint = tf.keras.callbacks.ModelCheckpoint(utils.get_model_dir(args_, trial.number),
+                                                          monitor='val_loss',
+                                                          verbose=0,
+                                                          save_best_only=True,
+                                                          save_weights_only=False,
+                                                          mode='auto')
+
+    lr_reducer = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_loss',
+                                                      factor=0.5,
+                                                      patience=10,
+                                                      verbose=0,
+                                                      mode='auto',
+                                                      min_delta=0.0001,
+                                                      cooldown=0,
+                                                      min_lr=0)
+    model.summary()
+    model.fit(x_train, {'act_output': y_train},
+              validation_split=args_.val_split,
+              verbose=1,
+              callbacks=[early_stopping, model_checkpoint, lr_reducer],
+              batch_size=args_.batch_size_train,
+              epochs=args_.dnn_num_epochs)
+
+    # optimize parameters based on accuracy (currently no other metrics considered)
+    score = model.evaluate(x_test, y_test, verbose=0)
+    return score
+
+
+def train_rf_hpo(trial):
+
+    x_train, x_test, y_train, y_test = hpo.create_data(args_, event_log_, preprocessor_, train_cases_)
+
+    model = RandomForestClassifier(n_jobs=-1,  # use all processors
+                                   random_state=args_.seed,
+                                   n_estimators=trial.suggest_categorical('n_estimators', args_.hpo_n_estimators),
+                                   criterion=trial.suggest_categorical('criterion', args_.hpo_criterion),
+                                   max_depth=None,
+                                   min_samples_split=2,
+                                   min_samples_leaf=1,
+                                   min_weight_fraction_leaf=0.0,
+                                   max_features="auto",
+                                   max_leaf_nodes=None,
+                                   min_impurity_decrease=0.0,
+                                   bootstrap=True,
+                                   oob_score=False,
+                                   warm_start=False,
+                                   class_weight=None)
+
+    model.fit(x_train, y_train)
+    joblib.dump(model, utils.get_model_dir(args_, preprocessor_, trial.number))
+    # optimize parameters based on accuracy
+    score = model.score(x_test, y_test, sample_weight=None)
+    return score
+
+
+def train_dt_hpo(trial):
+
+    x_train, x_test, y_train, y_test = hpo.create_data(args_, event_log_, preprocessor_, train_cases_)
+
+    model = DecisionTreeClassifier(
+            criterion=trial.suggest_categorical('criterion', args_.hpo_criterion),
+            splitter='best',
+            max_depth=None,
+            min_samples_split=trial.suggest_categorical('min_samples_split', args_.hpo_min_samples_split),
+            min_samples_leaf=1,
+            min_weight_fraction_leaf=0.0,
+            max_features=None,
+            random_state=args_.seed,
+            max_leaf_nodes=None,
+            min_impurity_decrease=0.0,
+            min_impurity_split=None,
+            class_weight=None,
+            ccp_alpha=0.0)
+
+    model.fit(x_train, y_train)
+    joblib.dump(model, utils.get_model_dir(args_, trial.number))
+    # optimize parameters based on accuracy
+    score = model.score(x_test, y_test, sample_weight=None)
+    return score
+
+
+def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor):
 
     max_case_len = preprocessor.get_max_case_length(event_log)
     num_features = preprocessor.get_num_features()
     num_activities = preprocessor.get_num_activities()
 
-    # if args.dnn_architecture == 0:
+    # if args.dnn_architecture == 0: # TODO remove this parameter if there is only one architecture ?
     # Bidirectional LSTM
 
     # Input layer
@@ -77,7 +257,6 @@ def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, me
                                                       cooldown=0,
                                                       min_lr=0)
     model.summary()
-    start_training_time = datetime.now()
     model.fit(features_tensor, {'act_output': labels_tensor},
               validation_split=args.val_split,
               verbose=1,
@@ -85,11 +264,8 @@ def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor, me
               batch_size=args.batch_size_train,
               epochs=args.dnn_num_epochs)
 
-    training_time = datetime.now() - start_training_time
-    measures["training_time_seconds"] = training_time.total_seconds()
 
-
-def train_random_forest(args, features_tensor_flattened, labels_tensor, measures):
+def train_rf(args, features_tensor_flattened, labels_tensor):
 
     model = RandomForestClassifier(n_jobs=-1,  # use all processors
                                    random_state=0,
@@ -107,15 +283,11 @@ def train_random_forest(args, features_tensor_flattened, labels_tensor, measures
                                    warm_start=False,
                                    class_weight=None)
 
-    start_training_time = datetime.now()
     model.fit(features_tensor_flattened, labels_tensor)
-    training_time = datetime.now() - start_training_time
-    measures["training_time_seconds"] = training_time.total_seconds()
-
     joblib.dump(model, utils.get_model_dir(args))
 
 
-def train_decision_tree(args, features_tensor_flattened, labels_tensor, measures):
+def train_dt(args, features_tensor_flattened, labels_tensor):
 
     model = DecisionTreeClassifier(criterion='gini',
                                    splitter='best',
@@ -131,8 +303,5 @@ def train_decision_tree(args, features_tensor_flattened, labels_tensor, measures
                                    class_weight=None,
                                    ccp_alpha=0.0)
 
-    start_training_time = datetime.now()
     model.fit(features_tensor_flattened, labels_tensor)
-    training_time = datetime.now() - start_training_time
-    measures["training_time_seconds"] = training_time.total_seconds()
     joblib.dump(model, utils.get_model_dir(args))

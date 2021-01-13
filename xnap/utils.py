@@ -304,7 +304,7 @@ def get_output_path_predictions(args):
     return directory + file
 
 
-def get_model_dir(args):
+def get_model_dir(args, best_model_id):
     """
     Returns the path to the stored trained model for the next activity prediction.
 
@@ -312,6 +312,8 @@ def get_model_dir(args):
     ----------
     args : Namespace
         Settings of the configuration parameters.
+    best_model_id : int
+        ID of best performing model found during hyperparameter optimization.
 
     Returns
     -------
@@ -320,6 +322,8 @@ def get_model_dir(args):
 
     """
     model_dir = "%sca_%s_%s" % (args.model_dir, args.task, args.data_set[0:len(args.data_set) - 4])
+    if args.hpo:
+        model_dir += "_trial%s" % best_model_id
     if args.classifier == "LSTM":
         model_dir += ".h5"
     else:
@@ -328,7 +332,7 @@ def get_model_dir(args):
     return model_dir
 
 
-def load_nap_model(args):
+def load_nap_model(args, best_model_id=0):
     """
     Returns ML model used for next activity prediction.
 
@@ -336,6 +340,8 @@ def load_nap_model(args):
     ----------
     args : Namespace
         Settings of the configuration parameters.
+    best_model_id : int
+        ID of best performing model found during hyperparameter optimization.
 
     Returns
     -------
@@ -343,10 +349,32 @@ def load_nap_model(args):
 
     """
 
-    model_dir = get_model_dir(args)
+    model_dir = get_model_dir(args, best_model_id)
     if args.classifier == "LSTM":
         model = load_model(model_dir)
     else:
         model = load(model_dir)
 
     return model
+
+def add_to_file(args, file_type, trail):
+
+    file_name = './%s%s%s_%s_%s.csv' % (args.task, args.result_dir[1:], file_type, args.data_set[:-4], args.classifier)
+
+    file = open(file_name, "a+")
+
+    if file_type == "hyper_params":
+
+        if os.stat(file_name).st_size != 0:
+            file.write("\n")
+
+        file.write("Dataset: " + str(args.data_set[:-4]) + "\n")
+        file.write("Best accuracy value: " + str(round(trail.value, 4)) + "\n")
+        file.write("Encoding: " + str(args.encoding_cat) + "\n")
+        file.write("Best params:\n")
+
+        for key, value in trail.params.items():
+                file.write("%s: %s\n" % (str(key), str(value)))
+        file.write("--------------------------\n")
+
+    file.close()
