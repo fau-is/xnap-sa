@@ -26,9 +26,9 @@ def load():
     parser.add_argument('--eager_execution', default=False, type=utils.str2bool)  # to avoid retracing with tf for lrp
     # Classifier
     #   LSTM -> Bi-directional long short-term neural network
-    #   RF  -> Random Forest
-    #   DT  -> Decision Tree
-    parser.add_argument('--classifier', default="LSTM", type=str)  # LSTM, RF, DT
+    #   RF   -> Random Forest
+    #   DT   -> Decision Tree
+    parser.add_argument('--classifier', default="DT", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=10, type=int)
