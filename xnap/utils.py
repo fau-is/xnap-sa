@@ -304,7 +304,7 @@ def get_output_path_predictions(args):
     return directory + file
 
 
-def get_model_dir(args, best_model_id):
+def get_model_dir(args, best_model_id=0):
     """
     Returns the path to the stored trained model for the next activity prediction.
 

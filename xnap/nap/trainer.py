@@ -177,7 +177,7 @@ def train_rf_hpo(trial):
                                    class_weight=None)
 
     model.fit(x_train, y_train)
-    joblib.dump(model, utils.get_model_dir(args_, preprocessor_, trial.number))
+    joblib.dump(model, utils.get_model_dir(args_, trial.number))
     # optimize parameters based on accuracy
     score = model.score(x_test, y_test, sample_weight=None)
     return score
