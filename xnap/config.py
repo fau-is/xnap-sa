@@ -28,11 +28,10 @@ def load():
     #   LSTM -> Bi-directional long short-term neural network
     #   RF   -> Random Forest
     #   DT   -> Decision Tree
-    parser.add_argument('--classifier', default="RF", type=str)  # LSTM, RF, DT
+    parser.add_argument('--classifier', default="LSTM", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
-    parser.add_argument('--dnn_num_epochs', default=2, type=int)
-    parser.add_argument('--dnn_architecture', default=0, type=int)
+    parser.add_argument('--dnn_num_epochs', default=100, type=int)
     parser.add_argument('--learning_rate', default=0.002, type=float)
     parser.add_argument('--dim', default=0, type=int)
 
@@ -53,15 +52,15 @@ def load():
     parser.add_argument('--batch_size_test', default=1, type=int)
 
     # hpo general
-    parser.add_argument('--hpo', default=False, type=utils.str2bool)
-    parser.add_argument('--hpo_eval_runs', default=6, type=int)
+    parser.add_argument('--hpo', default=True, type=utils.str2bool)
+    parser.add_argument('--hpo_eval_runs', default=3, type=int)
     parser.add_argument('--split_rate_train_hpo', default=0.9, type=float)
+
     # hpo LSTM
-    parser.add_argument('--hpo_units', default=[50, 100, 200, 300], type=list)
     parser.add_argument('--hpo_activation', default=['linear', 'tanh', 'relu'], type=list)
     parser.add_argument('--hpo_kernel_initializer', default=['glorot_uniform'], type=list)
     parser.add_argument('--hpo_optimizer', default=['adam', 'nadam', 'rmsprop'], type=list)
-    parser.add_argument('--hpo_dropout', default=[0.2], type=list)
+
     # hpo RF + DT
     parser.add_argument('--hpo_n_estimators', default=[50, 100, 200], type=list)
     parser.add_argument('--hpo_criterion', default=['gini', 'entropy'], type=list)

@@ -230,8 +230,8 @@ def write_measures(args, _measures):
     :return:
     """
 
-    names = ["experiment",
-             "mode",
+    names = ["dataset",
+             "classifier",
              "validation",
              "accuracy",
              "precision (micro)",
@@ -254,10 +254,11 @@ def write_measures(args, _measures):
 
     names.append("time-stamp")
 
-    experiment = "%s-%s" % (args.data_set[:-4], args.dnn_architecture)
+    dataset = args.data_set[:-4]
+    classifier = args.classifier
     mode = "split-%s" % args.split_rate_train
 
-    values = [experiment, mode, "split-validation",
+    values = [dataset, classifier, mode,
               _measures["accuracy_value"],
               _measures["precision_micro_value"],
               _measures["precision_macro_value"],

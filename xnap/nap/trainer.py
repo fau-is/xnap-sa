@@ -17,7 +17,6 @@ global args_
 
 
 def train(args, preprocessor, event_log, train_indices, measures):
-
     train_cases = preprocessor.get_subset_cases(args, event_log, train_indices)
 
     best_model_id = -1
@@ -93,40 +92,37 @@ def train(args, preprocessor, event_log, train_indices, measures):
 
 
 def train_lstm_hpo(trial):
-
     x_train, x_test, y_train, y_test = hpo.create_data(args_, event_log_, preprocessor_, train_cases_)
 
     max_case_len = preprocessor_.get_max_case_length(event_log_)
     num_features = preprocessor_.get_num_features()
     num_activities = preprocessor_.get_num_activities()
 
-    # if args.dnn_architecture == 0: # TODO remove this parameter if there is only one architecture ?
     # Bidirectional LSTM
-
     # Input layer
-    main_input = tf.keras.layers.Input(shape=(max_case_len, num_features), name='main_input')
+    input_layer = tf.keras.layers.Input(shape=(max_case_len, num_features), name='input_layer')
 
     # Hidden layer
-    b1 = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(
-            units=trial.suggest_categorical('units', args_.hpo_units),
-            activation=trial.suggest_categorical('activation', args_.hpo_activation),
-            kernel_initializer=trial.suggest_categorical('kernel_initializer', args_.hpo_kernel_initializer),
-            return_sequences=False,
-            dropout=trial.suggest_categorical('dropout', args_.hpo_dropout)))(main_input)
+    hidden_layer = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(
+        units=100,
+        activation=trial.suggest_categorical('hl_activation', args_.hpo_activation),
+        kernel_initializer=trial.suggest_categorical('hl_kernel_initializer', args_.hpo_kernel_initializer),
+        return_sequences=False,
+        dropout=trial.suggest_discrete_uniform('hl_drop_out', 0.1, 0.5, 0.1)))(input_layer)
 
     # Output layer
-    act_output = tf.keras.layers.Dense(num_activities,
-                                       activation='softmax',
-                                       name='act_output',
-                                       kernel_initializer='glorot_uniform')(b1)
+    output_layer = tf.keras.layers.Dense(num_activities,
+                                         activation='softmax',
+                                         name='output_layer',
+                                         kernel_initializer=trial.suggest_categorical('ol_kernel_initializer',
+                                        args_.hpo_kernel_initializer))(hidden_layer)
 
-
-    model = tf.keras.models.Model(inputs=[main_input], outputs=[act_output])
+    model = tf.keras.models.Model(inputs=[input_layer], outputs=[output_layer])
 
     optimizer = tf.keras.optimizers.Nadam(lr=args_.learning_rate, beta_1=0.9, beta_2=0.999, epsilon=1e-8,
                                           schedule_decay=0.004, clipvalue=3)
 
-    model.compile(loss={'act_output': 'categorical_crossentropy'}, optimizer=optimizer)
+    model.compile(loss={'output_layer': 'categorical_crossentropy'}, optimizer=trial.suggest_categorical('optimizer', args_.hpo_optimizer))
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
     model_checkpoint = tf.keras.callbacks.ModelCheckpoint(utils.get_model_dir(args_, trial.number),
                                                           monitor='val_loss',
@@ -144,7 +140,7 @@ def train_lstm_hpo(trial):
                                                       cooldown=0,
                                                       min_lr=0)
     model.summary()
-    model.fit(x_train, {'act_output': y_train},
+    model.fit(x_train, {'output_layer': y_train},
               validation_split=args_.val_split,
               verbose=1,
               callbacks=[early_stopping, model_checkpoint, lr_reducer, KerasPruningCallback(trial, "val_accuracy")],
@@ -157,7 +153,6 @@ def train_lstm_hpo(trial):
 
 
 def train_rf_hpo(trial):
-
     x_train, x_test, y_train, y_test = hpo.create_data(args_, event_log_, preprocessor_, train_cases_)
 
     model = RandomForestClassifier(n_jobs=-1,  # use all processors
@@ -184,23 +179,22 @@ def train_rf_hpo(trial):
 
 
 def train_dt_hpo(trial):
-
     x_train, x_test, y_train, y_test = hpo.create_data(args_, event_log_, preprocessor_, train_cases_)
 
     model = DecisionTreeClassifier(
-            criterion=trial.suggest_categorical('criterion', args_.hpo_criterion),
-            splitter='best',
-            max_depth=None,
-            min_samples_split=trial.suggest_categorical('min_samples_split', args_.hpo_min_samples_split),
-            min_samples_leaf=1,
-            min_weight_fraction_leaf=0.0,
-            max_features=None,
-            random_state=args_.seed,
-            max_leaf_nodes=None,
-            min_impurity_decrease=0.0,
-            min_impurity_split=None,
-            class_weight=None,
-            ccp_alpha=0.0)
+        criterion=trial.suggest_categorical('criterion', args_.hpo_criterion),
+        splitter='best',
+        max_depth=None,
+        min_samples_split=trial.suggest_categorical('min_samples_split', args_.hpo_min_samples_split),
+        min_samples_leaf=1,
+        min_weight_fraction_leaf=0.0,
+        max_features=None,
+        random_state=args_.seed,
+        max_leaf_nodes=None,
+        min_impurity_decrease=0.0,
+        min_impurity_split=None,
+        class_weight=None,
+        ccp_alpha=0.0)
 
     model.fit(x_train, y_train)
     joblib.dump(model, utils.get_model_dir(args_, trial.number))
@@ -210,7 +204,6 @@ def train_dt_hpo(trial):
 
 
 def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor):
-
     max_case_len = preprocessor.get_max_case_length(event_log)
     num_features = preprocessor.get_num_features()
     num_activities = preprocessor.get_num_activities()
@@ -266,7 +259,6 @@ def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor):
 
 
 def train_rf(args, features_tensor_flattened, labels_tensor):
-
     model = RandomForestClassifier(n_jobs=-1,  # use all processors
                                    random_state=0,
                                    n_estimators=100,
@@ -288,7 +280,6 @@ def train_rf(args, features_tensor_flattened, labels_tensor):
 
 
 def train_dt(args, features_tensor_flattened, labels_tensor):
-
     model = DecisionTreeClassifier(criterion='gini',
                                    splitter='best',
                                    max_depth=None,
