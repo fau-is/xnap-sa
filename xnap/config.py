@@ -37,7 +37,7 @@ def load():
 
     # Directories
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="helpdesk_raw_sample_100.csv")
+    parser.add_argument('--data_set', default="helpdesk_raw.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
@@ -52,7 +52,7 @@ def load():
     parser.add_argument('--batch_size_test', default=1, type=int)
 
     # hpo general
-    parser.add_argument('--hpo', default=False, type=utils.str2bool)
+    parser.add_argument('--hpo', default=True, type=utils.str2bool)
     parser.add_argument('--hpo_eval_runs', default=3, type=int)
     parser.add_argument('--split_rate_train_hpo', default=0.9, type=float)
 
@@ -62,7 +62,7 @@ def load():
     parser.add_argument('--hpo_optimizer', default=['adam', 'nadam', 'rmsprop'], type=list)
 
     # hpo RF + DT
-    parser.add_argument('--hpo_n_estimators', default=[50, 100, 200], type=list)
+    parser.add_argument('--hpo_n_estimators', default=[100, 200, 300, 500], type=list)
     parser.add_argument('--hpo_criterion', default=['gini', 'entropy'], type=list)
     parser.add_argument('--hpo_min_samples_split', default=[2, 3, 4], type=list)
 

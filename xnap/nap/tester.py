@@ -1,7 +1,6 @@
 import csv
 import xnap.utils as utils
 from datetime import datetime
-import numpy
 
 
 def test(args, preprocessor, event_log, test_indices, best_model_id, measures):

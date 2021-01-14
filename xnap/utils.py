@@ -150,10 +150,12 @@ def multi_class_roc_auc_score(args, ground_truths, prob_dist, average='macro', m
 
     num_classes = len(prob_dist[0])
     num_instances = len(prob_dist)
+
     if args.encoding_cat == 'int':
         ground_truths_ = ground_truths
     else:
         ground_truths_ = [np.argmax(ground_truth) for ground_truth in ground_truths]
+
     ground_truths_unique = list(set(ground_truths_))
     ground_truths = np.asarray(ground_truths)
     prob_dist = np.asarray(prob_dist)
@@ -161,34 +163,45 @@ def multi_class_roc_auc_score(args, ground_truths, prob_dist, average='macro', m
     prob_dist_existing_column = np.zeros((num_instances, len(ground_truths_unique)))
     ground_truths_existing_column = np.zeros((num_instances, len(ground_truths_unique)))
 
-    # set prob dist
-    idx_existing_column = 0
-    for idx_column in range(0, num_classes):
-        if idx_column in ground_truths_unique:
+
+    if args.encoding_cat == 'int':
+
+        mapped_ids_unique = []
+        for ground_truth in ground_truths_unique:
+            mapped_ids_unique.append(ground_truth-1)
+
+        # set prob dist
+        idx_existing_column = 0
+        for idx_column in mapped_ids_unique:
             for idx_row in range(0, num_instances):
                 prob_dist_existing_column[idx_row, idx_existing_column] = prob_dist[idx_row, idx_column]
             idx_existing_column += 1
 
-    # set ground truths
-    idx_existing_column = 0
-    for idx_column in range(0, num_classes):
-        if idx_column in ground_truths_unique:
-            for idx_row in range(0, num_instances):
-                if args.encoding_cat == 'int':
-                    if idx_column == ground_truths[idx_row]:
-                        ground_truths_existing_column[idx_row, idx_existing_column] = 1
-                    else:
-                        ground_truths_existing_column[idx_row, idx_existing_column] = 0
+        # set ground truths
+        for idx_row in range(0, num_instances):
+            ground_truths_existing_column[idx_row, ground_truths_[idx_row]-1] = 1
 
-                else:
-                    ground_truths_existing_column[idx_row, idx_existing_column] = ground_truths[idx_row, idx_column]
+    else:
+
+        # set prob dist
+        idx_existing_column = 0
+        for idx_column in ground_truths_unique:
+            for idx_row in range(0, num_instances):
+                prob_dist_existing_column[idx_row, idx_existing_column] = prob_dist[idx_row, idx_column]
             idx_existing_column += 1
 
-    try:
-        value = sklearn.metrics.roc_auc_score(ground_truths_existing_column, prob_dist_existing_column, average=average,
+        # set ground truths
+        idx_existing_column = 0
+        for idx_column in ground_truths_unique:
+            for idx_row in range(0, num_instances):
+                ground_truths_existing_column[idx_row, idx_existing_column] = ground_truths[idx_row, idx_column]
+            idx_existing_column += 1
+
+    #try:
+    value = sklearn.metrics.roc_auc_score(ground_truths_existing_column, prob_dist_existing_column, average=average,
                                               multi_class=multi_class)
-    except:
-        value = 0
+    # except:
+    #    value = 0
 
     return value
 

@@ -158,7 +158,7 @@ def train_rf_hpo(trial):
                                    n_estimators=trial.suggest_categorical('n_estimators', args_.hpo_n_estimators),
                                    criterion=trial.suggest_categorical('criterion', args_.hpo_criterion),
                                    max_depth=None,
-                                   min_samples_split=2,
+                                   min_samples_split=trial.suggest_categorical('min_samples_split', args_.hpo_min_samples_split),
                                    min_samples_leaf=1,
                                    min_weight_fraction_leaf=0.0,
                                    max_features="auto",
