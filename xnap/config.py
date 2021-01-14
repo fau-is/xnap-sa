@@ -28,7 +28,7 @@ def load():
     #   LSTM -> Bi-directional long short-term neural network
     #   RF   -> Random Forest
     #   DT   -> Decision Tree
-    parser.add_argument('--classifier', default="LSTM", type=str)  # LSTM, RF, DT
+    parser.add_argument('--classifier', default="DT", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=100, type=int)
@@ -52,7 +52,7 @@ def load():
     parser.add_argument('--batch_size_test', default=1, type=int)
 
     # hpo general
-    parser.add_argument('--hpo', default=True, type=utils.str2bool)
+    parser.add_argument('--hpo', default=False, type=utils.str2bool)
     parser.add_argument('--hpo_eval_runs', default=3, type=int)
     parser.add_argument('--split_rate_train_hpo', default=0.9, type=float)
 

@@ -330,7 +330,7 @@ class Preprocessor(object):
 
         column = df[column_name].fillna("missing")
         unique_values = column.unique().tolist()
-        int_mapping = dict(zip(unique_values, range(len(unique_values))))
+        int_mapping = dict(zip(unique_values, range(1, len(unique_values)+1)))
         encoded_column = column.map(int_mapping)
 
         return encoded_column

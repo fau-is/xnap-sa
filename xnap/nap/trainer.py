@@ -119,10 +119,8 @@ def train_lstm_hpo(trial):
 
     model = tf.keras.models.Model(inputs=[input_layer], outputs=[output_layer])
 
-    optimizer = tf.keras.optimizers.Nadam(lr=args_.learning_rate, beta_1=0.9, beta_2=0.999, epsilon=1e-8,
-                                          schedule_decay=0.004, clipvalue=3)
-
-    model.compile(loss={'output_layer': 'categorical_crossentropy'}, optimizer=trial.suggest_categorical('optimizer', args_.hpo_optimizer))
+    model.compile(loss={'output_layer': 'categorical_crossentropy'},
+                  optimizer=trial.suggest_categorical('optimizer', args_.hpo_optimizer))
     early_stopping = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
     model_checkpoint = tf.keras.callbacks.ModelCheckpoint(utils.get_model_dir(args_, trial.number),
                                                           monitor='val_loss',
@@ -208,9 +206,7 @@ def train_lstm(args, preprocessor, event_log, features_tensor, labels_tensor):
     num_features = preprocessor.get_num_features()
     num_activities = preprocessor.get_num_activities()
 
-    # if args.dnn_architecture == 0: # TODO remove this parameter if there is only one architecture ?
     # Bidirectional LSTM
-
     # Input layer
     main_input = tf.keras.layers.Input(shape=(max_case_len, num_features), name='main_input')
 
