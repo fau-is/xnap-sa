@@ -275,21 +275,10 @@ def predict_label_and_dist(args, model, features, preprocessor):
 
     if args.classifier == 'LSTM':
         Y = model.predict(features)
-        predicted_dist = Y[0][:]
     else:
-        # todo: predict_proba??
         Y = model.predict_proba(features)
-        # list of probabilities with shape [num activities, num classes (here 2 -> 0 and 1)]
-        # find max probability for second target value (1)
-        if isinstance(Y, list):
-            predicted_dist = numpy.zeros(preprocessor.get_num_activities(), dtype=numpy.float64)
-            for act_idx, act_probabilities in enumerate(Y):
-                act_prob_0 = act_probabilities.tolist()[0][0]
-                predicted_dist[act_idx] = 1-act_prob_0
 
-        # predicted_dist = Y[0][:]
-
-
+    predicted_dist = Y[0][:]
     predicted_label = preprocessor.get_predicted_label(predicted_dist)
 
     return predicted_label, predicted_dist
@@ -298,9 +287,13 @@ def predict_label_and_dist(args, model, features, preprocessor):
 def store_prediction(args, result_writer, case, prefix_size, ground_truth, prediction):
     """ Writes results into a result file """
 
+    pred = prediction
+    if args.encoding_cat == 'int':
+        pred = prediction[0]
+
     output = [case[0].get(args.case_id_key),
               prefix_size,
               str(ground_truth).encode("utf-8"),
-              str(prediction).encode("utf-8")]
+              str(pred).encode("utf-8")]
 
     result_writer.writerow(output)

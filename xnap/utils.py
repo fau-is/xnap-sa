@@ -118,12 +118,12 @@ def calculate_measures(args, _measures, predicted_distributions, ground_truths):
     _measures["f1_macro_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='macro')
     _measures["f1_weighted_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted')
     _measures["f1_weighted_value"] = sklearn.metrics.f1_score(ground_truth_label, predicted_label, average='weighted')
-    _measures["auc_roc_value"] = multi_class_roc_auc_score(ground_truths, predicted_distributions)
+    _measures["auc_roc_value"] = multi_class_roc_auc_score(args, ground_truths, predicted_distributions)
 
     return _measures
 
 
-def multi_class_roc_auc_score(ground_truths, prob_dist, average='macro', multi_class='ovr'):
+def multi_class_roc_auc_score(args, ground_truths, prob_dist, average='macro', multi_class='ovr'):
     """
     Calculate roc_auc_score
     Note:
@@ -150,7 +150,10 @@ def multi_class_roc_auc_score(ground_truths, prob_dist, average='macro', multi_c
 
     num_classes = len(prob_dist[0])
     num_instances = len(prob_dist)
-    ground_truths_ = [np.argmax(ground_truth) for ground_truth in ground_truths]
+    if args.encoding_cat == 'int':
+        ground_truths_ = ground_truths
+    else:
+        ground_truths_ = [np.argmax(ground_truth) for ground_truth in ground_truths]
     ground_truths_unique = list(set(ground_truths_))
     ground_truths = np.asarray(ground_truths)
     prob_dist = np.asarray(prob_dist)
@@ -171,7 +174,14 @@ def multi_class_roc_auc_score(ground_truths, prob_dist, average='macro', multi_c
     for idx_column in range(0, num_classes):
         if idx_column in ground_truths_unique:
             for idx_row in range(0, num_instances):
-                ground_truths_existing_column[idx_row, idx_existing_column] = ground_truths[idx_row, idx_column]
+                if args.encoding_cat == 'int':
+                    if idx_column == ground_truths[idx_row]:
+                        ground_truths_existing_column[idx_row, idx_existing_column] = 1
+                    else:
+                        ground_truths_existing_column[idx_row, idx_existing_column] = 0
+
+                else:
+                    ground_truths_existing_column[idx_row, idx_existing_column] = ground_truths[idx_row, idx_column]
             idx_existing_column += 1
 
     try:

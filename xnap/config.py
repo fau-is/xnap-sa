@@ -28,17 +28,17 @@ def load():
     #   LSTM -> Bi-directional long short-term neural network
     #   RF   -> Random Forest
     #   DT   -> Decision Tree
-    parser.add_argument('--classifier', default="DT", type=str)  # LSTM, RF, DT
+    parser.add_argument('--classifier', default="RF", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
-    parser.add_argument('--dnn_num_epochs', default=10, type=int)
+    parser.add_argument('--dnn_num_epochs', default=2, type=int)
     parser.add_argument('--dnn_architecture', default=0, type=int)
     parser.add_argument('--learning_rate', default=0.002, type=float)
     parser.add_argument('--dim', default=0, type=int)
 
     # Directories
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="helpdesk_raw.csv")
+    parser.add_argument('--data_set', default="helpdesk_raw_sample_100.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
@@ -53,7 +53,7 @@ def load():
     parser.add_argument('--batch_size_test', default=1, type=int)
 
     # hpo general
-    parser.add_argument('--hpo', default=True, type=utils.str2bool)
+    parser.add_argument('--hpo', default=False, type=utils.str2bool)
     parser.add_argument('--hpo_eval_runs', default=6, type=int)
     parser.add_argument('--split_rate_train_hpo', default=0.9, type=float)
     # hpo LSTM
