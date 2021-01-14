@@ -80,7 +80,10 @@ class Preprocessor(object):
 
         end_label = self.char_to_label(self.get_end_char())
         end_event = Event()
-        end_event[args.activity_key] = list(end_label)
+        if args.encoding_cat == 'int':
+            end_event[args.activity_key] = end_label[0]
+        else:
+            end_event[args.activity_key] = list(end_label)
 
         for case in event_log:
             case.append(end_event)
@@ -93,6 +96,9 @@ class Preprocessor(object):
         utils.ll_print('Encode data ... \n')
 
         encoded_df = pandas.DataFrame(df.iloc[:, 0])
+
+        if args.classifier == "RF" or args.classifier == "DT":
+            args.encoding_cat = 'int'
 
         for column_name in df:
             column_index = df.columns.get_loc(column_name)
@@ -533,14 +539,22 @@ class Preprocessor(object):
         num_event_labels = self.get_num_activities()
         activity_labels = self.get_activity_labels()
 
-        labels_tensor = numpy.zeros((len(subseq_cases), num_event_labels), dtype=numpy.float64)
+        if args.encoding_cat == 'int':
+            labels_tensor = numpy.zeros((len(subseq_cases)), dtype=numpy.int64)
 
-        for idx_subseq, subseq in enumerate(subseq_cases):
-            for label_tuple in activity_labels:
-                if list(label_tuple) == next_events[idx_subseq][args.activity_key]:
-                    labels_tensor[idx_subseq, activity_labels.index(label_tuple)] = 1.0
-                else:
-                    labels_tensor[idx_subseq, activity_labels.index(label_tuple)] = 0.0
+            for idx_subseq, next_event in enumerate(next_events):
+                next_act = next_event[args.activity_key]
+                labels_tensor[idx_subseq] = next_act
+
+        else:
+            labels_tensor = numpy.zeros((len(subseq_cases), num_event_labels), dtype=numpy.float64)
+
+            for idx_subseq, subseq in enumerate(subseq_cases):
+                for label_tuple in activity_labels:
+                    if list(label_tuple) == next_events[idx_subseq][args.activity_key]:
+                        labels_tensor[idx_subseq, activity_labels.index(label_tuple)] = 1.0
+                    else:
+                        labels_tensor[idx_subseq, activity_labels.index(label_tuple)] = 0.0
 
         return labels_tensor
 
