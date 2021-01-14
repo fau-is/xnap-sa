@@ -6,6 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 import joblib
 import optuna
+from optuna.integration import KerasPruningCallback
 import xnap.nap.hyperparameter_optimization as hpo
 
 # used access during hpo
@@ -114,11 +115,10 @@ def train_lstm_hpo(trial):
             dropout=trial.suggest_categorical('dropout', args_.hpo_dropout)))(main_input)
 
     # Output layer
-    act_output = tf.keras.layers.Dense(
-            num_activities,
-            activation='softmax',
-            name='act_output',
-            kernel_initializer='glorot_uniform')(b1)
+    act_output = tf.keras.layers.Dense(num_activities,
+                                       activation='softmax',
+                                       name='act_output',
+                                       kernel_initializer='glorot_uniform')(b1)
 
 
     model = tf.keras.models.Model(inputs=[main_input], outputs=[act_output])
@@ -147,7 +147,7 @@ def train_lstm_hpo(trial):
     model.fit(x_train, {'act_output': y_train},
               validation_split=args_.val_split,
               verbose=1,
-              callbacks=[early_stopping, model_checkpoint, lr_reducer],
+              callbacks=[early_stopping, model_checkpoint, lr_reducer, KerasPruningCallback(trial, "val_accuracy")],
               batch_size=args_.batch_size_train,
               epochs=args_.dnn_num_epochs)
 
