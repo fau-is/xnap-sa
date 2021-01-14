@@ -1,9 +1,10 @@
 import csv
 import xnap.utils as utils
 from datetime import datetime
+import numpy
 
 
-def test(args, preprocessor, event_log, test_indices, measures):
+def test(args, preprocessor, event_log, test_indices, best_model_id, measures):
     """
     Perform test for model validation.
 
@@ -17,6 +18,8 @@ def test(args, preprocessor, event_log, test_indices, measures):
         The initial event log.
     test_indices : list of ints
         Indices of test cases in event log.
+    best_model_id : int
+        ID of best performing model found during hyperparameter optimization.
     measures : dict
         Output for result evaluation.
 
@@ -25,7 +28,7 @@ def test(args, preprocessor, event_log, test_indices, measures):
     """
 
     test_cases = preprocessor.get_subset_cases(args, event_log, test_indices)
-    model = utils.load_nap_model(args)
+    model = utils.load_nap_model(args, best_model_id)
 
     # start prediction
     prediction_distributions = []
@@ -276,7 +279,15 @@ def predict_label_and_dist(args, model, features, preprocessor):
     else:
         # todo: predict_proba??
         Y = model.predict_proba(features)
-        predicted_dist = Y[0][:]
+        # list of probabilities with shape [num activities, num classes (here 2 -> 0 and 1)]
+        # find max probability for second target value (1)
+        if isinstance(Y, list):
+            predicted_dist = numpy.zeros(preprocessor.get_num_activities(), dtype=numpy.float64)
+            for act_idx, act_probabilities in enumerate(Y):
+                act_prob_0 = act_probabilities.tolist()[0][0]
+                predicted_dist[act_idx] = 1-act_prob_0
+
+        # predicted_dist = Y[0][:]
 
 
     predicted_label = preprocessor.get_predicted_label(predicted_dist)

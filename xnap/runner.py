@@ -22,8 +22,9 @@ if __name__ == '__main__':
 
     if args.mode == 0:
 
-        train.train(args, preprocessor, event_log, train_indices, measures)
-        predicted_distributions, ground_truths = test.test(args, preprocessor, event_log, test_indices, measures)
+        best_model_id = train.train(args, preprocessor, event_log, train_indices, measures)
+        predicted_distributions, ground_truths = test.test(args, preprocessor, event_log, test_indices, best_model_id,
+                                                           measures)
 
         measures = utils.calculate_measures(args, measures, predicted_distributions, ground_truths)
         utils.print_measures(args, measures)
