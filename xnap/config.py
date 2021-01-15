@@ -7,14 +7,14 @@ def load():
     parser = argparse.ArgumentParser()
 
     # General parameters
-    parser.add_argument('--mode', default=0, type=int)
+    parser.add_argument('--mode', default=1, type=int)
     """ There are three modes
         0 = train and test model
         1 = explain prediction for random process instance
         2 = evaluate explanations for predictions (test set) 
     """
     # Mode 1 + 2
-    parser.add_argument('--xai', default="lime", type=str)  # lrp, lime, shap
+    parser.add_argument('--xai', default="lrp", type=str)  # lrp, lime, shap
     parser.add_argument('--lime_num_samples', default=10, type=int)  # 5000 (default)
     parser.add_argument('--shap_num_samples', default=10, type=int)  # 100 (good estimate), 1000 (very good estimate)
     # Mode 1
@@ -28,7 +28,7 @@ def load():
     #   LSTM -> Bi-directional long short-term neural network
     #   RF   -> Random Forest
     #   DT   -> Decision Tree
-    parser.add_argument('--classifier', default="DT", type=str)  # LSTM, RF, DT
+    parser.add_argument('--classifier', default="LSTM", type=str)  # LSTM, RF, DT
 
     # Parameters for deep neural network
     parser.add_argument('--dnn_num_epochs', default=100, type=int)
@@ -37,7 +37,7 @@ def load():
 
     # Directories
     parser.add_argument('--task', default="nap")
-    parser.add_argument('--data_set', default="helpdesk_raw.csv")
+    parser.add_argument('--data_set', default="helpdesk_raw_sample_100.csv")
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
