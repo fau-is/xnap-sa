@@ -18,6 +18,10 @@ global args_
 
 
 def train(args, preprocessor, event_log, train_indices, measures):
+
+    # eager execution to avoid retracing with tensorflow
+    tf.config.run_functions_eagerly(args.eager_execution)
+
     train_cases = preprocessor.get_subset_cases(args, event_log, train_indices)
 
     best_model_id = -1

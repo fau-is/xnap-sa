@@ -6,18 +6,22 @@ import xnap.nap.trainer as train
 import xnap.exp.explainer as exp
 
 
-if __name__ == '__main__':
+def run_experiment(args):
 
-    args = config.load()
+    # For reproducible results
     if args.seed:
         utils.set_seed(args)
+
+    # Init measurements file
     measures = utils.measures
     # if args.mode == 0 or args.mode == 2:
     #    utils.clear_measurement_file(args)
+
+    # Init preprocessor and event log
     preprocessor = Preprocessor()
     event_log = preprocessor.get_event_log(args)
 
-    # split validation
+    # Split validation
     train_indices, test_indices = preprocessor.get_indices_split_validation(args, event_log)
 
     if args.mode == 0:
@@ -40,8 +44,28 @@ if __name__ == '__main__':
         measures_exp = utils.measures
         manipulated_prefixes = exp.get_manipulated_prefixes_from_relevance(args, preprocessor, event_log,
                                                                            train_indices, test_indices, measures_exp)
-        prediction_distributions, ground_truths = test.test_manipulated_prefixes(args, preprocessor, event_log, manipulated_prefixes, test_indices)
+        prediction_distributions, ground_truths = test.test_manipulated_prefixes(args, preprocessor, event_log,
+                                                                                 manipulated_prefixes, test_indices)
 
         measures_exp = utils.calculate_measures(args, measures_exp, prediction_distributions, ground_truths)
         utils.print_measures(args, measures_exp)
         utils.write_measures(args, measures_exp)
+
+
+if __name__ == '__main__':
+
+    args = config.load()
+
+    if args.run_experiments:
+
+        experiments = utils.load_experiments(args)
+        for experiment_id, experiment_config in experiments.items():
+            # Configure experiment
+            args = utils.set_experiment_config(args, experiment_config)
+            # Run experiment
+            print("Run experiment %s ..." % experiment_id)
+            run_experiment(args)
+
+    else:
+        # single execution of code with initial configuration
+        run_experiment(args)

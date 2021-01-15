@@ -6,9 +6,59 @@ import arrow
 import os
 import tensorflow as tf
 import numpy as np
+import pandas as pd
 from tensorflow.keras.models import load_model
 from joblib import load
-import warnings
+
+
+def load_experiments(args):
+    """
+    Retrieves the configuration settings for all experiments.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+
+    Returns
+    -------
+    dict :
+        The configuration settings for a single experiment/execution. A key is the configuration parameter (as in
+        config file) and a value is the corresponding value.
+
+    """
+
+    exp_df = pd.read_csv(args.experiments_dir + args.experiments_file)
+    exp_dicts = exp_df.to_dict('index')
+    return exp_dicts
+
+
+def set_experiment_config(args, exp_config):
+    """
+    Sets the configuration settings for a single experiment/execution.
+
+    Parameters
+    ----------
+    args : Namespace
+        Settings of the configuration parameters.
+    exp_config : dict
+        A key is the configuration parameter (as in config file) and a value is the corresponding value.
+
+    Returns
+    -------
+    args : Namespace
+        Updated settings of the configuration parameters.
+
+    """
+
+    args.data_set = exp_config["data_set"]
+    args.mode = exp_config["mode"]
+    args.classifier = exp_config["classifier"]
+    args.hpo = exp_config["hpo"]
+    args.hpo_eval_runs = exp_config["hpo_eval_runs"]
+
+    return args
+
 
 measures = {
     "accuracy_value": 0.0,

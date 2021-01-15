@@ -7,7 +7,7 @@ def load():
     parser = argparse.ArgumentParser()
 
     # General parameters
-    parser.add_argument('--mode', default=1, type=int)
+    parser.add_argument('--mode', default=0, type=int)
     """ There are three modes
         0 = train and test model
         1 = explain prediction for random process instance
@@ -23,7 +23,6 @@ def load():
     # Mode 2
     parser.add_argument('--removed_events_num', default=1, type=int)
     parser.add_argument('--removed_events_relevance', default="highest", type=str)  # lowest, highest
-    parser.add_argument('--eager_execution', default=False, type=utils.str2bool)  # to avoid retracing with tf for lrp
     # Classifier
     #   LSTM -> Bi-directional long short-term neural network
     #   RF   -> Random Forest
@@ -34,6 +33,7 @@ def load():
     parser.add_argument('--dnn_num_epochs', default=100, type=int)
     parser.add_argument('--learning_rate', default=0.002, type=float)
     parser.add_argument('--dim', default=0, type=int)
+    parser.add_argument('--eager_execution', default=True, type=utils.str2bool)  # set to avoid retracing with tf
 
     # Directories
     parser.add_argument('--task', default="nap")
@@ -41,6 +41,11 @@ def load():
     parser.add_argument('--data_dir', default="./data/")
     parser.add_argument('--model_dir', default="nap/models/")
     parser.add_argument('--result_dir', default="./results/")
+
+    # Experiments
+    parser.add_argument('--run_experiments', default=True, type=utils.str2bool)
+    parser.add_argument('--experiments_dir', default="./experiments/")
+    parser.add_argument('--experiments_file', default="experiments_template.csv")
 
     # Parameters for validation
     parser.add_argument('--seed', default=True, type=utils.str2bool)
