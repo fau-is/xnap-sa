@@ -332,7 +332,7 @@ def get_output_path_predictions(args):
     return directory + file
 
 
-def get_model_dir(args, best_model_id=0):
+def get_model_dir(args, model_id=0):
     """
     Returns the path to the stored trained model for the next activity prediction.
 
@@ -340,8 +340,8 @@ def get_model_dir(args, best_model_id=0):
     ----------
     args : Namespace
         Settings of the configuration parameters.
-    best_model_id : int
-        ID of best performing model found during hyperparameter optimization.
+    model_id : int
+        ID of a model saved during hyperparameter optimization.
 
     Returns
     -------
@@ -351,7 +351,7 @@ def get_model_dir(args, best_model_id=0):
     """
     model_dir = "%sca_%s_%s" % (args.model_dir, args.task, args.data_set[0:len(args.data_set) - 4])
     if args.hpo:
-        model_dir += "_trial%s" % best_model_id
+        model_dir += "_trial%s" % model_id
     if args.classifier == "LSTM":
         model_dir += ".h5"
     else:
@@ -360,7 +360,7 @@ def get_model_dir(args, best_model_id=0):
     return model_dir
 
 
-def load_nap_model(args, best_model_id=0):
+def load_nap_model(args, model_id=0):
     """
     Returns ML model used for next activity prediction.
 
@@ -368,8 +368,8 @@ def load_nap_model(args, best_model_id=0):
     ----------
     args : Namespace
         Settings of the configuration parameters.
-    best_model_id : int
-        ID of best performing model found during hyperparameter optimization.
+    model_id : int
+        ID of a model saved during hyperparameter optimization.
 
     Returns
     -------
@@ -377,13 +377,14 @@ def load_nap_model(args, best_model_id=0):
 
     """
 
-    model_dir = get_model_dir(args, best_model_id)
+    model_dir = get_model_dir(args, model_id)
     if args.classifier == "LSTM":
         model = load_model(model_dir)
     else:
         model = load(model_dir)
 
     return model
+
 
 def add_to_file(args, file_type, trail):
 

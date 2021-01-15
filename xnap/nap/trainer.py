@@ -8,6 +8,7 @@ import joblib
 import optuna
 from optuna.integration import KerasPruningCallback
 import xnap.nap.hyperparameter_optimization as hpo
+import os
 
 # used access during hpo
 global train_cases_
@@ -65,6 +66,13 @@ def train(args, preprocessor, event_log, train_indices, measures):
         utils.add_to_file(args, "hyper_params", trial)
         best_model_id = study.best_trial.number
 
+        # remove all models except the best performing one
+        for model_id in range(args.hpo_eval_runs):
+            if model_id == best_model_id:
+                continue
+            else:
+                os.remove(utils.get_model_dir(args, model_id))
+
     else:
 
         # prepare data
@@ -104,18 +112,19 @@ def train_lstm_hpo(trial):
 
     # Hidden layer
     hidden_layer = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(
-        units=100,
-        activation=trial.suggest_categorical('hl_activation', args_.hpo_activation),
-        kernel_initializer=trial.suggest_categorical('hl_kernel_initializer', args_.hpo_kernel_initializer),
-        return_sequences=False,
-        dropout=trial.suggest_discrete_uniform('hl_drop_out', 0.1, 0.5, 0.1)))(input_layer)
+            units=100,
+            activation=trial.suggest_categorical('hl_activation', args_.hpo_activation),
+            kernel_initializer=trial.suggest_categorical('hl_kernel_initializer', args_.hpo_kernel_initializer),
+            return_sequences=False,
+            dropout=trial.suggest_discrete_uniform('hl_drop_out', 0.1, 0.5, 0.1)))(input_layer)
 
     # Output layer
     output_layer = tf.keras.layers.Dense(num_activities,
                                          activation='softmax',
                                          name='output_layer',
                                          kernel_initializer=trial.suggest_categorical('ol_kernel_initializer',
-                                        args_.hpo_kernel_initializer))(hidden_layer)
+                                                                                      args_.hpo_kernel_initializer))(
+        hidden_layer)
 
     model = tf.keras.models.Model(inputs=[input_layer], outputs=[output_layer])
 
@@ -158,7 +167,8 @@ def train_rf_hpo(trial):
                                    n_estimators=trial.suggest_categorical('n_estimators', args_.hpo_n_estimators),
                                    criterion=trial.suggest_categorical('criterion', args_.hpo_criterion),
                                    max_depth=None,
-                                   min_samples_split=trial.suggest_categorical('min_samples_split', args_.hpo_min_samples_split),
+                                   min_samples_split=trial.suggest_categorical('min_samples_split',
+                                                                               args_.hpo_min_samples_split),
                                    min_samples_leaf=1,
                                    min_weight_fraction_leaf=0.0,
                                    max_features="auto",
@@ -180,19 +190,19 @@ def train_dt_hpo(trial):
     x_train, x_test, y_train, y_test = hpo.create_data(args_, event_log_, preprocessor_, train_cases_)
 
     model = DecisionTreeClassifier(
-        criterion=trial.suggest_categorical('criterion', args_.hpo_criterion),
-        splitter='best',
-        max_depth=None,
-        min_samples_split=trial.suggest_categorical('min_samples_split', args_.hpo_min_samples_split),
-        min_samples_leaf=1,
-        min_weight_fraction_leaf=0.0,
-        max_features=None,
-        random_state=args_.seed,
-        max_leaf_nodes=None,
-        min_impurity_decrease=0.0,
-        min_impurity_split=None,
-        class_weight=None,
-        ccp_alpha=0.0)
+            criterion=trial.suggest_categorical('criterion', args_.hpo_criterion),
+            splitter='best',
+            max_depth=None,
+            min_samples_split=trial.suggest_categorical('min_samples_split', args_.hpo_min_samples_split),
+            min_samples_leaf=1,
+            min_weight_fraction_leaf=0.0,
+            max_features=None,
+            random_state=args_.seed,
+            max_leaf_nodes=None,
+            min_impurity_decrease=0.0,
+            min_impurity_split=None,
+            class_weight=None,
+            ccp_alpha=0.0)
 
     model.fit(x_train, y_train)
     joblib.dump(model, utils.get_model_dir(args_, trial.number))
