@@ -167,19 +167,23 @@ def multi_class_roc_auc_score(args, ground_truths, prob_dist, average='macro', m
     if args.encoding_cat == 'int':
 
         mapped_ids_unique = []
-        for ground_truth in ground_truths_unique:
+        mapped_gt_id = {}
+        for idx, ground_truth in enumerate(ground_truths_unique):
             mapped_ids_unique.append(ground_truth-1)
+            mapped_gt_id[ground_truth] = idx
 
         # set prob dist
         idx_existing_column = 0
-        for idx_column in mapped_ids_unique:
-            for idx_row in range(0, num_instances):
-                prob_dist_existing_column[idx_row, idx_existing_column] = prob_dist[idx_row, idx_column]
-            idx_existing_column += 1
+        for idx_column in range(0, num_classes):
+
+            if sum(prob_dist[:, idx_column]) > 0:  # if column does not include a probability
+                for idx_row in range(0, num_instances):
+                    prob_dist_existing_column[idx_row, idx_existing_column] = prob_dist[idx_row, idx_column]
+                idx_existing_column += 1
 
         # set ground truths
         for idx_row in range(0, num_instances):
-            ground_truths_existing_column[idx_row, ground_truths_[idx_row]-1] = 1
+            ground_truths_existing_column[idx_row, mapped_gt_id[ground_truths_[idx_row]]] = 1
 
     else:
 

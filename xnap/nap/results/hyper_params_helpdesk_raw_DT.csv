@@ -1,0 +1,15 @@
+Dataset: helpdesk_raw
+Best accuracy value: 0.8532
+Encoding: int
+Best params:
+criterion: gini
+min_samples_split: 2
+--------------------------
+
+Dataset: helpdesk_raw
+Best accuracy value: 0.8532
+Encoding: int
+Best params:
+criterion: gini
+min_samples_split: 2
+--------------------------
