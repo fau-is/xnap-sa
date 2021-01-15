@@ -1,0 +1,33 @@
+Dataset: helpdesk_raw_sample_100
+Best accuracy value: 0.7546
+Encoding: onehot
+Best params:
+hl_units: 200
+hl_activation: relu
+hl_kernel_initializer: glorot_uniform
+hl_drop_out: 0.5
+ol_kernel_initializer: glorot_uniform
+optimizer: adam
+--------------------------
+
+Dataset: helpdesk_raw_sample_100
+Best accuracy value: 0.6987
+Encoding: onehot
+Best params:
+hl_activation: relu
+hl_kernel_initializer: glorot_uniform
+hl_drop_out: 0.1
+ol_kernel_initializer: glorot_uniform
+optimizer: adam
+--------------------------
+
+Dataset: helpdesk_raw_sample_100
+Best accuracy value: 0.828
+Encoding: onehot
+Best params:
+hl_activation: relu
+hl_kernel_initializer: glorot_uniform
+hl_drop_out: 0.1
+ol_kernel_initializer: glorot_uniform
+optimizer: adam
+--------------------------
