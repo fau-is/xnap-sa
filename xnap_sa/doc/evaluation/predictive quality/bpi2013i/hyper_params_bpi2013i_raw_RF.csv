@@ -1,0 +1,10 @@
+Model id: 1
+Dataset: bpi2013i_raw
+Best accuracy value: 0.7055
+Encoding: int
+Best params:
+n_estimators: 300
+criterion: gini
+max_depth: 50
+min_samples_split: 4
+--------------------------

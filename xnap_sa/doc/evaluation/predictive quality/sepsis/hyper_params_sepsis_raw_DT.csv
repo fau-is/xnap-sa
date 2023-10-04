@@ -1,0 +1,9 @@
+Model id: 1
+Dataset: sepsis_raw
+Best accuracy value: 0.636
+Encoding: int
+Best params:
+criterion: entropy
+max_depth: 10
+min_samples_split: 3
+--------------------------

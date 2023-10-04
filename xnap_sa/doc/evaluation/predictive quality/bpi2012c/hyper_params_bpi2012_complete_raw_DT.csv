@@ -1,0 +1,9 @@
+Model id: 1
+Dataset: bpi2012_complete_raw
+Best accuracy value: 0.7921
+Encoding: int
+Best params:
+criterion: entropy
+max_depth: 10
+min_samples_split: 4
+--------------------------

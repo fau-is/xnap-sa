@@ -1,0 +1,39 @@
+Model id: 1
+Dataset: bpi2013i_raw
+Best accuracy value: 0.7219
+Encoding: int
+Best params:
+criterion: entropy
+max_depth: 10
+min_samples_split: 3
+--------------------------
+
+Model id: 1
+Dataset: bpi2013i_raw
+Best accuracy value: 0.7201
+Encoding: int
+Best params:
+criterion: gini
+max_depth: 10
+min_samples_split: 4
+--------------------------
+
+Model id: 1
+Dataset: bpi2013i_raw
+Best accuracy value: 0.7213
+Encoding: int
+Best params:
+criterion: entropy
+max_depth: 10
+min_samples_split: 2
+--------------------------
+
+Model id: 1
+Dataset: bpi2013i_raw
+Best accuracy value: 0.7219
+Encoding: int
+Best params:
+criterion: entropy
+max_depth: 10
+min_samples_split: 3
+--------------------------

@@ -1,0 +1,11 @@
+Model id: 1
+Dataset: bpi2013i_raw
+Best accuracy value: 0.7293
+Encoding: onehot
+Best params:
+hl_activation: tanh
+hl_kernel_initializer: glorot_uniform
+hl_drop_out: 0.2
+ol_kernel_initializer: glorot_uniform
+optimizer: rmsprop
+--------------------------

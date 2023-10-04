@@ -1,0 +1,10 @@
+Model id: 1
+Dataset: sepsis_raw
+Best accuracy value: 0.6227
+Encoding: int
+Best params:
+n_estimators: 300
+criterion: gini
+max_depth: 20
+min_samples_split: 4
+--------------------------

@@ -1,0 +1,2 @@
+data_set,mode,classifier,model_id,hpo,hpo_eval_runs,xai,removed_events_relevance,removed_events_num,shuffle,seed,seed_val,explain_cf_c_ratio
+bpi2012_complete_raw.csv,0,LDA,1,True,1,lrp,normal,1,False,False,1377,50-50
